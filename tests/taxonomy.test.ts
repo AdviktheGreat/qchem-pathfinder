@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { nicheById, niches } from "@/data/niches";
+import { questionById } from "@/data/questions";
 
 describe("recommendation taxonomy integrity", () => {
   it("keeps stable, unique identifiers for every direction", () => {
@@ -35,6 +36,17 @@ describe("recommendation taxonomy integrity", () => {
           niche.affinities,
           `${niche.name}: ${reason.signal}`,
         ).toHaveProperty(reason.signal);
+      }
+    }
+  });
+
+  it("uses every declared evidence preference in niche scoring", () => {
+    for (const option of questionById["evidence-style"].options) {
+      for (const signal of Object.keys(option.signals ?? {})) {
+        expect(
+          niches.some((niche) => (niche.affinities[signal] ?? 0) > 0),
+          signal,
+        ).toBe(true);
       }
     }
   });

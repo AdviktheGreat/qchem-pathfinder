@@ -86,6 +86,7 @@ export const niches: Niche[] = [
       "state:changing": 3,
       "goal:interpret": 2,
       "medium:visual": 1,
+      "medium:mechanism": 3,
       "style:chemistry": 2,
       "scale:molecule": 1,
     },
@@ -104,6 +105,11 @@ export const niches: Niche[] = [
         signal: "state:changing",
         category: "style",
         text: "You prefer a molecular story unfolding over a single still structure.",
+      },
+      {
+        signal: "medium:mechanism",
+        category: "style",
+        text: "Mechanisms and energy diagrams are central evidence in this direction.",
       },
       {
         signal: "style:chemistry",
@@ -188,6 +194,7 @@ export const niches: Niche[] = [
       "state:changing": 3,
       "goal:interpret": 1,
       "scale:molecule": 1,
+      "medium:mechanism": 2,
       "style:chemistry": 2,
     },
     reasons: [
@@ -205,6 +212,11 @@ export const niches: Niche[] = [
         signal: "purpose:applied",
         category: "style",
         text: "This field connects molecular explanation to practical chemical performance.",
+      },
+      {
+        signal: "medium:mechanism",
+        category: "style",
+        text: "Catalytic cycles and energy diagrams match your preferred evidence.",
       },
       {
         signal: "state:changing",
@@ -289,6 +301,8 @@ export const niches: Niche[] = [
       "goal:interpret": 2,
       "state:changing": 2,
       "medium:visual": 1,
+      "medium:mechanism": 2,
+      "medium:comparison": 3,
       "style:chemistry": 2,
     },
     reasons: [
@@ -311,6 +325,16 @@ export const niches: Niche[] = [
         signal: "medium:visual",
         category: "style",
         text: "Three-dimensional transition-state pictures are central evidence here.",
+      },
+      {
+        signal: "medium:mechanism",
+        category: "style",
+        text: "Competing mechanisms and energy diagrams are central evidence here.",
+      },
+      {
+        signal: "medium:comparison",
+        category: "style",
+        text: "Side-by-side pathway comparisons fit how this field explains selectivity.",
       },
     ],
     comparisonLens:
@@ -494,6 +518,7 @@ export const niches: Niche[] = [
       "scale:molecule": 2,
       "purpose:mixed": 2,
       "goal:interpret": 2,
+      "medium:comparison": 2,
     },
     reasons: [
       {
@@ -515,6 +540,11 @@ export const niches: Niche[] = [
         signal: "purpose:mixed",
         category: "style",
         text: "It connects fundamental intermolecular physics to realistic chemical settings.",
+      },
+      {
+        signal: "medium:comparison",
+        category: "style",
+        text: "Comparing environments side by side is a natural way to study solvent effects.",
       },
     ],
     comparisonLens:
@@ -594,6 +624,7 @@ export const niches: Niche[] = [
       "state:static": 3,
       "scale:molecule": 3,
       "medium:visual": 2,
+      "medium:comparison": 2,
       "style:chemistry": 1,
     },
     reasons: [
@@ -616,6 +647,11 @@ export const niches: Niche[] = [
         signal: "medium:visual",
         category: "style",
         text: "Three-dimensional models are a primary reasoning tool in conformational work.",
+      },
+      {
+        signal: "medium:comparison",
+        category: "style",
+        text: "Side-by-side structural comparisons fit conformational analysis well.",
       },
     ],
     comparisonLens:
@@ -1511,6 +1547,7 @@ export const niches: Niche[] = [
       "goal:predict": 1,
       "medium:data": 3,
       "medium:equations": 2,
+      "medium:comparison": 3,
       "style:mixed-computing": 2,
       "style:coding": 1,
     },
@@ -1534,6 +1571,11 @@ export const niches: Niche[] = [
         signal: "medium:equations",
         category: "style",
         text: "Quantitative error patterns fit your comfort with numerical reasoning.",
+      },
+      {
+        signal: "medium:comparison",
+        category: "style",
+        text: "Side-by-side method comparisons are the foundation of benchmarking.",
       },
     ],
     comparisonLens:
