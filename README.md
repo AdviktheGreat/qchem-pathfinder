@@ -64,6 +64,12 @@ The engine is deterministic and intentionally inspectable:
 
 Tests confirm that all niches have a targeted path, conflicting preferences remain deterministic, uncertainty never creates a dead end, and six complete student profiles produce sensible results.
 
+## Small usability refinements
+
+The interface includes keyboard letter shortcuts, semantic progress announcements, a skip link, high-contrast support, mobile-friendly controls, and clear local-storage fallbacks. Results offer copyable keywords and query sets, direct Google Scholar searches, a first-reading checklist, plain-language terminology, and a dated export covering the primary direction plus both alternatives.
+
+`tests/taxonomy.test.ts` also protects the instructor-edited content: direction IDs and names must stay unique, every literature launchpad must remain complete, starter keyword counts stay manageable, and explanation rules must refer to signals the niche actually scores.
+
 ## Edit the survey or taxonomy
 
 To add a question, add one `SurveyQuestion` in `data/questions.ts`. Reuse an existing signal when it represents the same preference, or add a clearly named signal and matching niche affinities. Add `visibleWhen` only when the question belongs to a branch.
@@ -77,7 +83,7 @@ Weighting conventions:
 - `1`: supporting evidence or a weak preference
 - Narrowing boosts are multiplied by the engine so an explicit targeted choice outweighs incidental style overlap
 
-After content changes, run `npm test` and read several full profiles in the UI. Scientific judgment still matters more than a passing snapshot.
+After content changes, run `npm test` and read several full profiles in the UI. The taxonomy integrity tests catch common editing mistakes, but scientific judgment still matters more than a passing test.
 
 ## Deploy to Vercel
 
