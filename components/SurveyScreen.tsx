@@ -51,6 +51,7 @@ export function SurveyScreen({
       if (event.metaKey || event.ctrlKey || event.altKey) return;
       const target = event.target as HTMLElement;
       if (["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
+      if (!/^[a-z]$/i.test(event.key)) return;
       const optionIndex = event.key.toUpperCase().charCodeAt(0) - 65;
       const option = question.options[optionIndex];
       if (!option || optionIndex < 0) return;
