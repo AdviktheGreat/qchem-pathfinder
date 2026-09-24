@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check, Copy } from "lucide-react";
 
 export function CopyButton({
@@ -11,6 +11,15 @@ export function CopyButton({
   label?: string;
 }) {
   const [status, setStatus] = useState<"idle" | "copied" | "failed">("idle");
+  const resetTimer = useRef<number | undefined>(undefined);
+
+  useEffect(
+    () => () => {
+      if (resetTimer.current !== undefined)
+        window.clearTimeout(resetTimer.current);
+    },
+    [],
+  );
 
   async function copy() {
     try {
@@ -19,7 +28,12 @@ export function CopyButton({
     } catch {
       setStatus("failed");
     }
-    window.setTimeout(() => setStatus("idle"), 2200);
+    if (resetTimer.current !== undefined)
+      window.clearTimeout(resetTimer.current);
+    resetTimer.current = window.setTimeout(() => {
+      setStatus("idle");
+      resetTimer.current = undefined;
+    }, 2200);
   }
 
   const buttonLabel =
