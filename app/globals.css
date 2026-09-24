@@ -901,6 +901,17 @@ h2 {
   display: grid;
   gap: 0.65rem;
 }
+.query-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+.query-heading h3 {
+  margin: 0;
+  font-size: 0.92rem;
+}
 .query-row {
   display: flex;
   justify-content: space-between;

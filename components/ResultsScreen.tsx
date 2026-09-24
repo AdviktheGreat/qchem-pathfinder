@@ -100,6 +100,7 @@ function SearchLaunchpad({
   compact?: boolean;
 }) {
   const niche = result.niche;
+  const allQueries = Object.values(niche.searches).join("\n");
   return (
     <section className={`search-launchpad ${compact ? "compact" : ""}`}>
       <div className="section-heading">
@@ -124,6 +125,10 @@ function SearchLaunchpad({
         <p>
           <strong>Also try:</strong> {niche.synonyms.join(" · ")}
         </p>
+      </div>
+      <div className="query-heading">
+        <h3>Ready-to-use searches</h3>
+        <CopyButton text={allQueries} label="Copy all queries" />
       </div>
       <div className="query-list">
         {Object.entries(niche.searches).map(([kind, query]) => (
