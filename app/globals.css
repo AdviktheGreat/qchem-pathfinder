@@ -795,6 +795,34 @@ h2 {
 .prep-note p {
   margin-bottom: 0;
 }
+.results-glossary {
+  margin: 1rem 0 4.5rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(251, 250, 246, 0.72);
+}
+.results-glossary summary {
+  color: var(--teal);
+  font-size: 0.84rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+.results-glossary dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 0;
+}
+.results-glossary dt {
+  font-weight: 800;
+}
+.results-glossary dd {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
 .section-heading {
   display: flex;
   justify-content: space-between;
