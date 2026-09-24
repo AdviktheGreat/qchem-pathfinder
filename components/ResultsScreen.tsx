@@ -381,6 +381,9 @@ export function ResultsScreen({
                     </p>
                     <h3>{result.niche.name}</h3>
                     <span>{result.niche.shortDescription}</span>
+                    <small className="alternative-reason">
+                      Why it may fit: {result.interestReasons[0]}
+                    </small>
                   </div>
                   <button
                     className="expand-button"

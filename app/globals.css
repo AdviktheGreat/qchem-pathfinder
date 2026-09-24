@@ -891,6 +891,13 @@ h2 {
   color: var(--muted);
   font-size: 0.85rem;
 }
+.alternative-reason {
+  display: block;
+  margin-top: 0.55rem;
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
 .expand-button {
   border: 1px solid #bac2bd;
   padding: 0.65rem 0.85rem;
