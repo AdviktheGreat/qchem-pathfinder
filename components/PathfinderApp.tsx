@@ -118,12 +118,10 @@ export function PathfinderApp() {
       !window.confirm("Restart and clear your saved exploration?")
     )
       return;
-    if (storageAvailable) {
-      try {
-        window.localStorage.removeItem(STORAGE_KEY);
-      } catch {
-        setStorageAvailable(false);
-      }
+    try {
+      window.localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      setStorageAvailable(false);
     }
     setAnswers({});
     setPrimaryOverride(undefined);
