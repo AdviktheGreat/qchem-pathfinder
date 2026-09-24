@@ -56,11 +56,27 @@ export function PathfinderApp() {
   const surveyComplete = visibleQuestions.every(
     (question) => (answers[question.id]?.length ?? 0) > 0,
   );
+  const resumeQuestion =
+    visibleQuestions.find((question) => question.id === currentQuestionId) ??
+    visibleQuestions.find((question) => !answers[question.id]?.length) ??
+    visibleQuestions[0];
+  const resumeIndex = visibleQuestions.findIndex(
+    (question) => question.id === resumeQuestion?.id,
+  );
 
   function begin() {
     setCurrentQuestionId(visibleQuestions[0]?.id);
     setScreen("survey");
     window.scrollTo({ top: 0 });
+  }
+
+  function resume() {
+    if (surveyComplete) {
+      showScreen("results");
+      return;
+    }
+    setCurrentQuestionId(resumeQuestion?.id);
+    showScreen("survey");
   }
 
   function goToQuestion(questionId: string) {
@@ -124,8 +140,13 @@ export function PathfinderApp() {
       {screen === "intro" && (
         <IntroScreen
           hasProgress={Object.keys(answers).length > 0}
+          resumeDetail={
+            surveyComplete
+              ? "Your completed research map is ready"
+              : `Saved at question ${resumeIndex + 1} of ${visibleQuestions.length}`
+          }
           onBegin={begin}
-          onResume={() => showScreen(surveyComplete ? "results" : "survey")}
+          onResume={resume}
         />
       )}
       {screen === "survey" && currentQuestionId && (

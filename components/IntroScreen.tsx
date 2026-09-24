@@ -9,12 +9,14 @@ import {
 
 interface IntroScreenProps {
   hasProgress: boolean;
+  resumeDetail: string;
   onBegin: () => void;
   onResume: () => void;
 }
 
 export function IntroScreen({
   hasProgress,
+  resumeDetail,
   onBegin,
   onResume,
 }: IntroScreenProps) {
@@ -42,6 +44,7 @@ export function IntroScreen({
               {hasProgress ? "Continue exploring" : "Begin exploring"}{" "}
               <ArrowRight size={18} />
             </button>
+            {hasProgress && <span className="resume-note">{resumeDetail}</span>}
             {hasProgress && (
               <button className="text-button" type="button" onClick={onBegin}>
                 Start from my first answer
