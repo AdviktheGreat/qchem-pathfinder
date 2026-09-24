@@ -101,6 +101,10 @@ function SearchLaunchpad({
 }) {
   const niche = result.niche;
   const allQueries = Object.values(niche.searches).join("\n");
+  const allKeywords = [
+    ...niche.keywords,
+    ...niche.synonyms.map((synonym) => `Related: ${synonym}`),
+  ].join("\n");
   return (
     <section className={`search-launchpad ${compact ? "compact" : ""}`}>
       <div className="section-heading">
@@ -116,7 +120,10 @@ function SearchLaunchpad({
         </div>
       </div>
       <div className="keyword-block">
-        <h3>Starter keywords</h3>
+        <div className="keyword-heading">
+          <h3>Starter keywords</h3>
+          <CopyButton text={allKeywords} label="Copy keywords" />
+        </div>
         <div className="tag-list accent">
           {niche.keywords.map((keyword) => (
             <span key={keyword}>{keyword}</span>

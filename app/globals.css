@@ -908,6 +908,15 @@ h2 {
   gap: 1rem;
   margin-top: 1.25rem;
 }
+.keyword-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.keyword-heading h3 {
+  margin: 0;
+}
 .query-heading h3 {
   margin: 0;
   font-size: 0.92rem;
