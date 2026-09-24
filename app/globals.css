@@ -47,6 +47,16 @@ input {
 button {
   cursor: pointer;
 }
+.primary-button,
+.secondary-button,
+.copy-button,
+.expand-button,
+.icon-button,
+.text-button,
+.scholar-link,
+summary {
+  min-height: 44px;
+}
 button:disabled {
   cursor: not-allowed;
   opacity: 0.42;
@@ -1293,6 +1303,15 @@ h2 {
   .survey-controls .secondary-button {
     padding: 0.78rem 1rem;
   }
+  .survey-controls {
+    position: sticky;
+    z-index: 10;
+    bottom: 0;
+    margin: 0 -1rem;
+    padding: 0.9rem 1rem calc(0.9rem + env(safe-area-inset-bottom));
+    background: rgba(243, 240, 231, 0.96);
+    backdrop-filter: blur(10px);
+  }
   .result-hero {
     align-items: flex-start;
     flex-direction: column;
@@ -1328,6 +1347,13 @@ h2 {
   }
   .query-row .copy-button {
     width: 100%;
+  }
+  .query-actions {
+    width: 100%;
+  }
+  .query-actions > * {
+    flex: 1;
+    justify-content: center;
   }
   .search-launchpad,
   .export-card {
