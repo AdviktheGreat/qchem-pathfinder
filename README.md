@@ -4,26 +4,6 @@ Quantum Research Pathfinder is a private, peer-guided survey for the first works
 
 The app does **not** choose a final research question, grade prior knowledge, or send student answers anywhere. Progress is stored only in the browser on the current device.
 
-## Run locally
-
-Requirements: Node.js 22 and npm.
-
-```bash
-npm install
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000).
-
-Quality checks:
-
-```bash
-npm run lint
-npm run typecheck
-npm test
-npm run build
-```
-
 ## Project structure
 
 ```text
