@@ -40,6 +40,36 @@ export function SurveyScreen({
     headingRef.current?.focus();
   }, [question.id]);
 
+  useEffect(() => {
+    function chooseWithLetter(event: KeyboardEvent) {
+      if (event.metaKey || event.ctrlKey || event.altKey) return;
+      const target = event.target as HTMLElement;
+      if (["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
+      const optionIndex = event.key.toUpperCase().charCodeAt(0) - 65;
+      const option = question.options[optionIndex];
+      if (!option || optionIndex < 0) return;
+
+      const active = selected.includes(option.id);
+      const limitReached =
+        question.type === "multi" &&
+        !active &&
+        selected.length >= (question.maxSelections ?? Infinity);
+      if (limitReached) return;
+
+      event.preventDefault();
+      if (question.type === "single") onAnswer(question.id, [option.id]);
+      else if (active)
+        onAnswer(
+          question.id,
+          selected.filter((id) => id !== option.id),
+        );
+      else onAnswer(question.id, [...selected, option.id]);
+    }
+
+    window.addEventListener("keydown", chooseWithLetter);
+    return () => window.removeEventListener("keydown", chooseWithLetter);
+  }, [onAnswer, question, selected]);
+
   function toggle(optionId: string) {
     if (question.type === "single") {
       onAnswer(question.id, [optionId]);
@@ -156,6 +186,10 @@ export function SurveyScreen({
             {question.type === "multi"
               ? `Choose up to ${question.maxSelections} · ${selected.length} selected`
               : "Choose the answer closest to how you feel today."}
+            <span className="keyboard-hint">
+              Keyboard: press A–
+              {String.fromCharCode(64 + question.options.length)} to choose
+            </span>
           </p>
         </div>
       </div>
