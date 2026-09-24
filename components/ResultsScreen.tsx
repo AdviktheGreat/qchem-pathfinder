@@ -368,6 +368,7 @@ export function ResultsScreen({
         <div className="alternative-list">
           {alternatives.map((result, index) => {
             const open = openAlternative === result.niche.id;
+            const panelId = `alternative-${result.niche.id}-details`;
             return (
               <article
                 className={`alternative-card ${open ? "is-open" : ""}`}
@@ -389,6 +390,7 @@ export function ResultsScreen({
                     className="expand-button"
                     type="button"
                     aria-expanded={open}
+                    aria-controls={panelId}
                     onClick={() =>
                       setOpenAlternative(open ? undefined : result.niche.id)
                     }
@@ -397,7 +399,11 @@ export function ResultsScreen({
                     <ChevronDown size={17} />
                   </button>
                 </div>
-                {open && <DirectionDetails result={result} primary={primary} />}
+                {open && (
+                  <div id={panelId}>
+                    <DirectionDetails result={result} primary={primary} />
+                  </div>
+                )}
               </article>
             );
           })}
