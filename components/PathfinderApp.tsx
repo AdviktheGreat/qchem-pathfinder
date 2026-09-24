@@ -115,68 +115,73 @@ export function PathfinderApp() {
     );
 
   return (
-    <main className={`app-frame screen-${screen}`}>
-      <header className="app-header">
-        <button
-          className="brand brand-button"
-          type="button"
-          onClick={() => showScreen("intro")}
-        >
-          <span className="brand-mark">
-            <Atom size={18} />
-          </span>
-          <span>Quantum Research Pathfinder</span>
-        </button>
-        <div className="header-note">
-          <LockKeyhole size={14} /> Progress stays on this device
-        </div>
-        {screen !== "intro" && (
-          <button className="quiet-action" type="button" onClick={restart}>
-            <RotateCcw size={15} /> Restart
+    <>
+      <a className="skip-link" href="#main-content">
+        Skip to main content
+      </a>
+      <main id="main-content" className={`app-frame screen-${screen}`}>
+        <header className="app-header">
+          <button
+            className="brand brand-button"
+            type="button"
+            onClick={() => showScreen("intro")}
+          >
+            <span className="brand-mark">
+              <Atom size={18} />
+            </span>
+            <span>Quantum Research Pathfinder</span>
           </button>
-        )}
-      </header>
+          <div className="header-note">
+            <LockKeyhole size={14} /> Progress stays on this device
+          </div>
+          {screen !== "intro" && (
+            <button className="quiet-action" type="button" onClick={restart}>
+              <RotateCcw size={15} /> Restart
+            </button>
+          )}
+        </header>
 
-      {screen === "intro" && (
-        <IntroScreen
-          hasProgress={Object.keys(answers).length > 0}
-          resumeDetail={
-            surveyComplete
-              ? "Your completed research map is ready"
-              : `Saved at question ${resumeIndex + 1} of ${visibleQuestions.length}`
-          }
-          onBegin={begin}
-          onResume={resume}
-        />
-      )}
-      {screen === "survey" && currentQuestionId && (
-        <SurveyScreen
-          answers={answers}
-          currentQuestionId={currentQuestionId}
-          onAnswer={updateAnswer}
-          onQuestionChange={goToQuestion}
-          onComplete={() => showScreen("results")}
-        />
-      )}
-      {screen === "results" && (
-        <ResultsScreen
-          answers={answers}
-          primaryOverride={primaryOverride}
-          onExploreNearby={setPrimaryOverride}
-          onReview={() => showScreen("review")}
-          onRestart={restart}
-        />
-      )}
-      {screen === "review" && (
-        <ReviewScreen
-          answers={answers}
-          onEdit={(questionId) => {
-            setCurrentQuestionId(questionId);
-            showScreen("survey");
-          }}
-          onBack={() => showScreen("results")}
-        />
-      )}
-    </main>
+        {screen === "intro" && (
+          <IntroScreen
+            hasProgress={Object.keys(answers).length > 0}
+            resumeDetail={
+              surveyComplete
+                ? "Your completed research map is ready"
+                : `Saved at question ${resumeIndex + 1} of ${visibleQuestions.length}`
+            }
+            onBegin={begin}
+            onResume={resume}
+          />
+        )}
+        {screen === "survey" && currentQuestionId && (
+          <SurveyScreen
+            answers={answers}
+            currentQuestionId={currentQuestionId}
+            onAnswer={updateAnswer}
+            onQuestionChange={goToQuestion}
+            onComplete={() => showScreen("results")}
+          />
+        )}
+        {screen === "results" && (
+          <ResultsScreen
+            answers={answers}
+            primaryOverride={primaryOverride}
+            onExploreNearby={setPrimaryOverride}
+            onReview={() => showScreen("review")}
+            onRestart={restart}
+          />
+        )}
+        {screen === "review" && (
+          <ReviewScreen
+            answers={answers}
+            onEdit={(questionId) => {
+              setCurrentQuestionId(questionId);
+              showScreen("survey");
+            }}
+            onBack={() => showScreen("results")}
+          />
+        )}
+      </main>
+    </>
   );
 }
