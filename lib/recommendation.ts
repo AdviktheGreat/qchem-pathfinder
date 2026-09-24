@@ -7,9 +7,18 @@ import type {
   SurveyOption,
 } from "@/lib/types";
 
-export function getSelectedOptions(answers: AnswerMap): SurveyOption[] {
+const knowledgeConfidenceQuestionIds = new Set([
+  "phase-one-memory",
+  "concept-familiarity",
+]);
+
+export function getSelectedOptions(
+  answers: AnswerMap,
+  excludedQuestionIds = new Set<string>(),
+): SurveyOption[] {
   return Object.entries(answers).flatMap(([questionId, optionIds]) => {
     const question = questionById[questionId];
+    if (excludedQuestionIds.has(questionId)) return [];
     if (!question) return [];
     return optionIds
       .map((optionId) =>
@@ -38,9 +47,10 @@ function signalCategory(signal: string): "interest" | "style" {
 export function rankNiches(answers: AnswerMap): RankedNiche[] {
   const signals = aggregateSignals(answers);
   const selectedOptions = getSelectedOptions(answers);
-  const uncertainCount = selectedOptions.filter(
-    (option) => option.uncertainty,
-  ).length;
+  const uncertainCount = getSelectedOptions(
+    answers,
+    knowledgeConfidenceQuestionIds,
+  ).filter((option) => option.uncertainty).length;
   const openness = signals["interest:open"] ?? 0;
 
   return niches

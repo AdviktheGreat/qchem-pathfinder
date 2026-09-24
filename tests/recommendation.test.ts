@@ -134,7 +134,9 @@ describe("recommendation scoring", () => {
     });
     expect(confident[0].niche.id).toBe("excited-states");
     expect(uncertain[0].niche.id).toBe("excited-states");
-    expect(confident[0].score).toBe(uncertain[0].score);
+    expect(
+      confident.map((result) => [result.niche.id, result.score]),
+    ).toEqual(uncertain.map((result) => [result.niche.id, result.score]));
   });
 
   it("keeps conflicting preferences balanced and deterministic", () => {
