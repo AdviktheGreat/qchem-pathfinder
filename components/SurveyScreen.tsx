@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { ArrowLeft, ArrowRight, BookOpenText, Check, Info } from "lucide-react";
 import { getPreviousQuestionId, getVisibleQuestions } from "@/lib/branching";
 import { stageLabels, questionById } from "@/data/questions";
@@ -27,7 +27,13 @@ export function SurveyScreen({
     0,
     visible.findIndex((item) => item.id === question.id),
   );
-  const selected = answers[question.id] ?? [];
+  const selected = useMemo(
+    () => answers[question.id] ?? [],
+    [answers, question.id],
+  );
+  const selectionLimitReached =
+    question.type === "multi" &&
+    selected.length >= (question.maxSelections ?? Infinity);
   const progress = Math.round(((index + 1) / visible.length) * 100);
   const isLast = index === visible.length - 1;
   const estimatedMinutes = Math.max(
@@ -184,7 +190,9 @@ export function SurveyScreen({
           </div>
           <p className="selection-hint" aria-live="polite">
             {question.type === "multi"
-              ? `Choose up to ${question.maxSelections} · ${selected.length} selected`
+              ? selectionLimitReached
+                ? `Maximum reached (${selected.length}) · Deselect one to choose another`
+                : `Choose up to ${question.maxSelections} · ${selected.length} selected`
               : "Choose the answer closest to how you feel today."}
             <span className="keyboard-hint">
               Keyboard: press A–
