@@ -26,6 +26,10 @@ export function formatResearchProfile(
   );
   const knowledge = getKnowledgeProfile(answers);
   const motivation = selectedLabels(answers, "motivation");
+  const narrowing = getAnswerLabels(answers, "narrowing").map(
+    (line) => line.split(": ").at(-1) ?? line,
+  );
+  const interestThemes = Array.from(new Set([...motivation, ...narrowing]));
   const styles = getAnswerLabels(answers, "style").map(
     (line) => line.split(": ").at(-1) ?? line,
   );
@@ -41,8 +45,8 @@ export function formatResearchProfile(
     `Explanation preference: ${knowledge.explanationPreference}`,
     "",
     "INTEREST THEMES",
-    ...(motivation.length
-      ? motivation.map((item) => `- ${item}`)
+    ...(interestThemes.length
+      ? interestThemes.map((item) => `- ${item}`)
       : ["- Still open; sample several areas"]),
     "",
     "PREFERRED RESEARCH STYLE",

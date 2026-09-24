@@ -37,6 +37,8 @@ describe("research profile export", () => {
       expect(output).toContain(heading);
     }
     expect(output).toContain("Reaction mechanisms & transition states");
+    expect(output).toContain("The hidden sequence of bond changes");
+    expect(output).toContain("An energy map of the complete pathway");
     expect(output).toContain("Verify citations");
   });
 });
