@@ -25,6 +25,7 @@ export function formatResearchProfile(
     primaryOverride,
   );
   const knowledge = getKnowledgeProfile(answers);
+  const directions = [primary, ...alternatives];
   const motivation = selectedLabels(answers, "motivation");
   const narrowing = getAnswerLabels(answers, "narrowing").map(
     (line) => line.split(": ").at(-1) ?? line,
@@ -63,7 +64,10 @@ export function formatResearchProfile(
     ),
     "",
     "STARTER KEYWORDS",
-    primary.niche.keywords.join("; "),
+    ...directions.flatMap((result) => [
+      `${result.niche.name}:`,
+      result.niche.keywords.join("; "),
+    ]),
     "",
     "SUGGESTED SEARCHES",
     `1. ${primary.niche.searches.orientation}`,
