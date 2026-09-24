@@ -65,4 +65,25 @@ describe("progress persistence", () => {
       ),
     ).toBeNull();
   });
+
+  it("rejects malformed screens and answer maps", () => {
+    const base = {
+      version: STORAGE_VERSION,
+      savedAt: new Date().toISOString(),
+    };
+    expect(
+      parseProgress(
+        JSON.stringify({ ...base, screen: "elsewhere", answers: {} }),
+      ),
+    ).toBeNull();
+    expect(
+      parseProgress(
+        JSON.stringify({
+          ...base,
+          screen: "survey",
+          answers: { motivation: "reactions" },
+        }),
+      ),
+    ).toBeNull();
+  });
 });
