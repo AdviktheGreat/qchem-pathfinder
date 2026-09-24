@@ -40,35 +40,46 @@ export function ReviewScreen({
         </p>
       </div>
       <div className="review-groups">
-        {Object.entries(grouped).map(([stage, stageQuestions]) => (
-          <section className="review-group" key={stage}>
-            <h2>{stageLabels[stage as SurveyStage]}</h2>
-            {stageQuestions?.map((question) => {
-              const labels = (answers[question.id] ?? [])
-                .map(
-                  (id) =>
-                    question.options.find((option) => option.id === id)?.label,
-                )
-                .filter(Boolean);
-              return (
-                <div className="review-row" key={question.id}>
-                  <div>
-                    <p>{question.title}</p>
-                    <strong>{labels.join(", ") || "Not answered"}</strong>
+        {Object.entries(grouped).map(([stage, stageQuestions]) => {
+          const stageAnswered = (stageQuestions ?? []).filter(
+            (question) => (answers[question.id]?.length ?? 0) > 0,
+          ).length;
+          return (
+            <section className="review-group" key={stage}>
+              <h2>
+                <span>{stageLabels[stage as SurveyStage]}</span>
+                <span>
+                  {stageAnswered}/{stageQuestions?.length ?? 0}
+                </span>
+              </h2>
+              {stageQuestions?.map((question) => {
+                const labels = (answers[question.id] ?? [])
+                  .map(
+                    (id) =>
+                      question.options.find((option) => option.id === id)
+                        ?.label,
+                  )
+                  .filter(Boolean);
+                return (
+                  <div className="review-row" key={question.id}>
+                    <div>
+                      <p>{question.title}</p>
+                      <strong>{labels.join(", ") || "Not answered"}</strong>
+                    </div>
+                    <button
+                      className="icon-button"
+                      type="button"
+                      onClick={() => onEdit(question.id)}
+                      aria-label={`Edit: ${question.title}`}
+                    >
+                      <Pencil size={16} />
+                    </button>
                   </div>
-                  <button
-                    className="icon-button"
-                    type="button"
-                    onClick={() => onEdit(question.id)}
-                    aria-label={`Edit: ${question.title}`}
-                  >
-                    <Pencil size={16} />
-                  </button>
-                </div>
-              );
-            })}
-          </section>
-        ))}
+                );
+              })}
+            </section>
+          );
+        })}
       </div>
     </section>
   );
