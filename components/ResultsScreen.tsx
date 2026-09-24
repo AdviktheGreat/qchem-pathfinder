@@ -218,8 +218,9 @@ export function ResultsScreen({
     const blob = new Blob([profileText], { type: "text/plain;charset=utf-8" });
     const href = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
+    const dateStamp = new Date().toISOString().slice(0, 10);
     anchor.href = href;
-    anchor.download = "quantum-research-exploration-profile.txt";
+    anchor.download = `quantum-research-profile-${dateStamp}.txt`;
     anchor.click();
     URL.revokeObjectURL(href);
   }
