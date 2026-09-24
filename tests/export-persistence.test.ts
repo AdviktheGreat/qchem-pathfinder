@@ -31,6 +31,7 @@ describe("research profile export", () => {
       "NEARBY ALTERNATIVES",
       "STARTER KEYWORDS",
       "SUGGESTED SEARCHES",
+      "PREPARATION NOTE",
       "CONCEPTS TO REVISIT",
       "NOTE",
     ]) {
