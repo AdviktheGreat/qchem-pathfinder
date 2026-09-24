@@ -65,8 +65,16 @@ export function SurveyScreen({
             {index + 1} / {visible.length}
           </span>
         </div>
-        <div className="progress-track">
-          <span style={{ width: `${progress}%` }} />
+        <div
+          className="progress-track"
+          role="progressbar"
+          aria-label="Survey progress"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={progress}
+          aria-valuetext={`Question ${index + 1} of ${visible.length}`}
+        >
+          <span aria-hidden="true" style={{ width: `${progress}%` }} />
         </div>
       </div>
 
