@@ -10,18 +10,29 @@ export function CopyButton({
   text: string;
   label?: string;
 }) {
-  const [copied, setCopied] = useState(false);
+  const [status, setStatus] = useState<"idle" | "copied" | "failed">("idle");
 
   async function copy() {
-    await navigator.clipboard.writeText(text);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1800);
+    try {
+      await navigator.clipboard.writeText(text);
+      setStatus("copied");
+    } catch {
+      setStatus("failed");
+    }
+    window.setTimeout(() => setStatus("idle"), 2200);
   }
+
+  const buttonLabel =
+    status === "copied"
+      ? "Copied"
+      : status === "failed"
+        ? "Copy failed—select manually"
+        : label;
 
   return (
     <button className="copy-button" type="button" onClick={copy}>
-      {copied ? <Check size={15} /> : <Copy size={15} />}
-      {copied ? "Copied" : label}
+      {status === "copied" ? <Check size={15} /> : <Copy size={15} />}
+      <span aria-live="polite">{buttonLabel}</span>
     </button>
   );
 }
