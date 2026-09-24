@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import { ArrowLeft, ArrowRight, BookOpenText, Check, Info } from "lucide-react";
 import { getPreviousQuestionId, getVisibleQuestions } from "@/lib/branching";
 import { stageLabels, questionById } from "@/data/questions";
@@ -31,6 +34,11 @@ export function SurveyScreen({
     1,
     Math.ceil((visible.length - index - 1) * 0.6),
   );
+  const headingRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    headingRef.current?.focus();
+  }, [question.id]);
 
   function toggle(optionId: string) {
     if (question.type === "single") {
@@ -59,6 +67,9 @@ export function SurveyScreen({
 
   return (
     <section className="survey-shell" aria-labelledby="question-title">
+      <p className="sr-only" aria-live="polite">
+        Question {index + 1}: {question.title}
+      </p>
       <div
         className="progress-wrap"
         aria-label={`Question ${index + 1} of ${visible.length}`}
@@ -88,7 +99,9 @@ export function SurveyScreen({
           <p className="eyebrow">
             <BookOpenText size={15} /> {question.kicker}
           </p>
-          <h1 id="question-title">{question.title}</h1>
+          <h1 id="question-title" ref={headingRef} tabIndex={-1}>
+            {question.title}
+          </h1>
           {question.prompt && (
             <p className="question-prompt">{question.prompt}</p>
           )}
