@@ -13,6 +13,9 @@ export function ReviewScreen({
   onBack: () => void;
 }) {
   const questions = getVisibleQuestions(answers);
+  const answeredCount = questions.filter(
+    (question) => (answers[question.id]?.length ?? 0) > 0,
+  ).length;
   const grouped = questions.reduce<
     Partial<Record<SurveyStage, typeof questions>>
   >((map, question) => {
@@ -29,6 +32,9 @@ export function ReviewScreen({
         <p className="eyebrow">Your trail so far</p>
         <h1>Review your answers.</h1>
         <p>
+          <strong>
+            {answeredCount} of {questions.length} visible questions answered.
+          </strong>{" "}
           Change any answer and the recommendation will update when you finish
           the path again.
         </p>
