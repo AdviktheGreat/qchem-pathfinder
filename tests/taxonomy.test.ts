@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { nicheById, niches } from "@/data/niches";
 import { questionById } from "@/data/questions";
+import { signalCategory } from "@/lib/recommendation";
 
 describe("recommendation taxonomy integrity", () => {
   it("keeps stable, unique identifiers for every direction", () => {
@@ -36,6 +37,16 @@ describe("recommendation taxonomy integrity", () => {
           niche.affinities,
           `${niche.name}: ${reason.signal}`,
         ).toHaveProperty(reason.signal);
+      }
+    }
+  });
+
+  it("places explanations in the same category as their scores", () => {
+    for (const niche of niches) {
+      for (const reason of niche.reasons) {
+        expect(reason.category, `${niche.name}: ${reason.signal}`).toBe(
+          signalCategory(reason.signal),
+        );
       }
     }
   });

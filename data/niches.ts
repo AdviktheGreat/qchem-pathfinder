@@ -533,7 +533,7 @@ export const niches: Niche[] = [
       },
       {
         signal: "mode:compare",
-        category: "style",
+        category: "interest",
         text: "This direction rewards controlled comparisons between environments and models.",
       },
       {

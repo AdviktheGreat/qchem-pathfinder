@@ -38,7 +38,7 @@ export function aggregateSignals(answers: AnswerMap): Record<string, number> {
   return totals;
 }
 
-function signalCategory(signal: string): "interest" | "style" {
+export function signalCategory(signal: string): "interest" | "style" {
   return signal.startsWith("interest:") || signal.startsWith("mode:")
     ? "interest"
     : "style";
