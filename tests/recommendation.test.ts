@@ -155,6 +155,18 @@ describe("recommendation scoring", () => {
     expect(new Set(first).size).toBe(3);
   });
 
+  it("explains direct narrowing choices that drive a recommendation", () => {
+    const primary = getRecommendations({
+      motivation: ["balanced"],
+      "balanced-focus": ["reaction"],
+    })[0];
+
+    expect(primary.niche.id).toBe("reaction-mechanisms");
+    expect(primary.interestReasons).toContain(
+      "Your choice “A molecule changing bonds” directly points toward this direction.",
+    );
+  });
+
   it("makes every niche reachable through a targeted answer", () => {
     const reachable = new Set<string>();
     for (const question of questions) {

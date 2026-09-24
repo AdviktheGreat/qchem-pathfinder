@@ -71,14 +71,25 @@ export function rankNiches(answers: AnswerMap): RankedNiche[] {
       const openBonus = niche.explorationFriendly
         ? openness * 0.75 + uncertainCount * 0.35
         : 0;
-      const interestReasons = niche.reasons
-        .filter(
-          (reason) =>
-            reason.category === "interest" && (signals[reason.signal] ?? 0) > 0,
-        )
-        .sort((a, b) => (signals[b.signal] ?? 0) - (signals[a.signal] ?? 0))
-        .map((reason) => reason.text)
-        .slice(0, 2);
+      const directReasons = selectedOptions
+        .map((option) => ({
+          boost: option.nicheBoosts?.[niche.id] ?? 0,
+          text: `Your choice “${option.label}” directly points toward this direction.`,
+        }))
+        .filter((reason) => reason.boost > 0)
+        .sort((a, b) => b.boost - a.boost)
+        .map((reason) => reason.text);
+      const interestReasons = [
+        ...directReasons,
+        ...niche.reasons
+          .filter(
+            (reason) =>
+              reason.category === "interest" &&
+              (signals[reason.signal] ?? 0) > 0,
+          )
+          .sort((a, b) => (signals[b.signal] ?? 0) - (signals[a.signal] ?? 0))
+          .map((reason) => reason.text),
+      ].slice(0, 2);
       const styleReasons = niche.reasons
         .filter(
           (reason) =>
