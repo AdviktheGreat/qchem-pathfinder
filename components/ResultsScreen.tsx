@@ -140,11 +140,21 @@ function SearchLaunchpad({
       <div className="query-list">
         {Object.entries(niche.searches).map(([kind, query]) => (
           <div className="query-row" key={kind}>
-            <div>
+            <div className="query-copy">
               <span>{queryLabels[kind as keyof typeof queryLabels]}</span>
               <code>{query}</code>
             </div>
-            <CopyButton text={query} label="Copy query" />
+            <div className="query-actions">
+              <a
+                className="scholar-link"
+                href={`https://scholar.google.com/scholar?q=${encodeURIComponent(query)}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <ExternalLink size={14} /> Open Scholar
+              </a>
+              <CopyButton text={query} label="Copy query" />
+            </div>
           </div>
         ))}
       </div>

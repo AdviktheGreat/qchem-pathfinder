@@ -931,12 +931,31 @@ h2 {
   border-radius: 12px;
   background: white;
 }
-.query-row > div {
+.query-row > .query-copy {
   min-width: 0;
   display: grid;
   gap: 0.28rem;
 }
-.query-row span {
+.query-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.scholar-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.58rem 0.7rem;
+  color: var(--teal);
+  font-size: 0.72rem;
+  font-weight: 750;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.scholar-link:hover {
+  text-decoration: underline;
+}
+.query-copy > span {
   color: var(--teal);
   font-size: 0.68rem;
   font-weight: 800;
