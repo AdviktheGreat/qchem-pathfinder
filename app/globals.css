@@ -258,6 +258,21 @@ h2 {
   color: var(--muted);
   font-size: 0.78rem;
 }
+.privacy-details {
+  max-width: 38rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+.privacy-details summary {
+  width: fit-content;
+  color: var(--teal);
+  font-weight: 750;
+  cursor: pointer;
+}
+.privacy-details p {
+  margin: 0.55rem 0 0;
+  line-height: 1.55;
+}
 .field-note {
   position: relative;
   overflow: hidden;

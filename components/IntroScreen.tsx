@@ -54,6 +54,14 @@ export function IntroScreen({
           <p className="microcopy">
             No grades. No wrong answers. Limited experience never closes a door.
           </p>
+          <details className="privacy-details">
+            <summary>How your answers stay private</summary>
+            <p>
+              Your choices are saved only in this browser so you can refresh or
+              return later. They are not sent to an account, server, or outside
+              service.
+            </p>
+          </details>
         </div>
 
         <aside className="field-note" aria-label="What you will leave with">
