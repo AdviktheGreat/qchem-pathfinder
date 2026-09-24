@@ -23,15 +23,20 @@ export function PathfinderApp() {
   const [currentQuestionId, setCurrentQuestionId] = useState<string>();
   const [primaryOverride, setPrimaryOverride] = useState<string>();
   const [hydrated, setHydrated] = useState(false);
+  const [storageAvailable, setStorageAvailable] = useState(true);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
-      const saved = parseProgress(window.localStorage.getItem(STORAGE_KEY));
-      if (saved) {
-        setScreen(saved.screen);
-        setAnswers(saved.answers);
-        setCurrentQuestionId(saved.currentQuestionId);
-        setPrimaryOverride(saved.primaryOverride);
+      try {
+        const saved = parseProgress(window.localStorage.getItem(STORAGE_KEY));
+        if (saved) {
+          setScreen(saved.screen);
+          setAnswers(saved.answers);
+          setCurrentQuestionId(saved.currentQuestionId);
+          setPrimaryOverride(saved.primaryOverride);
+        }
+      } catch {
+        setStorageAvailable(false);
       }
       setHydrated(true);
     }, 0);
@@ -39,15 +44,26 @@ export function PathfinderApp() {
   }, []);
 
   useEffect(() => {
-    if (!hydrated) return;
+    if (!hydrated || !storageAvailable) return;
     const state = createPersistedState({
       screen,
       answers,
       currentQuestionId,
       primaryOverride,
     });
-    window.localStorage.setItem(STORAGE_KEY, serializeProgress(state));
-  }, [answers, currentQuestionId, hydrated, primaryOverride, screen]);
+    try {
+      window.localStorage.setItem(STORAGE_KEY, serializeProgress(state));
+    } catch {
+      window.setTimeout(() => setStorageAvailable(false), 0);
+    }
+  }, [
+    answers,
+    currentQuestionId,
+    hydrated,
+    primaryOverride,
+    screen,
+    storageAvailable,
+  ]);
 
   const visibleQuestions = useMemo(
     () => getVisibleQuestions(answers),
@@ -102,7 +118,13 @@ export function PathfinderApp() {
       !window.confirm("Restart and clear your saved exploration?")
     )
       return;
-    window.localStorage.removeItem(STORAGE_KEY);
+    if (storageAvailable) {
+      try {
+        window.localStorage.removeItem(STORAGE_KEY);
+      } catch {
+        setStorageAvailable(false);
+      }
+    }
     setAnswers({});
     setPrimaryOverride(undefined);
     setCurrentQuestionId(undefined);
@@ -132,7 +154,10 @@ export function PathfinderApp() {
             <span>Quantum Research Pathfinder</span>
           </button>
           <div className="header-note">
-            <LockKeyhole size={14} /> Progress stays on this device
+            <LockKeyhole size={14} />
+            {storageAvailable
+              ? "Progress stays on this device"
+              : "Progress available for this visit"}
           </div>
           {screen !== "intro" && (
             <button className="quiet-action" type="button" onClick={restart}>
