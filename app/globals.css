@@ -1411,3 +1411,26 @@ h2 {
     transition-duration: 0.01ms !important;
   }
 }
+@media (forced-colors: active) {
+  .primary-button,
+  .secondary-button,
+  .copy-button,
+  .expand-button,
+  .choice-card {
+    border: 1px solid ButtonText;
+  }
+  .choice-card.is-selected {
+    outline: 3px solid Highlight;
+    outline-offset: 2px;
+  }
+  .progress-track span,
+  .choice-card.is-selected .choice-check {
+    background: Highlight;
+    forced-color-adjust: none;
+  }
+  .tag-list span,
+  .field-note,
+  .preparation-card {
+    border: 1px solid CanvasText;
+  }
+}
