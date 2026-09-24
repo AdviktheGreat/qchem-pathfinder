@@ -988,6 +988,15 @@ h2 {
 .reading-note .source-warning {
   color: #74521a;
 }
+.reading-checklist {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.8rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
 .paper-types {
   margin-top: 1.5rem;
 }

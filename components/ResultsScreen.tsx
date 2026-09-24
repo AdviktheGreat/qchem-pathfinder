@@ -173,6 +173,16 @@ function SearchLaunchpad({
               Verify every citation and read the real source before relying on
               it.
             </p>
+            <ul className="reading-checklist">
+              <li>
+                Write down unfamiliar terms to look up after the first skim.
+              </li>
+              <li>
+                Scan headings, figures, and the conclusion before reading
+                deeply.
+              </li>
+              <li>Notice repeated methods, molecules, and open questions.</li>
+            </ul>
           </div>
         </div>
       )}
