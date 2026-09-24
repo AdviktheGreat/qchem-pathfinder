@@ -27,6 +27,10 @@ export function SurveyScreen({
   const selected = answers[question.id] ?? [];
   const progress = Math.round(((index + 1) / visible.length) * 100);
   const isLast = index === visible.length - 1;
+  const estimatedMinutes = Math.max(
+    1,
+    Math.ceil((visible.length - index - 1) * 0.6),
+  );
 
   function toggle(optionId: string) {
     if (question.type === "single") {
@@ -62,7 +66,8 @@ export function SurveyScreen({
         <div className="progress-meta">
           <span>{stageLabels[question.stage]}</span>
           <span>
-            {index + 1} / {visible.length}
+            {index + 1} / {visible.length} ·{" "}
+            {isLast ? "Final question" : `~${estimatedMinutes} min left`}
           </span>
         </div>
         <div
