@@ -40,6 +40,7 @@ describe("research profile export", () => {
     expect(output).toContain("The hidden sequence of bond changes");
     expect(output).toContain("An energy map of the complete pathway");
     expect(output).toMatch(/STARTER KEYWORDS\n(?:[^\n]+\n[^\n]+\n){3}/);
+    expect(output.match(/^- (?:Broad|Focused|Review):/gm)).toHaveLength(9);
     expect(output).toContain("Verify citations");
   });
 });
