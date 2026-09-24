@@ -209,6 +209,10 @@ export function ResultsScreen({
     () => getRecommendations(answers, primaryOverride),
     [answers, primaryOverride],
   );
+  const bestScore = useMemo(
+    () => getRecommendations(answers)[0]?.score ?? 0,
+    [answers],
+  );
   const [primary, ...alternatives] = recommendations;
   const knowledge = getKnowledgeProfile(answers);
   const profileText = formatResearchProfile(answers, primary.niche.id);
@@ -252,7 +256,7 @@ export function ResultsScreen({
 
       <section className="primary-result" aria-labelledby="primary-title">
         <div className="primary-label">
-          <span>{getFitLabel(primary, primary.score)}</span>
+          <span>{getFitLabel(primary, bestScore)}</span>
           <span>Primary direction</span>
         </div>
         <div className="primary-grid">
@@ -379,7 +383,7 @@ export function ResultsScreen({
                   <span className="alt-number">0{index + 2}</span>
                   <div>
                     <p>
-                      {getFitLabel(result, primary.score)} · {result.niche.area}
+                      {getFitLabel(result, bestScore)} · {result.niche.area}
                     </p>
                     <h3>{result.niche.name}</h3>
                     <span>{result.niche.shortDescription}</span>
