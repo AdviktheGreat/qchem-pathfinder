@@ -50,9 +50,9 @@ export const questions: SurveyQuestion[] = [
     stage: "calibration",
     kicker: "Concept check-in",
     title: "Which ideas feel familiar enough to use in a conversation?",
-    prompt: "Choose up to four. Recognition is enough—this is not a quiz.",
+    prompt: "Choose up to five. Recognition is enough—this is not a quiz.",
     type: "multi",
-    maxSelections: 4,
+    maxSelections: 5,
     options: [
       { id: "orbitals", label: "Orbitals & electron density" },
       { id: "energy", label: "Potential energy & stability" },

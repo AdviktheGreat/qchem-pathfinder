@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 
-import { cleanup, fireEvent, render } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { SurveyScreen } from "@/components/SurveyScreen";
 
@@ -29,6 +29,41 @@ describe("survey keyboard shortcuts", () => {
 
     expect(onAnswer).toHaveBeenCalledWith("concept-familiarity", [
       "orbitals",
+      "methods",
+    ]);
+  });
+
+  it("allows students to select all five familiar concepts", () => {
+    const onAnswer = vi.fn();
+
+    render(
+      <SurveyScreen
+        answers={{
+          "concept-familiarity": [
+            "orbitals",
+            "energy",
+            "bonding",
+            "spectra",
+          ],
+        }}
+        currentQuestionId="concept-familiarity"
+        onAnswer={onAnswer}
+        onQuestionChange={vi.fn()}
+        onComplete={vi.fn()}
+      />,
+    );
+
+    fireEvent.click(
+      screen.getByRole("checkbox", {
+        name: /Computational methods such as DFT/,
+      }),
+    );
+
+    expect(onAnswer).toHaveBeenCalledWith("concept-familiarity", [
+      "orbitals",
+      "energy",
+      "bonding",
+      "spectra",
       "methods",
     ]);
   });
