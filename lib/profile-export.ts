@@ -1,4 +1,5 @@
-import { questionById } from "@/data/questions";
+import { questionById, questions } from "@/data/questions";
+import { researchStyleLabels } from "@/data/profile";
 import {
   getAnswerLabels,
   getKnowledgeProfile,
@@ -34,9 +35,12 @@ export function formatResearchProfile(
     (line) => line.split(": ").at(-1) ?? line,
   );
   const interestThemes = Array.from(new Set([...motivation, ...narrowing]));
-  const styles = getAnswerLabels(answers, "style").map(
-    (line) => line.split(": ").at(-1) ?? line,
-  );
+  const styles = questions
+    .filter((question) => question.stage === "style")
+    .map(
+      (question) =>
+        `${researchStyleLabels[question.id] ?? question.title}: ${selectedLabels(answers, question.id).join("; ") || "Not answered yet"}`,
+    );
 
   const lines = [
     "QUANTUM RESEARCH EXPLORATION PROFILE",
