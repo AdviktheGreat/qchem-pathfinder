@@ -301,6 +301,22 @@ export function ResultsScreen({
         ))}
       </nav>
 
+      <aside
+        className="directions-overview"
+        aria-label="Your three directions at a glance"
+      >
+        <p className="section-kicker">Your three directions at a glance</p>
+        <ol>
+          {recommendations.map((result, index) => (
+            <li key={result.niche.id}>
+              <span>{index === 0 ? "Start here" : "Also explore"}</span>
+              <strong>{result.niche.name}</strong>
+              <p>{result.niche.shortDescription}</p>
+            </li>
+          ))}
+        </ol>
+      </aside>
+
       <section className="primary-result" aria-labelledby="primary-title">
         <div className="primary-label">
           <span>{getFitLabel(primary, bestScore)}</span>

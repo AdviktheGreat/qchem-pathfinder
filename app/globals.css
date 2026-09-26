@@ -1395,6 +1395,31 @@ h2 {
   gap: 0.5rem 1.5rem;
   margin-bottom: 1.5rem;
 }
+.directions-overview {
+  margin-bottom: 2rem;
+}
+.directions-overview ol {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+}
+.directions-overview li {
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: var(--panel);
+}
+.directions-overview span,
+.directions-overview strong {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.directions-overview span,
+.directions-overview p {
+  font-size: 0.85rem;
+}
 .result-section-nav a {
   padding: 0.65rem 0;
   font-weight: 650;

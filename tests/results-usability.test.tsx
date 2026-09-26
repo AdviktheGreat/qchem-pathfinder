@@ -8,7 +8,17 @@ import {
 } from "@testing-library/react";
 import { afterEach, expect, it, vi } from "vitest";
 import { ResultsScreen } from "@/components/ResultsScreen";
+import { getRecommendations } from "@/lib/recommendation";
 afterEach(cleanup);
+it("previews all three recommended directions before the detailed result", () => {
+  render(<ResultsScreen {...handlers} answers={{}} />);
+  const overview = screen.getByRole("complementary", {
+    name: "Your three directions at a glance",
+  });
+  expect(within(overview).getAllByRole("listitem")).toHaveLength(3);
+  for (const result of getRecommendations({}))
+    expect(within(overview).getByText(result.niche.name)).toBeDefined();
+});
 const handlers = {
   onExploreNearby: vi.fn(),
   onReview: vi.fn(),
