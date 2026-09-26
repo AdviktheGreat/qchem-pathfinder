@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef } from "react";
-import { ArrowLeft, ArrowRight, BookOpenText, Check, Info } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Info } from "lucide-react";
 import {
   getPreviousQuestionId,
   getVisibleQuestions,
@@ -10,6 +10,7 @@ import {
 import { stageLabels, questionById } from "@/data/questions";
 import type { AnswerMap } from "@/lib/types";
 import { selectAnswer } from "@/lib/answer-selection";
+import { StageIcon } from "@/components/StageIcon";
 
 interface SurveyScreenProps {
   answers: AnswerMap;
@@ -110,7 +111,10 @@ export function SurveyScreen({
   );
 
   return (
-    <section className="survey-shell" aria-labelledby="question-title">
+    <section
+      className={`survey-shell stage-${question.stage}`}
+      aria-labelledby="question-title"
+    >
       <div
         className="progress-wrap"
         aria-label={`Question ${index + 1} of ${total}`}
@@ -138,7 +142,7 @@ export function SurveyScreen({
       <div className="question-layout">
         <div className="question-copy">
           <p className="eyebrow">
-            <BookOpenText size={15} /> {question.kicker}
+            <StageIcon stage={question.stage} size={15} /> {question.kicker}
           </p>
           <h1 id="question-title" ref={headingRef} tabIndex={-1}>
             {question.title}
