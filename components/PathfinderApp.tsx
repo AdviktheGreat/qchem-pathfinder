@@ -1,7 +1,16 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Atom, LockKeyhole, RotateCcw } from "lucide-react";
+import {
+  Atom,
+  Check,
+  ChevronDown,
+  Home,
+  LockKeyhole,
+  RotateCcw,
+  Save,
+  ScanLine,
+} from "lucide-react";
 import {
   getVisibleQuestions,
   pruneHiddenAnswers,
@@ -18,6 +27,7 @@ import { IntroScreen } from "@/components/IntroScreen";
 import { SurveyScreen } from "@/components/SurveyScreen";
 import { ResultsScreen } from "@/components/ResultsScreen";
 import { ReviewScreen } from "@/components/ReviewScreen";
+import { stageLabels, questionById } from "@/data/questions";
 
 type Screen = PersistedSurveyState["screen"];
 
@@ -32,6 +42,10 @@ export function PathfinderApp() {
   const [recoveryNotice, setRecoveryNotice] = useState<string>();
   const [shortcutsEnabled, setShortcutsEnabled] = useState(false);
   const [branchChanged, setBranchChanged] = useState(false);
+  const [saveStatus, setSaveStatus] = useState<
+    "saving" | "saved" | "failed"
+  >("saved");
+  const saveTimerRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     if (hydrated && screen !== "survey") {
@@ -73,8 +87,19 @@ export function PathfinderApp() {
       shortcutsEnabled,
     });
     try {
+      const savingTimer = window.setTimeout(() => setSaveStatus("saving"), 0);
       window.localStorage.setItem(STORAGE_KEY, serializeProgress(state));
+      window.clearTimeout(saveTimerRef.current);
+      saveTimerRef.current = window.setTimeout(
+        () => setSaveStatus("saved"),
+        550,
+      );
+      return () => {
+        window.clearTimeout(savingTimer);
+        window.clearTimeout(saveTimerRef.current);
+      };
     } catch {
+      window.setTimeout(() => setSaveStatus("failed"), 0);
       window.setTimeout(() => setStorageAvailable(false), 0);
     }
   }, [
@@ -101,6 +126,17 @@ export function PathfinderApp() {
   const resumeIndex = visibleQuestions.findIndex(
     (question) => question.id === resumeQuestion?.id,
   );
+  const currentQuestion = currentQuestionId
+    ? questionById[currentQuestionId]
+    : undefined;
+  const contextLabel =
+    screen === "survey" && currentQuestion
+      ? stageLabels[currentQuestion.stage]
+      : screen === "results"
+        ? "Exploration map"
+        : screen === "review"
+          ? "Answer review"
+          : "Research orientation";
 
   function begin() {
     setCurrentQuestionId(visibleQuestions[0]?.id);
@@ -172,6 +208,11 @@ export function PathfinderApp() {
         role="status"
         aria-label="Loading your pathfinder"
       >
+        <div className="orbital-loader" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </div>
         <p>Restoring your exploration…</p>
       </div>
     );
@@ -200,17 +241,48 @@ export function PathfinderApp() {
             </span>
             <span>Quantum Research Pathfinder</span>
           </button>
-          <div className="header-note">
-            <LockKeyhole size={14} />
-            {storageAvailable
-              ? "Progress stays on this device"
-              : "Progress available for this visit"}
+          <div className="header-context" aria-live="polite">
+            <span className="context-label">{contextLabel}</span>
+            <span
+              className={`save-state save-${storageAvailable ? saveStatus : "failed"}`}
+            >
+              {storageAvailable ? (
+                saveStatus === "saving" ? (
+                  <>
+                    <Save size={13} /> Saving…
+                  </>
+                ) : (
+                  <>
+                    <Check size={13} /> Saved on this device
+                  </>
+                )
+              ) : (
+                <>
+                  <LockKeyhole size={13} /> Progress available for this visit
+                </>
+              )}
+            </span>
           </div>
-          {screen !== "intro" && (
-            <button className="quiet-action" type="button" onClick={restart}>
-              <RotateCcw size={15} /> Restart
-            </button>
-          )}
+          <details className="app-menu">
+            <summary>
+              Menu <ChevronDown size={15} />
+            </summary>
+            <div>
+              <button type="button" onClick={() => showScreen("intro")}>
+                <Home size={15} /> Home
+              </button>
+              {surveyComplete && screen !== "review" && (
+                <button type="button" onClick={() => showScreen("review")}>
+                  <ScanLine size={15} /> Review answers
+                </button>
+              )}
+              {screen !== "intro" && (
+                <button type="button" onClick={restart}>
+                  <RotateCcw size={15} /> Restart
+                </button>
+              )}
+            </div>
+          </details>
         </header>
         <main id="main-content" ref={mainRef} tabIndex={-1}>
           {screen === "survey" &&

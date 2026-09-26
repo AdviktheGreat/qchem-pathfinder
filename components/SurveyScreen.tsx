@@ -11,6 +11,7 @@ import { stageLabels, questionById } from "@/data/questions";
 import type { AnswerMap } from "@/lib/types";
 import { selectAnswer } from "@/lib/answer-selection";
 import { StageIcon } from "@/components/StageIcon";
+import { JourneyNavigator } from "@/components/JourneyNavigator";
 
 interface SurveyScreenProps {
   answers: AnswerMap;
@@ -115,6 +116,11 @@ export function SurveyScreen({
       className={`survey-shell stage-${question.stage}`}
       aria-labelledby="question-title"
     >
+      <JourneyNavigator
+        currentStage={question.stage}
+        questions={visible}
+        answers={answers}
+      />
       <div
         className="progress-wrap"
         aria-label={`Question ${index + 1} of ${total}`}
