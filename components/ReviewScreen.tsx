@@ -2,6 +2,7 @@ import { ArrowLeft, Pencil } from "lucide-react";
 import { getVisibleQuestions } from "@/lib/branching";
 import { stageLabels } from "@/data/questions";
 import type { AnswerMap, SurveyStage } from "@/lib/types";
+import { isStillExploring } from "@/lib/review";
 
 export function ReviewScreen({
   answers,
@@ -65,6 +66,11 @@ export function ReviewScreen({
                     <div>
                       <p>{question.title}</p>
                       <strong>{labels.join(", ") || "Not answered"}</strong>
+                      {isStillExploring(question, answers) && (
+                        <span className="review-open-label">
+                          Still exploring
+                        </span>
+                      )}
                     </div>
                     <button
                       className="icon-button"
