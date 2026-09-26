@@ -1,7 +1,7 @@
 import type { AnswerMap, PersistedSurveyState } from "@/lib/types";
 import { questions } from "@/data/questions";
 import { niches } from "@/data/niches";
-import { pruneHiddenAnswers } from "@/lib/branching";
+import { getVisibleQuestions, pruneHiddenAnswers } from "@/lib/branching";
 
 export const STORAGE_KEY = "quantum-pathfinder:progress";
 export const STORAGE_VERSION = 1;
@@ -63,12 +63,35 @@ export function parseProgress(raw: string | null): PersistedSurveyState | null {
       !isOptionalString(parsed.primaryOverride)
     )
       return null;
+    const answers = pruneHiddenAnswers(
+      sanitizeAnswers(parsed.answers as AnswerMap),
+    );
+    const visible = getVisibleQuestions(answers);
+    const firstUnanswered = visible.find(
+      (question) => !answers[question.id]?.length,
+    );
+    const incompleteResults =
+      (parsed.screen === "results" || parsed.screen === "review") &&
+      firstUnanswered;
+    const screen = incompleteResults
+      ? "survey"
+      : (parsed.screen as PersistedSurveyState["screen"]);
+    const savedQuestion = visible.find(
+      (question) => question.id === parsed.currentQuestionId,
+    );
+    const currentQuestionId =
+      screen === "survey"
+        ? (incompleteResults
+            ? firstUnanswered
+            : (savedQuestion ?? firstUnanswered ?? visible[0])
+          )?.id
+        : savedQuestion?.id;
     return {
       version: STORAGE_VERSION,
-      screen: parsed.screen as PersistedSurveyState["screen"],
-      answers: pruneHiddenAnswers(sanitizeAnswers(parsed.answers as AnswerMap)),
+      screen,
+      answers,
       savedAt: parsed.savedAt,
-      currentQuestionId: parsed.currentQuestionId as string | undefined,
+      currentQuestionId,
       primaryOverride: niches.some(
         (niche) => niche.id === parsed.primaryOverride,
       )

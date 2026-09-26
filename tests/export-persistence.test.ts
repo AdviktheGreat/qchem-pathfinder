@@ -48,6 +48,20 @@ describe("research profile export", () => {
 });
 
 describe("progress persistence", () => {
+  it("recovers missing navigation and incomplete results", () => {
+    for (const screen of ["survey", "results", "review"] as const) {
+      const restored = parseProgress(
+        serializeProgress(
+          createPersistedState({
+            screen,
+            answers: { "phase-one-memory": ["fresh"] },
+          }),
+        ),
+      );
+      expect(restored?.screen).toBe("survey");
+      expect(restored?.currentQuestionId).toBe("concept-familiarity");
+    }
+  });
   it("drops hidden branch answers and obsolete direction overrides", () => {
     const state = createPersistedState({
       screen: "intro",
