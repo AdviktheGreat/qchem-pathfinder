@@ -86,6 +86,12 @@ export function formatResearchProfile(
       result.niche.keywords.join("; "),
     ]),
     "",
+    "RELATED SEARCH PHRASES",
+    ...directions.flatMap((result) => [
+      result.niche.name,
+      result.niche.synonyms.join("; "),
+    ]),
+    "",
     "SUGGESTED SEARCHES",
     ...directions.flatMap((result) => [
       result.niche.name,

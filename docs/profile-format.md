@@ -6,11 +6,12 @@ not line numbers, because keyword counts and preparation steps may change.
 
 Sections, in order: KNOWLEDGE STARTING POINT; INTEREST THEMES; PREFERRED
 RESEARCH STYLE; PREFERRED RESEARCH QUESTION TYPE; PRIMARY DIRECTION;
-RECOMMENDATION CONTEXT; NEARBY ALTERNATIVES; STARTER KEYWORDS; SUGGESTED
+RECOMMENDATION CONTEXT; NEARBY ALTERNATIVES; STARTER KEYWORDS; RELATED SEARCH PHRASES; SUGGESTED
 SEARCHES; PREPARATION NOTE; CONCEPTS TO REVISIT; NOTE.
 
 Research styles retain their dimension labels. Keywords and all three search
 types are grouped by direction name for the primary and two alternatives.
+RELATED SEARCH PHRASES contains the same synonyms shown as “Also try” in the launchpads.
 Preparation and concept lists use the same model as the results screen.
 An open-interest profile explicitly describes suggestions as starting points.
 A promoted alternative changes the primary direction and its preparation.
