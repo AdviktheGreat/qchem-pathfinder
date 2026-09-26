@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { CopyButton } from "@/components/CopyButton";
 import { glossary } from "@/data/glossary";
+import { fitLabelDescriptions } from "@/data/fit-labels";
 import { formatResearchProfile } from "@/lib/profile-export";
 import { getPreparationProfile } from "@/lib/preparation";
 import {
@@ -300,6 +301,24 @@ export function ResultsScreen({
           </a>
         ))}
       </nav>
+
+      <details className="definition-card fit-label-guide">
+        <summary>What do the recommendation labels mean?</summary>
+        <dl>
+          {fitLabelDescriptions.map(({ label, description }) => (
+            <div key={label}>
+              <dt>
+                <strong>{label}</strong>
+              </dt>
+              <dd>{description}</dd>
+            </div>
+          ))}
+        </dl>
+        <p>
+          These labels summarize declared interests—not ability, readiness, or
+          your potential in a field.
+        </p>
+      </details>
 
       <aside
         className="directions-overview"

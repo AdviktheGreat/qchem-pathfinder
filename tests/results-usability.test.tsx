@@ -10,6 +10,20 @@ import { afterEach, expect, it, vi } from "vitest";
 import { ResultsScreen } from "@/components/ResultsScreen";
 import { getRecommendations } from "@/lib/recommendation";
 afterEach(cleanup);
+it("explains all qualitative recommendation labels", () => {
+  render(<ResultsScreen {...handlers} answers={{}} />);
+  const summary = screen.getByText("What do the recommendation labels mean?");
+  fireEvent.click(summary);
+  const disclosure = summary.closest("details")!;
+  expect(disclosure.open).toBe(true);
+  for (const label of [
+    "Strong fit",
+    "Worth exploring",
+    "Nearby direction",
+    "Starting point",
+  ])
+    expect(within(disclosure).getByText(label)).toBeDefined();
+});
 it("does not describe open-ended defaults as discovered matches", () => {
   const view = render(<ResultsScreen {...handlers} answers={{}} />);
   expect(screen.getByText("Why this is a starting point")).toBeDefined();
