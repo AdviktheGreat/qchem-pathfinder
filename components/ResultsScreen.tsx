@@ -22,7 +22,6 @@ import {
   explainDifference,
   explainRecommendationContext,
   getFitLabel,
-  getKnowledgeProfile,
   getRecommendations,
 } from "@/lib/recommendation";
 import type { AnswerMap, RankedNiche } from "@/lib/types";
@@ -216,7 +215,6 @@ export function ResultsScreen({
     [answers],
   );
   const [primary, ...alternatives] = recommendations;
-  const knowledge = getKnowledgeProfile(answers);
   const preparation = getPreparationProfile(answers, primary.niche);
   const explanationGuide = preparation.explanation;
   const profileText = formatResearchProfile(answers, primary.niche.id);
@@ -316,16 +314,9 @@ export function ResultsScreen({
         <div>
           <h3>Helpful Phase 1 concepts</h3>
           <ul>
-            {Array.from(
-              new Set([
-                ...primary.niche.concepts,
-                ...knowledge.conceptsToRevisit,
-              ]),
-            )
-              .slice(0, 6)
-              .map((concept) => (
-                <li key={concept}>{concept}</li>
-              ))}
+            {preparation.concepts.map((concept) => (
+              <li key={concept}>{concept}</li>
+            ))}
           </ul>
         </div>
         <div className="prep-note">

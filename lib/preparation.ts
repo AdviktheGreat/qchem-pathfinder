@@ -24,8 +24,18 @@ export function getExplanationGuide(answers: AnswerMap) {
 }
 
 export function getPreparationProfile(answers: AnswerMap, niche: Niche) {
+  const knowledge = getKnowledgeProfile(answers);
+  const concepts = [
+    ...new Map(
+      [...niche.concepts, ...knowledge.conceptsToRevisit].map((concept) => [
+        concept.toLocaleLowerCase(),
+        concept,
+      ]),
+    ).values(),
+  ];
   return {
-    startingPoint: getKnowledgeProfile(answers).startingPoint,
+    startingPoint: knowledge.startingPoint,
+    concepts,
     explanation: getExplanationGuide(answers),
     nicheNote: niche.preparation,
     steps: getPreparationSteps(answers),

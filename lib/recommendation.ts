@@ -215,7 +215,7 @@ export function getKnowledgeProfile(answers: AnswerMap): KnowledgeProfile {
       "explanation-style",
       "Open to different explanation styles",
     ),
-    conceptsToRevisit: conceptsToRevisit.slice(0, 4),
+    conceptsToRevisit,
   };
 }
 

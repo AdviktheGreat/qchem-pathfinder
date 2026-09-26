@@ -91,7 +91,7 @@ export function formatResearchProfile(
     ...preparation.steps.map((step) => `- ${step}`),
     "",
     "CONCEPTS TO REVISIT",
-    ...knowledge.conceptsToRevisit.map((concept) => `- ${concept}`),
+    ...preparation.concepts.map((concept) => `- ${concept}`),
     "",
     "NOTE",
     "This profile is a starting map, not a final research question. Verify citations and read the original sources before relying on them.",

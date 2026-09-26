@@ -45,3 +45,20 @@ it("exports the same personalized preparation shown in results", () => {
   ])
     expect(exported).toContain(text);
 });
+
+it("keeps niche-specific concepts even when all Phase 1 ideas are familiar", () => {
+  const answers = {
+    "concept-familiarity": [
+      "orbitals",
+      "energy",
+      "bonding",
+      "spectra",
+      "methods",
+    ],
+  };
+  const niche = getRecommendations(answers)[0].niche;
+  const preparation = getPreparationProfile(answers, niche);
+  expect(preparation.concepts).toEqual(niche.concepts);
+  for (const concept of preparation.concepts)
+    expect(formatResearchProfile(answers)).toContain(`- ${concept}`);
+});
