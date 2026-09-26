@@ -362,16 +362,27 @@ export function ResultsScreen({
           </div>
           <aside className="fit-card">
             <p className="section-kicker">
-              <ClipboardCheck size={14} /> Why it matched
+              <ClipboardCheck size={14} />{" "}
+              {primary.preferenceEvidenceCount === 0
+                ? "Why this is a starting point"
+                : "Why it matched"}
             </p>
             <div>
-              <strong>Interest fit</strong>
+              <strong>
+                {primary.preferenceEvidenceCount === 0
+                  ? "An interest to sample"
+                  : "Interest fit"}
+              </strong>
               {primary.interestReasons.map((reason) => (
                 <p key={reason}>{reason}</p>
               ))}
             </div>
             <div>
-              <strong>Research-style fit</strong>
+              <strong>
+                {primary.preferenceEvidenceCount === 0
+                  ? "Ways to approach it"
+                  : "Research-style fit"}
+              </strong>
               {primary.styleReasons.map((reason) => (
                 <p key={reason}>{reason}</p>
               ))}
@@ -460,7 +471,10 @@ export function ResultsScreen({
                     <h3>{result.niche.name}</h3>
                     <span>{result.niche.shortDescription}</span>
                     <small className="alternative-reason">
-                      Why it may fit: {result.interestReasons[0]}
+                      {result.preferenceEvidenceCount === 0
+                        ? "Why sample it"
+                        : "Why it may fit"}
+                      : {result.interestReasons[0]}
                     </small>
                     <button
                       className="text-button"

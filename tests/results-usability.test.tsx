@@ -10,6 +10,18 @@ import { afterEach, expect, it, vi } from "vitest";
 import { ResultsScreen } from "@/components/ResultsScreen";
 import { getRecommendations } from "@/lib/recommendation";
 afterEach(cleanup);
+it("does not describe open-ended defaults as discovered matches", () => {
+  const view = render(<ResultsScreen {...handlers} answers={{}} />);
+  expect(screen.getByText("Why this is a starting point")).toBeDefined();
+  expect(screen.queryByText("Why it matched")).toBeNull();
+  view.rerender(
+    <ResultsScreen
+      {...handlers}
+      answers={{ motivation: ["reactions"], "reactions-focus": ["steps"] }}
+    />,
+  );
+  expect(screen.getByText("Why it matched")).toBeDefined();
+});
 it("previews all three recommended directions before the detailed result", () => {
   render(<ResultsScreen {...handlers} answers={{}} />);
   const overview = screen.getByRole("complementary", {
