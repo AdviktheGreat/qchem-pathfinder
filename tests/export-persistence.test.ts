@@ -48,6 +48,23 @@ describe("research profile export", () => {
 });
 
 describe("progress persistence", () => {
+  it("drops hidden branch answers and obsolete direction overrides", () => {
+    const state = createPersistedState({
+      screen: "intro",
+      answers: {
+        motivation: ["light"],
+        "medicine-focus": ["binding"],
+        "light-focus": ["react"],
+      },
+      primaryOverride: "retired-niche",
+    });
+    const restored = parseProgress(serializeProgress(state));
+    expect(restored?.answers).toEqual({
+      motivation: ["light"],
+      "light-focus": ["react"],
+    });
+    expect(restored?.primaryOverride).toBeUndefined();
+  });
   it("removes unknown choices, duplicates, and excess selections", () => {
     expect(
       sanitizeAnswers({

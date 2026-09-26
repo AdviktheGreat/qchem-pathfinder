@@ -1,5 +1,7 @@
 import type { AnswerMap, PersistedSurveyState } from "@/lib/types";
 import { questions } from "@/data/questions";
+import { niches } from "@/data/niches";
+import { pruneHiddenAnswers } from "@/lib/branching";
 
 export const STORAGE_KEY = "quantum-pathfinder:progress";
 export const STORAGE_VERSION = 1;
@@ -64,10 +66,14 @@ export function parseProgress(raw: string | null): PersistedSurveyState | null {
     return {
       version: STORAGE_VERSION,
       screen: parsed.screen as PersistedSurveyState["screen"],
-      answers: sanitizeAnswers(parsed.answers as AnswerMap),
+      answers: pruneHiddenAnswers(sanitizeAnswers(parsed.answers as AnswerMap)),
       savedAt: parsed.savedAt,
       currentQuestionId: parsed.currentQuestionId as string | undefined,
-      primaryOverride: parsed.primaryOverride as string | undefined,
+      primaryOverride: niches.some(
+        (niche) => niche.id === parsed.primaryOverride,
+      )
+        ? (parsed.primaryOverride as string)
+        : undefined,
     };
   } catch {
     return null;
