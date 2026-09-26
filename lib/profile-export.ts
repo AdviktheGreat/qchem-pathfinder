@@ -5,6 +5,7 @@ import {
   getRecommendations,
 } from "@/lib/recommendation";
 import type { AnswerMap } from "@/lib/types";
+import { getPreparationProfile } from "@/lib/preparation";
 
 function selectedLabels(answers: AnswerMap, questionId: string): string[] {
   const question = questionById[questionId];
@@ -25,6 +26,7 @@ export function formatResearchProfile(
     primaryOverride,
   );
   const knowledge = getKnowledgeProfile(answers);
+  const preparation = getPreparationProfile(answers, primary.niche);
   const directions = [primary, ...alternatives];
   const motivation = selectedLabels(answers, "motivation");
   const narrowing = getAnswerLabels(answers, "narrowing").map(
@@ -78,7 +80,9 @@ export function formatResearchProfile(
     ]),
     "",
     "PREPARATION NOTE",
-    primary.niche.preparation,
+    preparation.nicheNote,
+    preparation.explanation.text,
+    ...preparation.steps.map((step) => `- ${step}`),
     "",
     "CONCEPTS TO REVISIT",
     ...knowledge.conceptsToRevisit.map((concept) => `- ${concept}`),

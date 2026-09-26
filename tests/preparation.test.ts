@@ -1,4 +1,7 @@
 import { expect, it } from "vitest";
+import { getPreparationProfile } from "@/lib/preparation";
+import { getRecommendations } from "@/lib/recommendation";
+import { formatResearchProfile } from "@/lib/profile-export";
 import { getPreparationSteps, getExplanationGuide } from "@/lib/preparation";
 
 it("offers concrete preparation for different experience levels", () => {
@@ -28,4 +31,17 @@ it("adapts the entry explanation and initial context depth", () => {
   });
   expect(quantitative.text).toContain("measurable property");
   expect(quantitative.showContextInitially).toBe(false);
+});
+
+it("exports the same personalized preparation shown in results", () => {
+  const answers = { motivation: ["computing"], "coding-comfort": ["new"] };
+  const niche = getRecommendations(answers)[0].niche;
+  const preparation = getPreparationProfile(answers, niche);
+  const exported = formatResearchProfile(answers);
+  for (const text of [
+    preparation.nicheNote,
+    preparation.explanation.text,
+    ...preparation.steps,
+  ])
+    expect(exported).toContain(text);
 });

@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { CopyButton } from "@/components/CopyButton";
 import { formatResearchProfile } from "@/lib/profile-export";
-import { getPreparationSteps, getExplanationGuide } from "@/lib/preparation";
+import { getPreparationProfile } from "@/lib/preparation";
 import {
   explainDifference,
   explainRecommendationContext,
@@ -217,7 +217,8 @@ export function ResultsScreen({
   );
   const [primary, ...alternatives] = recommendations;
   const knowledge = getKnowledgeProfile(answers);
-  const explanationGuide = getExplanationGuide(answers);
+  const preparation = getPreparationProfile(answers, primary.niche);
+  const explanationGuide = preparation.explanation;
   const profileText = formatResearchProfile(answers, primary.niche.id);
   const [openAlternative, setOpenAlternative] = useState<string>();
 
@@ -310,7 +311,7 @@ export function ResultsScreen({
             <Lightbulb size={14} /> Preparation, not permission
           </p>
           <h2>What to revisit before you dive in</h2>
-          <p>{knowledge.startingPoint}</p>
+          <p>{preparation.startingPoint}</p>
         </div>
         <div>
           <h3>Helpful Phase 1 concepts</h3>
@@ -329,9 +330,9 @@ export function ResultsScreen({
         </div>
         <div className="prep-note">
           <strong>A realistic first step</strong>
-          <p>{primary.niche.preparation}</p>
+          <p>{preparation.nicheNote}</p>
           <ul>
-            {getPreparationSteps(answers).map((step) => (
+            {preparation.steps.map((step) => (
               <li key={step}>{step}</li>
             ))}
           </ul>
