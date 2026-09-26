@@ -9,6 +9,26 @@ import type { AnswerMap } from "@/lib/types";
 afterEach(cleanup);
 
 describe("result fit labels", () => {
+  it("opens the alternative choices without silently changing the primary", () => {
+    const onExploreNearby = vi.fn();
+    render(
+      <ResultsScreen
+        answers={{}}
+        onExploreNearby={onExploreNearby}
+        onReview={vi.fn()}
+        onRestart={vi.fn()}
+      />,
+    );
+    fireEvent.click(
+      screen.getByRole("button", { name: "Explore a nearby path" }),
+    );
+    expect(document.activeElement).toBe(
+      screen.getByRole("heading", {
+        name: "Nearby directions worth exploring.",
+      }),
+    );
+    expect(onExploreNearby).not.toHaveBeenCalled();
+  });
   it("lets students promote either alternative", () => {
     vi.spyOn(window, "scrollTo").mockImplementation(() => {});
     const onExploreNearby = vi.fn();

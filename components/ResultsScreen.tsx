@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   BookMarked,
@@ -219,6 +219,7 @@ export function ResultsScreen({
   const explanationGuide = preparation.explanation;
   const profileText = formatResearchProfile(answers, primary.niche.id);
   const [openAlternative, setOpenAlternative] = useState<string>();
+  const alternativesHeadingRef = useRef<HTMLHeadingElement>(null);
 
   function downloadProfile() {
     const blob = new Blob([profileText], { type: "text/plain;charset=utf-8" });
@@ -372,7 +373,9 @@ export function ResultsScreen({
             <p className="section-kicker">
               <FlaskConical size={14} /> Keep two doors open
             </p>
-            <h2>Nearby directions worth exploring.</h2>
+            <h2 ref={alternativesHeadingRef} tabIndex={-1}>
+              Nearby directions worth exploring.
+            </h2>
           </div>
           <p>{explainRecommendationContext(recommendations)}</p>
         </div>
@@ -466,8 +469,7 @@ export function ResultsScreen({
             className="primary-button"
             type="button"
             onClick={() => {
-              onExploreNearby(alternatives[0].niche.id);
-              window.scrollTo({ top: 0, behavior: "smooth" });
+              alternativesHeadingRef.current?.focus();
             }}
           >
             Explore a nearby path <ArrowRight size={17} />
