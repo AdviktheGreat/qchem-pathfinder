@@ -9,6 +9,15 @@ import {
 import type { AnswerMap } from "@/lib/types";
 import { getPreparationProfile } from "@/lib/preparation";
 
+export function profileFilename(nicheId: string, date = new Date()): string {
+  const slug =
+    nicheId
+      .toLowerCase()
+      .replace(/[^a-z0-9-]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "exploration";
+  return `quantum-research-profile-${slug}-${date.toISOString().slice(0, 10)}.txt`;
+}
+
 function selectedLabels(answers: AnswerMap, questionId: string): string[] {
   const question = questionById[questionId];
   return (answers[questionId] ?? [])

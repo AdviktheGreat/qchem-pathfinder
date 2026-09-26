@@ -24,7 +24,7 @@ import {
   paperTypeGuide,
   paperNoteTemplate,
 } from "@/data/reading-guidance";
-import { formatResearchProfile } from "@/lib/profile-export";
+import { formatResearchProfile, profileFilename } from "@/lib/profile-export";
 import { getPreparationProfile } from "@/lib/preparation";
 import {
   explainDifference,
@@ -300,9 +300,8 @@ export function ResultsScreen({
     const blob = new Blob([profileText], { type: "text/plain;charset=utf-8" });
     const href = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
-    const dateStamp = new Date().toISOString().slice(0, 10);
     anchor.href = href;
-    anchor.download = `quantum-research-profile-${dateStamp}.txt`;
+    anchor.download = profileFilename(primary.niche.id);
     anchor.click();
     URL.revokeObjectURL(href);
   }
