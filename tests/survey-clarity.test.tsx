@@ -4,6 +4,16 @@ import { afterEach, expect, it, vi } from "vitest";
 import { SurveyScreen } from "@/components/SurveyScreen";
 
 afterEach(cleanup);
+it("explains the actual choice behind a narrowing question", () => {
+  render(
+    <SurveyScreen
+      {...handlers}
+      answers={{ motivation: ["energy"] }}
+      currentQuestionId="energy-focus"
+    />,
+  );
+  expect(screen.getByText(/You chose “Energy & sustainability”/)).toBeDefined();
+});
 const handlers = {
   onAnswer: vi.fn(),
   onQuestionChange: vi.fn(),

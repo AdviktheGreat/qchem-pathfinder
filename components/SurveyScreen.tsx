@@ -98,6 +98,12 @@ export function SurveyScreen({
   }
 
   const previousId = getPreviousQuestionId(answers, question.id);
+  const branchSource = question.visibleWhen
+    ? questionById[question.visibleWhen.questionId]
+    : undefined;
+  const branchChoice = branchSource?.options.find((option) =>
+    answers[branchSource.id]?.includes(option.id),
+  );
 
   return (
     <section className="survey-shell" aria-labelledby="question-title">
@@ -135,6 +141,12 @@ export function SurveyScreen({
           </h1>
           {question.prompt && (
             <p className="question-prompt">{question.prompt}</p>
+          )}
+          {branchChoice && (
+            <p className="question-prompt">
+              You chose “{branchChoice.label}”. These follow-up questions help
+              distinguish nearby directions within that interest.
+            </p>
           )}
           {question.definition && (
             <details className="definition-card">
