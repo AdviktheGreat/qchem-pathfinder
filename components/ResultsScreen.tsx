@@ -22,6 +22,7 @@ import {
   queryGuidance,
   searchRefinements,
   paperTypeGuide,
+  paperNoteTemplate,
 } from "@/data/reading-guidance";
 import { formatResearchProfile } from "@/lib/profile-export";
 import { getPreparationProfile } from "@/lib/preparation";
@@ -222,6 +223,19 @@ function SearchLaunchpad({
           ))}
         </ul>
       </div>
+      {!compact && (
+        <details className="definition-card">
+          <summary>A note template for your first paper</summary>
+          <p>
+            Copy this into your own notes. You do not need to understand every
+            method on a first reading.
+          </p>
+          <div className="reading-template">
+            <code>{paperNoteTemplate}</code>
+          </div>
+          <CopyButton text={paperNoteTemplate} label="Copy reading template" />
+        </details>
+      )}
     </section>
   );
 }

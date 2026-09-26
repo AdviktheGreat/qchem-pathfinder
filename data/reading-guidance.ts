@@ -38,3 +38,18 @@ export const paperTypeGuide = [
     text: "Reports a specific new investigation, with methods, results, and limitations. Read one after building enough context to understand what was tested.",
   },
 ] as const;
+
+export const paperNoteTemplate = [
+  "PAPER READING NOTE",
+  "Source (title, authors, year, DOI or URL):",
+  "Source checked against the actual paper:",
+  "Paper type and scope:",
+  "Molecular system or material studied:",
+  "Question the authors investigated:",
+  "Computational method and why it was used:",
+  "Main finding (in my own words):",
+  "Supporting figure, table, or page:",
+  "Limitation or assumption:",
+  "Unfamiliar terms to look up:",
+  "What I want to understand next:",
+].join("\n\n");

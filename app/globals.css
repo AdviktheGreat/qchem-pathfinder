@@ -1389,6 +1389,12 @@ h2 {
   display: block;
   margin: 1.25rem auto;
 }
+.reading-template {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin: 1rem 0;
+  font-size: 0.85rem;
+}
 .result-section-nav {
   display: flex;
   flex-wrap: wrap;

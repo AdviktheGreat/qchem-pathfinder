@@ -8,9 +8,25 @@ import {
 } from "@testing-library/react";
 import { afterEach, expect, it, vi } from "vitest";
 import { ResultsScreen } from "@/components/ResultsScreen";
-import { queryGuidance } from "@/data/reading-guidance";
+import { queryGuidance, paperNoteTemplate } from "@/data/reading-guidance";
 import { getRecommendations, explainDifference } from "@/lib/recommendation";
 afterEach(cleanup);
+it("copies a structured note template for reading a real paper", async () => {
+  const writeText = vi.fn().mockResolvedValue(undefined);
+  vi.stubGlobal("navigator", { clipboard: { writeText } });
+  try {
+    render(<ResultsScreen {...handlers} answers={{}} />);
+    fireEvent.click(screen.getByText("A note template for your first paper"));
+    fireEvent.click(
+      screen.getByRole("button", { name: "Copy reading template" }),
+    );
+    await screen.findByRole("button", { name: "Copied" });
+    expect(writeText).toHaveBeenCalledWith(paperNoteTemplate);
+    expect(paperNoteTemplate).toContain("Limitation or assumption:");
+  } finally {
+    vi.unstubAllGlobals();
+  }
+});
 it("distinguishes the suggested paper types", () => {
   render(<ResultsScreen {...handlers} answers={{}} />);
   const summary = screen.getByText(
