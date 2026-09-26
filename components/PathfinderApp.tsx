@@ -31,6 +31,7 @@ export function PathfinderApp() {
   const [storageAvailable, setStorageAvailable] = useState(true);
   const [recoveryNotice, setRecoveryNotice] = useState<string>();
   const [shortcutsEnabled, setShortcutsEnabled] = useState(false);
+  const [branchChanged, setBranchChanged] = useState(false);
 
   useEffect(() => {
     if (hydrated && screen !== "survey") {
@@ -127,6 +128,12 @@ export function PathfinderApp() {
   }
 
   function updateAnswer(questionId: string, optionIds: string[]) {
+    if (
+      questionId === "motivation" &&
+      answers.motivation?.length &&
+      answers.motivation[0] !== optionIds[0]
+    )
+      setBranchChanged(true);
     setAnswers((current) =>
       pruneHiddenAnswers({ ...current, [questionId]: optionIds }),
     );
@@ -145,6 +152,7 @@ export function PathfinderApp() {
       setStorageAvailable(false);
     }
     setAnswers({});
+    setBranchChanged(false);
     setRecoveryNotice(undefined);
     setPrimaryOverride(undefined);
     setCurrentQuestionId(undefined);
@@ -199,6 +207,27 @@ export function PathfinderApp() {
           )}
         </header>
         <main id="main-content" ref={mainRef} tabIndex={-1}>
+          {screen === "survey" &&
+            branchChanged &&
+            visibleQuestions.some(
+              (question) =>
+                question.visibleWhen && !answers[question.id]?.length,
+            ) && (
+              <div className="definition-card" role="status">
+                <p>
+                  Your doorway changed. The previous branch and its answers were
+                  removed. Answer{" "}
+                  {
+                    visibleQuestions.filter(
+                      (question) =>
+                        question.visibleWhen && !answers[question.id]?.length,
+                    ).length
+                  }{" "}
+                  new follow-up questions before updating your directions. Your
+                  other answers are still here.
+                </p>
+              </div>
+            )}
           {!storageAvailable && (
             <div
               className="definition-card storage-warning no-print"

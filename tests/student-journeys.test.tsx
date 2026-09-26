@@ -73,6 +73,10 @@ it.each(studentProfiles)(
         .find((choice) => choice.textContent?.includes(label))!,
     );
     const updated = JSON.parse(saved!).answers;
+    expect(screen.getByRole("status").textContent).toContain(
+      "Answer 2 new follow-up questions",
+    );
+    expect(updated["phase-one-memory"]).toEqual(answers["phase-one-memory"]);
     expect(
       screen.queryByRole("button", { name: "Update my directions" }),
     ).toBeNull();
