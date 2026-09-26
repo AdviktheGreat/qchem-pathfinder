@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { CopyButton } from "@/components/CopyButton";
 import { formatResearchProfile } from "@/lib/profile-export";
-import { getPreparationSteps } from "@/lib/preparation";
+import { getPreparationSteps, getExplanationGuide } from "@/lib/preparation";
 import {
   explainDifference,
   explainRecommendationContext,
@@ -217,6 +217,7 @@ export function ResultsScreen({
   );
   const [primary, ...alternatives] = recommendations;
   const knowledge = getKnowledgeProfile(answers);
+  const explanationGuide = getExplanationGuide(answers);
   const profileText = formatResearchProfile(answers, primary.niche.id);
   const [openAlternative, setOpenAlternative] = useState<string>();
 
@@ -268,7 +269,15 @@ export function ResultsScreen({
             <p className="short-description">
               {primary.niche.shortDescription}
             </p>
-            <p>{primary.niche.explanation}</p>
+            <p>{explanationGuide.text}</p>
+            <details
+              className="definition-card"
+              key={primary.niche.id}
+              open={explanationGuide.showContextInitially}
+            >
+              <summary>A little more context</summary>
+              <p>{primary.niche.explanation}</p>
+            </details>
           </div>
           <aside className="fit-card">
             <p className="section-kicker">

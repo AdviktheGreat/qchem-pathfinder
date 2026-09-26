@@ -20,3 +20,14 @@ export const codingPreparation: Record<string, string> = {
   unsure:
     "Sample a worked software example with your facilitator before deciding how much coding you want to try.",
 };
+
+export const explanationGuides: Record<string, string> = {
+  conceptual:
+    "Begin with the molecular story: sketch the system and explain what changes, what stays the same, and why it matters.",
+  quantitative:
+    "Begin with a measurable property: identify its units and compare a trend across two molecular examples.",
+  mixed:
+    "Pair a molecular picture with a plot or equation. Explain how the visual story connects to the numbers.",
+  unsure:
+    "Try a molecular picture alongside a small data table. You can choose how much mathematical detail to explore as you read.",
+};
