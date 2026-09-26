@@ -1,4 +1,5 @@
-import type { PersistedSurveyState } from "@/lib/types";
+import type { AnswerMap, PersistedSurveyState } from "@/lib/types";
+import { questions } from "@/data/questions";
 
 export const STORAGE_KEY = "quantum-pathfinder:progress";
 export const STORAGE_VERSION = 1;
@@ -30,6 +31,18 @@ function isOptionalString(value: unknown): boolean {
   return value === undefined || typeof value === "string";
 }
 
+export function sanitizeAnswers(answers: AnswerMap): AnswerMap {
+  const clean: AnswerMap = {};
+  for (const question of questions) {
+    const validIds = new Set(question.options.map((option) => option.id));
+    const selected = [...new Set(answers[question.id] ?? [])]
+      .filter((id) => validIds.has(id))
+      .slice(0, question.type === "single" ? 1 : question.maxSelections);
+    if (selected.length) clean[question.id] = selected;
+  }
+  return clean;
+}
+
 export function parseProgress(raw: string | null): PersistedSurveyState | null {
   if (!raw) return null;
   try {
@@ -39,14 +52,23 @@ export function parseProgress(raw: string | null): PersistedSurveyState | null {
       !parsed ||
       typeof parsed !== "object" ||
       parsed.version !== STORAGE_VERSION ||
-      !validScreens.includes(String(parsed.screen)) ||
+      typeof parsed.screen !== "string" ||
+      !validScreens.includes(parsed.screen) ||
       !isAnswerMap(parsed.answers) ||
       typeof parsed.savedAt !== "string" ||
+      !Number.isFinite(Date.parse(parsed.savedAt)) ||
       !isOptionalString(parsed.currentQuestionId) ||
       !isOptionalString(parsed.primaryOverride)
     )
       return null;
-    return parsed as unknown as PersistedSurveyState;
+    return {
+      version: STORAGE_VERSION,
+      screen: parsed.screen as PersistedSurveyState["screen"],
+      answers: sanitizeAnswers(parsed.answers as AnswerMap),
+      savedAt: parsed.savedAt,
+      currentQuestionId: parsed.currentQuestionId as string | undefined,
+      primaryOverride: parsed.primaryOverride as string | undefined,
+    };
   } catch {
     return null;
   }

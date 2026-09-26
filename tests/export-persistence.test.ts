@@ -5,6 +5,7 @@ import {
   parseProgress,
   serializeProgress,
   STORAGE_VERSION,
+  sanitizeAnswers,
 } from "@/lib/persistence";
 
 const answers = {
@@ -47,6 +48,24 @@ describe("research profile export", () => {
 });
 
 describe("progress persistence", () => {
+  it("removes unknown choices, duplicates, and excess selections", () => {
+    expect(
+      sanitizeAnswers({
+        bogus: ["anything"],
+        motivation: ["medicine", "energy"],
+        "evidence-style": [
+          "visuals",
+          "visuals",
+          "invalid",
+          "datasets",
+          "equations",
+        ],
+      }),
+    ).toEqual({
+      motivation: ["medicine"],
+      "evidence-style": ["visuals", "datasets"],
+    });
+  });
   it("round-trips a valid versioned state", () => {
     const state = createPersistedState({
       screen: "survey",
