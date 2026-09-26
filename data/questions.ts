@@ -1052,8 +1052,8 @@ export const questions: SurveyQuestion[] = [
     title:
       "Would you rather study a molecule’s lowest electronic-energy state or a higher one?",
     definition: {
-      term: "Excited state",
-      text: "A temporary higher-energy arrangement of electrons, often created when a molecule absorbs light.",
+      term: "Electronic states",
+      text: "The electronic ground state has the lowest electronic energy. An electronically excited state has more. Either can involve moving or vibrating nuclei. Absorbing suitable light is one way to excite electrons; collisions or energy transfer can also do it.",
     },
     type: "single",
     options: [
@@ -1064,7 +1064,7 @@ export const questions: SurveyQuestion[] = [
       },
       {
         id: "excited",
-        label: "After absorbing energy (excited state)",
+        label: "A higher electronic-energy state (excited state)",
         signals: { "state:excited": 3 },
       },
       {

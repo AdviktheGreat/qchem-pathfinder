@@ -160,8 +160,8 @@ export function SurveyScreen({
           {question.definition && (
             <details className="definition-card">
               <summary>
-                <Info size={16} /> What is an{" "}
-                {question.definition.term.toLowerCase()}?
+                <Info size={16} /> About{" "}
+                {question.definition.term.toLowerCase()}
               </summary>
               <p>{question.definition.text}</p>
             </details>
