@@ -4,103 +4,7 @@ import { questions } from "@/data/questions";
 import { getRecommendations, rankNiches } from "@/lib/recommendation";
 import type { AnswerMap } from "@/lib/types";
 
-const profiles: Array<{ name: string; expected: string; answers: AnswerMap }> =
-  [
-    {
-      name: "medicine-focused, chemistry-heavy, limited coding",
-      expected: "biomolecular-electronics",
-      answers: {
-        motivation: ["medicine"],
-        "medicine-focus": ["electrons"],
-        "medicine-system": ["drug-dna"],
-        "question-kind": ["explain"],
-        "purpose-balance": ["applied"],
-        "system-scale": ["molecule"],
-        "change-style": ["static"],
-        "electronic-state": ["ground"],
-        "interpret-predict": ["interpret"],
-        "evidence-style": ["visuals"],
-        "coding-comfort": ["new"],
-        "explanation-style": ["conceptual"],
-      },
-    },
-    {
-      name: "materials and energy focused, mathematically confident",
-      expected: "organic-electronics",
-      answers: {
-        motivation: ["energy"],
-        "energy-focus": ["device"],
-        "energy-challenge": ["structure"],
-        "question-kind": ["design"],
-        "purpose-balance": ["applied"],
-        "system-scale": ["material"],
-        "electronic-state": ["excited"],
-        "interpret-predict": ["predict"],
-        "evidence-style": ["equations"],
-        "math-comfort": ["comfortable"],
-      },
-    },
-    {
-      name: "photochemistry and spectroscopy focused, visually oriented",
-      expected: "computational-spectroscopy",
-      answers: {
-        motivation: ["light"],
-        "light-focus": ["signature"],
-        "light-evidence": ["peaks"],
-        "question-kind": ["spectrum"],
-        "electronic-state": ["excited"],
-        "evidence-style": ["visuals"],
-        "interpret-predict": ["interpret"],
-      },
-    },
-    {
-      name: "reaction-mechanism focused",
-      expected: "reaction-mechanisms",
-      answers: {
-        motivation: ["reactions"],
-        "reactions-focus": ["steps"],
-        "reactions-view": ["map"],
-        "question-kind": ["pathway"],
-        "change-style": ["changing"],
-        "evidence-style": ["visuals"],
-      },
-    },
-    {
-      name: "coding and ML focused",
-      expected: "ml-property-prediction",
-      answers: {
-        motivation: ["computing"],
-        "computing-focus": ["learn"],
-        "computing-priority": ["predict"],
-        "question-kind": ["data"],
-        "interpret-predict": ["predict"],
-        "evidence-style": ["datasets"],
-        "coding-comfort": ["enjoy"],
-        "purpose-balance": ["applied"],
-      },
-    },
-    {
-      name: "highly uncertain",
-      expected: "noncovalent-interactions",
-      answers: {
-        "phase-one-memory": ["unsure"],
-        "concept-familiarity": ["uncertain"],
-        "math-comfort": ["unsure"],
-        "coding-comfort": ["unsure"],
-        "explanation-style": ["unsure"],
-        motivation: ["balanced"],
-        "balanced-focus": ["unsure"],
-        "balanced-lens": ["unsure"],
-        "question-kind": ["unsure"],
-        "purpose-balance": ["unsure"],
-        "system-scale": ["unsure"],
-        "change-style": ["unsure"],
-        "electronic-state": ["unsure"],
-        "interpret-predict": ["unsure"],
-        "evidence-style": ["unsure"],
-      },
-    },
-  ];
+import { studentProfiles as profiles } from "./fixtures/student-profiles";
 
 describe("recommendation scoring", () => {
   it.each(profiles)(
@@ -134,9 +38,9 @@ describe("recommendation scoring", () => {
     });
     expect(confident[0].niche.id).toBe("excited-states");
     expect(uncertain[0].niche.id).toBe("excited-states");
-    expect(
-      confident.map((result) => [result.niche.id, result.score]),
-    ).toEqual(uncertain.map((result) => [result.niche.id, result.score]));
+    expect(confident.map((result) => [result.niche.id, result.score])).toEqual(
+      uncertain.map((result) => [result.niche.id, result.score]),
+    );
   });
 
   it("keeps conflicting preferences balanced and deterministic", () => {
