@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { ArrowLeft, Pencil } from "lucide-react";
 import { getVisibleQuestions } from "@/lib/branching";
 import { stageLabels } from "@/data/questions";
@@ -14,10 +17,14 @@ export function ReviewScreen({
   onBack: () => void;
 }) {
   const questions = getVisibleQuestions(answers);
+  const [onlyOpen, setOnlyOpen] = useState(false);
+  const filtered = onlyOpen
+    ? questions.filter((question) => isStillExploring(question, answers))
+    : questions;
   const answeredCount = questions.filter(
     (question) => (answers[question.id]?.length ?? 0) > 0,
   ).length;
-  const grouped = questions.reduce<
+  const grouped = filtered.reduce<
     Partial<Record<SurveyStage, typeof questions>>
   >((map, question) => {
     (map[question.stage] ??= []).push(question);
@@ -41,6 +48,25 @@ export function ReviewScreen({
         </p>
       </div>
       <div className="review-groups">
+        <label className="shortcut-toggle no-print">
+          <input
+            type="checkbox"
+            checked={onlyOpen}
+            onChange={(event) => setOnlyOpen(event.target.checked)}
+          />
+          Show only answers I’m still exploring
+        </label>
+        <p role="status">
+          {onlyOpen
+            ? `${filtered.length} open-ended answers shown. These are possibilities to revisit, not mistakes.`
+            : "Showing all answers."}
+        </p>
+        {onlyOpen && filtered.length === 0 && (
+          <p>
+            No uncertainty choices to revisit. Uncheck the filter to review all
+            answers.
+          </p>
+        )}
         {Object.entries(grouped).map(([stage, stageQuestions]) => {
           const stageAnswered = (stageQuestions ?? []).filter(
             (question) => (answers[question.id]?.length ?? 0) > 0,
