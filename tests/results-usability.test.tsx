@@ -11,6 +11,14 @@ import { ResultsScreen } from "@/components/ResultsScreen";
 import { queryGuidance } from "@/data/reading-guidance";
 import { getRecommendations, explainDifference } from "@/lib/recommendation";
 afterEach(cleanup);
+it("offers optional guidance for refining literature searches", () => {
+  render(<ResultsScreen {...handlers} answers={{}} />);
+  const summary = screen.getByText("Too many or too few search results?");
+  fireEvent.click(summary);
+  expect(summary.closest("details")?.open).toBe(true);
+  expect(screen.getByText("Too few results?")).toBeDefined();
+  expect(screen.getByText("Too many results?")).toBeDefined();
+});
 it("explains when to use each search query", () => {
   render(<ResultsScreen {...handlers} answers={{}} />);
   for (const guidance of Object.values(queryGuidance))

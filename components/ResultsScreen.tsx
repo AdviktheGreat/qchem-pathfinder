@@ -18,7 +18,7 @@ import {
 import { CopyButton } from "@/components/CopyButton";
 import { glossary } from "@/data/glossary";
 import { fitLabelDescriptions } from "@/data/fit-labels";
-import { queryGuidance } from "@/data/reading-guidance";
+import { queryGuidance, searchRefinements } from "@/data/reading-guidance";
 import { formatResearchProfile } from "@/lib/profile-export";
 import { getPreparationProfile } from "@/lib/preparation";
 import {
@@ -157,6 +157,16 @@ function SearchLaunchpad({
           </div>
         ))}
       </div>
+      {!compact && (
+        <details className="definition-card">
+          <summary>Too many or too few search results?</summary>
+          {searchRefinements.map(({ title, text }) => (
+            <p key={title}>
+              <strong>{title}</strong> {text}
+            </p>
+          ))}
+        </details>
+      )}
       {!compact && (
         <div className="reading-note">
           <BookMarked size={20} />
