@@ -2,6 +2,7 @@ import { expect, it } from "vitest";
 import {
   explainRecommendationContext,
   getFitLabel,
+  getRecommendationEvidence,
   getRecommendations,
   rankNiches,
 } from "@/lib/recommendation";
@@ -21,6 +22,19 @@ it("separates exploration defaults from expressed preferences", () => {
   expect(focused.score).toBe(
     focused.interestScore + focused.styleScore + focused.explorationBonus,
   );
+});
+
+it("traces recommendation evidence to the student's selected options", () => {
+  const answers = {
+    motivation: ["reactions"],
+    "reactions-focus": ["steps"],
+    "research-medium": ["mechanisms"],
+  };
+  const result = rankNiches(answers)[0];
+  const evidence = getRecommendationEvidence(answers, result);
+  expect(evidence.length).toBeGreaterThan(0);
+  expect(evidence.every((item) => item.strength > 0)).toBe(true);
+  expect(evidence.some((item) => item.kind === "Interest")).toBe(true);
 });
 
 it("offers distinct entry points when no preferences are expressed", () => {

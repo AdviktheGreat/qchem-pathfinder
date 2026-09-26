@@ -268,3 +268,47 @@ export function explainRecommendationContext(results: RankedNiche[]): string {
     return "Several directions have similar support from your answers. Reading a little in each can help you decide what holds your attention.";
   return "Your answers give one direction more support. The alternatives offer different angles worth comparing through reading.";
 }
+
+export interface RecommendationEvidence {
+  label: string;
+  kind: "Interest" | "Research style";
+  strength: number;
+}
+
+/** Returns the actual selected options that contributed most to one niche. */
+export function getRecommendationEvidence(
+  answers: AnswerMap,
+  result: RankedNiche,
+  limit = 4,
+): RecommendationEvidence[] {
+  return questions
+    .filter((question) => question.stage !== "calibration")
+    .flatMap((question) =>
+      (answers[question.id] ?? []).flatMap((optionId) => {
+        const option = question.options.find((item) => item.id === optionId);
+        if (!option || option.uncertainty) return [];
+        const signalContribution = Object.entries(option.signals ?? {}).reduce(
+          (sum, [signal, weight]) =>
+            sum + weight * (result.niche.affinities[signal] ?? 0),
+          0,
+        );
+        const strength =
+          signalContribution + (option.nicheBoosts?.[result.niche.id] ?? 0) * 5;
+        if (strength <= 0) return [];
+        return [
+          {
+            label: option.label,
+            kind:
+              question.stage === "style" ? "Research style" : "Interest",
+            strength,
+          } satisfies RecommendationEvidence,
+        ];
+      }),
+    )
+    .sort((a, b) => b.strength - a.strength)
+    .filter(
+      (evidence, index, all) =>
+        all.findIndex((item) => item.label === evidence.label) === index,
+    )
+    .slice(0, limit);
+}

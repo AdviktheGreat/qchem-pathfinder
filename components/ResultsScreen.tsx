@@ -30,6 +30,8 @@ import {
   explainDifference,
   explainRecommendationContext,
   getFitLabel,
+  getKnowledgeProfile,
+  getRecommendationEvidence,
   getRecommendations,
 } from "@/lib/recommendation";
 import type { AnswerMap, RankedNiche } from "@/lib/types";
@@ -47,6 +49,16 @@ const queryLabels = {
   focused: "Narrower sub-niche",
   review: "Review or perspective",
 } as const;
+
+function areaTheme(area: string): string {
+  const value = area.toLowerCase();
+  if (/reaction|catal|selectiv/.test(value)) return "reaction";
+  if (/light|spectro|excited|charge/.test(value)) return "light";
+  if (/material|energy|electronic/.test(value)) return "materials";
+  if (/bio|drug|interaction|solvat/.test(value)) return "molecular";
+  if (/machine|method|theory|structure/.test(value)) return "methods";
+  return "environment";
+}
 
 function DirectionDetails({
   result,
@@ -276,6 +288,8 @@ export function ResultsScreen({
   const [primary, ...alternatives] = recommendations;
   const isChosenAlternative = primary.niche.id !== originalPrimary.niche.id;
   const preparation = getPreparationProfile(answers, primary.niche);
+  const knowledge = getKnowledgeProfile(answers);
+  const recommendationEvidence = getRecommendationEvidence(answers, primary);
   const explanationGuide = preparation.explanation;
   const profileText = formatResearchProfile(answers, primary.niche.id);
   const [openAlternative, setOpenAlternative] = useState<string>();
@@ -373,10 +387,36 @@ export function ResultsScreen({
       </details>
 
       <aside
-        className="directions-overview"
+        className="directions-overview research-passport"
         aria-label="Your three directions at a glance"
       >
-        <p className="section-kicker">Your three directions at a glance</p>
+        <div className="passport-heading">
+          <div>
+            <p className="section-kicker">Research passport</p>
+            <h2>Your exploration in one view</h2>
+          </div>
+          <span>Ready to explore</span>
+        </div>
+        <dl className="passport-profile">
+          <div>
+            <dt>Starting point</dt>
+            <dd>{knowledge.startingPoint}</dd>
+          </div>
+          <div>
+            <dt>Strongest interest signal</dt>
+            <dd>
+              {primary.interestReasons[0] ??
+                "Several interests remain open for comparison."}
+            </dd>
+          </div>
+          <div>
+            <dt>Working style</dt>
+            <dd>{primary.styleReasons[0]}</dd>
+          </div>
+        </dl>
+        <p className="passport-directions-label">
+          Your three directions at a glance
+        </p>
         <ol>
           {recommendations.map((result, index) => (
             <li key={result.niche.id}>
@@ -388,7 +428,10 @@ export function ResultsScreen({
         </ol>
       </aside>
 
-      <section className="primary-result" aria-labelledby="primary-title">
+      <section
+        className={`primary-result theme-${areaTheme(primary.niche.area)}`}
+        aria-labelledby="primary-title"
+      >
         <div className="primary-label">
           <span>{getFitLabel(primary, bestScore)}</span>
           <span>
@@ -438,26 +481,39 @@ export function ResultsScreen({
                 ? "Why this is a starting point"
                 : "Why it matched"}
             </p>
-            <div>
-              <strong>
-                {primary.preferenceEvidenceCount === 0
-                  ? "An interest to sample"
-                  : "Interest fit"}
-              </strong>
-              {primary.interestReasons.map((reason) => (
-                <p key={reason}>{reason}</p>
-              ))}
-            </div>
-            <div>
-              <strong>
-                {primary.preferenceEvidenceCount === 0
-                  ? "Ways to approach it"
-                  : "Research-style fit"}
-              </strong>
-              {primary.styleReasons.map((reason) => (
-                <p key={reason}>{reason}</p>
-              ))}
-            </div>
+            {recommendationEvidence.length > 0 && (
+              <div className="evidence-chips" aria-label="Answers behind this match">
+                {recommendationEvidence.map((item) => (
+                  <span key={`${item.kind}-${item.label}`}>
+                    <small>{item.kind}</small>
+                    {item.label}
+                  </span>
+                ))}
+              </div>
+            )}
+            <details className="evidence-explanation">
+              <summary>See how these answers connect</summary>
+              <div>
+                <strong>
+                  {primary.preferenceEvidenceCount === 0
+                    ? "An interest to sample"
+                    : "Interest fit"}
+                </strong>
+                {primary.interestReasons.map((reason) => (
+                  <p key={reason}>{reason}</p>
+                ))}
+              </div>
+              <div>
+                <strong>
+                  {primary.preferenceEvidenceCount === 0
+                    ? "Ways to approach it"
+                    : "Research-style fit"}
+                </strong>
+                {primary.styleReasons.map((reason) => (
+                  <p key={reason}>{reason}</p>
+                ))}
+              </div>
+            </details>
             <p className="transparent-note">
               The engine compares explicit answer weights—never grades or hidden
               personality labels.
@@ -523,6 +579,38 @@ export function ResultsScreen({
             </h2>
           </div>
           <p>{explainRecommendationContext(recommendations)}</p>
+        </div>
+        <div className="comparison-view" aria-label="Compare your three directions">
+          {recommendations.map((result, index) => (
+            <article key={result.niche.id}>
+              <header>
+                <span>{index === 0 ? "Primary" : `Alternative ${index}`}</span>
+                <strong>{result.niche.name}</strong>
+              </header>
+              <dl>
+                <div>
+                  <dt>What it studies</dt>
+                  <dd>{result.niche.shortDescription}</dd>
+                </div>
+                <div>
+                  <dt>Evidence from you</dt>
+                  <dd>{result.interestReasons[0]}</dd>
+                </div>
+                <div>
+                  <dt>First reading</dt>
+                  <dd>{result.niche.paperTypes[0]}</dd>
+                </div>
+                <div>
+                  <dt>Difference</dt>
+                  <dd>
+                    {index === 0
+                      ? "The reference direction for this comparison."
+                      : explainDifference(primary, result)}
+                  </dd>
+                </div>
+              </dl>
+            </article>
+          ))}
         </div>
         <div className="alternative-list">
           {alternatives.map((result, index) => {
