@@ -8,10 +8,11 @@ import type {
   SurveyOption,
 } from "@/lib/types";
 
-const knowledgeConfidenceQuestionIds = new Set([
-  "phase-one-memory",
-  "concept-familiarity",
-]);
+const calibrationQuestionIds = new Set(
+  questions
+    .filter((question) => question.stage === "calibration")
+    .map((question) => question.id),
+);
 
 export function getSelectedOptions(
   answers: AnswerMap,
@@ -31,7 +32,7 @@ export function getSelectedOptions(
 
 export function aggregateSignals(answers: AnswerMap): Record<string, number> {
   const totals: Record<string, number> = {};
-  for (const option of getSelectedOptions(answers)) {
+  for (const option of getSelectedOptions(answers, calibrationQuestionIds)) {
     for (const [signal, value] of Object.entries(option.signals ?? {})) {
       totals[signal] = (totals[signal] ?? 0) + value;
     }
@@ -47,10 +48,10 @@ export function signalCategory(signal: string): "interest" | "style" {
 
 export function rankNiches(answers: AnswerMap): RankedNiche[] {
   const signals = aggregateSignals(answers);
-  const selectedOptions = getSelectedOptions(answers);
+  const selectedOptions = getSelectedOptions(answers, calibrationQuestionIds);
   const uncertainCount = getSelectedOptions(
     answers,
-    knowledgeConfidenceQuestionIds,
+    calibrationQuestionIds,
   ).filter((option) => option.uncertainty).length;
   const openness = signals["interest:open"] ?? 0;
 

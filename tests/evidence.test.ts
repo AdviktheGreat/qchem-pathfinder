@@ -6,6 +6,7 @@ import {
   rankNiches,
 } from "@/lib/recommendation";
 import type { AnswerMap } from "@/lib/types";
+import { questions } from "@/data/questions";
 
 it("separates exploration defaults from expressed preferences", () => {
   const open = rankNiches({ motivation: ["balanced"] })[0];
@@ -34,6 +35,21 @@ it("offers distinct entry points when no preferences are expressed", () => {
       (result) => getFitLabel(result, results[0].score) === "Starting point",
     ),
   ).toBe(true);
+});
+
+it("keeps every calibration answer out of ranking and confidence", () => {
+  const base = { motivation: ["light"], "light-focus": ["react"] };
+  const expected = rankNiches(base);
+  for (const question of questions.filter((q) => q.stage === "calibration")) {
+    for (const option of question.options) {
+      expect(rankNiches({ ...base, [question.id]: [option.id] })).toEqual(
+        expected,
+      );
+    }
+  }
+  expect(rankNiches({ ...base, "work-balance": ["coding"] })).not.toEqual(
+    expected,
+  );
 });
 
 it("reserves strong fit for multiple supporting preferences", () => {
