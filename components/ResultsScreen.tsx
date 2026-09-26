@@ -18,7 +18,11 @@ import {
 import { CopyButton } from "@/components/CopyButton";
 import { glossary } from "@/data/glossary";
 import { fitLabelDescriptions } from "@/data/fit-labels";
-import { queryGuidance, searchRefinements } from "@/data/reading-guidance";
+import {
+  queryGuidance,
+  searchRefinements,
+  paperTypeGuide,
+} from "@/data/reading-guidance";
 import { formatResearchProfile } from "@/lib/profile-export";
 import { getPreparationProfile } from "@/lib/preparation";
 import {
@@ -196,6 +200,21 @@ function SearchLaunchpad({
         </div>
       )}
       <div className="paper-types">
+        {!compact && (
+          <details className="definition-card">
+            <summary>Review, perspective, or original research?</summary>
+            <dl>
+              {paperTypeGuide.map(({ term, text }) => (
+                <div key={term}>
+                  <dt>
+                    <strong>{term}</strong>
+                  </dt>
+                  <dd>{text}</dd>
+                </div>
+              ))}
+            </dl>
+          </details>
+        )}
         <strong>Good paper types to begin with</strong>
         <ul>
           {niche.paperTypes.map((type) => (

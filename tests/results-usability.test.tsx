@@ -11,6 +11,15 @@ import { ResultsScreen } from "@/components/ResultsScreen";
 import { queryGuidance } from "@/data/reading-guidance";
 import { getRecommendations, explainDifference } from "@/lib/recommendation";
 afterEach(cleanup);
+it("distinguishes the suggested paper types", () => {
+  render(<ResultsScreen {...handlers} answers={{}} />);
+  const summary = screen.getByText(
+    "Review, perspective, or original research?",
+  );
+  fireEvent.click(summary);
+  for (const term of ["Review", "Perspective", "Original research"])
+    expect(within(summary.closest("details")!).getByText(term)).toBeDefined();
+});
 it("offers optional guidance for refining literature searches", () => {
   render(<ResultsScreen {...handlers} answers={{}} />);
   const summary = screen.getByText("Too many or too few search results?");

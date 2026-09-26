@@ -23,3 +23,18 @@ export const searchRefinements = [
     text: "Try adding ‘tutorial’, ‘introduction’, or ‘review’. Search wording is a starting point; you can change it as you learn the field’s vocabulary.",
   },
 ] as const;
+
+export const paperTypeGuide = [
+  {
+    term: "Review",
+    text: "Brings together previous studies to explain a field or topic. Use it for vocabulary, context, and references to original work; check what it includes and leaves out.",
+  },
+  {
+    term: "Perspective",
+    text: "Offers an author’s interpretation of a field, its challenges, or future directions. Useful for debates and open problems, but not necessarily a comprehensive summary.",
+  },
+  {
+    term: "Original research",
+    text: "Reports a specific new investigation, with methods, results, and limitations. Read one after building enough context to understand what was tested.",
+  },
+] as const;
