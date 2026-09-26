@@ -1049,7 +1049,8 @@ export const questions: SurveyQuestion[] = [
     id: "electronic-state",
     stage: "style",
     kicker: "Energy state",
-    title: "Would you rather study molecules at rest or after an energy boost?",
+    title:
+      "Would you rather study a molecule’s lowest electronic-energy state or a higher one?",
     definition: {
       term: "Excited state",
       text: "A temporary higher-energy arrangement of electrons, often created when a molecule absorbs light.",
@@ -1058,7 +1059,7 @@ export const questions: SurveyQuestion[] = [
     options: [
       {
         id: "ground",
-        label: "Mostly at rest (ground state)",
+        label: "The lowest electronic-energy state (ground state)",
         signals: { "state:ground": 2 },
       },
       {
