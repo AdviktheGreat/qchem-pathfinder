@@ -227,8 +227,14 @@ export function getAnswerLabels(answers: AnswerMap, stage?: string): string[] {
 export function getFitLabel(
   result: RankedNiche,
   bestScore: number,
-): "Strong fit" | "Worth exploring" | "Nearby direction" {
-  if (result.score === bestScore && bestScore > 0) return "Strong fit";
+): "Strong fit" | "Worth exploring" | "Nearby direction" | "Starting point" {
+  if (result.preferenceEvidenceCount === 0) return "Starting point";
+  if (
+    result.score === bestScore &&
+    result.preferenceEvidenceCount >= 2 &&
+    result.interestScore > 0
+  )
+    return "Strong fit";
   if (bestScore === 0 || result.score >= bestScore * 0.72)
     return "Worth exploring";
   return "Nearby direction";
