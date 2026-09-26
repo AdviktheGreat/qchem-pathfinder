@@ -71,6 +71,23 @@ export function rankNiches(answers: AnswerMap): RankedNiche[] {
       const openBonus = niche.explorationFriendly
         ? openness * 0.75 + uncertainCount * 0.35
         : 0;
+      const preferenceEvidenceCount = questions.filter(
+        (question) =>
+          question.stage !== "calibration" &&
+          (answers[question.id] ?? []).some((id) => {
+            const option = question.options.find((item) => item.id === id);
+            return (
+              option &&
+              !option.uncertainty &&
+              ((option.nicheBoosts?.[niche.id] ?? 0) > 0 ||
+                Object.keys(option.signals ?? {}).some(
+                  (signal) =>
+                    signal !== "interest:open" &&
+                    (niche.affinities[signal] ?? 0) > 0,
+                ))
+            );
+          }),
+      ).length;
       const directReasons = selectedOptions
         .map((option) => ({
           boost: option.nicheBoosts?.[niche.id] ?? 0,
@@ -105,6 +122,8 @@ export function rankNiches(answers: AnswerMap): RankedNiche[] {
         interestScore: interestScore + directScore * 5,
         styleScore,
         directScore,
+        explorationBonus: openBonus,
+        preferenceEvidenceCount,
         interestReasons:
           interestReasons.length > 0
             ? interestReasons

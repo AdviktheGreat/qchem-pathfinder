@@ -69,6 +69,8 @@ export interface RankedNiche {
   interestScore: number;
   styleScore: number;
   directScore: number;
+  explorationBonus: number;
+  preferenceEvidenceCount: number;
   interestReasons: string[];
   styleReasons: string[];
 }
