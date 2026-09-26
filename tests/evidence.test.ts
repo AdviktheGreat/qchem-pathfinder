@@ -2,6 +2,7 @@ import { expect, it } from "vitest";
 import {
   explainRecommendationContext,
   getFitLabel,
+  getRecommendations,
   rankNiches,
 } from "@/lib/recommendation";
 import type { AnswerMap } from "@/lib/types";
@@ -19,6 +20,20 @@ it("separates exploration defaults from expressed preferences", () => {
   expect(focused.score).toBe(
     focused.interestScore + focused.styleScore + focused.explorationBonus,
   );
+});
+
+it("offers distinct entry points when no preferences are expressed", () => {
+  const results = getRecommendations({ motivation: ["balanced"] });
+  expect(results.map((result) => result.niche.id)).toEqual([
+    "noncovalent-interactions",
+    "computational-spectroscopy",
+    "method-benchmarking",
+  ]);
+  expect(
+    results.every(
+      (result) => getFitLabel(result, results[0].score) === "Starting point",
+    ),
+  ).toBe(true);
 });
 
 it("reserves strong fit for multiple supporting preferences", () => {

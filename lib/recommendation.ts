@@ -1,4 +1,5 @@
 import { niches } from "@/data/niches";
+import { openExplorationIds } from "@/data/exploration";
 import { questionById, questions } from "@/data/questions";
 import type {
   AnswerMap,
@@ -146,12 +147,19 @@ export function getRecommendations(
   primaryOverride?: string,
 ): RankedNiche[] {
   const ranked = rankNiches(answers);
-  if (!primaryOverride) return ranked.slice(0, 3);
+  const suggestions = ranked.every(
+    (result) => result.preferenceEvidenceCount === 0,
+  )
+    ? openExplorationIds.flatMap((id) =>
+        ranked.filter((result) => result.niche.id === id),
+      )
+    : ranked.slice(0, 3);
+  if (!primaryOverride) return suggestions;
   const selected = ranked.find((result) => result.niche.id === primaryOverride);
-  if (!selected) return ranked.slice(0, 3);
+  if (!selected) return suggestions;
   return [
     selected,
-    ...ranked.filter((result) => result.niche.id !== primaryOverride),
+    ...suggestions.filter((result) => result.niche.id !== primaryOverride),
   ].slice(0, 3);
 }
 
