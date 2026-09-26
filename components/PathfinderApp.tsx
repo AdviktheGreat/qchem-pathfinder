@@ -245,6 +245,7 @@ export function PathfinderApp() {
               onQuestionChange={goToQuestion}
               onComplete={() => showScreen("results")}
               onPause={() => showScreen("intro")}
+              canUpdateResults={surveyComplete}
               shortcutsEnabled={shortcutsEnabled}
               onShortcutsChange={setShortcutsEnabled}
             />

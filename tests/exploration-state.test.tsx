@@ -81,4 +81,8 @@ it("keeps a chosen path, preparation and export through refresh, then resets it 
   await waitFor(() =>
     expect(JSON.parse(saved).primaryOverride).toBeUndefined(),
   );
+  fireEvent.click(screen.getByRole("button", { name: "Update my directions" }));
+  expect(
+    screen.getByRole("heading", { name: "Here’s a promising place to begin." }),
+  ).toBeDefined();
 });

@@ -73,6 +73,9 @@ it.each(studentProfiles)(
         .find((choice) => choice.textContent?.includes(label))!,
     );
     const updated = JSON.parse(saved!).answers;
+    expect(
+      screen.queryByRole("button", { name: "Update my directions" }),
+    ).toBeNull();
     for (const question of path.filter((q) => q.visibleWhen))
       expect(updated[question.id]).toBeUndefined();
     fireEvent.click(screen.getByRole("button", { name: "Continue" }));

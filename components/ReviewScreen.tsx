@@ -43,8 +43,8 @@ export function ReviewScreen({
           <strong>
             {answeredCount} of {questions.length} visible questions answered.
           </strong>{" "}
-          Change any answer and the recommendation will update when you finish
-          the path again.
+          Change any answer, then update your directions. If your new choice
+          opens a different branch, answer its follow-up questions first.
         </p>
       </div>
       <div className="review-groups">

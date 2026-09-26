@@ -18,6 +18,7 @@ interface SurveyScreenProps {
   onQuestionChange: (questionId: string) => void;
   onComplete: () => void;
   onPause?: () => void;
+  canUpdateResults?: boolean;
   shortcutsEnabled?: boolean;
   onShortcutsChange?: (enabled: boolean) => void;
 }
@@ -29,6 +30,7 @@ export function SurveyScreen({
   onQuestionChange,
   onComplete,
   onPause,
+  canUpdateResults = false,
   shortcutsEnabled = false,
   onShortcutsChange,
 }: SurveyScreenProps) {
@@ -288,6 +290,15 @@ export function SurveyScreen({
           {isLast ? "See my directions" : "Continue"} <ArrowRight size={17} />
         </button>
       </div>
+      {canUpdateResults && !isLast && (
+        <button
+          className="secondary-button pause-action"
+          type="button"
+          onClick={onComplete}
+        >
+          Update my directions
+        </button>
+      )}
       {onPause && (
         <button
           className="text-button pause-action"
