@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { CopyButton } from "@/components/CopyButton";
 import { formatResearchProfile } from "@/lib/profile-export";
+import { getPreparationSteps } from "@/lib/preparation";
 import {
   explainDifference,
   explainRecommendationContext,
@@ -320,6 +321,11 @@ export function ResultsScreen({
         <div className="prep-note">
           <strong>A realistic first step</strong>
           <p>{primary.niche.preparation}</p>
+          <ul>
+            {getPreparationSteps(answers).map((step) => (
+              <li key={step}>{step}</li>
+            ))}
+          </ul>
         </div>
       </section>
 
