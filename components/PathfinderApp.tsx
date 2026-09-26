@@ -153,7 +153,13 @@ export function PathfinderApp() {
 
   if (!hydrated)
     return (
-      <div className="loading-screen" aria-label="Loading your pathfinder" />
+      <div
+        className="loading-screen"
+        role="status"
+        aria-label="Loading your pathfinder"
+      >
+        <p>Restoring your exploration…</p>
+      </div>
     );
 
   return (

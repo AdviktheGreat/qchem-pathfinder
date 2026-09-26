@@ -27,6 +27,17 @@ it("skips the header and focuses the screen content", async () => {
   ).toBe(false);
 });
 
+it("shows a readable status while restoring progress", async () => {
+  render(<PathfinderApp />);
+  expect(
+    screen.getByRole("status", { name: "Loading your pathfinder" }).textContent,
+  ).toBe("Restoring your exploration…");
+  await screen.findByRole("button", { name: "Begin exploring" });
+  expect(
+    screen.queryByRole("status", { name: "Loading your pathfinder" }),
+  ).toBeNull();
+});
+
 it("pauses and resumes without losing the current answer", async () => {
   render(<PathfinderApp />);
   fireEvent.click(
