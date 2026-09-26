@@ -16,6 +16,19 @@ export function getVisibleQuestions(answers: AnswerMap): SurveyQuestion[] {
   return questions.filter((question) => isQuestionVisible(question, answers));
 }
 
+export function getPlannedQuestionCount(answers: AnswerMap): number {
+  if (answers.motivation?.length) return getVisibleQuestions(answers).length;
+  // Reserve room for the upcoming branch without rendering it prematurely.
+  const motivation = questions.find((question) => question.id === "motivation");
+  return Math.max(
+    getVisibleQuestions(answers).length,
+    ...(motivation?.options.map(
+      (option) =>
+        getVisibleQuestions({ ...answers, motivation: [option.id] }).length,
+    ) ?? []),
+  );
+}
+
 export function pruneHiddenAnswers(answers: AnswerMap): AnswerMap {
   const visibleIds = new Set(
     getVisibleQuestions(answers).map((question) => question.id),

@@ -1,7 +1,16 @@
 import { describe, expect, it } from "vitest";
-import { getVisibleQuestions, pruneHiddenAnswers } from "@/lib/branching";
+import {
+  getVisibleQuestions,
+  pruneHiddenAnswers,
+  getPlannedQuestionCount,
+} from "@/lib/branching";
 
 describe("adaptive branching", () => {
+  it("reserves branch questions before motivation without revealing them", () => {
+    expect(getVisibleQuestions({})).toHaveLength(14);
+    expect(getPlannedQuestionCount({})).toBe(16);
+    expect(getPlannedQuestionCount({ motivation: ["light"] })).toBe(16);
+  });
   it("shows a focused 16-question path after a motivation is chosen", () => {
     const visible = getVisibleQuestions({ motivation: ["medicine"] });
     expect(visible).toHaveLength(16);

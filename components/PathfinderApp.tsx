@@ -2,7 +2,11 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Atom, LockKeyhole, RotateCcw } from "lucide-react";
-import { getVisibleQuestions, pruneHiddenAnswers } from "@/lib/branching";
+import {
+  getVisibleQuestions,
+  pruneHiddenAnswers,
+  getPlannedQuestionCount,
+} from "@/lib/branching";
 import {
   createPersistedState,
   restoreProgress,
@@ -208,7 +212,7 @@ export function PathfinderApp() {
               resumeDetail={
                 surveyComplete
                   ? "Your completed research map is ready"
-                  : `Saved at question ${resumeIndex + 1} of ${visibleQuestions.length}`
+                  : `Saved at question ${resumeIndex + 1} of ${getPlannedQuestionCount(answers)}`
               }
               onBegin={begin}
               onResume={resume}

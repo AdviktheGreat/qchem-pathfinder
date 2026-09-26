@@ -2,7 +2,11 @@
 
 import { useEffect, useMemo, useRef } from "react";
 import { ArrowLeft, ArrowRight, BookOpenText, Check, Info } from "lucide-react";
-import { getPreviousQuestionId, getVisibleQuestions } from "@/lib/branching";
+import {
+  getPreviousQuestionId,
+  getVisibleQuestions,
+  getPlannedQuestionCount,
+} from "@/lib/branching";
 import { stageLabels, questionById } from "@/data/questions";
 import type { AnswerMap } from "@/lib/types";
 
@@ -26,6 +30,7 @@ export function SurveyScreen({
   onShortcutsChange,
 }: SurveyScreenProps) {
   const visible = getVisibleQuestions(answers);
+  const total = getPlannedQuestionCount(answers);
   const question = questionById[currentQuestionId] ?? visible[0];
   const index = Math.max(
     0,
@@ -38,12 +43,9 @@ export function SurveyScreen({
   const selectionLimitReached =
     question.type === "multi" &&
     selected.length >= (question.maxSelections ?? Infinity);
-  const progress = Math.round(((index + 1) / visible.length) * 100);
+  const progress = Math.round(((index + 1) / total) * 100);
   const isLast = index === visible.length - 1;
-  const estimatedMinutes = Math.max(
-    1,
-    Math.ceil((visible.length - index - 1) * 0.6),
-  );
+  const estimatedMinutes = Math.max(1, Math.ceil((total - index - 1) * 0.6));
   const headingRef = useRef<HTMLHeadingElement>(null);
   const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
@@ -124,12 +126,12 @@ export function SurveyScreen({
     <section className="survey-shell" aria-labelledby="question-title">
       <div
         className="progress-wrap"
-        aria-label={`Question ${index + 1} of ${visible.length}`}
+        aria-label={`Question ${index + 1} of ${total}`}
       >
         <div className="progress-meta">
           <span>{stageLabels[question.stage]}</span>
           <span>
-            {index + 1} / {visible.length} ·{" "}
+            {index + 1} / {total} ·{" "}
             {isLast ? "Final question" : `~${estimatedMinutes} min left`}
           </span>
         </div>
@@ -140,7 +142,7 @@ export function SurveyScreen({
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={progress}
-          aria-valuetext={`Question ${index + 1} of ${visible.length}`}
+          aria-valuetext={`Question ${index + 1} of ${total}`}
         >
           <span aria-hidden="true" style={{ width: `${progress}%` }} />
         </div>
