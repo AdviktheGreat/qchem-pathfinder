@@ -55,10 +55,14 @@ export function SurveyScreen({
   const estimatedMinutes = Math.max(1, Math.ceil((total - index - 1) * 0.6));
   const headingRef = useRef<HTMLHeadingElement>(null);
   const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const previousIndexRef = useRef(index);
+  const transitionDirection =
+    index < previousIndexRef.current ? "backward" : "forward";
 
   useEffect(() => {
     headingRef.current?.focus();
-  }, [question.id]);
+    previousIndexRef.current = index;
+  }, [index, question.id]);
 
   useEffect(() => {
     function chooseWithLetter(event: KeyboardEvent) {
@@ -110,6 +114,15 @@ export function SurveyScreen({
   const branchChoice = branchSource?.options.find((option) =>
     answers[branchSource.id]?.includes(option.id),
   );
+  const compactChoices = question.options.every(
+    (option) => !option.description || option.uncertainty,
+  );
+  const choiceKind =
+    question.stage === "motivation" || question.stage === "narrowing"
+      ? "scenario"
+      : question.type === "multi"
+        ? "multi"
+        : "scale";
 
   return (
     <section
@@ -145,7 +158,10 @@ export function SurveyScreen({
         </div>
       </div>
 
-      <div className="question-layout">
+      <div
+        key={question.id}
+        className={`question-layout transition-${transitionDirection}`}
+      >
         <div className="question-copy">
           <p className="eyebrow">
             <StageIcon stage={question.stage} size={15} /> {question.kicker}
@@ -163,7 +179,10 @@ export function SurveyScreen({
             </p>
           )}
           {question.definition && (
-            <details key={question.id} className="definition-card">
+            <details
+              key={question.id}
+              className="definition-card term-note"
+            >
               <summary>
                 <Info size={16} /> About{" "}
                 {question.definition.term.toLowerCase()}
@@ -175,7 +194,7 @@ export function SurveyScreen({
 
         <div className="answer-panel">
           <div
-            className="choice-grid"
+            className={`choice-grid ${compactChoices ? "is-compact" : "is-detailed"} choice-kind-${choiceKind}`}
             role={question.type === "single" ? "radiogroup" : "group"}
             aria-label={question.title}
           >
@@ -192,7 +211,7 @@ export function SurveyScreen({
                   ref={(node) => {
                     optionRefs.current[optionIndex] = node;
                   }}
-                  className={`choice-card ${active ? "is-selected" : ""}`}
+                  className={`choice-card choice-${choiceKind} ${option.uncertainty ? "is-uncertainty" : ""} ${active ? "is-selected" : ""}`}
                   type="button"
                   role={question.type === "single" ? "radio" : "checkbox"}
                   aria-checked={active}
@@ -282,6 +301,15 @@ export function SurveyScreen({
       </div>
 
       <div className="survey-controls">
+        <span className="control-selection-state" aria-hidden="true">
+          {selected.length > 0 ? (
+            <>
+              <Check size={14} /> Answer ready
+            </>
+          ) : (
+            "Choose an answer"
+          )}
+        </span>
         <button
           className="secondary-button"
           type="button"
