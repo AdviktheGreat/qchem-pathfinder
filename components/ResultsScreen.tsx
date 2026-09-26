@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   BookMarked,
@@ -115,6 +115,11 @@ function SearchLaunchpad({
   compact?: boolean;
 }) {
   const niche = result.niche;
+  const [activeQuery, setActiveQuery] = useState<keyof typeof queryLabels>(
+    "orientation",
+  );
+  const tabsId = useId();
+  const queryKinds = Object.keys(queryLabels) as Array<keyof typeof queryLabels>;
   const allQueries = Object.values(niche.searches).join("\n");
   const allKeywords = [
     ...niche.keywords,
@@ -160,9 +165,57 @@ function SearchLaunchpad({
           context={niche.name}
         />
       </div>
-      <div className="query-list">
+      <div className="query-workspace">
+        <div
+          className="query-tabs"
+          role="tablist"
+          aria-label={`Search depth for ${niche.name}`}
+        >
+          {queryKinds.map((kind, index) => (
+            <button
+              key={kind}
+              id={`${tabsId}-${kind}-tab`}
+              type="button"
+              role="tab"
+              aria-selected={activeQuery === kind}
+              aria-controls={`${tabsId}-${kind}-panel`}
+              tabIndex={activeQuery === kind ? 0 : -1}
+              onClick={() => setActiveQuery(kind)}
+              onKeyDown={(event) => {
+                const offset =
+                  event.key === "ArrowRight"
+                    ? 1
+                    : event.key === "ArrowLeft"
+                      ? -1
+                      : 0;
+                if (!offset) return;
+                event.preventDefault();
+                const nextKind =
+                  queryKinds[
+                    (index + offset + queryKinds.length) % queryKinds.length
+                  ];
+                setActiveQuery(nextKind);
+                document.getElementById(`${tabsId}-${nextKind}-tab`)?.focus();
+              }}
+            >
+              {kind === "orientation"
+                ? "Orientation"
+                : kind === "focused"
+                  ? "Focused"
+                  : "Review"}
+            </button>
+          ))}
+        </div>
+        <div className="query-list">
         {Object.entries(niche.searches).map(([kind, query]) => (
-          <div className="query-row" key={kind}>
+          <div
+            className="query-row query-panel"
+            key={kind}
+            id={`${tabsId}-${kind}-panel`}
+            role="tabpanel"
+            aria-labelledby={`${tabsId}-${kind}-tab`}
+            hidden={activeQuery !== kind}
+          >
             <div className="query-copy">
               <span>{queryLabels[kind as keyof typeof queryLabels]}</span>
               <code>{query}</code>
@@ -187,6 +240,7 @@ function SearchLaunchpad({
             </div>
           </div>
         ))}
+        </div>
       </div>
       {!compact && (
         <details className="definition-card">

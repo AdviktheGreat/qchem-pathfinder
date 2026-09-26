@@ -43,11 +43,15 @@ it("downloads the current direction profile and releases its object URL", () => 
 it("distinguishes repeated search controls and announces new tabs", () => {
   render(<ResultsScreen {...handlers} answers={{}} />);
   const primary = getRecommendations({})[0].niche;
-  for (const kind of [
-    "Broad orientation",
-    "Narrower sub-niche",
-    "Review or perspective",
+  const tabs = screen.getByRole("tablist", {
+    name: `Search depth for ${primary.name}`,
+  });
+  for (const [tab, kind] of [
+    ["Orientation", "Broad orientation"],
+    ["Focused", "Narrower sub-niche"],
+    ["Review", "Review or perspective"],
   ]) {
+    fireEvent.click(within(tabs).getByRole("tab", { name: tab }));
     expect(
       screen.getByRole("button", {
         name: `Copy query — ${kind} for ${primary.name}`,
