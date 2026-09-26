@@ -1389,6 +1389,28 @@ h2 {
   display: block;
   margin: 1.25rem auto;
 }
+.manual-copy {
+  flex-basis: 100%;
+  width: 100%;
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: var(--panel);
+}
+.manual-copy textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 0.75rem 0;
+  padding: 0.75rem;
+  color: var(--ink);
+  background: var(--paper);
+  font: inherit;
+}
+.manual-copy button {
+  margin-right: 1rem;
+}
 .reading-template {
   white-space: pre-wrap;
   overflow-wrap: anywhere;

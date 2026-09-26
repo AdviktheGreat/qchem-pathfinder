@@ -17,6 +17,39 @@ afterEach(() => {
 });
 
 describe("copy feedback", () => {
+  it.each(["missing", "denied"])(
+    "offers persistent selectable text when clipboard is %s",
+    async (kind) => {
+      Object.defineProperty(navigator, "clipboard", {
+        configurable: true,
+        value:
+          kind === "missing"
+            ? undefined
+            : { writeText: vi.fn().mockRejectedValue(new Error("Denied")) },
+      });
+      render(
+        <CopyButton
+          text={"A complete profile\nwith searches"}
+          label="Copy profile"
+        />,
+      );
+      fireEvent.click(screen.getByRole("button", { name: "Copy profile" }));
+      const field = (await screen.findByRole("textbox", {
+        name: "Manual copy: Copy profile",
+      })) as HTMLTextAreaElement;
+      expect(field.value).toBe("A complete profile\nwith searches");
+      expect(document.activeElement).toBe(field);
+      expect(field.selectionStart).toBe(0);
+      expect(field.selectionEnd).toBe(field.value.length);
+      fireEvent.click(
+        screen.getByRole("button", { name: "Close manual copy" }),
+      );
+      expect(screen.queryByRole("textbox")).toBeNull();
+      expect(document.activeElement).toBe(
+        screen.getByRole("button", { name: "Copy profile" }),
+      );
+    },
+  );
   it("keeps feedback visible for the full interval after each copy", async () => {
     vi.useFakeTimers();
     Object.defineProperty(navigator, "clipboard", {

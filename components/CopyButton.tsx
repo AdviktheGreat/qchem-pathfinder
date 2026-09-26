@@ -14,6 +14,15 @@ export function CopyButton({
 }) {
   const [status, setStatus] = useState<"idle" | "copied" | "failed">("idle");
   const resetTimer = useRef<number | undefined>(undefined);
+  const manualRef = useRef<HTMLTextAreaElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (status === "failed") {
+      manualRef.current?.focus();
+      manualRef.current?.select();
+    }
+  }, [status]);
 
   useEffect(
     () => () => {
@@ -24,11 +33,14 @@ export function CopyButton({
   );
 
   async function copy() {
+    if (resetTimer.current !== undefined)
+      window.clearTimeout(resetTimer.current);
     try {
       await navigator.clipboard.writeText(text);
       setStatus("copied");
     } catch {
       setStatus("failed");
+      return;
     }
     if (resetTimer.current !== undefined)
       window.clearTimeout(resetTimer.current);
@@ -46,14 +58,52 @@ export function CopyButton({
         : label;
 
   return (
-    <button
-      className="copy-button"
-      type="button"
-      onClick={copy}
-      aria-label={context ? `${buttonLabel} — ${context}` : undefined}
-    >
-      {status === "copied" ? <Check size={15} /> : <Copy size={15} />}
-      <span aria-live="polite">{buttonLabel}</span>
-    </button>
+    <>
+      <button
+        ref={buttonRef}
+        className="copy-button"
+        type="button"
+        onClick={copy}
+        aria-label={context ? `${buttonLabel} — ${context}` : undefined}
+      >
+        {status === "copied" ? <Check size={15} /> : <Copy size={15} />}
+        <span aria-live="polite">{buttonLabel}</span>
+      </button>
+      {status === "failed" && (
+        <div className="manual-copy no-print">
+          <p>
+            Automatic copying was unavailable. The text below is selected; use
+            your device’s Copy command.
+          </p>
+          <textarea
+            ref={manualRef}
+            readOnly
+            value={text}
+            rows={5}
+            aria-label={`Manual copy: ${context ?? label}`}
+          />
+          <button
+            className="text-button"
+            type="button"
+            onClick={() => {
+              manualRef.current?.focus();
+              manualRef.current?.select();
+            }}
+          >
+            Select all text
+          </button>
+          <button
+            className="text-button"
+            type="button"
+            onClick={() => {
+              setStatus("idle");
+              buttonRef.current?.focus();
+            }}
+          >
+            Close manual copy
+          </button>
+        </div>
+      )}
+    </>
   );
 }
