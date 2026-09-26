@@ -576,11 +576,16 @@ export function ResultsScreen({
                     <ChevronDown size={17} />
                   </button>
                 </div>
-                {open && (
-                  <div id={panelId}>
-                    <DirectionDetails result={result} primary={primary} />
-                  </div>
-                )}
+                <div
+                  id={panelId}
+                  className={
+                    open
+                      ? "alternative-details"
+                      : "alternative-details print-only"
+                  }
+                >
+                  <DirectionDetails result={result} primary={primary} />
+                </div>
               </article>
             );
           })}

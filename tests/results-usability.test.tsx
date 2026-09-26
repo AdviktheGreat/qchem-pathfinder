@@ -11,6 +11,35 @@ import { ResultsScreen } from "@/components/ResultsScreen";
 import { queryGuidance, paperNoteTemplate } from "@/data/reading-guidance";
 import { getRecommendations, explainDifference } from "@/lib/recommendation";
 afterEach(cleanup);
+it("downloads the current direction profile and releases its object URL", () => {
+  const createObjectURL = vi.fn().mockReturnValue("blob:profile-download");
+  const revokeObjectURL = vi.fn();
+  vi.stubGlobal("URL", { createObjectURL, revokeObjectURL });
+  let filename = "";
+  const click = vi
+    .spyOn(HTMLAnchorElement.prototype, "click")
+    .mockImplementation(function (this: HTMLAnchorElement) {
+      filename = this.download;
+    });
+  try {
+    render(
+      <ResultsScreen
+        {...handlers}
+        answers={{}}
+        primaryOverride="method-benchmarking"
+      />,
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Download .txt" }));
+    expect(filename).toMatch(
+      /^quantum-research-profile-method-benchmarking-\d{4}-\d{2}-\d{2}\.txt$/,
+    );
+    expect(createObjectURL).toHaveBeenCalledWith(expect.any(Blob));
+    expect(revokeObjectURL).toHaveBeenCalledWith("blob:profile-download");
+  } finally {
+    click.mockRestore();
+    vi.unstubAllGlobals();
+  }
+});
 it("distinguishes repeated search controls and announces new tabs", () => {
   render(<ResultsScreen {...handlers} answers={{}} />);
   const primary = getRecommendations({})[0].niche;
@@ -69,7 +98,13 @@ it("offers optional guidance for refining literature searches", () => {
 it("explains when to use each search query", () => {
   render(<ResultsScreen {...handlers} answers={{}} />);
   for (const guidance of Object.values(queryGuidance))
-    expect(screen.getByText(guidance)).toBeDefined();
+    expect(
+      within(
+        screen.getByRole("region", {
+          name: getRecommendations({})[0].niche.name,
+        }),
+      ).getByText(guidance),
+    ).toBeDefined();
 });
 it("shows each alternative comparison while its details are collapsed", () => {
   render(<ResultsScreen {...handlers} answers={{}} />);

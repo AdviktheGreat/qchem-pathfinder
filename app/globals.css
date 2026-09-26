@@ -1411,6 +1411,36 @@ h2 {
 .manual-copy button {
   margin-right: 1rem;
 }
+.keyword-heading,
+.query-heading,
+.query-actions,
+.export-actions {
+  flex-wrap: wrap;
+}
+.query-actions > .manual-copy {
+  flex: 1 0 100%;
+}
+.result-actions:has(.manual-copy) {
+  flex: 1 1 20rem;
+  flex-wrap: wrap;
+  max-width: 32rem;
+  min-width: 0;
+}
+.alternative-summary p.difference-note {
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 0.85rem;
+  font-weight: 400;
+  line-height: 1.6;
+}
+.fit-label-guide {
+  margin-bottom: 1.5rem;
+}
+.loading-screen {
+  display: grid;
+  place-content: center;
+  padding: 2rem;
+}
 .reading-template {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
@@ -1463,6 +1493,10 @@ h2 {
   color: var(--muted);
 }
 
+.print-only {
+  display: none;
+}
+
 @media print {
   :root {
     --paper: white;
@@ -1477,6 +1511,8 @@ h2 {
   }
   .app-header,
   .no-print,
+  .results-shell button,
+  .results-shell .scholar-link,
   .orbit {
     display: none !important;
   }
@@ -1495,7 +1531,7 @@ h2 {
   .preparation-card,
   .alternative-card,
   .export-card {
-    break-inside: avoid;
+    break-inside: auto;
     box-shadow: none;
   }
   .preparation-card {
@@ -1506,7 +1542,44 @@ h2 {
   .preparation-card li {
     color: #333;
   }
-  .alternative-card .direction-details {
+  .print-only {
+    display: block !important;
+  }
+  .alternative-card {
+    break-before: page;
+  }
+  .query-row,
+  .approach-grid article,
+  .paper-types,
+  .difference-note {
+    break-inside: avoid;
+  }
+  .results-shell h2,
+  .results-shell h3 {
+    break-after: avoid;
+  }
+  .primary-grid,
+  .detail-grid,
+  .approach-grid,
+  .preparation-card {
+    display: block;
+  }
+  .query-row {
+    display: block;
+  }
+  .query-copy code,
+  .export-card pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+  .results-shell details::details-content {
+    content-visibility: visible;
+  }
+  .results-shell details > :not(summary) {
+    display: block;
+  }
+  .fit-label-guide,
+  .directions-overview {
     display: none;
   }
   .export-card {

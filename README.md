@@ -84,6 +84,12 @@ Saved progress is validated against current questions and options. Invalid choic
 
 ## Test coverage
 
+The second usability round adds stable pre-branch progress, exclusive uncertainty choices, pause/resume, visible save-failure notices, an uncertainty review filter, and a quick route back to results after complete edits. Unchanged answers preserve the chosen direction; changed motivations explain the new follow-ups.
+
+Results include section navigation, a three-direction overview, explained fit labels, visible alternative comparisons, search-refinement and paper-type guidance, and a copyable reading-note template. Exports include related phrases and direction-specific filenames. Clipboard failure exposes selectable text. Printing includes both alternative launchpads even when their on-screen panels are collapsed.
+
+Instructor-editable supporting copy lives in `data/fit-labels.ts`, `data/reading-guidance.ts`, and `data/concept-overlaps.ts`. Concept overlap rules only remove a narrower label when its explicitly listed umbrella topic is present; they do not infer equivalence from word similarity.
+
 `npm test` runs unit and jsdom component tests. The six shared fixtures cover medicine, energy/materials, spectroscopy, reactions, machine learning, and extensive uncertainty. Each completes the current 16-question visible path. Journey tests exercise introduction, answer controls, adaptive questions, results, export preview, review, and upstream branch edits.
 
 Coverage also checks all 18 niches can become the **primary** result through a complete visible path; calibration independence; ties and conflicting interests; honest uncertainty labels; shared preparation/export content; saved-data repair; chosen-direction refresh recovery; keyboard navigation; focus; and shortcut settings. These are not substitutes for browser, assistive-technology, or scientific review. After UI changes, review introduction, survey, and results at desktop and phone widths, including refresh and alternative selection.
