@@ -1,9 +1,40 @@
 // @vitest-environment jsdom
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { questionById } from "@/data/questions";
 import { afterEach, expect, it, vi } from "vitest";
 import { SurveyScreen } from "@/components/SurveyScreen";
 
 afterEach(cleanup);
+it("starts each question definition closed rather than reusing another disclosure", () => {
+  const first = questionById["phase-one-memory"];
+  const original = first.definition;
+  first.definition = {
+    term: "Test context",
+    text: "A separate question definition",
+  };
+  try {
+    const view = render(
+      <SurveyScreen {...handlers} answers={{}} currentQuestionId={first.id} />,
+    );
+    fireEvent.click(screen.getByText("About test context"));
+    const old = screen.getByText("About test context").closest("details")!;
+    expect(old.open).toBe(true);
+    view.rerender(
+      <SurveyScreen
+        {...handlers}
+        answers={{}}
+        currentQuestionId="electronic-state"
+      />,
+    );
+    const next = screen
+      .getByText("About electronic states")
+      .closest("details")!;
+    expect(next).not.toBe(old);
+    expect(next.open).toBe(false);
+  } finally {
+    first.definition = original;
+  }
+});
 it("gives keyboard guidance appropriate to the choice type", () => {
   const view = render(
     <SurveyScreen

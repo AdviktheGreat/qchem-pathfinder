@@ -149,7 +149,7 @@ export function SurveyScreen({
             </p>
           )}
           {question.definition && (
-            <details className="definition-card">
+            <details key={question.id} className="definition-card">
               <summary>
                 <Info size={16} /> About{" "}
                 {question.definition.term.toLowerCase()}
