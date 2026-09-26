@@ -17,6 +17,7 @@ interface SurveyScreenProps {
   onAnswer: (questionId: string, optionIds: string[]) => void;
   onQuestionChange: (questionId: string) => void;
   onComplete: () => void;
+  onPause?: () => void;
   shortcutsEnabled?: boolean;
   onShortcutsChange?: (enabled: boolean) => void;
 }
@@ -27,6 +28,7 @@ export function SurveyScreen({
   onAnswer,
   onQuestionChange,
   onComplete,
+  onPause,
   shortcutsEnabled = false,
   onShortcutsChange,
 }: SurveyScreenProps) {
@@ -286,6 +288,15 @@ export function SurveyScreen({
           {isLast ? "See my directions" : "Continue"} <ArrowRight size={17} />
         </button>
       </div>
+      {onPause && (
+        <button
+          className="text-button pause-action"
+          type="button"
+          onClick={onPause}
+        >
+          Pause and return home
+        </button>
+      )}
     </section>
   );
 }

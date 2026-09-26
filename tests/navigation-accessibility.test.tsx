@@ -27,6 +27,25 @@ it("skips the header and focuses the screen content", async () => {
   ).toBe(false);
 });
 
+it("pauses and resumes without losing the current answer", async () => {
+  render(<PathfinderApp />);
+  fireEvent.click(
+    await screen.findByRole("button", { name: "Begin exploring" }),
+  );
+  fireEvent.click(
+    screen.getByRole("radio", { name: /The big picture feels fresh/ }),
+  );
+  fireEvent.click(
+    screen.getByRole("button", { name: "Pause and return home" }),
+  );
+  fireEvent.click(screen.getByRole("button", { name: "Continue exploring" }));
+  expect(
+    screen
+      .getByRole("radio", { name: /The big picture feels fresh/ })
+      .getAttribute("aria-checked"),
+  ).toBe("true");
+});
+
 it("moves focus to the appropriate heading when screens change", async () => {
   render(<PathfinderApp />);
   fireEvent.click(
