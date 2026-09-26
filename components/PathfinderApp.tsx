@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Atom, LockKeyhole, RotateCcw } from "lucide-react";
 import { getVisibleQuestions, pruneHiddenAnswers } from "@/lib/branching";
 import {
@@ -18,6 +18,7 @@ import { ReviewScreen } from "@/components/ReviewScreen";
 type Screen = PersistedSurveyState["screen"];
 
 export function PathfinderApp() {
+  const mainRef = useRef<HTMLElement>(null);
   const [screen, setScreen] = useState<Screen>("intro");
   const [answers, setAnswers] = useState<AnswerMap>({});
   const [currentQuestionId, setCurrentQuestionId] = useState<string>();
@@ -145,10 +146,17 @@ export function PathfinderApp() {
 
   return (
     <>
-      <a className="skip-link" href="#main-content">
+      <a
+        className="skip-link"
+        href="#main-content"
+        onClick={(event) => {
+          event.preventDefault();
+          mainRef.current?.focus();
+        }}
+      >
         Skip to main content
       </a>
-      <main id="main-content" className={`app-frame screen-${screen}`}>
+      <div className={`app-frame screen-${screen}`}>
         <header className="app-header">
           <button
             className="brand brand-button"
@@ -172,62 +180,64 @@ export function PathfinderApp() {
             </button>
           )}
         </header>
-        {recoveryNotice && (
-          <div className="definition-card" role="status">
-            <p>{recoveryNotice}</p>
-            <button
-              className="text-button"
-              type="button"
-              onClick={() => setRecoveryNotice(undefined)}
-            >
-              Dismiss notice
-            </button>
-          </div>
-        )}
+        <main id="main-content" ref={mainRef} tabIndex={-1}>
+          {recoveryNotice && (
+            <div className="definition-card" role="status">
+              <p>{recoveryNotice}</p>
+              <button
+                className="text-button"
+                type="button"
+                onClick={() => setRecoveryNotice(undefined)}
+              >
+                Dismiss notice
+              </button>
+            </div>
+          )}
 
-        {screen === "intro" && (
-          <IntroScreen
-            hasProgress={Object.keys(answers).length > 0}
-            resumeDetail={
-              surveyComplete
-                ? "Your completed research map is ready"
-                : `Saved at question ${resumeIndex + 1} of ${visibleQuestions.length}`
-            }
-            onBegin={begin}
-            onResume={resume}
-          />
-        )}
-        {screen === "survey" && currentQuestionId && (
-          <SurveyScreen
-            answers={answers}
-            currentQuestionId={currentQuestionId}
-            onAnswer={updateAnswer}
-            onQuestionChange={goToQuestion}
-            onComplete={() => showScreen("results")}
-            shortcutsEnabled={shortcutsEnabled}
-            onShortcutsChange={setShortcutsEnabled}
-          />
-        )}
-        {screen === "results" && (
-          <ResultsScreen
-            answers={answers}
-            primaryOverride={primaryOverride}
-            onExploreNearby={setPrimaryOverride}
-            onReview={() => showScreen("review")}
-            onRestart={restart}
-          />
-        )}
-        {screen === "review" && (
-          <ReviewScreen
-            answers={answers}
-            onEdit={(questionId) => {
-              setCurrentQuestionId(questionId);
-              showScreen("survey");
-            }}
-            onBack={() => showScreen("results")}
-          />
-        )}
-      </main>
+          {screen === "intro" && (
+            <IntroScreen
+              hasProgress={Object.keys(answers).length > 0}
+              resumeDetail={
+                surveyComplete
+                  ? "Your completed research map is ready"
+                  : `Saved at question ${resumeIndex + 1} of ${visibleQuestions.length}`
+              }
+              onBegin={begin}
+              onResume={resume}
+            />
+          )}
+          {screen === "survey" && currentQuestionId && (
+            <SurveyScreen
+              answers={answers}
+              currentQuestionId={currentQuestionId}
+              onAnswer={updateAnswer}
+              onQuestionChange={goToQuestion}
+              onComplete={() => showScreen("results")}
+              shortcutsEnabled={shortcutsEnabled}
+              onShortcutsChange={setShortcutsEnabled}
+            />
+          )}
+          {screen === "results" && (
+            <ResultsScreen
+              answers={answers}
+              primaryOverride={primaryOverride}
+              onExploreNearby={setPrimaryOverride}
+              onReview={() => showScreen("review")}
+              onRestart={restart}
+            />
+          )}
+          {screen === "review" && (
+            <ReviewScreen
+              answers={answers}
+              onEdit={(questionId) => {
+                setCurrentQuestionId(questionId);
+                showScreen("survey");
+              }}
+              onBack={() => showScreen("results")}
+            />
+          )}
+        </main>
+      </div>
     </>
   );
 }
