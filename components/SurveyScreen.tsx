@@ -9,6 +9,7 @@ import {
 } from "@/lib/branching";
 import { stageLabels, questionById } from "@/data/questions";
 import type { AnswerMap } from "@/lib/types";
+import { selectAnswer } from "@/lib/answer-selection";
 
 interface SurveyScreenProps {
   answers: AnswerMap;
@@ -76,21 +77,8 @@ export function SurveyScreen({
       const option = question.options[optionIndex];
       if (!option || optionIndex < 0) return;
 
-      const active = selected.includes(option.id);
-      const limitReached =
-        question.type === "multi" &&
-        !active &&
-        selected.length >= (question.maxSelections ?? Infinity);
-      if (limitReached) return;
-
       event.preventDefault();
-      if (question.type === "single") onAnswer(question.id, [option.id]);
-      else if (active)
-        onAnswer(
-          question.id,
-          selected.filter((id) => id !== option.id),
-        );
-      else onAnswer(question.id, [...selected, option.id]);
+      onAnswer(question.id, selectAnswer(question, selected, option.id));
     }
 
     window.addEventListener("keydown", chooseWithLetter);
@@ -98,18 +86,7 @@ export function SurveyScreen({
   }, [onAnswer, question, selected, shortcutsEnabled]);
 
   function toggle(optionId: string) {
-    if (question.type === "single") {
-      onAnswer(question.id, [optionId]);
-      return;
-    }
-    const exists = selected.includes(optionId);
-    if (exists)
-      onAnswer(
-        question.id,
-        selected.filter((id) => id !== optionId),
-      );
-    else if ((question.maxSelections ?? Infinity) > selected.length)
-      onAnswer(question.id, [...selected, optionId]);
+    onAnswer(question.id, selectAnswer(question, selected, optionId));
   }
 
   function next() {
@@ -180,6 +157,7 @@ export function SurveyScreen({
               const active = selected.includes(option.id);
               const limitReached =
                 question.type === "multi" &&
+                !option.uncertainty &&
                 !active &&
                 selected.length >= (question.maxSelections ?? Infinity);
               return (

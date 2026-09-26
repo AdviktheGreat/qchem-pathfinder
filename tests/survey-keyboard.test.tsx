@@ -9,6 +9,39 @@ import { SurveyScreen } from "@/components/SurveyScreen";
 afterEach(cleanup);
 
 describe("survey keyboard shortcuts", () => {
+  it("replaces specific concepts with uncertainty through clicks and letter keys", () => {
+    const onAnswer = vi.fn();
+    render(
+      <SurveyScreen
+        shortcutsEnabled
+        answers={{
+          "concept-familiarity": [
+            "orbitals",
+            "energy",
+            "bonding",
+            "spectra",
+            "methods",
+          ],
+        }}
+        currentQuestionId="concept-familiarity"
+        onAnswer={onAnswer}
+        onQuestionChange={vi.fn()}
+        onComplete={vi.fn()}
+      />,
+    );
+    fireEvent.click(
+      screen.getByRole("checkbox", {
+        name: "I’ve heard of these but couldn’t explain them",
+      }),
+    );
+    expect(onAnswer).toHaveBeenLastCalledWith("concept-familiarity", [
+      "uncertain",
+    ]);
+    fireEvent.keyDown(window, { key: "f" });
+    expect(onAnswer).toHaveBeenLastCalledWith("concept-familiarity", [
+      "uncertain",
+    ]);
+  });
   it("uses one radio tab stop and wraps arrow-key selection", () => {
     function Survey() {
       const [answers, setAnswers] = useState<AnswerMap>({});
