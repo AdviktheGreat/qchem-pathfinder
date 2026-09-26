@@ -396,6 +396,17 @@ export function ResultsScreen({
                     <small className="alternative-reason">
                       Why it may fit: {result.interestReasons[0]}
                     </small>
+                    <button
+                      className="text-button"
+                      type="button"
+                      aria-label={`Explore ${result.niche.name} as my primary direction`}
+                      onClick={() => {
+                        onExploreNearby(result.niche.id);
+                        window.scrollTo({ top: 0 });
+                      }}
+                    >
+                      Make this my exploration path <ArrowRight size={15} />
+                    </button>
                   </div>
                   <button
                     className="expand-button"

@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { getRecommendations } from "@/lib/recommendation";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ResultsScreen } from "@/components/ResultsScreen";
 import type { AnswerMap } from "@/lib/types";
@@ -8,6 +9,27 @@ import type { AnswerMap } from "@/lib/types";
 afterEach(cleanup);
 
 describe("result fit labels", () => {
+  it("lets students promote either alternative", () => {
+    vi.spyOn(window, "scrollTo").mockImplementation(() => {});
+    const onExploreNearby = vi.fn();
+    render(
+      <ResultsScreen
+        answers={{}}
+        onExploreNearby={onExploreNearby}
+        onReview={vi.fn()}
+        onRestart={vi.fn()}
+      />,
+    );
+    for (const result of getRecommendations({}).slice(1)) {
+      fireEvent.click(
+        screen.getByRole("button", {
+          name: `Explore ${result.niche.name} as my primary direction`,
+        }),
+      );
+      expect(onExploreNearby).toHaveBeenCalledWith(result.niche.id);
+    }
+    vi.restoreAllMocks();
+  });
   it("keeps labels relative to the highest-scoring direction", () => {
     const answers: AnswerMap = {
       motivation: ["reactions"],
