@@ -115,11 +115,12 @@ function SearchLaunchpad({
   compact?: boolean;
 }) {
   const niche = result.niche;
-  const [activeQuery, setActiveQuery] = useState<keyof typeof queryLabels>(
-    "orientation",
-  );
+  const [activeQuery, setActiveQuery] =
+    useState<keyof typeof queryLabels>("orientation");
   const tabsId = useId();
-  const queryKinds = Object.keys(queryLabels) as Array<keyof typeof queryLabels>;
+  const queryKinds = Object.keys(queryLabels) as Array<
+    keyof typeof queryLabels
+  >;
   const allQueries = Object.values(niche.searches).join("\n");
   const allKeywords = [
     ...niche.keywords,
@@ -207,39 +208,39 @@ function SearchLaunchpad({
           ))}
         </div>
         <div className="query-list">
-        {Object.entries(niche.searches).map(([kind, query]) => (
-          <div
-            className="query-row query-panel"
-            key={kind}
-            id={`${tabsId}-${kind}-panel`}
-            role="tabpanel"
-            aria-labelledby={`${tabsId}-${kind}-tab`}
-            hidden={activeQuery !== kind}
-          >
-            <div className="query-copy">
-              <span>{queryLabels[kind as keyof typeof queryLabels]}</span>
-              <code>{query}</code>
-              <p>{queryGuidance[kind as keyof typeof queryGuidance]}</p>
+          {Object.entries(niche.searches).map(([kind, query]) => (
+            <div
+              className="query-row query-panel"
+              key={kind}
+              id={`${tabsId}-${kind}-panel`}
+              role="tabpanel"
+              aria-labelledby={`${tabsId}-${kind}-tab`}
+              hidden={activeQuery !== kind}
+            >
+              <div className="query-copy">
+                <span>{queryLabels[kind as keyof typeof queryLabels]}</span>
+                <code>{query}</code>
+                <p>{queryGuidance[kind as keyof typeof queryGuidance]}</p>
+              </div>
+              <div className="query-actions">
+                <a
+                  className="scholar-link"
+                  href={`https://scholar.google.com/scholar?q=${encodeURIComponent(query)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Open Scholar — ${queryLabels[kind as keyof typeof queryLabels]} for ${niche.name} (opens in a new tab)`}
+                >
+                  <ExternalLink size={14} /> Open Scholar{" "}
+                  <span className="sr-only">(opens in a new tab)</span>
+                </a>
+                <CopyButton
+                  text={query}
+                  label="Copy query"
+                  context={`${queryLabels[kind as keyof typeof queryLabels]} for ${niche.name}`}
+                />
+              </div>
             </div>
-            <div className="query-actions">
-              <a
-                className="scholar-link"
-                href={`https://scholar.google.com/scholar?q=${encodeURIComponent(query)}`}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`Open Scholar — ${queryLabels[kind as keyof typeof queryLabels]} for ${niche.name} (opens in a new tab)`}
-              >
-                <ExternalLink size={14} /> Open Scholar{" "}
-                <span className="sr-only">(opens in a new tab)</span>
-              </a>
-              <CopyButton
-                text={query}
-                label="Copy query"
-                context={`${queryLabels[kind as keyof typeof queryLabels]} for ${niche.name}`}
-              />
-            </div>
-          </div>
-        ))}
+          ))}
         </div>
       </div>
       {!compact && (
@@ -536,7 +537,10 @@ export function ResultsScreen({
                 : "Why it matched"}
             </p>
             {recommendationEvidence.length > 0 && (
-              <div className="evidence-chips" aria-label="Answers behind this match">
+              <div
+                className="evidence-chips"
+                aria-label="Answers behind this match"
+              >
                 {recommendationEvidence.map((item) => (
                   <span key={`${item.kind}-${item.label}`}>
                     <small>{item.kind}</small>
@@ -634,7 +638,10 @@ export function ResultsScreen({
           </div>
           <p>{explainRecommendationContext(recommendations)}</p>
         </div>
-        <div className="comparison-view" aria-label="Compare your three directions">
+        <div
+          className="comparison-view"
+          aria-label="Compare your three directions"
+        >
           {recommendations.map((result, index) => (
             <article key={result.niche.id}>
               <header>

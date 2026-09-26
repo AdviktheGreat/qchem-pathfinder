@@ -43,7 +43,9 @@ export function JourneyNavigator({
           return (
             <li
               key={stage}
-              className={completed ? "is-complete" : current ? "is-current" : ""}
+              className={
+                completed ? "is-complete" : current ? "is-current" : ""
+              }
               aria-current={current ? "step" : undefined}
             >
               <span className="journey-icon" aria-hidden="true">

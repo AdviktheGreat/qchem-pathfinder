@@ -74,6 +74,10 @@ button:disabled {
   outline: 3px solid var(--violet);
   outline-offset: 3px;
 }
+main h1[tabindex="-1"]:focus,
+main h2[tabindex="-1"]:focus {
+  outline: none;
+}
 ::selection {
   background: var(--acid);
   color: var(--ink);
@@ -138,8 +142,14 @@ button:disabled {
   animation-delay: -1s;
 }
 @keyframes orbital-pulse {
-  from { opacity: 0.35; scale: 0.92; }
-  to { opacity: 1; scale: 1; }
+  from {
+    opacity: 0.35;
+    scale: 0.92;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
 }
 .not-found-shell {
   width: min(42rem, calc(100% - 2rem));
@@ -311,7 +321,12 @@ button:disabled {
   right: -8%;
   border-radius: 50%;
   background:
-    radial-gradient(circle at center, transparent 52%, rgba(49, 87, 213, 0.08) 53% 53.4%, transparent 54%),
+    radial-gradient(
+      circle at center,
+      transparent 52%,
+      rgba(49, 87, 213, 0.08) 53% 53.4%,
+      transparent 54%
+    ),
     radial-gradient(circle at center, rgba(117, 86, 216, 0.08), transparent 66%);
   pointer-events: none;
 }
@@ -545,7 +560,11 @@ h2 {
   inset: 0;
   overflow: hidden;
   background:
-    radial-gradient(circle at 82% 17%, rgba(117, 86, 216, 0.12), transparent 25%),
+    radial-gradient(
+      circle at 82% 17%,
+      rgba(117, 86, 216, 0.12),
+      transparent 25%
+    ),
     linear-gradient(145deg, rgba(49, 87, 213, 0.09), transparent 58%);
 }
 .density-contours {
@@ -571,7 +590,11 @@ h2 {
 }
 .density-contours span:nth-child(3) {
   inset: 5rem;
-  background: radial-gradient(circle, rgba(117, 86, 216, 0.22), transparent 66%);
+  background: radial-gradient(
+    circle,
+    rgba(117, 86, 216, 0.22),
+    transparent 66%
+  );
   transform: rotate(38deg);
 }
 .scientific-field svg {
@@ -582,7 +605,10 @@ h2 {
   fill: none;
   stroke: rgba(49, 87, 213, 0.2);
   stroke-width: 1.4;
-  transform: translate(calc(var(--field-x) * -4px), calc(var(--field-y) * -4px));
+  transform: translate(
+    calc(var(--field-x) * -4px),
+    calc(var(--field-y) * -4px)
+  );
   transition: transform 0.3s ease-out;
 }
 .scientific-field svg circle {
@@ -605,8 +631,14 @@ h2 {
   border-radius: 50%;
   background: white;
 }
-.state-network span:nth-child(2) { left: 2.35rem; top: 1.5rem; }
-.state-network span:nth-child(3) { right: 0; top: 0.25rem; }
+.state-network span:nth-child(2) {
+  left: 2.35rem;
+  top: 1.5rem;
+}
+.state-network span:nth-child(3) {
+  right: 0;
+  top: 0.25rem;
+}
 .state-network i {
   position: absolute;
   left: 7px;
@@ -896,12 +928,24 @@ h2 {
   animation-name: question-backward;
 }
 @keyframes question-forward {
-  from { opacity: 0; transform: translateX(14px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 @keyframes question-backward {
-  from { opacity: 0; transform: translateX(-14px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 .question-copy {
   align-self: start;
@@ -1092,8 +1136,12 @@ h2 {
   animation: check-arrive 0.22s ease-out;
 }
 @keyframes check-arrive {
-  from { transform: scale(0.55); }
-  to { transform: scale(1); }
+  from {
+    transform: scale(0.55);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 .selection-hint {
   margin: 0.85rem 0.25rem 0;
@@ -1139,6 +1187,10 @@ h2 {
 .result-heading h1 {
   font-size: clamp(2.8rem, 6vw, 5.3rem);
 }
+.result-hero h1 {
+  max-width: 13ch;
+  font-size: clamp(2.7rem, 4.6vw, 4.65rem);
+}
 .result-hero > div > p:last-child,
 .result-heading > p:last-child {
   max-width: 670px;
@@ -1168,12 +1220,30 @@ h2 {
   background: var(--panel);
   box-shadow: var(--shadow);
 }
-.primary-result.theme-reaction { --area-accent: #b34e70; --area-soft: #fbeaf0; }
-.primary-result.theme-light { --area-accent: #7556d8; --area-soft: #f0ebff; }
-.primary-result.theme-materials { --area-accent: #3157d5; --area-soft: #eaf0ff; }
-.primary-result.theme-molecular { --area-accent: #167b80; --area-soft: #e6f4f3; }
-.primary-result.theme-methods { --area-accent: #a55b17; --area-soft: #fff0dc; }
-.primary-result.theme-environment { --area-accent: #32705d; --area-soft: #e8f2ed; }
+.primary-result.theme-reaction {
+  --area-accent: #b34e70;
+  --area-soft: #fbeaf0;
+}
+.primary-result.theme-light {
+  --area-accent: #7556d8;
+  --area-soft: #f0ebff;
+}
+.primary-result.theme-materials {
+  --area-accent: #3157d5;
+  --area-soft: #eaf0ff;
+}
+.primary-result.theme-molecular {
+  --area-accent: #167b80;
+  --area-soft: #e6f4f3;
+}
+.primary-result.theme-methods {
+  --area-accent: #a55b17;
+  --area-soft: #fff0dc;
+}
+.primary-result.theme-environment {
+  --area-accent: #32705d;
+  --area-soft: #e8f2ed;
+}
 .primary-result::after {
   content: "";
   position: absolute;
@@ -1184,7 +1254,11 @@ h2 {
   height: 24rem;
   border: 1px solid color-mix(in srgb, var(--area-accent) 24%, transparent);
   border-radius: 45% 55% 62% 38% / 47% 42% 58% 53%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--area-accent) 12%, transparent), transparent 66%);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--area-accent) 12%, transparent),
+    transparent 66%
+  );
   transform: rotate(20deg);
   pointer-events: none;
 }
@@ -1249,7 +1323,8 @@ h2 {
 .fit-card > div,
 .evidence-explanation > div {
   padding: 1rem 0;
-  border-bottom: 1px solid color-mix(in srgb, var(--area-accent) 17%, transparent);
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--area-accent) 17%, transparent);
 }
 .fit-card strong {
   font-size: 0.82rem;
@@ -1972,6 +2047,7 @@ h2 {
   }
   .survey-shell {
     padding-top: 1.4rem;
+    padding-bottom: 7.5rem;
   }
   .journey-nav ol {
     display: none;
@@ -2014,12 +2090,14 @@ h2 {
     padding: 0.78rem 1rem;
   }
   .survey-controls {
-    position: sticky;
+    position: fixed;
     z-index: 10;
+    left: 0;
+    right: 0;
     bottom: 0;
     align-items: center;
     gap: 0.6rem;
-    margin: 0 -1rem;
+    margin: 0;
     padding: 0.9rem 1rem calc(0.9rem + env(safe-area-inset-bottom));
     border-top: 1px solid rgba(183, 193, 208, 0.8);
     background: rgba(247, 246, 242, 0.94);
@@ -2197,7 +2275,11 @@ h2 {
   gap: 1rem;
   padding: 1.25rem 1.4rem;
   border-bottom: 1px solid var(--line);
-  background: linear-gradient(110deg, rgba(220, 236, 255, 0.7), transparent 65%);
+  background: linear-gradient(
+    110deg,
+    rgba(220, 236, 255, 0.7),
+    transparent 65%
+  );
 }
 .passport-heading h2 {
   margin: 0.35rem 0 0;

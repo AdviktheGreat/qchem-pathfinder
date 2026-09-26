@@ -42,9 +42,9 @@ export function PathfinderApp() {
   const [recoveryNotice, setRecoveryNotice] = useState<string>();
   const [shortcutsEnabled, setShortcutsEnabled] = useState(false);
   const [branchChanged, setBranchChanged] = useState(false);
-  const [saveStatus, setSaveStatus] = useState<
-    "saving" | "saved" | "failed"
-  >("saved");
+  const [saveStatus, setSaveStatus] = useState<"saving" | "saved" | "failed">(
+    "saved",
+  );
   const saveTimerRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {

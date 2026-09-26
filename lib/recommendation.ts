@@ -298,8 +298,7 @@ export function getRecommendationEvidence(
         return [
           {
             label: option.label,
-            kind:
-              question.stage === "style" ? "Research style" : "Interest",
+            kind: question.stage === "style" ? "Research style" : "Interest",
             strength,
           } satisfies RecommendationEvidence,
         ];

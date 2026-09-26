@@ -89,7 +89,10 @@ export function IntroScreen({
         </div>
         <div className="privacy-promise">
           <GitBranch size={17} />
-          <p>Your answers shape the next questions, not a hidden personality label.</p>
+          <p>
+            Your answers shape the next questions, not a hidden personality
+            label.
+          </p>
         </div>
       </section>
     </>

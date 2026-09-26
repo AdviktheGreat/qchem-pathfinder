@@ -82,6 +82,14 @@ The interface includes optional letter shortcuts (off by default), arrow-key sin
 
 Saved progress is validated against current questions and options. Invalid choices and hidden branches are removed, incomplete results return to an unanswered question, and repaired progress is explained. Unreadable or unsupported-version data starts fresh with a notice. Storage failure does not prevent the survey from working, but progress cannot survive refresh in that case. No answers leave the browser; opening a scholarly search sends the selected query to that provider.
 
+## Visual and interaction system
+
+The interface uses a warm laboratory-white base, graphite typography, spectral blue actions, and one stage-specific accent at a time. Design tokens for color, spacing, radii, shadows, surfaces, and survey stages live at the top of `app/globals.css`. Keep ultraviolet as a focus or scientific accent rather than a large background color.
+
+The survey is intentionally one working surface per question. `JourneyNavigator` communicates the five stages, answer cards expose their single-, multi-, scenario-, and uncertainty states, and phone layouts use a safe-area-aware action dock. Motion is brief and automatically reduced for the operating-system reduced-motion preference.
+
+Results use three layers: the research passport for orientation, an editorial primary-direction feature for depth, and a horizontally scrollable comparison on narrow screens. Each literature launchpad uses Orientation, Focused, and Review tabs; all three query panels are restored for printing. Recommendation evidence chips come from `getRecommendationEvidence`, which traces the selected options that actually contributed to the current niche rather than presenting decorative match claims.
+
 ## Test coverage
 
 The second usability round adds stable pre-branch progress, exclusive uncertainty choices, pause/resume, visible save-failure notices, an uncertainty review filter, and a quick route back to results after complete edits. Unchanged answers preserve the chosen direction; changed motivations explain the new follow-ups.
