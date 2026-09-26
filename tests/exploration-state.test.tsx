@@ -75,6 +75,8 @@ it("keeps a chosen path, preparation and export through refresh, then resets it 
       name: "Edit: How does Phase 1 feel in your memory right now?",
     }),
   );
+  fireEvent.click(screen.getByRole("radio", { name: /I’m not sure yet/ }));
+  expect(JSON.parse(saved).primaryOverride).toBe(chosen.niche.id);
   fireEvent.click(
     screen.getByRole("radio", { name: /The big picture feels fresh/ }),
   );

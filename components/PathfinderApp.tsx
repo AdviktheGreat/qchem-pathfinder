@@ -128,6 +128,12 @@ export function PathfinderApp() {
   }
 
   function updateAnswer(questionId: string, optionIds: string[]) {
+    const previous = answers[questionId] ?? [];
+    if (
+      previous.length === optionIds.length &&
+      previous.every((id) => optionIds.includes(id))
+    )
+      return;
     if (
       questionId === "motivation" &&
       answers.motivation?.length &&
