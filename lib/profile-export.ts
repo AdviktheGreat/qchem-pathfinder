@@ -29,6 +29,7 @@ export function formatResearchProfile(
   const preparation = getPreparationProfile(answers, primary.niche);
   const directions = [primary, ...alternatives];
   const motivation = selectedLabels(answers, "motivation");
+  const questionTypes = selectedLabels(answers, "question-kind");
   const narrowing = getAnswerLabels(answers, "narrowing").map(
     (line) => line.split(": ").at(-1) ?? line,
   );
@@ -56,6 +57,11 @@ export function formatResearchProfile(
     ...(styles.length
       ? styles.map((item) => `- ${item}`)
       : ["- Still developing"]),
+    "",
+    "PREFERRED RESEARCH QUESTION TYPE",
+    ...(questionTypes.length
+      ? questionTypes.map((label) => `- ${label}`)
+      : ["- Still open"]),
     "",
     "PRIMARY DIRECTION",
     `${primary.niche.name} — ${primary.niche.shortDescription}`,

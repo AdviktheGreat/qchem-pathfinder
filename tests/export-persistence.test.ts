@@ -28,6 +28,7 @@ describe("research profile export", () => {
       "KNOWLEDGE STARTING POINT",
       "INTEREST THEMES",
       "PREFERRED RESEARCH STYLE",
+      "PREFERRED RESEARCH QUESTION TYPE",
       "PRIMARY DIRECTION",
       "NEARBY ALTERNATIVES",
       "STARTER KEYWORDS",
@@ -41,6 +42,7 @@ describe("research profile export", () => {
     expect(output).toContain("Reaction mechanisms & transition states");
     expect(output).toContain("The hidden sequence of bond changes");
     expect(output).toContain("An energy map of the complete pathway");
+    expect(output).toContain("Which path does this reaction take?");
     expect(output).toMatch(/STARTER KEYWORDS\n(?:[^\n]+\n[^\n]+\n){3}/);
     expect(output.match(/^- (?:Broad|Focused|Review):/gm)).toHaveLength(9);
     expect(output).toContain("Verify citations");
