@@ -240,7 +240,19 @@ export function SurveyScreen({
               );
             })}
           </div>
-          <p className="selection-hint" aria-live="polite">
+          <p
+            id="selection-guidance"
+            className="selection-hint"
+            aria-live="polite"
+          >
+            {selected.length === 0 && (
+              <span>
+                Choose an answer—or “
+                {question.options.find((option) => option.uncertainty)?.label ??
+                  "I’m not sure yet"}
+                ”—to continue.{" "}
+              </span>
+            )}
             {question.type === "multi"
               ? selectionLimitReached
                 ? `Maximum reached (${selected.length}) · Deselect one to choose another`
@@ -276,6 +288,7 @@ export function SurveyScreen({
           className="primary-button"
           type="button"
           disabled={selected.length === 0}
+          aria-describedby="selection-guidance"
           onClick={next}
         >
           {isLast ? "See my directions" : "Continue"} <ArrowRight size={17} />
