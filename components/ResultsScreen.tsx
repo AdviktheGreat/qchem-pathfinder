@@ -226,6 +226,12 @@ export function ResultsScreen({
   const [openAlternative, setOpenAlternative] = useState<string>();
   const alternativesHeadingRef = useRef<HTMLHeadingElement>(null);
 
+  function chooseDirection(nicheId?: string) {
+    setOpenAlternative(undefined);
+    onExploreNearby(nicheId);
+    window.scrollTo({ top: 0 });
+  }
+
   function downloadProfile() {
     const blob = new Blob([profileText], { type: "text/plain;charset=utf-8" });
     const href = URL.createObjectURL(blob);
@@ -280,7 +286,7 @@ export function ResultsScreen({
             <button
               type="button"
               className="text-button"
-              onClick={() => onExploreNearby(undefined)}
+              onClick={() => chooseDirection()}
             >
               Return to my original suggestion
             </button>
@@ -428,8 +434,7 @@ export function ResultsScreen({
                       type="button"
                       aria-label={`Explore ${result.niche.name} as my primary direction`}
                       onClick={() => {
-                        onExploreNearby(result.niche.id);
-                        window.scrollTo({ top: 0 });
+                        chooseDirection(result.niche.id);
                       }}
                     >
                       Make this my exploration path <ArrowRight size={15} />
