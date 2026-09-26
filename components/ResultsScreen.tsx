@@ -16,6 +16,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { CopyButton } from "@/components/CopyButton";
+import { glossary } from "@/data/glossary";
 import { formatResearchProfile } from "@/lib/profile-export";
 import { getPreparationProfile } from "@/lib/preparation";
 import {
@@ -375,36 +376,12 @@ export function ResultsScreen({
       <details className="results-glossary">
         <summary>Quick glossary for common computational terms</summary>
         <dl>
-          <div>
-            <dt>DFT</dt>
-            <dd>
-              A widely used way to approximate a molecule’s electron behavior.
-            </dd>
-          </div>
-          <div>
-            <dt>Transition state</dt>
-            <dd>
-              A fleeting, high-energy arrangement along a reaction pathway.
-            </dd>
-          </div>
-          <div>
-            <dt>Excited state</dt>
-            <dd>
-              An electronic state reached after a molecule absorbs energy.
-            </dd>
-          </div>
-          <div>
-            <dt>Electronic structure</dt>
-            <dd>
-              How electrons are arranged and how that shapes molecular behavior.
-            </dd>
-          </div>
-          <div>
-            <dt>Computational spectroscopy</dt>
-            <dd>
-              Predicting or interpreting spectra with molecular calculations.
-            </dd>
-          </div>
+          {glossary.map((entry) => (
+            <div key={entry.term}>
+              <dt>{entry.term}</dt>
+              <dd>{entry.text}</dd>
+            </div>
+          ))}
         </dl>
       </details>
 

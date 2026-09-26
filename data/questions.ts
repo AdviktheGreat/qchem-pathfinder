@@ -1,4 +1,5 @@
 import type { SurveyQuestion } from "@/lib/types";
+import { electronicStates } from "@/data/glossary";
 
 const uncertain = {
   id: "unsure",
@@ -1051,10 +1052,7 @@ export const questions: SurveyQuestion[] = [
     kicker: "Energy state",
     title:
       "Would you rather study a molecule’s lowest electronic-energy state or a higher one?",
-    definition: {
-      term: "Electronic states",
-      text: "The electronic ground state has the lowest electronic energy. An electronically excited state has more. Either can involve moving or vibrating nuclei. Absorbing suitable light is one way to excite electrons; collisions or energy transfer can also do it.",
-    },
+    definition: electronicStates,
     type: "single",
     options: [
       {

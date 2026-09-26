@@ -1,4 +1,5 @@
 import type { Niche } from "@/lib/types";
+import { excitedState } from "@/data/glossary";
 
 const starterPaperTypes = [
   "A recent review or perspective for the field map",
@@ -767,8 +768,7 @@ export const niches: Niche[] = [
     name: "Excited states & molecular photochemistry",
     shortDescription:
       "Follow what molecules do after light promotes their electrons to higher energy.",
-    explanation:
-      "Absorbing light can create an excited state: a temporary higher-energy arrangement of electrons. From there, a molecule may emit light, change shape, transfer charge, release heat, or react. Computational photochemistry maps these possibilities and the points where electronic states interact.",
+    explanation: `${excitedState.text} From there, a molecule may emit light, change shape, transfer charge, release heat, or react. Computational photochemistry maps these possibilities and the points where electronic states interact.`,
     questions: [
       "Which excited state is created by a wavelength of light?",
       "How can the molecule relax or react?",
