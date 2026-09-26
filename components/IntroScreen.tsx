@@ -1,11 +1,12 @@
 import {
   ArrowRight,
-  BookOpen,
-  Check,
-  Compass,
-  FlaskConical,
+  Clock3,
+  GitBranch,
+  ShieldCheck,
+  SlidersHorizontal,
   Sparkles,
 } from "lucide-react";
+import { ResearchMapPreview } from "@/components/ResearchMapPreview";
 
 interface IntroScreenProps {
   hasProgress: boolean;
@@ -28,7 +29,7 @@ export function IntroScreen({
             <Sparkles size={15} /> A guided research exploration
           </p>
           <h1 id="intro-title" tabIndex={-1}>
-            Find the question-space that makes you want to look closer.
+            Find a quantum chemistry direction worth looking into.
           </h1>
           <p className="lede">
             You know the broad landscape. In about ten minutes, we’ll help you
@@ -51,41 +52,19 @@ export function IntroScreen({
               </button>
             )}
           </div>
-          <p className="microcopy">
-            No grades. No wrong answers. Limited experience never closes a door.
-          </p>
-          <details className="privacy-details">
-            <summary>How your answers stay private</summary>
-            <p>
-              Your choices are saved only in this browser so you can refresh or
-              return later. They are not sent to an account, server, or outside
-              service.
-            </p>
-          </details>
-        </div>
-
-        <aside className="field-note" aria-label="What you will leave with">
-          <div className="orbit" aria-hidden="true">
-            <span />
+          <div className="reassurance-row" aria-label="What to expect">
+            <span>
+              <Clock3 size={15} /> About 10 minutes
+            </span>
+            <span>
+              <ShieldCheck size={15} /> Answers stay on this device
+            </span>
+            <span>
+              <SlidersHorizontal size={15} /> No scores or wrong answers
+            </span>
           </div>
-          <p className="field-label">Your field note</p>
-          <h2>A direction, not a verdict.</h2>
-          <ul>
-            <li>
-              <Compass size={17} /> One well-matched sub-niche
-            </li>
-            <li>
-              <FlaskConical size={17} /> Two nearby alternatives
-            </li>
-            <li>
-              <BookOpen size={17} /> Search language to start reading
-            </li>
-          </ul>
-          <p className="field-foot">
-            You choose a final research question later, after the literature
-            shows what is known—and what is still open.
-          </p>
-        </aside>
+        </div>
+        <ResearchMapPreview />
       </section>
 
       <section className="promise-strip" aria-label="How the pathfinder works">
@@ -109,8 +88,8 @@ export function IntroScreen({
           </p>
         </div>
         <div className="privacy-promise">
-          <Check size={17} />
-          <p>No names, accounts, or transmitted answers.</p>
+          <GitBranch size={17} />
+          <p>Your answers shape the next questions, not a hidden personality label.</p>
         </div>
       </section>
     </>
