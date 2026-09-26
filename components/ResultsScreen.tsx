@@ -278,6 +278,29 @@ export function ResultsScreen({
         </div>
       </section>
 
+      <nav
+        className="result-section-nav no-print"
+        aria-label="Results sections"
+      >
+        {[
+          ["primary-title", "Primary direction"],
+          ["preparation-title", "Preparation"],
+          ["alternatives-title", "Alternatives"],
+          ["export-title", "Export profile"],
+        ].map(([id, label]) => (
+          <a
+            key={id}
+            href={`#${id}`}
+            onClick={(event) => {
+              event.preventDefault();
+              document.getElementById(id)?.focus();
+            }}
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
+
       <section className="primary-result" aria-labelledby="primary-title">
         <div className="primary-label">
           <span>{getFitLabel(primary, bestScore)}</span>
@@ -351,7 +374,9 @@ export function ResultsScreen({
           <p className="section-kicker">
             <Lightbulb size={14} /> Preparation, not permission
           </p>
-          <h2>What to revisit before you dive in</h2>
+          <h2 id="preparation-title" tabIndex={-1}>
+            What to revisit before you dive in
+          </h2>
           <p>{preparation.startingPoint}</p>
         </div>
         <div>
@@ -391,7 +416,11 @@ export function ResultsScreen({
             <p className="section-kicker">
               <FlaskConical size={14} /> Keep two doors open
             </p>
-            <h2 ref={alternativesHeadingRef} tabIndex={-1}>
+            <h2
+              id="alternatives-title"
+              ref={alternativesHeadingRef}
+              tabIndex={-1}
+            >
               Nearby directions worth exploring.
             </h2>
           </div>
@@ -457,7 +486,9 @@ export function ResultsScreen({
           <p className="section-kicker">
             <ExternalLink size={14} /> Take your map with you
           </p>
-          <h2>Research exploration profile</h2>
+          <h2 id="export-title" tabIndex={-1}>
+            Research exploration profile
+          </h2>
           <p>
             Copy this consistent plain-text summary into your workshop notes or
             a later literature-search prompt kit.

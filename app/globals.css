@@ -1389,6 +1389,20 @@ h2 {
   display: block;
   margin: 1.25rem auto;
 }
+.result-section-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.result-section-nav a {
+  padding: 0.65rem 0;
+  font-weight: 650;
+  text-underline-offset: 0.2em;
+}
+[id$="-title"] {
+  scroll-margin-top: 1.5rem;
+}
 .review-open-label {
   display: block;
   margin-top: 0.5rem;
