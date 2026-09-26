@@ -45,6 +45,7 @@ export function SurveyScreen({
     Math.ceil((visible.length - index - 1) * 0.6),
   );
   const headingRef = useRef<HTMLHeadingElement>(null);
+  const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
   useEffect(() => {
     headingRef.current?.focus();
@@ -185,12 +186,46 @@ export function SurveyScreen({
               return (
                 <button
                   key={option.id}
+                  ref={(node) => {
+                    optionRefs.current[optionIndex] = node;
+                  }}
                   className={`choice-card ${active ? "is-selected" : ""}`}
                   type="button"
                   role={question.type === "single" ? "radio" : "checkbox"}
                   aria-checked={active}
+                  tabIndex={
+                    question.type === "single"
+                      ? active || (!selected.length && optionIndex === 0)
+                        ? 0
+                        : -1
+                      : 0
+                  }
                   disabled={limitReached}
                   onClick={() => toggle(option.id)}
+                  onKeyDown={(event) => {
+                    if (
+                      question.type !== "single" ||
+                      event.altKey ||
+                      event.ctrlKey ||
+                      event.metaKey
+                    )
+                      return;
+                    const count = question.options.length;
+                    let nextIndex: number;
+                    if (event.key === "ArrowRight" || event.key === "ArrowDown")
+                      nextIndex = (optionIndex + 1) % count;
+                    else if (
+                      event.key === "ArrowLeft" ||
+                      event.key === "ArrowUp"
+                    )
+                      nextIndex = (optionIndex - 1 + count) % count;
+                    else if (event.key === "Home") nextIndex = 0;
+                    else if (event.key === "End") nextIndex = count - 1;
+                    else return;
+                    event.preventDefault();
+                    onAnswer(question.id, [question.options[nextIndex].id]);
+                    optionRefs.current[nextIndex]?.focus();
+                  }}
                 >
                   <span className="choice-index" aria-hidden="true">
                     {String.fromCharCode(65 + optionIndex)}
