@@ -18,6 +18,7 @@ import {
 import { CopyButton } from "@/components/CopyButton";
 import { glossary } from "@/data/glossary";
 import { fitLabelDescriptions } from "@/data/fit-labels";
+import { queryGuidance } from "@/data/reading-guidance";
 import { formatResearchProfile } from "@/lib/profile-export";
 import { getPreparationProfile } from "@/lib/preparation";
 import {
@@ -140,6 +141,7 @@ function SearchLaunchpad({
             <div className="query-copy">
               <span>{queryLabels[kind as keyof typeof queryLabels]}</span>
               <code>{query}</code>
+              <p>{queryGuidance[kind as keyof typeof queryGuidance]}</p>
             </div>
             <div className="query-actions">
               <a

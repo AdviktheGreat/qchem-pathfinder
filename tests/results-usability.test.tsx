@@ -8,8 +8,14 @@ import {
 } from "@testing-library/react";
 import { afterEach, expect, it, vi } from "vitest";
 import { ResultsScreen } from "@/components/ResultsScreen";
+import { queryGuidance } from "@/data/reading-guidance";
 import { getRecommendations, explainDifference } from "@/lib/recommendation";
 afterEach(cleanup);
+it("explains when to use each search query", () => {
+  render(<ResultsScreen {...handlers} answers={{}} />);
+  for (const guidance of Object.values(queryGuidance))
+    expect(screen.getByText(guidance)).toBeDefined();
+});
 it("shows each alternative comparison while its details are collapsed", () => {
   render(<ResultsScreen {...handlers} answers={{}} />);
   const [primary, ...alternatives] = getRecommendations({});
