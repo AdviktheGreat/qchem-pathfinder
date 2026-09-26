@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { formatResearchProfile } from "@/lib/profile-export";
+import { getRecommendations } from "@/lib/recommendation";
 import {
   createPersistedState,
   parseProgress,
@@ -22,6 +23,21 @@ const answers = {
 };
 
 describe("research profile export", () => {
+  it("exports every direction and query after an alternative is promoted", () => {
+    const override = getRecommendations(answers)[2].niche.id;
+    const results = getRecommendations(answers, override);
+    const output = formatResearchProfile(answers, override);
+    expect(output).toContain(`PRIMARY DIRECTION\n${results[0].niche.name}`);
+    for (const result of results) {
+      for (const keyword of result.niche.keywords)
+        expect(output).toContain(keyword);
+      for (const query of Object.values(result.niche.searches))
+        expect(output).toContain(query);
+    }
+    expect(formatResearchProfile({ motivation: ["balanced"] })).toContain(
+      "order is not a measure of personal fit",
+    );
+  });
   it("uses a stable, useful section structure", () => {
     const output = formatResearchProfile(answers);
     for (const heading of [

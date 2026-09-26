@@ -4,6 +4,7 @@ import {
   getAnswerLabels,
   getKnowledgeProfile,
   getRecommendations,
+  explainRecommendationContext,
 } from "@/lib/recommendation";
 import type { AnswerMap } from "@/lib/types";
 import { getPreparationProfile } from "@/lib/preparation";
@@ -22,10 +23,8 @@ export function formatResearchProfile(
   answers: AnswerMap,
   primaryOverride?: string,
 ): string {
-  const [primary, ...alternatives] = getRecommendations(
-    answers,
-    primaryOverride,
-  );
+  const recommendations = getRecommendations(answers, primaryOverride);
+  const [primary, ...alternatives] = recommendations;
   const knowledge = getKnowledgeProfile(answers);
   const preparation = getPreparationProfile(answers, primary.niche);
   const directions = [primary, ...alternatives];
@@ -69,6 +68,9 @@ export function formatResearchProfile(
     "",
     "PRIMARY DIRECTION",
     `${primary.niche.name} — ${primary.niche.shortDescription}`,
+    "",
+    "RECOMMENDATION CONTEXT",
+    explainRecommendationContext(recommendations),
     "",
     "NEARBY ALTERNATIVES",
     ...alternatives.map(
