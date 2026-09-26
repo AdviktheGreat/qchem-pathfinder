@@ -19,6 +19,7 @@ import { CopyButton } from "@/components/CopyButton";
 import { formatResearchProfile } from "@/lib/profile-export";
 import {
   explainDifference,
+  explainRecommendationContext,
   getFitLabel,
   getKnowledgeProfile,
   getRecommendations,
@@ -366,9 +367,7 @@ export function ResultsScreen({
             </p>
             <h2>Nearby directions worth exploring.</h2>
           </div>
-          <p>
-            Close scores are a useful signal: your interests cross boundaries.
-          </p>
+          <p>{explainRecommendationContext(recommendations)}</p>
         </div>
         <div className="alternative-list">
           {alternatives.map((result, index) => {

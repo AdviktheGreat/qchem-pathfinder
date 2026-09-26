@@ -248,3 +248,14 @@ export function explainDifference(
     return alternative.niche.comparisonLens;
   return `This path shifts the center of attention from ${primary.niche.area.toLowerCase()} toward ${alternative.niche.area.toLowerCase()}. ${alternative.niche.comparisonLens}`;
 }
+
+export function explainRecommendationContext(results: RankedNiche[]): string {
+  const ordered = [...results].sort((a, b) => b.score - a.score);
+  if (ordered.every((result) => result.preferenceEvidenceCount === 0))
+    return "Your interests are still open. These are varied starting places to sample; their order is not a measure of personal fit.";
+  if (ordered[0]?.preferenceEvidenceCount < 2)
+    return "A few preferences are beginning to emerge. Treat these suggestions as possibilities to test through reading.";
+  if (ordered[1] && ordered[1].score >= ordered[0].score * 0.9)
+    return "Several directions have similar support from your answers. Reading a little in each can help you decide what holds your attention.";
+  return "Your answers give one direction more support. The alternatives offer different angles worth comparing through reading.";
+}

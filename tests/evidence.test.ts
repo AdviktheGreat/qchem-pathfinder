@@ -1,5 +1,9 @@
 import { expect, it } from "vitest";
-import { getFitLabel, rankNiches } from "@/lib/recommendation";
+import {
+  explainRecommendationContext,
+  getFitLabel,
+  rankNiches,
+} from "@/lib/recommendation";
 import type { AnswerMap } from "@/lib/types";
 
 it("separates exploration defaults from expressed preferences", () => {
@@ -29,4 +33,17 @@ it("reserves strong fit for multiple supporting preferences", () => {
     "reactions-focus": ["steps"],
   })[0];
   expect(getFitLabel(supported, supported.score)).toBe("Strong fit");
+});
+
+it("explains defaults without claiming a discovered interest", () => {
+  expect(
+    explainRecommendationContext(
+      rankNiches({ motivation: ["balanced"] }).slice(0, 3),
+    ),
+  ).toContain("interests are still open");
+  expect(
+    explainRecommendationContext(
+      rankNiches({ motivation: ["reactions"] }).slice(0, 3),
+    ),
+  ).toContain("beginning to emerge");
 });
