@@ -12,6 +12,7 @@ describe("survey keyboard shortcuts", () => {
 
     render(
       <SurveyScreen
+        shortcutsEnabled
         answers={{ "concept-familiarity": ["orbitals"] }}
         currentQuestionId="concept-familiarity"
         onAnswer={onAnswer}
@@ -22,6 +23,8 @@ describe("survey keyboard shortcuts", () => {
 
     fireEvent.keyDown(window, { key: "Enter" });
     fireEvent.keyDown(window, { key: "ArrowRight" });
+    fireEvent.keyDown(window, { key: "a", repeat: true });
+    fireEvent.keyDown(window, { key: "a", isComposing: true });
 
     expect(onAnswer).not.toHaveBeenCalled();
 
@@ -39,12 +42,7 @@ describe("survey keyboard shortcuts", () => {
     render(
       <SurveyScreen
         answers={{
-          "concept-familiarity": [
-            "orbitals",
-            "energy",
-            "bonding",
-            "spectra",
-          ],
+          "concept-familiarity": ["orbitals", "energy", "bonding", "spectra"],
         }}
         currentQuestionId="concept-familiarity"
         onAnswer={onAnswer}

@@ -25,6 +25,7 @@ export function PathfinderApp() {
   const [hydrated, setHydrated] = useState(false);
   const [storageAvailable, setStorageAvailable] = useState(true);
   const [recoveryNotice, setRecoveryNotice] = useState<string>();
+  const [shortcutsEnabled, setShortcutsEnabled] = useState(false);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -38,6 +39,7 @@ export function PathfinderApp() {
           setAnswers(saved.answers);
           setCurrentQuestionId(saved.currentQuestionId);
           setPrimaryOverride(saved.primaryOverride);
+          setShortcutsEnabled(saved.shortcutsEnabled ?? false);
         }
       } catch {
         setStorageAvailable(false);
@@ -54,6 +56,7 @@ export function PathfinderApp() {
       answers,
       currentQuestionId,
       primaryOverride,
+      shortcutsEnabled,
     });
     try {
       window.localStorage.setItem(STORAGE_KEY, serializeProgress(state));
@@ -67,6 +70,7 @@ export function PathfinderApp() {
     primaryOverride,
     screen,
     storageAvailable,
+    shortcutsEnabled,
   ]);
 
   const visibleQuestions = useMemo(
@@ -200,6 +204,8 @@ export function PathfinderApp() {
             onAnswer={updateAnswer}
             onQuestionChange={goToQuestion}
             onComplete={() => showScreen("results")}
+            shortcutsEnabled={shortcutsEnabled}
+            onShortcutsChange={setShortcutsEnabled}
           />
         )}
         {screen === "results" && (

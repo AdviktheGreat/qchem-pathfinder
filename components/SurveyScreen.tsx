@@ -12,6 +12,8 @@ interface SurveyScreenProps {
   onAnswer: (questionId: string, optionIds: string[]) => void;
   onQuestionChange: (questionId: string) => void;
   onComplete: () => void;
+  shortcutsEnabled?: boolean;
+  onShortcutsChange?: (enabled: boolean) => void;
 }
 
 export function SurveyScreen({
@@ -20,6 +22,8 @@ export function SurveyScreen({
   onAnswer,
   onQuestionChange,
   onComplete,
+  shortcutsEnabled = false,
+  onShortcutsChange,
 }: SurveyScreenProps) {
   const visible = getVisibleQuestions(answers);
   const question = questionById[currentQuestionId] ?? visible[0];
@@ -48,9 +52,22 @@ export function SurveyScreen({
 
   useEffect(() => {
     function chooseWithLetter(event: KeyboardEvent) {
+      if (
+        !shortcutsEnabled ||
+        event.repeat ||
+        event.isComposing ||
+        event.defaultPrevented
+      )
+        return;
       if (event.metaKey || event.ctrlKey || event.altKey) return;
       const target = event.target as HTMLElement;
-      if (["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
+      if (
+        target instanceof HTMLElement &&
+        target.closest(
+          "input, textarea, select, [contenteditable]:not([contenteditable='false'])",
+        )
+      )
+        return;
       if (!/^[a-z]$/i.test(event.key)) return;
       const optionIndex = event.key.toUpperCase().charCodeAt(0) - 65;
       const option = question.options[optionIndex];
@@ -75,7 +92,7 @@ export function SurveyScreen({
 
     window.addEventListener("keydown", chooseWithLetter);
     return () => window.removeEventListener("keydown", chooseWithLetter);
-  }, [onAnswer, question, selected]);
+  }, [onAnswer, question, selected, shortcutsEnabled]);
 
   function toggle(optionId: string) {
     if (question.type === "single") {
@@ -196,10 +213,19 @@ export function SurveyScreen({
                 : `Choose up to ${question.maxSelections} · ${selected.length} selected`
               : "Choose the answer closest to how you feel today."}
             <span className="keyboard-hint">
-              Keyboard: press A–
-              {String.fromCharCode(64 + question.options.length)} to choose
+              {shortcutsEnabled
+                ? `Press A–${String.fromCharCode(64 + question.options.length)} to choose`
+                : "Use Tab and Space to choose"}
             </span>
           </p>
+          <label className="shortcut-toggle">
+            <input
+              type="checkbox"
+              checked={shortcutsEnabled}
+              onChange={(event) => onShortcutsChange?.(event.target.checked)}
+            />
+            Enable letter-key answer shortcuts
+          </label>
         </div>
       </div>
 

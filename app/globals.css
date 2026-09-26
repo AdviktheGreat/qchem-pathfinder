@@ -596,6 +596,15 @@ h2 {
   float: right;
   color: var(--teal);
 }
+.shortcut-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 44px;
+  margin-top: 0.5rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
 .survey-controls {
   display: flex;
   justify-content: space-between;

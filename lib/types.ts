@@ -90,4 +90,5 @@ export interface PersistedSurveyState {
   currentQuestionId?: string;
   primaryOverride?: string;
   savedAt: string;
+  shortcutsEnabled?: boolean;
 }

@@ -60,7 +60,9 @@ export function parseProgress(raw: string | null): PersistedSurveyState | null {
       typeof parsed.savedAt !== "string" ||
       !Number.isFinite(Date.parse(parsed.savedAt)) ||
       !isOptionalString(parsed.currentQuestionId) ||
-      !isOptionalString(parsed.primaryOverride)
+      !isOptionalString(parsed.primaryOverride) ||
+      (parsed.shortcutsEnabled !== undefined &&
+        typeof parsed.shortcutsEnabled !== "boolean")
     )
       return null;
     const answers = pruneHiddenAnswers(
@@ -91,6 +93,7 @@ export function parseProgress(raw: string | null): PersistedSurveyState | null {
       screen,
       answers,
       savedAt: parsed.savedAt,
+      shortcutsEnabled: parsed.shortcutsEnabled as boolean | undefined,
       currentQuestionId,
       primaryOverride: niches.some(
         (niche) => niche.id === parsed.primaryOverride,
