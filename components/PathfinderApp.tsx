@@ -5,7 +5,7 @@ import { Atom, LockKeyhole, RotateCcw } from "lucide-react";
 import { getVisibleQuestions, pruneHiddenAnswers } from "@/lib/branching";
 import {
   createPersistedState,
-  parseProgress,
+  restoreProgress,
   serializeProgress,
   STORAGE_KEY,
 } from "@/lib/persistence";
@@ -24,11 +24,15 @@ export function PathfinderApp() {
   const [primaryOverride, setPrimaryOverride] = useState<string>();
   const [hydrated, setHydrated] = useState(false);
   const [storageAvailable, setStorageAvailable] = useState(true);
+  const [recoveryNotice, setRecoveryNotice] = useState<string>();
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
       try {
-        const saved = parseProgress(window.localStorage.getItem(STORAGE_KEY));
+        const { state: saved, notice } = restoreProgress(
+          window.localStorage.getItem(STORAGE_KEY),
+        );
+        setRecoveryNotice(notice);
         if (saved) {
           setScreen(saved.screen);
           setAnswers(saved.answers);
@@ -124,6 +128,7 @@ export function PathfinderApp() {
       setStorageAvailable(false);
     }
     setAnswers({});
+    setRecoveryNotice(undefined);
     setPrimaryOverride(undefined);
     setCurrentQuestionId(undefined);
     setScreen("intro");
@@ -163,6 +168,18 @@ export function PathfinderApp() {
             </button>
           )}
         </header>
+        {recoveryNotice && (
+          <div className="definition-card" role="status">
+            <p>{recoveryNotice}</p>
+            <button
+              className="text-button"
+              type="button"
+              onClick={() => setRecoveryNotice(undefined)}
+            >
+              Dismiss notice
+            </button>
+          </div>
+        )}
 
         {screen === "intro" && (
           <IntroScreen

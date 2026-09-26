@@ -17,6 +17,34 @@ afterEach(() => {
 });
 
 describe("pathfinder storage recovery", () => {
+  it("repairs an empty survey and restores the repair on the next visit", async () => {
+    let saved = JSON.stringify({
+      version: 1,
+      savedAt: "2026-09-25",
+      screen: "survey",
+      answers: {},
+    });
+    vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => saved);
+    vi.spyOn(Storage.prototype, "setItem").mockImplementation((_key, value) => {
+      saved = value;
+    });
+    const first = render(<PathfinderApp />);
+    await screen.findByRole("heading", {
+      name: "How does Phase 1 feel in your memory right now?",
+    });
+    expect(screen.getByRole("status").textContent).toContain(
+      "updated your saved exploration",
+    );
+    await waitFor(() =>
+      expect(JSON.parse(saved).currentQuestionId).toBe("phase-one-memory"),
+    );
+    first.unmount();
+    render(<PathfinderApp />);
+    await screen.findByRole("heading", {
+      name: "How does Phase 1 feel in your memory right now?",
+    });
+    expect(screen.queryByRole("status")).toBeNull();
+  });
   it("still clears saved progress after a storage write fails", async () => {
     vi.spyOn(Storage.prototype, "getItem").mockReturnValue(
       JSON.stringify({

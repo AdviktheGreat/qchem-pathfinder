@@ -102,3 +102,36 @@ export function parseProgress(raw: string | null): PersistedSurveyState | null {
     return null;
   }
 }
+
+export function restoreProgress(raw: string | null): {
+  state: PersistedSurveyState | null;
+  notice?: string;
+} {
+  const state = parseProgress(raw);
+  if (!raw) return { state };
+  if (!state)
+    return {
+      state,
+      notice:
+        "Your saved exploration could not be restored in this version. Start a new path below.",
+    };
+  const original = JSON.parse(raw) as PersistedSurveyState;
+  const answersChanged =
+    Object.keys(original.answers).length !==
+      Object.keys(state.answers).length ||
+    Object.entries(state.answers).some(
+      ([id, values]) =>
+        JSON.stringify(values) !== JSON.stringify(original.answers[id]),
+    );
+  const repaired =
+    answersChanged ||
+    original.screen !== state.screen ||
+    original.currentQuestionId !== state.currentQuestionId ||
+    original.primaryOverride !== state.primaryOverride;
+  return {
+    state,
+    notice: repaired
+      ? "We updated your saved exploration to match the current questions. Your valid answers are still here."
+      : undefined,
+  };
+}
