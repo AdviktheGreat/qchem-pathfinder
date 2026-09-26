@@ -29,7 +29,7 @@ import type { AnswerMap, RankedNiche } from "@/lib/types";
 interface ResultsScreenProps {
   answers: AnswerMap;
   primaryOverride?: string;
-  onExploreNearby: (nicheId: string) => void;
+  onExploreNearby: (nicheId: string | undefined) => void;
   onReview: () => void;
   onRestart: () => void;
 }
@@ -210,11 +210,16 @@ export function ResultsScreen({
     () => getRecommendations(answers, primaryOverride),
     [answers, primaryOverride],
   );
-  const bestScore = useMemo(
-    () => getRecommendations(answers)[0]?.score ?? 0,
+  const originalRecommendations = useMemo(
+    () => getRecommendations(answers),
     [answers],
   );
+  const originalPrimary = originalRecommendations[0];
+  const bestScore = Math.max(
+    ...originalRecommendations.map((result) => result.score),
+  );
   const [primary, ...alternatives] = recommendations;
+  const isChosenAlternative = primary.niche.id !== originalPrimary.niche.id;
   const preparation = getPreparationProfile(answers, primary.niche);
   const explanationGuide = preparation.explanation;
   const profileText = formatResearchProfile(answers, primary.niche.id);
@@ -260,8 +265,27 @@ export function ResultsScreen({
       <section className="primary-result" aria-labelledby="primary-title">
         <div className="primary-label">
           <span>{getFitLabel(primary, bestScore)}</span>
-          <span>Primary direction</span>
+          <span>
+            {isChosenAlternative
+              ? "Your chosen direction"
+              : "Primary direction"}
+          </span>
         </div>
+        {isChosenAlternative && (
+          <div className="definition-card">
+            <p>
+              You chose to explore this alternative. Your original suggestion
+              was {originalPrimary.niche.name}.
+            </p>
+            <button
+              type="button"
+              className="text-button"
+              onClick={() => onExploreNearby(undefined)}
+            >
+              Return to my original suggestion
+            </button>
+          </div>
+        )}
         <div className="primary-grid">
           <div className="primary-copy">
             <p className="area-label">{primary.niche.area}</p>

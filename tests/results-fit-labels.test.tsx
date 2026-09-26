@@ -76,5 +76,9 @@ describe("result fit labels", () => {
       }),
     ).toBeDefined();
     expect(screen.getByText(/Strong fit ·/)).toBeDefined();
+    expect(screen.getByText("Your chosen direction")).toBeDefined();
+    expect(
+      screen.getByRole("button", { name: "Return to my original suggestion" }),
+    ).toBeDefined();
   });
 });

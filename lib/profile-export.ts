@@ -70,6 +70,9 @@ export function formatResearchProfile(
     `${primary.niche.name} — ${primary.niche.shortDescription}`,
     "",
     "RECOMMENDATION CONTEXT",
+    primary.niche.id !== getRecommendations(answers)[0].niche.id
+      ? "The student selected this alternative as their exploration direction."
+      : "This is the original suggested starting direction.",
     explainRecommendationContext(recommendations),
     "",
     "NEARBY ALTERNATIVES",
