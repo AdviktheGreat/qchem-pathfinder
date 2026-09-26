@@ -1,5 +1,5 @@
 import type { SurveyQuestion } from "@/lib/types";
-import { electronicStates } from "@/data/glossary";
+import { dft, electronicStates } from "@/data/glossary";
 
 const uncertain = {
   id: "unsure",
@@ -48,6 +48,7 @@ export const questions: SurveyQuestion[] = [
   },
   {
     id: "concept-familiarity",
+    definition: dft,
     stage: "calibration",
     kicker: "Concept check-in",
     title: "Which ideas feel familiar enough to use in a conversation?",

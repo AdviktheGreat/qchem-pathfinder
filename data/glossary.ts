@@ -18,11 +18,13 @@ export const excitedState: GlossaryEntry = {
   text: "A state with more electronic energy than the ground state. It can be reached by absorbing suitable light or by other energy-transfer processes.",
 };
 
+export const dft: GlossaryEntry = {
+  term: "DFT",
+  text: "Density functional theory: a way to calculate electronic properties using electron density. Practical calculations use approximations.",
+};
+
 export const glossary: GlossaryEntry[] = [
-  {
-    term: "DFT",
-    text: "Density functional theory: a way to calculate electronic properties using electron density. Practical calculations use approximations.",
-  },
+  dft,
   {
     term: "Transition state",
     text: "A configuration at an energy barrier along an elementary reaction step; it is a saddle point on the relevant energy surface.",

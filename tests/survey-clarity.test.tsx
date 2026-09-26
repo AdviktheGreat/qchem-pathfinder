@@ -5,6 +5,19 @@ import { afterEach, expect, it, vi } from "vitest";
 import { SurveyScreen } from "@/components/SurveyScreen";
 
 afterEach(cleanup);
+it("defines DFT where students first encounter it", () => {
+  render(
+    <SurveyScreen
+      {...handlers}
+      answers={{}}
+      currentQuestionId="concept-familiarity"
+    />,
+  );
+  fireEvent.click(screen.getByText("About dft"));
+  expect(
+    screen.getByText(/Density functional theory:/).closest("details")?.open,
+  ).toBe(true);
+});
 it("starts each question definition closed rather than reusing another disclosure", () => {
   const first = questionById["phase-one-memory"];
   const original = first.definition;
