@@ -125,7 +125,11 @@ function SearchLaunchpad({
       <div className="keyword-block">
         <div className="keyword-heading">
           <h3>Starter keywords</h3>
-          <CopyButton text={allKeywords} label="Copy keywords" />
+          <CopyButton
+            text={allKeywords}
+            label="Copy keywords"
+            context={niche.name}
+          />
         </div>
         <div className="tag-list accent">
           {niche.keywords.map((keyword) => (
@@ -138,7 +142,11 @@ function SearchLaunchpad({
       </div>
       <div className="query-heading">
         <h3>Ready-to-use searches</h3>
-        <CopyButton text={allQueries} label="Copy all queries" />
+        <CopyButton
+          text={allQueries}
+          label="Copy all queries"
+          context={niche.name}
+        />
       </div>
       <div className="query-list">
         {Object.entries(niche.searches).map(([kind, query]) => (
@@ -154,10 +162,16 @@ function SearchLaunchpad({
                 href={`https://scholar.google.com/scholar?q=${encodeURIComponent(query)}`}
                 target="_blank"
                 rel="noreferrer"
+                aria-label={`Open Scholar — ${queryLabels[kind as keyof typeof queryLabels]} for ${niche.name} (opens in a new tab)`}
               >
-                <ExternalLink size={14} /> Open Scholar
+                <ExternalLink size={14} /> Open Scholar{" "}
+                <span className="sr-only">(opens in a new tab)</span>
               </a>
-              <CopyButton text={query} label="Copy query" />
+              <CopyButton
+                text={query}
+                label="Copy query"
+                context={`${queryLabels[kind as keyof typeof queryLabels]} for ${niche.name}`}
+              />
             </div>
           </div>
         ))}
@@ -553,6 +567,7 @@ export function ResultsScreen({
                     className="expand-button"
                     type="button"
                     aria-expanded={open}
+                    aria-label={`${open ? "Hide details" : "Explore details"} for ${result.niche.name}`}
                     aria-controls={panelId}
                     onClick={() =>
                       setOpenAlternative(open ? undefined : result.niche.id)

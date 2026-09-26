@@ -11,6 +11,28 @@ import { ResultsScreen } from "@/components/ResultsScreen";
 import { queryGuidance, paperNoteTemplate } from "@/data/reading-guidance";
 import { getRecommendations, explainDifference } from "@/lib/recommendation";
 afterEach(cleanup);
+it("distinguishes repeated search controls and announces new tabs", () => {
+  render(<ResultsScreen {...handlers} answers={{}} />);
+  const primary = getRecommendations({})[0].niche;
+  for (const kind of [
+    "Broad orientation",
+    "Narrower sub-niche",
+    "Review or perspective",
+  ]) {
+    expect(
+      screen.getByRole("button", {
+        name: `Copy query — ${kind} for ${primary.name}`,
+      }),
+    ).toBeDefined();
+    expect(
+      screen
+        .getByRole("link", {
+          name: `Open Scholar — ${kind} for ${primary.name} (opens in a new tab)`,
+        })
+        .getAttribute("target"),
+    ).toBe("_blank");
+  }
+});
 it("copies a structured note template for reading a real paper", async () => {
   const writeText = vi.fn().mockResolvedValue(undefined);
   vi.stubGlobal("navigator", { clipboard: { writeText } });
@@ -59,7 +81,9 @@ it("shows each alternative comparison while its details are collapsed", () => {
     expect(card.textContent).toContain(explainDifference(primary, result));
     expect(
       within(card)
-        .getByRole("button", { name: "Explore details" })
+        .getByRole("button", {
+          name: `Explore details for ${result.niche.name}`,
+        })
         .getAttribute("aria-expanded"),
     ).toBe("false");
   }

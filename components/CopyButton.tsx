@@ -6,9 +6,11 @@ import { Check, Copy } from "lucide-react";
 export function CopyButton({
   text,
   label = "Copy",
+  context,
 }: {
   text: string;
   label?: string;
+  context?: string;
 }) {
   const [status, setStatus] = useState<"idle" | "copied" | "failed">("idle");
   const resetTimer = useRef<number | undefined>(undefined);
@@ -44,7 +46,12 @@ export function CopyButton({
         : label;
 
   return (
-    <button className="copy-button" type="button" onClick={copy}>
+    <button
+      className="copy-button"
+      type="button"
+      onClick={copy}
+      aria-label={context ? `${buttonLabel} — ${context}` : undefined}
+    >
       {status === "copied" ? <Check size={15} /> : <Copy size={15} />}
       <span aria-live="polite">{buttonLabel}</span>
     </button>
