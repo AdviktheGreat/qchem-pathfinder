@@ -8,8 +8,23 @@ import {
 } from "@testing-library/react";
 import { afterEach, expect, it, vi } from "vitest";
 import { ResultsScreen } from "@/components/ResultsScreen";
-import { getRecommendations } from "@/lib/recommendation";
+import { getRecommendations, explainDifference } from "@/lib/recommendation";
 afterEach(cleanup);
+it("shows each alternative comparison while its details are collapsed", () => {
+  render(<ResultsScreen {...handlers} answers={{}} />);
+  const [primary, ...alternatives] = getRecommendations({});
+  for (const result of alternatives) {
+    const card = screen
+      .getByRole("heading", { name: result.niche.name })
+      .closest("article")!;
+    expect(card.textContent).toContain(explainDifference(primary, result));
+    expect(
+      within(card)
+        .getByRole("button", { name: "Explore details" })
+        .getAttribute("aria-expanded"),
+    ).toBe("false");
+  }
+});
 it("explains all qualitative recommendation labels", () => {
   render(<ResultsScreen {...handlers} answers={{}} />);
   const summary = screen.getByText("What do the recommendation labels mean?");

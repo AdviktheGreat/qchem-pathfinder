@@ -81,12 +81,6 @@ function DirectionDetails({
           ))}
         </div>
       </section>
-      {primary.niche.id !== niche.id && (
-        <section className="difference-note">
-          <strong>How it differs from your primary path</strong>
-          <p>{explainDifference(primary, result)}</p>
-        </section>
-      )}
       <SearchLaunchpad
         result={result}
         compact={primary.niche.id !== niche.id}
@@ -495,6 +489,10 @@ export function ResultsScreen({
                         : "Why it may fit"}
                       : {result.interestReasons[0]}
                     </small>
+                    <p className="difference-note">
+                      <strong>How it differs:</strong>{" "}
+                      {explainDifference(primary, result)}
+                    </p>
                     <button
                       className="text-button"
                       type="button"
