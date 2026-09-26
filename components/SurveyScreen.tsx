@@ -251,7 +251,9 @@ export function SurveyScreen({
             <span className="keyboard-hint">
               {shortcutsEnabled
                 ? `Press A–${String.fromCharCode(64 + question.options.length)} to choose`
-                : "Use Tab and Space to choose"}
+                : question.type === "single"
+                  ? "Tab to the choices; use arrow keys to select"
+                  : "Tab between choices; press Space to toggle"}
             </span>
           </p>
           <label className="shortcut-toggle">
