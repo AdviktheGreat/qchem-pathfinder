@@ -29,6 +29,14 @@ export function PathfinderApp() {
   const [shortcutsEnabled, setShortcutsEnabled] = useState(false);
 
   useEffect(() => {
+    if (hydrated && screen !== "survey") {
+      mainRef.current
+        ?.querySelector<HTMLHeadingElement>("h1")
+        ?.focus({ preventScroll: true });
+    }
+  }, [hydrated, screen]);
+
+  useEffect(() => {
     const timer = window.setTimeout(() => {
       try {
         const { state: saved, notice } = restoreProgress(

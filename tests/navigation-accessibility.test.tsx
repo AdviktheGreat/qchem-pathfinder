@@ -26,3 +26,15 @@ it("skips the header and focuses the screen content", async () => {
     ),
   ).toBe(false);
 });
+
+it("moves focus to the appropriate heading when screens change", async () => {
+  render(<PathfinderApp />);
+  fireEvent.click(
+    await screen.findByRole("button", { name: "Begin exploring" }),
+  );
+  expect(document.activeElement?.id).toBe("question-title");
+  fireEvent.click(
+    screen.getByRole("button", { name: "Quantum Research Pathfinder" }),
+  );
+  expect(document.activeElement?.id).toBe("intro-title");
+});

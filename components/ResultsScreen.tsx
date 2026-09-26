@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   BookMarked,
@@ -225,6 +225,15 @@ export function ResultsScreen({
   const profileText = formatResearchProfile(answers, primary.niche.id);
   const [openAlternative, setOpenAlternative] = useState<string>();
   const alternativesHeadingRef = useRef<HTMLHeadingElement>(null);
+  const primaryHeadingRef = useRef<HTMLHeadingElement>(null);
+  const previousPrimary = useRef(primary.niche.id);
+
+  useEffect(() => {
+    if (previousPrimary.current !== primary.niche.id) {
+      primaryHeadingRef.current?.focus({ preventScroll: true });
+      previousPrimary.current = primary.niche.id;
+    }
+  }, [primary.niche.id]);
 
   function chooseDirection(nicheId?: string) {
     setOpenAlternative(undefined);
@@ -250,7 +259,7 @@ export function ResultsScreen({
           <p className="eyebrow">
             <Sparkles size={15} /> Your exploration map
           </p>
-          <h1>Here’s a promising place to begin.</h1>
+          <h1 tabIndex={-1}>Here’s a promising place to begin.</h1>
           <p>
             This is a research direction to investigate, not a verdict or final
             question. Your nearby paths stay open.
@@ -295,7 +304,9 @@ export function ResultsScreen({
         <div className="primary-grid">
           <div className="primary-copy">
             <p className="area-label">{primary.niche.area}</p>
-            <h2 id="primary-title">{primary.niche.name}</h2>
+            <h2 id="primary-title" ref={primaryHeadingRef} tabIndex={-1}>
+              {primary.niche.name}
+            </h2>
             <p className="short-description">
               {primary.niche.shortDescription}
             </p>

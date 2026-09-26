@@ -42,6 +42,7 @@ it("keeps a chosen path, preparation and export through refresh, then resets it 
   await waitFor(() =>
     expect(JSON.parse(saved).primaryOverride).toBe(chosen.niche.id),
   );
+  expect(document.activeElement?.id).toBe("primary-title");
   expect(screen.getByRole("heading", { name: chosen.niche.name }).id).toBe(
     "primary-title",
   );
@@ -66,6 +67,9 @@ it("keeps a chosen path, preparation and export through refresh, then resets it 
     }),
   );
   fireEvent.click(screen.getByRole("button", { name: "Review my answers" }));
+  expect(document.activeElement).toBe(
+    screen.getByRole("heading", { name: "Review your answers." }),
+  );
   fireEvent.click(
     screen.getByRole("button", {
       name: "Edit: How does Phase 1 feel in your memory right now?",

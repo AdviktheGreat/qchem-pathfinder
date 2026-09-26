@@ -30,7 +30,7 @@ export function ReviewScreen({
       </button>
       <div className="result-heading">
         <p className="eyebrow">Your trail so far</p>
-        <h1>Review your answers.</h1>
+        <h1 tabIndex={-1}>Review your answers.</h1>
         <p>
           <strong>
             {answeredCount} of {questions.length} visible questions answered.

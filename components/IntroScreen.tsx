@@ -27,7 +27,7 @@ export function IntroScreen({
           <p className="eyebrow">
             <Sparkles size={15} /> A guided research exploration
           </p>
-          <h1 id="intro-title">
+          <h1 id="intro-title" tabIndex={-1}>
             Find the question-space that makes you want to look closer.
           </h1>
           <p className="lede">

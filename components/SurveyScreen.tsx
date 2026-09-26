@@ -122,9 +122,6 @@ export function SurveyScreen({
 
   return (
     <section className="survey-shell" aria-labelledby="question-title">
-      <p className="sr-only" aria-live="polite">
-        Question {index + 1}: {question.title}
-      </p>
       <div
         className="progress-wrap"
         aria-label={`Question ${index + 1} of ${visible.length}`}
