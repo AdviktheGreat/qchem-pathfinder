@@ -1,8 +1,23 @@
 import { expect, it } from "vitest";
-import { getPreparationProfile } from "@/lib/preparation";
+import { getPreparationProfile, mergeConcepts } from "@/lib/preparation";
 import { getRecommendations } from "@/lib/recommendation";
 import { formatResearchProfile } from "@/lib/profile-export";
 import { getPreparationSteps, getExplanationGuide } from "@/lib/preparation";
+
+it("folds covered concepts into present umbrella topics without removing distinct concepts", () => {
+  expect(
+    mergeConcepts([
+      "Electron density",
+      "Molecular orbitals",
+      "Orbitals and electron density",
+      "Electron correlation",
+    ]),
+  ).toEqual(["Orbitals and electron density", "Electron correlation"]);
+  expect(mergeConcepts(["Electron density", "Molecular orbitals"])).toEqual([
+    "Electron density",
+    "Molecular orbitals",
+  ]);
+});
 
 it("offers concrete preparation for different experience levels", () => {
   const beginner = getPreparationSteps({
