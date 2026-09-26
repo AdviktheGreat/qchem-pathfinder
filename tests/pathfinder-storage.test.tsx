@@ -66,6 +66,12 @@ describe("pathfinder storage recovery", () => {
     render(<PathfinderApp />);
 
     await screen.findByText("Progress available for this visit");
+    expect(screen.getByRole("status").textContent).toContain(
+      "Progress is not being saved.",
+    );
+    expect(screen.getByRole("main").contains(screen.getByRole("status"))).toBe(
+      true,
+    );
     fireEvent.click(screen.getByRole("button", { name: /Restart/ }));
 
     await waitFor(() => expect(removeItem).toHaveBeenCalledWith(STORAGE_KEY));

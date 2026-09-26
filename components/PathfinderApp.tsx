@@ -199,6 +199,19 @@ export function PathfinderApp() {
           )}
         </header>
         <main id="main-content" ref={mainRef} tabIndex={-1}>
+          {!storageAvailable && (
+            <div
+              className="definition-card storage-warning no-print"
+              role="status"
+            >
+              <p>
+                <strong>Progress is not being saved.</strong> You can keep
+                exploring in this tab, but new answers may be lost if you
+                refresh or leave. Copy or download your profile when you reach
+                the results.
+              </p>
+            </div>
+          )}
           {recoveryNotice && (
             <div className="definition-card" role="status">
               <p>{recoveryNotice}</p>
