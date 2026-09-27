@@ -116,8 +116,8 @@ describe("progress persistence", () => {
         ],
       }),
     ).toEqual({
-      motivation: ["medicine"],
-      "evidence-style": ["visuals", "datasets"],
+      motivation: ["energy"],
+      "evidence-style": ["datasets", "equations"],
     });
   });
   it("round-trips a valid versioned state", () => {

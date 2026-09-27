@@ -17,6 +17,41 @@ afterEach(() => {
 });
 
 describe("pathfinder storage recovery", () => {
+  it("replaces an edited single choice and explains the resolution inline", async () => {
+    const writes: string[] = [];
+    vi.spyOn(Storage.prototype, "getItem").mockReturnValue(
+      JSON.stringify({
+        version: 1,
+        savedAt: "2026-09-26T12:00:00.000Z",
+        screen: "survey",
+        currentQuestionId: "electronic-state",
+        answers: { "electronic-state": ["ground"] },
+      }),
+    );
+    vi.spyOn(Storage.prototype, "setItem").mockImplementation((_key, value) => {
+      writes.push(value);
+    });
+    vi.spyOn(window, "scrollTo").mockImplementation(() => {});
+
+    render(<PathfinderApp />);
+    fireEvent.click(
+      await screen.findByRole("radio", {
+        name: /A higher electronic-energy state \(excited state\)/,
+      }),
+    );
+
+    expect(await screen.findByText(/Updated this answer:/)).toBeDefined();
+    expect(
+      screen.getByText(/Only the new choice will influence/),
+    ).toBeDefined();
+    await waitFor(() => {
+      const latest = JSON.parse(writes.at(-1) ?? "{}") as {
+        answers?: Record<string, string[]>;
+      };
+      expect(latest.answers?.["electronic-state"]).toEqual(["excited"]);
+    });
+  });
+
   it("repairs an empty survey and restores the repair on the next visit", async () => {
     let saved = JSON.stringify({
       version: 1,

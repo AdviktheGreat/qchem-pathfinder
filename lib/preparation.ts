@@ -6,6 +6,7 @@ import {
 import type { AnswerMap, Niche } from "@/lib/types";
 import { getKnowledgeProfile } from "@/lib/recommendation";
 import { conceptOverlaps } from "@/data/concept-overlaps";
+import { normalizeAnswers } from "@/lib/answer-conflicts";
 
 export function mergeConcepts(concepts: string[]): string[] {
   const key = (value: string) => value.trim().toLowerCase();
@@ -28,24 +29,27 @@ export function mergeConcepts(concepts: string[]): string[] {
 }
 
 export function getPreparationSteps(answers: AnswerMap): string[] {
+  const normalized = normalizeAnswers(answers);
   return [
-    mathPreparation[answers["math-comfort"]?.[0]] ?? mathPreparation.unsure,
-    codingPreparation[answers["coding-comfort"]?.[0]] ??
+    mathPreparation[normalized["math-comfort"]?.[0]] ?? mathPreparation.unsure,
+    codingPreparation[normalized["coding-comfort"]?.[0]] ??
       codingPreparation.unsure,
   ];
 }
 
 export function getExplanationGuide(answers: AnswerMap) {
+  const normalized = normalizeAnswers(answers);
   return {
     text:
-      explanationGuides[answers["explanation-style"]?.[0]] ??
+      explanationGuides[normalized["explanation-style"]?.[0]] ??
       explanationGuides.unsure,
-    showContextInitially: answers["phase-one-memory"]?.[0] !== "fresh",
+    showContextInitially: normalized["phase-one-memory"]?.[0] !== "fresh",
   };
 }
 
 export function getPreparationProfile(answers: AnswerMap, niche: Niche) {
-  const knowledge = getKnowledgeProfile(answers);
+  const normalized = normalizeAnswers(answers);
+  const knowledge = getKnowledgeProfile(normalized);
   const concepts = mergeConcepts([
     ...niche.concepts,
     ...knowledge.conceptsToRevisit,
@@ -53,8 +57,8 @@ export function getPreparationProfile(answers: AnswerMap, niche: Niche) {
   return {
     startingPoint: knowledge.startingPoint,
     concepts,
-    explanation: getExplanationGuide(answers),
+    explanation: getExplanationGuide(normalized),
     nicheNote: niche.preparation,
-    steps: getPreparationSteps(answers),
+    steps: getPreparationSteps(normalized),
   };
 }

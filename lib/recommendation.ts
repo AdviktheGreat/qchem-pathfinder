@@ -7,6 +7,7 @@ import type {
   RankedNiche,
   SurveyOption,
 } from "@/lib/types";
+import { normalizeAnswers } from "@/lib/answer-conflicts";
 
 const calibrationQuestionIds = new Set(
   questions
@@ -18,7 +19,8 @@ export function getSelectedOptions(
   answers: AnswerMap,
   excludedQuestionIds = new Set<string>(),
 ): SurveyOption[] {
-  return Object.entries(answers).flatMap(([questionId, optionIds]) => {
+  const normalized = normalizeAnswers(answers);
+  return Object.entries(normalized).flatMap(([questionId, optionIds]) => {
     const question = questionById[questionId];
     if (excludedQuestionIds.has(questionId)) return [];
     if (!question) return [];
@@ -47,10 +49,14 @@ export function signalCategory(signal: string): "interest" | "style" {
 }
 
 export function rankNiches(answers: AnswerMap): RankedNiche[] {
-  const signals = aggregateSignals(answers);
-  const selectedOptions = getSelectedOptions(answers, calibrationQuestionIds);
+  const normalized = normalizeAnswers(answers);
+  const signals = aggregateSignals(normalized);
+  const selectedOptions = getSelectedOptions(
+    normalized,
+    calibrationQuestionIds,
+  );
   const uncertainCount = getSelectedOptions(
-    answers,
+    normalized,
     calibrationQuestionIds,
   ).filter((option) => option.uncertainty).length;
   const openness = signals["interest:open"] ?? 0;
@@ -76,7 +82,7 @@ export function rankNiches(answers: AnswerMap): RankedNiche[] {
       const preferenceEvidenceCount = questions.filter(
         (question) =>
           question.stage !== "calibration" &&
-          (answers[question.id] ?? []).some((id) => {
+          (normalized[question.id] ?? []).some((id) => {
             const option = question.options.find((item) => item.id === id);
             return (
               option &&
@@ -177,8 +183,9 @@ function optionLabel(
 }
 
 export function getKnowledgeProfile(answers: AnswerMap): KnowledgeProfile {
-  const memory = answers["phase-one-memory"]?.[0];
-  const familiar = new Set(answers["concept-familiarity"] ?? []);
+  const normalized = normalizeAnswers(answers);
+  const memory = normalized["phase-one-memory"]?.[0];
+  const familiar = new Set(normalized["concept-familiarity"] ?? []);
   const conceptsToRevisit: string[] = [];
   if (!familiar.has("orbitals"))
     conceptsToRevisit.push("Orbitals and electron density");
@@ -201,17 +208,17 @@ export function getKnowledgeProfile(answers: AnswerMap): KnowledgeProfile {
   return {
     startingPoint,
     mathComfort: optionLabel(
-      answers,
+      normalized,
       "math-comfort",
       "Still exploring how much mathematical detail feels useful",
     ),
     codingComfort: optionLabel(
-      answers,
+      normalized,
       "coding-comfort",
       "Still exploring comfort with computational tools",
     ),
     explanationPreference: optionLabel(
-      answers,
+      normalized,
       "explanation-style",
       "Open to different explanation styles",
     ),
@@ -220,10 +227,11 @@ export function getKnowledgeProfile(answers: AnswerMap): KnowledgeProfile {
 }
 
 export function getAnswerLabels(answers: AnswerMap, stage?: string): string[] {
+  const normalized = normalizeAnswers(answers);
   return questions
     .filter((question) => !stage || question.stage === stage)
     .flatMap((question) =>
-      (answers[question.id] ?? []).map((optionId) => {
+      (normalized[question.id] ?? []).map((optionId) => {
         const option = question.options.find(
           (candidate) => candidate.id === optionId,
         );
@@ -281,10 +289,11 @@ export function getRecommendationEvidence(
   result: RankedNiche,
   limit = 4,
 ): RecommendationEvidence[] {
+  const normalized = normalizeAnswers(answers);
   return questions
     .filter((question) => question.stage !== "calibration")
     .flatMap((question) =>
-      (answers[question.id] ?? []).flatMap((optionId) => {
+      (normalized[question.id] ?? []).flatMap((optionId) => {
         const option = question.options.find((item) => item.id === optionId);
         if (!option || option.uncertainty) return [];
         const signalContribution = Object.entries(option.signals ?? {}).reduce(

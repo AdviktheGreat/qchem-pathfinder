@@ -1,7 +1,10 @@
 import type { AnswerMap, PersistedSurveyState } from "@/lib/types";
-import { questions } from "@/data/questions";
 import { niches } from "@/data/niches";
 import { getVisibleQuestions, pruneHiddenAnswers } from "@/lib/branching";
+import {
+  normalizeAnswers,
+  resolveAnswerConflicts,
+} from "@/lib/answer-conflicts";
 
 export const STORAGE_KEY = "quantum-pathfinder:progress";
 export const STORAGE_VERSION = 1;
@@ -11,6 +14,7 @@ export function createPersistedState(
 ): PersistedSurveyState {
   return {
     ...state,
+    answers: pruneHiddenAnswers(normalizeAnswers(state.answers)),
     version: STORAGE_VERSION,
     savedAt: new Date().toISOString(),
   };
@@ -34,15 +38,7 @@ function isOptionalString(value: unknown): boolean {
 }
 
 export function sanitizeAnswers(answers: AnswerMap): AnswerMap {
-  const clean: AnswerMap = {};
-  for (const question of questions) {
-    const validIds = new Set(question.options.map((option) => option.id));
-    const selected = [...new Set(answers[question.id] ?? [])]
-      .filter((id) => validIds.has(id))
-      .slice(0, question.type === "single" ? 1 : question.maxSelections);
-    if (selected.length) clean[question.id] = selected;
-  }
-  return clean;
+  return normalizeAnswers(answers);
 }
 
 export function parseProgress(raw: string | null): PersistedSurveyState | null {
@@ -119,6 +115,7 @@ export function restoreProgress(raw: string | null): {
         "Your saved exploration could not be restored in this version. Start a new path below.",
     };
   const original = JSON.parse(raw) as PersistedSurveyState;
+  const answerConflicts = resolveAnswerConflicts(original.answers).conflicts;
   const answersChanged =
     Object.keys(original.answers).length !==
       Object.keys(state.answers).length ||
@@ -134,7 +131,9 @@ export function restoreProgress(raw: string | null): {
   return {
     state,
     notice: repaired
-      ? "We updated your saved exploration to match the current questions. Your valid answers are still here."
+      ? answerConflicts.length
+        ? "We found conflicting saved choices and kept the most recent answer for each question. Only those resolved answers will influence your directions and profile."
+        : "We updated your saved exploration to match the current questions. Your valid answers are still here."
       : undefined,
   };
 }

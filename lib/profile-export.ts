@@ -8,6 +8,7 @@ import {
 } from "@/lib/recommendation";
 import type { AnswerMap } from "@/lib/types";
 import { getPreparationProfile } from "@/lib/preparation";
+import { normalizeAnswers } from "@/lib/answer-conflicts";
 
 export function profileFilename(nicheId: string, date = new Date()): string {
   const slug =
@@ -32,14 +33,15 @@ export function formatResearchProfile(
   answers: AnswerMap,
   primaryOverride?: string,
 ): string {
-  const recommendations = getRecommendations(answers, primaryOverride);
+  const normalized = normalizeAnswers(answers);
+  const recommendations = getRecommendations(normalized, primaryOverride);
   const [primary, ...alternatives] = recommendations;
-  const knowledge = getKnowledgeProfile(answers);
-  const preparation = getPreparationProfile(answers, primary.niche);
+  const knowledge = getKnowledgeProfile(normalized);
+  const preparation = getPreparationProfile(normalized, primary.niche);
   const directions = [primary, ...alternatives];
-  const motivation = selectedLabels(answers, "motivation");
-  const questionTypes = selectedLabels(answers, "question-kind");
-  const narrowing = getAnswerLabels(answers, "narrowing").map(
+  const motivation = selectedLabels(normalized, "motivation");
+  const questionTypes = selectedLabels(normalized, "question-kind");
+  const narrowing = getAnswerLabels(normalized, "narrowing").map(
     (line) => line.split(": ").at(-1) ?? line,
   );
   const interestThemes = Array.from(new Set([...motivation, ...narrowing]));
@@ -47,7 +49,7 @@ export function formatResearchProfile(
     .filter((question) => question.stage === "style")
     .map(
       (question) =>
-        `${researchStyleLabels[question.id] ?? question.title}: ${selectedLabels(answers, question.id).join("; ") || "Not answered yet"}`,
+        `${researchStyleLabels[question.id] ?? question.title}: ${selectedLabels(normalized, question.id).join("; ") || "Not answered yet"}`,
     );
 
   const lines = [
@@ -79,7 +81,7 @@ export function formatResearchProfile(
     `${primary.niche.name} — ${primary.niche.shortDescription}`,
     "",
     "RECOMMENDATION CONTEXT",
-    primary.niche.id !== getRecommendations(answers)[0].niche.id
+    primary.niche.id !== getRecommendations(normalized)[0].niche.id
       ? "The student selected this alternative as their exploration direction."
       : "This is the original suggested starting direction.",
     explainRecommendationContext(recommendations),

@@ -17,6 +17,8 @@ interface SurveyScreenProps {
   answers: AnswerMap;
   currentQuestionId: string;
   onAnswer: (questionId: string, optionIds: string[]) => void;
+  answerResolutionNotice?: string;
+  onDismissAnswerResolution?: () => void;
   onQuestionChange: (questionId: string) => void;
   onComplete: () => void;
   onPause?: () => void;
@@ -29,6 +31,8 @@ export function SurveyScreen({
   answers,
   currentQuestionId,
   onAnswer,
+  answerResolutionNotice,
+  onDismissAnswerResolution,
   onQuestionChange,
   onComplete,
   onPause,
@@ -157,6 +161,20 @@ export function SurveyScreen({
           <span aria-hidden="true" style={{ width: `${progress}%` }} />
         </div>
       </div>
+
+      {answerResolutionNotice && (
+        <div className="answer-resolution" role="note" aria-live="polite">
+          <Check size={16} aria-hidden="true" />
+          <p>{answerResolutionNotice}</p>
+          <button
+            className="text-button"
+            type="button"
+            onClick={onDismissAnswerResolution}
+          >
+            Dismiss
+          </button>
+        </div>
+      )}
 
       <div
         key={question.id}

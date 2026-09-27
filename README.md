@@ -82,6 +82,8 @@ The interface includes optional letter shortcuts (off by default), arrow-key sin
 
 Saved progress is validated against current questions and options. Invalid choices and hidden branches are removed, incomplete results return to an unanswered question, and repaired progress is explained. Unreadable or unsupported-version data starts fresh with a notice. Storage failure does not prevent the survey from working, but progress cannot survive refresh in that case. No answers leave the browser; opening a scholarly search sends the selected query to that provider.
 
+Mutually exclusive answers are also normalized before branching, scoring, preparation, persistence, or export. If old saved data contains two values for a single-choice question, the latest value wins; uncertainty cannot remain beside a specific multi-select answer. When a student changes an existing single choice in the live survey, an inline notice names the replaced and retained answers so it is clear that only the new choice will influence the recommendation and profile. The shared rules live in `lib/answer-conflicts.ts`.
+
 ## Visual and interaction system
 
 The interface uses a warm laboratory-white base, graphite typography, spectral blue actions, and one stage-specific accent at a time. Design tokens for color, spacing, radii, shadows, surfaces, and survey stages live at the top of `app/globals.css`. Keep ultraviolet as a focus or scientific accent rather than a large background color.

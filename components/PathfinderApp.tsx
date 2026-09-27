@@ -28,6 +28,7 @@ import { SurveyScreen } from "@/components/SurveyScreen";
 import { ResultsScreen } from "@/components/ResultsScreen";
 import { ReviewScreen } from "@/components/ReviewScreen";
 import { stageLabels, questionById } from "@/data/questions";
+import { resolveAnswerConflicts } from "@/lib/answer-conflicts";
 
 type Screen = PersistedSurveyState["screen"];
 
@@ -42,6 +43,9 @@ export function PathfinderApp() {
   const [recoveryNotice, setRecoveryNotice] = useState<string>();
   const [shortcutsEnabled, setShortcutsEnabled] = useState(false);
   const [branchChanged, setBranchChanged] = useState(false);
+  const [answerResolutionNotice, setAnswerResolutionNotice] = useState<
+    string | undefined
+  >();
   const [saveStatus, setSaveStatus] = useState<"saving" | "saved" | "failed">(
     "saved",
   );
@@ -139,6 +143,7 @@ export function PathfinderApp() {
           : "Research orientation";
 
   function begin() {
+    setAnswerResolutionNotice(undefined);
     setCurrentQuestionId(visibleQuestions[0]?.id);
     setScreen("survey");
     window.scrollTo({ top: 0 });
@@ -154,6 +159,7 @@ export function PathfinderApp() {
   }
 
   function goToQuestion(questionId: string) {
+    setAnswerResolutionNotice(undefined);
     setCurrentQuestionId(questionId);
     window.scrollTo({ top: 0 });
   }
@@ -170,15 +176,45 @@ export function PathfinderApp() {
       previous.every((id) => optionIds.includes(id))
     )
       return;
+    const question = questionById[questionId];
+    const latestOptionId = optionIds.at(-1);
+    const previousOptionId = previous.at(-1);
+    if (
+      question?.type === "single" &&
+      previousOptionId &&
+      latestOptionId &&
+      previousOptionId !== latestOptionId
+    ) {
+      const previousLabel = question.options.find(
+        (option) => option.id === previousOptionId,
+      )?.label;
+      const latestLabel = question.options.find(
+        (option) => option.id === latestOptionId,
+      )?.label;
+      setAnswerResolutionNotice(
+        `Updated this answer: “${previousLabel ?? previousOptionId}” was replaced by “${latestLabel ?? latestOptionId}.” Only the new choice will influence your directions and profile.`,
+      );
+    } else {
+      setAnswerResolutionNotice(undefined);
+    }
     if (
       questionId === "motivation" &&
       answers.motivation?.length &&
       answers.motivation[0] !== optionIds[0]
     )
       setBranchChanged(true);
-    setAnswers((current) =>
-      pruneHiddenAnswers({ ...current, [questionId]: optionIds }),
-    );
+    setAnswers((current) => {
+      const currentPrevious = current[questionId] ?? [];
+      const candidateIds =
+        question?.type === "single"
+          ? [...currentPrevious, ...optionIds]
+          : optionIds;
+      const resolved = resolveAnswerConflicts({
+        ...current,
+        [questionId]: candidateIds,
+      }).answers;
+      return pruneHiddenAnswers(resolved);
+    });
     setPrimaryOverride(undefined);
   }
 
@@ -195,6 +231,7 @@ export function PathfinderApp() {
     }
     setAnswers({});
     setBranchChanged(false);
+    setAnswerResolutionNotice(undefined);
     setRecoveryNotice(undefined);
     setPrimaryOverride(undefined);
     setCurrentQuestionId(undefined);
@@ -349,6 +386,10 @@ export function PathfinderApp() {
               answers={answers}
               currentQuestionId={currentQuestionId}
               onAnswer={updateAnswer}
+              answerResolutionNotice={answerResolutionNotice}
+              onDismissAnswerResolution={() =>
+                setAnswerResolutionNotice(undefined)
+              }
               onQuestionChange={goToQuestion}
               onComplete={() => showScreen("results")}
               onPause={() => showScreen("intro")}

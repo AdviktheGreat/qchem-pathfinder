@@ -1,4 +1,5 @@
 import { questions } from "@/data/questions";
+import { normalizeAnswers } from "@/lib/answer-conflicts";
 import type { AnswerMap, SurveyQuestion } from "@/lib/types";
 
 export function isQuestionVisible(
@@ -13,7 +14,10 @@ export function isQuestionVisible(
 }
 
 export function getVisibleQuestions(answers: AnswerMap): SurveyQuestion[] {
-  return questions.filter((question) => isQuestionVisible(question, answers));
+  const normalized = normalizeAnswers(answers);
+  return questions.filter((question) =>
+    isQuestionVisible(question, normalized),
+  );
 }
 
 export function getPlannedQuestionCount(answers: AnswerMap): number {
@@ -30,11 +34,12 @@ export function getPlannedQuestionCount(answers: AnswerMap): number {
 }
 
 export function pruneHiddenAnswers(answers: AnswerMap): AnswerMap {
+  const normalized = normalizeAnswers(answers);
   const visibleIds = new Set(
-    getVisibleQuestions(answers).map((question) => question.id),
+    getVisibleQuestions(normalized).map((question) => question.id),
   );
   return Object.fromEntries(
-    Object.entries(answers).filter(([questionId]) =>
+    Object.entries(normalized).filter(([questionId]) =>
       visibleIds.has(questionId),
     ),
   );
