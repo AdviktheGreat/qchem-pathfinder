@@ -1,11 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Atom,
   Check,
   ChevronDown,
   Home,
+  LayoutGrid,
   LockKeyhole,
   RotateCcw,
   Save,
@@ -268,16 +270,28 @@ export function PathfinderApp() {
       </a>
       <div className={`app-frame screen-${screen}`}>
         <header className="app-header">
-          <button
-            className="brand brand-button"
-            type="button"
-            onClick={() => showScreen("intro")}
-          >
-            <span className="brand-mark">
-              <Atom size={18} />
-            </span>
-            <span>Quantum Research Pathfinder</span>
-          </button>
+          <div className="pathfinder-brand-group">
+            <Link
+              className="hub-return"
+              href="/"
+              aria-label="Back to all pathfinders"
+            >
+              <LayoutGrid size={16} aria-hidden="true" />
+              <span>Hub</span>
+            </Link>
+            <span className="brand-divider" aria-hidden="true" />
+            <button
+              className="brand brand-button"
+              type="button"
+              aria-label="Quantum Research Pathfinder"
+              onClick={() => showScreen("intro")}
+            >
+              <span className="brand-mark">
+                <Atom size={18} />
+              </span>
+              <span>Quantum Research Pathfinder</span>
+            </button>
+          </div>
           <div className="header-context" aria-live="polite">
             <span className="context-label">{contextLabel}</span>
             <span
@@ -305,8 +319,11 @@ export function PathfinderApp() {
               Menu <ChevronDown size={15} />
             </summary>
             <div>
+              <Link href="/">
+                <LayoutGrid size={15} /> All pathfinders
+              </Link>
               <button type="button" onClick={() => showScreen("intro")}>
-                <Home size={15} /> Home
+                <Home size={15} /> Pathfinder home
               </button>
               {surveyComplete && screen !== "review" && (
                 <button type="button" onClick={() => showScreen("review")}>

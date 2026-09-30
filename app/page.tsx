@@ -1,5 +1,5 @@
-import { PathfinderApp } from "@/components/PathfinderApp";
+import { PathfinderHub } from "@/components/PathfinderHub";
 
 export default function Home() {
-  return <PathfinderApp />;
+  return <PathfinderHub />;
 }
