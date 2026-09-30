@@ -2001,6 +2001,33 @@ h2 {
 .hub-main {
   padding-top: 4.5rem;
 }
+.hub-section-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 1.5rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 750;
+}
+.hub-section-nav a {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+.hub-section-nav a:hover {
+  border-color: var(--line-strong);
+  background: var(--surface-raised);
+  color: var(--teal-dark);
+}
+.hub-section-nav > span {
+  margin-left: auto;
+}
 .hub-intro {
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr);
@@ -2173,6 +2200,10 @@ h2 {
 }
 .pathfinder-directory {
   scroll-margin-top: 2rem;
+}
+#directory-title,
+#roadmap-title {
+  scroll-margin-top: 1.5rem;
 }
 .recent-pathfinder {
   display: grid;
@@ -2512,6 +2543,14 @@ h2 {
   .hub-main {
     padding-top: 2.5rem;
   }
+  .hub-section-nav {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .hub-section-nav > span {
+    width: 100%;
+    margin: 0.2rem 0 0;
+  }
   .hub-intro {
     gap: 2.5rem;
     min-height: 0;
@@ -2768,6 +2807,29 @@ h2 {
   }
   .next-action-buttons > * {
     width: 100%;
+  }
+}
+@media (max-width: 430px) {
+  .pathfinder-brand-group .brand > span:last-child {
+    display: none;
+  }
+  .pathfinder-card-topline {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .pathfinder-card-status {
+    width: 100%;
+  }
+  .hub-node {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.62rem;
+  }
+  .recent-pathfinder {
+    grid-template-columns: 1fr;
+  }
+  .recent-pathfinder-icon,
+  .recent-pathfinder a {
+    grid-column: 1;
   }
 }
 .pause-action {
@@ -3073,7 +3135,11 @@ h2 {
   }
   .tag-list span,
   .field-note,
-  .preparation-card {
+  .preparation-card,
+  .pathfinder-card,
+  .pathfinder-preview-card,
+  .recent-pathfinder,
+  .hub-section-nav a {
     border: 1px solid CanvasText;
   }
 }

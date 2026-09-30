@@ -31,6 +31,14 @@ export function PathfinderHub() {
         </header>
 
         <main id="hub-main" className="hub-main" tabIndex={-1}>
+          <nav className="hub-section-nav" aria-label="Hub sections">
+            <a href="#directory-title">Available pathfinders</a>
+            <a href="#roadmap-title">Collection roadmap</a>
+            <span>
+              {availablePathfinders.length} available ·{" "}
+              {upcomingPathfinders.length} in development
+            </span>
+          </nav>
           <section className="hub-intro" aria-labelledby="hub-title">
             <div className="hub-intro-copy">
               <p className="eyebrow">A growing collection of research maps</p>

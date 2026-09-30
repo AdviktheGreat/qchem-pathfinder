@@ -13,9 +13,10 @@ export function PathfinderPreviewCard({
 }) {
   const Icon =
     previewIcons[pathfinder.id as keyof typeof previewIcons] ?? Blocks;
+  const titleId = `${pathfinder.id}-title`;
 
   return (
-    <article className="pathfinder-preview-card">
+    <article className="pathfinder-preview-card" aria-labelledby={titleId}>
       <div className="preview-card-heading">
         <span className="preview-card-icon" aria-hidden="true">
           <Icon size={20} />
@@ -23,7 +24,7 @@ export function PathfinderPreviewCard({
         <span className="coming-soon-label">Coming later</span>
       </div>
       <p className="eyebrow">{pathfinder.eyebrow}</p>
-      <h3>{pathfinder.name}</h3>
+      <h3 id={titleId}>{pathfinder.name}</h3>
       <p>{pathfinder.description}</p>
       <ul
         className="pathfinder-focus-list"

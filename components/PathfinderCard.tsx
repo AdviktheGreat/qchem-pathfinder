@@ -68,14 +68,19 @@ export function PathfinderCard({
 
   if (!pathfinder.href) return null;
 
+  const titleId = `${pathfinder.id}-title`;
+  const outcomeId = `${pathfinder.id}-outcome`;
+  const progressId = `${pathfinder.id}-progress`;
+
   return (
-    <article className="pathfinder-card">
+    <article className="pathfinder-card" aria-labelledby={titleId}>
       <div className="pathfinder-card-topline">
         <div className="pathfinder-card-icon" aria-hidden="true">
           <Atom size={24} />
         </div>
         <div
           className={`pathfinder-card-status ${progress.complete ? "is-complete" : ""}`}
+          id={progressId}
           aria-live="polite"
         >
           {progress.complete ? (
@@ -90,21 +95,27 @@ export function PathfinderCard({
         </div>
       </div>
       <p className="eyebrow">{pathfinder.eyebrow}</p>
-      <h3>{pathfinder.name}</h3>
+      <h3 id={titleId}>{pathfinder.name}</h3>
       <p>{pathfinder.description}</p>
       <ul className="pathfinder-focus-list" aria-label="Focus areas">
         {pathfinder.focusAreas.map((area) => (
           <li key={area}>{area}</li>
         ))}
       </ul>
-      <p className="pathfinder-outcome">{pathfinder.outcome}</p>
+      <p className="pathfinder-outcome" id={outcomeId}>
+        {pathfinder.outcome}
+      </p>
       <div className="pathfinder-card-meta">
         <span>
           <Clock3 size={14} aria-hidden="true" /> {pathfinder.duration}
         </span>
         <span>Progress stays on this device</span>
       </div>
-      <Link className="primary-button" href={pathfinder.href}>
+      <Link
+        className="primary-button"
+        href={pathfinder.href}
+        aria-describedby={`${progressId} ${outcomeId}`}
+      >
         {progress.cta} <ArrowRight size={17} />
       </Link>
     </article>

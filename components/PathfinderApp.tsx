@@ -283,6 +283,7 @@ export function PathfinderApp() {
             <button
               className="brand brand-button"
               type="button"
+              aria-label="Quantum Research Pathfinder"
               onClick={() => showScreen("intro")}
             >
               <span className="brand-mark">
