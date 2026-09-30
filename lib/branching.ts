@@ -13,30 +13,46 @@ export function isQuestionVisible(
   );
 }
 
-export function getVisibleQuestions(answers: AnswerMap): SurveyQuestion[] {
-  const normalized = normalizeAnswers(answers);
-  return questions.filter((question) =>
+export function getVisibleQuestions(
+  answers: AnswerMap,
+  questionSet: readonly SurveyQuestion[] = questions,
+): SurveyQuestion[] {
+  const normalized = normalizeAnswers(answers, questionSet);
+  return questionSet.filter((question) =>
     isQuestionVisible(question, normalized),
   );
 }
 
-export function getPlannedQuestionCount(answers: AnswerMap): number {
-  if (answers.motivation?.length) return getVisibleQuestions(answers).length;
+export function getPlannedQuestionCount(
+  answers: AnswerMap,
+  questionSet: readonly SurveyQuestion[] = questions,
+  branchQuestionId = "motivation",
+): number {
+  if (answers[branchQuestionId]?.length)
+    return getVisibleQuestions(answers, questionSet).length;
   // Reserve room for the upcoming branch without rendering it prematurely.
-  const motivation = questions.find((question) => question.id === "motivation");
+  const branchQuestion = questionSet.find(
+    (question) => question.id === branchQuestionId,
+  );
   return Math.max(
-    getVisibleQuestions(answers).length,
-    ...(motivation?.options.map(
+    getVisibleQuestions(answers, questionSet).length,
+    ...(branchQuestion?.options.map(
       (option) =>
-        getVisibleQuestions({ ...answers, motivation: [option.id] }).length,
+        getVisibleQuestions(
+          { ...answers, [branchQuestionId]: [option.id] },
+          questionSet,
+        ).length,
     ) ?? []),
   );
 }
 
-export function pruneHiddenAnswers(answers: AnswerMap): AnswerMap {
-  const normalized = normalizeAnswers(answers);
+export function pruneHiddenAnswers(
+  answers: AnswerMap,
+  questionSet: readonly SurveyQuestion[] = questions,
+): AnswerMap {
+  const normalized = normalizeAnswers(answers, questionSet);
   const visibleIds = new Set(
-    getVisibleQuestions(normalized).map((question) => question.id),
+    getVisibleQuestions(normalized, questionSet).map((question) => question.id),
   );
   return Object.fromEntries(
     Object.entries(normalized).filter(([questionId]) =>
@@ -48,8 +64,9 @@ export function pruneHiddenAnswers(answers: AnswerMap): AnswerMap {
 export function getNextQuestionId(
   answers: AnswerMap,
   currentQuestionId: string,
+  questionSet: readonly SurveyQuestion[] = questions,
 ): string | undefined {
-  const visible = getVisibleQuestions(answers);
+  const visible = getVisibleQuestions(answers, questionSet);
   const index = visible.findIndex(
     (question) => question.id === currentQuestionId,
   );
@@ -59,16 +76,20 @@ export function getNextQuestionId(
 export function getPreviousQuestionId(
   answers: AnswerMap,
   currentQuestionId: string,
+  questionSet: readonly SurveyQuestion[] = questions,
 ): string | undefined {
-  const visible = getVisibleQuestions(answers);
+  const visible = getVisibleQuestions(answers, questionSet);
   const index = visible.findIndex(
     (question) => question.id === currentQuestionId,
   );
   return index > 0 ? visible[index - 1]?.id : undefined;
 }
 
-export function getAnsweredCount(answers: AnswerMap): number {
-  return getVisibleQuestions(answers).filter(
+export function getAnsweredCount(
+  answers: AnswerMap,
+  questionSet: readonly SurveyQuestion[] = questions,
+): number {
+  return getVisibleQuestions(answers, questionSet).filter(
     (question) => (answers[question.id]?.length ?? 0) > 0,
   ).length;
 }

@@ -4,6 +4,7 @@ import {
   pruneHiddenAnswers,
   getPlannedQuestionCount,
 } from "@/lib/branching";
+import type { SurveyQuestion } from "@/lib/types";
 
 describe("adaptive branching", () => {
   it("reserves branch questions before motivation without revealing them", () => {
@@ -48,5 +49,43 @@ describe("adaptive branching", () => {
       }).filter((question) => question.stage === "narrowing");
       expect(narrowing, motivation).toHaveLength(2);
     }
+  });
+
+  it("uses a supplied question set and branch question", () => {
+    const materialQuestions: SurveyQuestion[] = [
+      {
+        id: "materials-doorway",
+        stage: "motivation",
+        kicker: "Doorway",
+        title: "Choose a materials doorway",
+        type: "single",
+        options: [
+          { id: "energy", label: "Energy" },
+          { id: "electronics", label: "Electronics" },
+        ],
+      },
+      {
+        id: "energy-follow-up",
+        stage: "narrowing",
+        kicker: "Energy",
+        title: "Choose an energy focus",
+        type: "single",
+        visibleWhen: {
+          questionId: "materials-doorway",
+          anyOf: ["energy"],
+        },
+        options: [{ id: "battery", label: "Batteries" }],
+      },
+    ];
+
+    expect(
+      getPlannedQuestionCount({}, materialQuestions, "materials-doorway"),
+    ).toBe(2);
+    expect(
+      getVisibleQuestions(
+        { "materials-doorway": ["energy"] },
+        materialQuestions,
+      ).map((question) => question.id),
+    ).toEqual(["materials-doorway", "energy-follow-up"]);
   });
 });
