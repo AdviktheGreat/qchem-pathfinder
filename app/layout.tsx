@@ -7,26 +7,31 @@ const display = Fraunces({ subsets: ["latin"], variable: "--font-display" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://qchem-pathfinder.vercel.app"),
-  title: "Quantum Research Pathfinder",
+  title: {
+    default: "Research Pathfinder",
+    template: "%s | Research Pathfinder",
+  },
   description:
-    "A peer-guided exploration to help students discover a promising direction in quantum chemistry research.",
+    "A hub of peer-guided explorations that help students narrow broad scientific interests into promising research directions.",
   openGraph: {
-    title: "Quantum Research Pathfinder",
-    description: "Find a promising direction. Start reading with confidence.",
+    title: "Research Pathfinder",
+    description:
+      "Choose a scientific neighborhood, find a promising direction, and start reading with confidence.",
     type: "website",
     images: [
       {
         url: "/og.png",
         width: 1731,
         height: 909,
-        alt: "Quantum Research Pathfinder research-notebook preview",
+        alt: "Research Pathfinder scientific research-map preview",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Quantum Research Pathfinder",
-    description: "Find a promising direction. Start reading with confidence.",
+    title: "Research Pathfinder",
+    description:
+      "Choose a scientific neighborhood and find a promising direction to explore.",
     images: ["/og.png"],
   },
 };
@@ -37,7 +42,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <body className={`${sans.variable} ${display.variable}`}>{children}</body>
     </html>
   );

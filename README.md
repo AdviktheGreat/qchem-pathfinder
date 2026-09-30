@@ -1,8 +1,8 @@
-# Quantum Research Pathfinder
+# Research Pathfinder
 
-Quantum Research Pathfinder is a private, peer-guided survey for the first workshop of a high-school quantum chemistry research program. In roughly 8–12 minutes, it helps a student move from broad curiosity to one promising sub-niche, two nearby alternatives, and practical language for beginning a literature review.
+Research Pathfinder is a privacy-minded hub for focused, peer-guided research-orientation tools. Its first complete module is the Quantum Chemistry Pathfinder, created for the opening workshop of a high-school quantum chemistry research program. In roughly 8–12 minutes, that pathfinder helps a student move from broad curiosity to one promising sub-niche, two nearby alternatives, and practical language for beginning a literature review.
 
-The app does **not** choose a final research question, grade prior knowledge, or send student answers anywhere. Progress is stored only in the browser on the current device.
+The hub does **not** choose a final research question, grade prior knowledge, or send student answers anywhere. Progress is stored only in the browser on the current device. Computational materials and computational biology appear as honest roadmap previews; they do not link to placeholder surveys.
 
 ## Local development and checks
 
@@ -29,7 +29,9 @@ On a fresh checkout, run `npx next typegen` before type checking to generate rou
 
 ```text
 app/                    Next.js App Router entry points and global styles
-components/             Introduction, survey, review, results, and shared controls
+app/pathfinders/        Individual pathfinder routes
+components/             Hub, survey, review, results, and shared controls
+data/pathfinders.ts     Typed hub catalog and availability states
 data/questions.ts       Typed survey questions, choices, signals, and branch rules
 data/niches.ts          Typed taxonomy, educational copy, keywords, and searches
 data/preparation.ts     Math, coding, and explanation guidance
@@ -41,10 +43,24 @@ lib/recommendation.ts   Deterministic scoring, ranking, and explanations
 lib/preparation.ts      Shared preparation model for results and exports
 lib/profile-export.ts   Plain-text research-profile formatter
 lib/persistence.ts      Versioned local-storage serialization and validation
+lib/hub-persistence.ts  Validated recently visited pathfinder state
 tests/fixtures/         Six complete, validated student answer paths
 tests/                  Unit and rendered-component journey tests
 docs/                   Export format contract and scientific-copy sources
 ```
+
+## Hub and pathfinder routes
+
+The central hub lives at `/`. The completed quantum chemistry experience lives at `/pathfinders/quantum-chemistry`. Next.js links connect the two routes, so a student can return to the collection without losing the separately saved qchem survey.
+
+The hub reads the existing quantum chemistry progress record only to show whether the student should open, continue, or review that pathfinder. It also keeps a small, separately validated record of the most recently visited pathfinder. Both records remain local to the browser.
+
+Pathfinder availability is controlled in `data/pathfinders.ts`:
+
+- `available` entries require a real route and receive an interactive card.
+- `coming-soon` entries are non-interactive roadmap previews.
+
+See [the pathfinder platform contract](docs/pathfinder-platform.md) before adding another active module.
 
 ## How adaptation works
 
@@ -140,6 +156,7 @@ Use `npx vercel --prod` only after the preview is approved.
 
 ## Known limitations
 
+- Quantum chemistry is currently the only complete, interactive pathfinder. Roadmap cards are previews, not usable modules.
 - Recommendations reflect a curated taxonomy and declared weights; they are conversation starters, not objective measurements.
 - Progress is browser- and device-specific. Clearing site storage removes it.
 - Search launchpads provide vocabulary and query strings, not live literature results or verified citations.
