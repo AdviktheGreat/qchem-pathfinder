@@ -216,4 +216,122 @@ export const computationalMaterialsQuestions: SurveyQuestion[] = [
       unsureOption,
     ],
   },
+  {
+    id: "materials-motivation",
+    stage: "motivation",
+    kicker: "Follow your attention",
+    title: "Which materials challenge makes you most curious today?",
+    prompt:
+      "Choose the doorway you would like to explore first. You are not committing to a career, project, or final research question.",
+    type: "single",
+    options: [
+      {
+        id: "energy-storage",
+        label: "Store energy more effectively",
+        description:
+          "Why battery electrodes, solid electrolytes, or ion-storage materials gain, lose, or retain performance.",
+        signals: {
+          "interest:energy-storage": 3,
+          "application:energy": 2,
+        },
+      },
+      {
+        id: "energy-conversion",
+        label: "Convert energy into a useful form",
+        description:
+          "Materials for solar energy, hydrogen, waste heat, or other energy-conversion technologies.",
+        signals: {
+          "interest:energy-conversion": 3,
+          "application:energy": 2,
+        },
+      },
+      {
+        id: "electronics",
+        label: "Build better electronic or computing materials",
+        description:
+          "How semiconductors, magnetic materials, or low-dimensional systems carry and control information.",
+        signals: {
+          "interest:electronics": 3,
+          "phenomenon:electrons": 2,
+        },
+      },
+      {
+        id: "light-sensing",
+        label: "Control light or detect the world",
+        description:
+          "Materials that absorb, emit, guide, or respond to light in displays, sensors, and photonic devices.",
+        signals: {
+          "interest:light": 3,
+          "phenomenon:optical": 2,
+        },
+      },
+      {
+        id: "climate-environment",
+        label: "Address a climate or environmental problem",
+        description:
+          "Materials for gas capture, separations, cleaner water, lower-energy processes, or environmental resilience.",
+        signals: {
+          "interest:environment": 3,
+          "application:sustainability": 2,
+        },
+      },
+      {
+        id: "catalysis",
+        label: "Make chemical transformations more efficient",
+        description:
+          "How surfaces and active sites help reactions proceed, and why one catalyst performs differently from another.",
+        signals: {
+          "interest:catalysis": 3,
+          "scale:surface": 2,
+        },
+      },
+      {
+        id: "structural",
+        label: "Make materials stronger, safer, or longer-lasting",
+        description:
+          "How alloys, ceramics, defects, interfaces, or corrosion influence performance under real conditions.",
+        signals: {
+          "interest:structural": 3,
+          "phenomenon:mechanical": 2,
+        },
+      },
+      {
+        id: "soft-health",
+        label: "Explore soft materials or materials for health",
+        description:
+          "Polymers, flexible materials, interfaces with biology, and structures that respond to their surroundings.",
+        signals: {
+          "interest:soft-materials": 3,
+          "application:health": 2,
+        },
+      },
+      {
+        id: "fundamentals",
+        label: "Understand surprising material behavior",
+        description:
+          "Why phases form, defects matter, atoms move, or quantum behavior produces unusual properties.",
+        signals: {
+          "interest:fundamentals": 3,
+          "purpose:fundamental": 2,
+        },
+      },
+      {
+        id: "data-discovery",
+        label: "Discover materials with data and computation",
+        description:
+          "Use high-throughput calculations, databases, or machine learning to search a large design space.",
+        signals: {
+          "interest:data-discovery": 3,
+          "style:data": 2,
+        },
+      },
+      {
+        id: "open",
+        label: "Show me several possibilities",
+        description:
+          "I want to compare a varied set of materials questions before choosing what to read about first.",
+        signals: { "interest:open": 3 },
+      },
+    ],
+  },
 ];

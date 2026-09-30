@@ -3,10 +3,13 @@ import { computationalMaterialsPathfinder } from "@/data/pathfinders/computation
 import { getKnowledgeProfile } from "@/lib/recommendation";
 
 const { questions } = computationalMaterialsPathfinder.survey;
+const calibrationQuestions = questions.filter(
+  (question) => question.stage === "calibration",
+);
 
 describe("computational materials knowledge calibration", () => {
   it("asks about familiarity without scoring scientific knowledge", () => {
-    expect(questions.map((question) => question.id)).toEqual([
+    expect(calibrationQuestions.map((question) => question.id)).toEqual([
       "materials-starting-point",
       "materials-concept-familiarity",
       "materials-math-comfort",
@@ -14,7 +17,7 @@ describe("computational materials knowledge calibration", () => {
       "materials-tools-comfort",
       "materials-explanation-style",
     ]);
-    for (const question of questions) {
+    for (const question of calibrationQuestions) {
       expect(question.stage).toBe("calibration");
       expect(
         question.options.some((option) => option.uncertainty),
@@ -40,7 +43,7 @@ describe("computational materials knowledge calibration", () => {
     const steps = getPreparationSteps(
       answers,
       computationalMaterialsPathfinder.preparation,
-      questions,
+      calibrationQuestions,
     );
 
     expect(steps).toHaveLength(3);
@@ -51,7 +54,7 @@ describe("computational materials knowledge calibration", () => {
       getExplanationGuide(
         answers,
         computationalMaterialsPathfinder.preparation,
-        questions,
+        calibrationQuestions,
       ).text,
     ).toContain("unit-cell image");
   });
@@ -63,7 +66,7 @@ describe("computational materials knowledge calibration", () => {
         "materials-concept-familiarity": ["atomic-structure", "bonding"],
       },
       computationalMaterialsPathfinder.preparation,
-      questions,
+      calibrationQuestions,
     );
 
     expect(profile.startingPoint).toContain("New vocabulary is preparation");
