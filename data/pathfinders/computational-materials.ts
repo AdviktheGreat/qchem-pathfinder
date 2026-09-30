@@ -5,6 +5,7 @@ import {
   queryGuidance,
 } from "@/data/reading-guidance";
 import type { PathfinderDefinition } from "@/lib/pathfinder-definition";
+import { computationalMaterialsQuestions } from "@/data/pathfinders/computational-materials/questions";
 
 const preparationFallbacks = {
   unsure:
@@ -26,7 +27,7 @@ export const computationalMaterialsPathfinder = {
     version: 1,
   },
   survey: {
-    questions: [],
+    questions: computationalMaterialsQuestions,
     stageLabels: {
       calibration: "Starting point",
       motivation: "What draws you in",
@@ -35,7 +36,9 @@ export const computationalMaterialsPathfinder = {
       style: "How you like to investigate",
     },
     branchQuestionId: "materials-motivation",
-    calibrationQuestionIds: [],
+    calibrationQuestionIds: computationalMaterialsQuestions
+      .filter((question) => question.stage === "calibration")
+      .map((question) => question.id),
   },
   recommendations: {
     niches: [],
@@ -52,10 +55,22 @@ export const computationalMaterialsPathfinder = {
     knowledge: {
       memoryQuestionId: "materials-starting-point",
       conceptQuestionId: "materials-concept-familiarity",
-      startingPointByAnswer: {},
+      startingPointByAnswer: {
+        new: "Begin with a concise map connecting atomic structure, bonding, and measurable material properties. New vocabulary is preparation—not a limit on what you can explore.",
+        recognize:
+          "Several ideas are recognizable. A short refresher on structures, phases, and property language will make the literature easier to enter.",
+        comfortable:
+          "Core materials ideas feel available; build from them while checking unfamiliar methods and details as needed.",
+      },
       defaultStartingPoint:
         "Your current familiarity will shape preparation guidance, never which materials directions you are allowed to explore.",
-      conceptReviewLabels: {},
+      conceptReviewLabels: {
+        "atomic-structure": "Atomic arrangements and material structure",
+        bonding: "Bonding and how it influences material properties",
+        crystals: "Crystal lattices, symmetry, and unit cells",
+        phases: "Phases, energy, and material stability",
+        properties: "Structure–property relationships",
+      },
       mathFallback: "Still exploring how much mathematical detail feels useful",
       codingFallback: "Still exploring comfort with computational tools",
       explanationFallback: "Open to different explanation styles",
