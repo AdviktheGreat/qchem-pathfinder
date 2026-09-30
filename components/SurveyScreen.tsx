@@ -7,13 +7,16 @@ import {
   getVisibleQuestions,
   getPlannedQuestionCount,
 } from "@/lib/branching";
-import { stageLabels, questionById } from "@/data/questions";
 import type { AnswerMap } from "@/lib/types";
 import { selectAnswer } from "@/lib/answer-selection";
 import { StageIcon } from "@/components/StageIcon";
 import { JourneyNavigator } from "@/components/JourneyNavigator";
+import type { PathfinderSurveyConfig } from "@/lib/pathfinder-definition";
+import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
+import { indexQuestions } from "@/lib/survey-progress";
 
 interface SurveyScreenProps {
+  survey?: PathfinderSurveyConfig;
   answers: AnswerMap;
   currentQuestionId: string;
   onAnswer: (questionId: string, optionIds: string[]) => void;
@@ -28,6 +31,7 @@ interface SurveyScreenProps {
 }
 
 export function SurveyScreen({
+  survey = quantumChemistryPathfinder.survey,
   answers,
   currentQuestionId,
   onAnswer,
@@ -40,8 +44,10 @@ export function SurveyScreen({
   shortcutsEnabled = false,
   onShortcutsChange,
 }: SurveyScreenProps) {
-  const visible = getVisibleQuestions(answers);
-  const total = getPlannedQuestionCount(answers);
+  const { questions, stageLabels, branchQuestionId } = survey;
+  const questionById = useMemo(() => indexQuestions(questions), [questions]);
+  const visible = getVisibleQuestions(answers, questions);
+  const total = getPlannedQuestionCount(answers, questions, branchQuestionId);
   const question = questionById[currentQuestionId] ?? visible[0];
   const index = Math.max(
     0,
@@ -104,14 +110,14 @@ export function SurveyScreen({
   }
 
   function next() {
-    const refreshed = getVisibleQuestions(answers);
+    const refreshed = getVisibleQuestions(answers, questions);
     const currentIndex = refreshed.findIndex((item) => item.id === question.id);
     const nextQuestion = refreshed[currentIndex + 1];
     if (nextQuestion) onQuestionChange(nextQuestion.id);
     else onComplete();
   }
 
-  const previousId = getPreviousQuestionId(answers, question.id);
+  const previousId = getPreviousQuestionId(answers, question.id, questions);
   const branchSource = question.visibleWhen
     ? questionById[question.visibleWhen.questionId]
     : undefined;

@@ -31,6 +31,7 @@ import { ResultsScreen } from "@/components/ResultsScreen";
 import { ReviewScreen } from "@/components/ReviewScreen";
 import { stageLabels, questionById } from "@/data/questions";
 import { resolveAnswerConflicts } from "@/lib/answer-conflicts";
+import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
 
 type Screen = PersistedSurveyState["screen"];
 
@@ -400,6 +401,7 @@ export function PathfinderApp() {
           )}
           {screen === "survey" && currentQuestionId && (
             <SurveyScreen
+              survey={quantumChemistryPathfinder.survey}
               answers={answers}
               currentQuestionId={currentQuestionId}
               onAnswer={updateAnswer}

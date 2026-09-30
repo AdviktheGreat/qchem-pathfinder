@@ -3,6 +3,7 @@ import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { questionById } from "@/data/questions";
 import { afterEach, expect, it, vi } from "vitest";
 import { SurveyScreen } from "@/components/SurveyScreen";
+import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
 
 afterEach(cleanup);
 it("defines DFT where students first encounter it", () => {
@@ -79,6 +80,38 @@ it("explains the actual choice behind a narrowing question", () => {
     />,
   );
   expect(screen.getByText(/You chose “Energy & sustainability”/)).toBeDefined();
+});
+it("renders a supplied pathfinder survey", () => {
+  render(
+    <SurveyScreen
+      {...handlers}
+      survey={{
+        ...quantumChemistryPathfinder.survey,
+        questions: [
+          {
+            id: "material-family",
+            stage: "motivation",
+            kicker: "Materials",
+            title: "Which material family catches your attention?",
+            type: "single",
+            options: [{ id: "battery", label: "Battery materials" }],
+          },
+        ],
+        branchQuestionId: "material-family",
+      }}
+      answers={{}}
+      currentQuestionId="material-family"
+    />,
+  );
+
+  expect(
+    screen.getByRole("heading", {
+      name: "Which material family catches your attention?",
+    }),
+  ).toBeDefined();
+  expect(
+    screen.getByRole("radio", { name: "Battery materials" }),
+  ).toBeDefined();
 });
 const handlers = {
   onAnswer: vi.fn(),
