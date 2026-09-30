@@ -9,6 +9,10 @@ describe("computational materials knowledge calibration", () => {
     expect(questions.map((question) => question.id)).toEqual([
       "materials-starting-point",
       "materials-concept-familiarity",
+      "materials-math-comfort",
+      "materials-coding-comfort",
+      "materials-tools-comfort",
+      "materials-explanation-style",
     ]);
     for (const question of questions) {
       expect(question.stage).toBe("calibration");
@@ -21,6 +25,35 @@ describe("computational materials knowledge calibration", () => {
         expect(option.nicheBoosts, option.id).toBeUndefined();
       }
     }
+  });
+
+  it("turns math, coding, and tool comfort into practical preparation", async () => {
+    const { getExplanationGuide, getPreparationSteps } =
+      await import("@/lib/preparation");
+    const answers = {
+      "materials-starting-point": ["recognize"],
+      "materials-math-comfort": ["concept-first"],
+      "materials-coding-comfort": ["new"],
+      "materials-tools-comfort": ["guided"],
+      "materials-explanation-style": ["visual"],
+    };
+    const steps = getPreparationSteps(
+      answers,
+      computationalMaterialsPathfinder.preparation,
+      questions,
+    );
+
+    expect(steps).toHaveLength(3);
+    expect(steps[0]).toContain("structure image or property plot");
+    expect(steps[1]).toContain("prepared notebook");
+    expect(steps[2]).toContain("Repeat a guided calculation");
+    expect(
+      getExplanationGuide(
+        answers,
+        computationalMaterialsPathfinder.preparation,
+        questions,
+      ).text,
+    ).toContain("unit-cell image");
   });
 
   it("turns unfamiliar concepts into preparation topics rather than exclusions", () => {

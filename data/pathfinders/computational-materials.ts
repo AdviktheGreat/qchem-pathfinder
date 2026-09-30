@@ -6,11 +6,12 @@ import {
 } from "@/data/reading-guidance";
 import type { PathfinderDefinition } from "@/lib/pathfinder-definition";
 import { computationalMaterialsQuestions } from "@/data/pathfinders/computational-materials/questions";
-
-const preparationFallbacks = {
-  unsure:
-    "Begin with one guided example and notice which explanation helps you connect a material’s structure to its properties.",
-};
+import {
+  materialsCodingPreparation,
+  materialsExplanationGuides,
+  materialsMathPreparation,
+  materialsToolPreparation,
+} from "@/data/pathfinders/computational-materials/preparation";
 
 export const computationalMaterialsPathfinder = {
   identity: {
@@ -48,9 +49,15 @@ export const computationalMaterialsPathfinder = {
     mathQuestionId: "materials-math-comfort",
     codingQuestionId: "materials-coding-comfort",
     explanationQuestionId: "materials-explanation-style",
-    mathAdvice: preparationFallbacks,
-    codingAdvice: preparationFallbacks,
-    explanationGuides: preparationFallbacks,
+    mathAdvice: materialsMathPreparation,
+    codingAdvice: materialsCodingPreparation,
+    explanationGuides: materialsExplanationGuides,
+    supplementalAdvice: [
+      {
+        questionId: "materials-tools-comfort",
+        advice: materialsToolPreparation,
+      },
+    ],
     conceptOverlaps: [],
     knowledge: {
       memoryQuestionId: "materials-starting-point",

@@ -48,6 +48,10 @@ export interface PathfinderPreparationConfig {
   mathAdvice: Readonly<Record<string, string>>;
   codingAdvice: Readonly<Record<string, string>>;
   explanationGuides: Readonly<Record<string, string>>;
+  supplementalAdvice: readonly {
+    questionId: string;
+    advice: Readonly<Record<string, string>>;
+  }[];
   conceptOverlaps: readonly ConceptOverlap[];
   knowledge: {
     memoryQuestionId: string;

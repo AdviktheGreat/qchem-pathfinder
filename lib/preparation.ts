@@ -18,6 +18,7 @@ const defaultPreparationConfig: PathfinderPreparationConfig = {
   mathAdvice: mathPreparation,
   codingAdvice: codingPreparation,
   explanationGuides,
+  supplementalAdvice: [],
   conceptOverlaps,
   knowledge: knowledgePreparation,
 };
@@ -56,6 +57,10 @@ export function getPreparationSteps(
       config.mathAdvice.unsure,
     config.codingAdvice[normalized[config.codingQuestionId]?.[0]] ??
       config.codingAdvice.unsure,
+    ...config.supplementalAdvice.map(
+      ({ questionId, advice }) =>
+        advice[normalized[questionId]?.[0]] ?? advice.unsure,
+    ),
   ];
 }
 

@@ -52,6 +52,7 @@ export const quantumChemistryPathfinder = {
     mathAdvice: mathPreparation,
     codingAdvice: codingPreparation,
     explanationGuides,
+    supplementalAdvice: [],
     conceptOverlaps,
     knowledge: knowledgePreparation,
   },
