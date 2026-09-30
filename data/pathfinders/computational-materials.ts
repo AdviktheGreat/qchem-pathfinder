@@ -78,13 +78,33 @@ export const computationalMaterialsPathfinder = {
     questionTypeQuestionId: "materials-question-kind",
   },
   intro: {
-    eyebrow: "A guided materials research exploration",
-    title: "Find a computational materials direction worth exploring.",
+    eyebrow: "A guided computational materials exploration",
+    title: "Find a materials direction worth reading about.",
     description:
-      "Connect the materials and technologies that interest you with the scientific questions and modeling approaches used to study them.",
+      "Start with the materials, properties, and technologies that catch your attention. We’ll connect that curiosity to the kinds of questions computational materials researchers investigate.",
+    scopeNote:
+      "You’ll leave with one promising sub-niche, two nearby alternatives, and practical language for beginning a literature search—not a final research question or a verdict about what you should study.",
     durationLabel: "About 10 minutes",
-    privacyLabel: "Answers stay on this device",
-    noScoreLabel: "No scores or wrong answers",
+    privacyLabel: "Saved only in this browser",
+    noScoreLabel: "Experience changes guidance, not access",
+    privacyNote:
+      "No account or personal information is requested. Your answers are stored in this browser so you can refresh and return; the pathfinder does not transmit them to a server.",
+    promiseSteps: [
+      {
+        label: "Notice",
+        text: "which materials, properties, and technologies hold your attention.",
+      },
+      {
+        label: "Narrow",
+        text: "toward a material family, scientific phenomenon, and modeling scale.",
+      },
+      {
+        label: "Launch",
+        text: "into the literature with useful vocabulary and search queries.",
+      },
+    ],
+    branchingNote:
+      "Your answers shape the follow-up questions and reading directions—not an ability score or a hidden personality label.",
   },
   contextLabels: {
     intro: "Materials orientation",

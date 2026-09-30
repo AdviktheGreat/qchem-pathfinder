@@ -103,9 +103,17 @@ export interface PathfinderIntroCopy {
   eyebrow: string;
   title: string;
   description: string;
+  scopeNote?: string;
   durationLabel: string;
   privacyLabel: string;
   noScoreLabel: string;
+  privacyNote?: string;
+  promiseSteps: readonly [
+    { label: string; text: string },
+    { label: string; text: string },
+    { label: string; text: string },
+  ];
+  branchingNote: string;
 }
 
 export interface PathfinderContextLabels {

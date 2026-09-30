@@ -36,6 +36,9 @@ export function IntroScreen({
             {intro.title}
           </h1>
           <p className="lede">{intro.description}</p>
+          {intro.scopeNote && (
+            <p className="intro-scope-note">{intro.scopeNote}</p>
+          )}
           <div className="hero-actions">
             <button
               className="primary-button"
@@ -63,36 +66,28 @@ export function IntroScreen({
               <SlidersHorizontal size={15} /> {intro.noScoreLabel}
             </span>
           </div>
+          {intro.privacyNote && (
+            <details className="privacy-details">
+              <summary>How your progress is saved</summary>
+              <p>{intro.privacyNote}</p>
+            </details>
+          )}
         </div>
         <ResearchMapPreview />
       </section>
 
       <section className="promise-strip" aria-label="How the pathfinder works">
-        <div>
-          <span>01</span>
-          <p>
-            <strong>Notice</strong> what naturally holds your attention.
-          </p>
-        </div>
-        <div>
-          <span>02</span>
-          <p>
-            <strong>Narrow</strong> with a few questions shaped by your choices.
-          </p>
-        </div>
-        <div>
-          <span>03</span>
-          <p>
-            <strong>Launch</strong> into the literature with useful search
-            terms.
-          </p>
-        </div>
+        {intro.promiseSteps.map((step, index) => (
+          <div key={step.label}>
+            <span>0{index + 1}</span>
+            <p>
+              <strong>{step.label}</strong> {step.text}
+            </p>
+          </div>
+        ))}
         <div className="privacy-promise">
           <GitBranch size={17} />
-          <p>
-            Your answers shape the next questions, not a hidden personality
-            label.
-          </p>
+          <p>{intro.branchingNote}</p>
         </div>
       </section>
     </>

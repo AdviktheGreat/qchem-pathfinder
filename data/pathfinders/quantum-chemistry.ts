@@ -78,6 +78,22 @@ export const quantumChemistryPathfinder = {
     durationLabel: "About 10 minutes",
     privacyLabel: "Answers stay on this device",
     noScoreLabel: "No scores or wrong answers",
+    promiseSteps: [
+      {
+        label: "Notice",
+        text: "what naturally holds your attention.",
+      },
+      {
+        label: "Narrow",
+        text: "with a few questions shaped by your choices.",
+      },
+      {
+        label: "Launch",
+        text: "into the literature with useful search terms.",
+      },
+    ],
+    branchingNote:
+      "Your answers shape the next questions, not a hidden personality label.",
   },
   contextLabels: {
     intro: "Research orientation",

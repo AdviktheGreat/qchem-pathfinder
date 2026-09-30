@@ -397,6 +397,15 @@ h2 {
   font-size: clamp(1.05rem, 2vw, 1.3rem);
   line-height: 1.65;
 }
+.intro-scope-note {
+  max-width: 680px;
+  margin: 0.8rem 0 0;
+  padding-left: 0.9rem;
+  border-left: 2px solid rgba(26, 123, 107, 0.35);
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -482,6 +491,7 @@ h2 {
 }
 .privacy-details {
   max-width: 38rem;
+  margin-top: 0.9rem;
   color: var(--muted);
   font-size: 0.82rem;
 }

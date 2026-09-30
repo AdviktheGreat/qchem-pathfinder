@@ -16,6 +16,12 @@ it("renders the active pathfinder introduction", () => {
         durationLabel: "About 10 minutes",
         privacyLabel: "Materials answers stay on this device",
         noScoreLabel: "No grades or perfect materials",
+        promiseSteps: [
+          { label: "Notice", text: "what interests you." },
+          { label: "Narrow", text: "toward a useful direction." },
+          { label: "Launch", text: "into the literature." },
+        ],
+        branchingNote: "Answers shape the route, not an ability score.",
       }}
       hasProgress={false}
       resumeDetail=""
