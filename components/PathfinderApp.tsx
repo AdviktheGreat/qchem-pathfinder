@@ -428,6 +428,7 @@ export function PathfinderApp() {
           )}
           {screen === "review" && (
             <ReviewScreen
+              survey={quantumChemistryPathfinder.survey}
               answers={answers}
               onEdit={(questionId) => {
                 setCurrentQuestionId(questionId);

@@ -3,20 +3,24 @@
 import { useState } from "react";
 import { ArrowLeft, Pencil } from "lucide-react";
 import { getVisibleQuestions } from "@/lib/branching";
-import { stageLabels } from "@/data/questions";
 import type { AnswerMap, SurveyStage } from "@/lib/types";
 import { isStillExploring } from "@/lib/review";
+import type { PathfinderSurveyConfig } from "@/lib/pathfinder-definition";
+import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
 
 export function ReviewScreen({
   answers,
   onEdit,
   onBack,
+  survey = quantumChemistryPathfinder.survey,
 }: {
   answers: AnswerMap;
   onEdit: (id: string) => void;
   onBack: () => void;
+  survey?: PathfinderSurveyConfig;
 }) {
-  const questions = getVisibleQuestions(answers);
+  const { stageLabels } = survey;
+  const questions = getVisibleQuestions(answers, survey.questions);
   const [onlyOpen, setOnlyOpen] = useState(false);
   const filtered = onlyOpen
     ? questions.filter((question) => isStillExploring(question, answers))

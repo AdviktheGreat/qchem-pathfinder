@@ -143,6 +143,7 @@ export function SurveyScreen({
         currentStage={question.stage}
         questions={visible}
         answers={answers}
+        stageLabels={stageLabels}
       />
       <div
         className="progress-wrap"

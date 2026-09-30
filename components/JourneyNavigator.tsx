@@ -1,7 +1,8 @@
 import { Check } from "lucide-react";
-import { stageLabels } from "@/data/questions";
 import type { AnswerMap, SurveyQuestion, SurveyStage } from "@/lib/types";
 import { StageIcon } from "@/components/StageIcon";
+import type { StageLabels } from "@/lib/pathfinder-definition";
+import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
 
 const stageOrder: SurveyStage[] = [
   "calibration",
@@ -15,10 +16,12 @@ export function JourneyNavigator({
   currentStage,
   questions,
   answers,
+  stageLabels = quantumChemistryPathfinder.survey.stageLabels,
 }: {
   currentStage: SurveyStage;
-  questions: SurveyQuestion[];
+  questions: readonly SurveyQuestion[];
   answers: AnswerMap;
+  stageLabels?: StageLabels;
 }) {
   const currentStageIndex = stageOrder.indexOf(currentStage);
 

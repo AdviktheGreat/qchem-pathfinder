@@ -2,6 +2,7 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, expect, it, vi } from "vitest";
 import { ReviewScreen } from "@/components/ReviewScreen";
+import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
 afterEach(cleanup);
 it("filters uncertain answers and can return to all answers", () => {
   render(
@@ -37,4 +38,33 @@ it("marks uncertainty without labeling specific answers as uncertain", () => {
   expect(
     screen.getByText("Still exploring").closest(".review-row")?.textContent,
   ).toContain("equations");
+});
+it("groups a supplied pathfinder survey with its own stage labels", () => {
+  render(
+    <ReviewScreen
+      survey={{
+        ...quantumChemistryPathfinder.survey,
+        stageLabels: {
+          ...quantumChemistryPathfinder.survey.stageLabels,
+          motivation: "Materials curiosity",
+        },
+        questions: [
+          {
+            id: "material-family",
+            stage: "motivation",
+            kicker: "Materials",
+            title: "Choose a material family",
+            type: "single",
+            options: [{ id: "battery", label: "Battery materials" }],
+          },
+        ],
+      }}
+      answers={{ "material-family": ["battery"] }}
+      onEdit={vi.fn()}
+      onBack={vi.fn()}
+    />,
+  );
+
+  expect(screen.getByText("Materials curiosity")).toBeDefined();
+  expect(screen.getByText("Battery materials")).toBeDefined();
 });
