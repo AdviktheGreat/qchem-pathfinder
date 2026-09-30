@@ -103,6 +103,15 @@ export interface PathfinderIntroCopy {
   eyebrow: string;
   title: string;
   description: string;
+  durationLabel: string;
+  privacyLabel: string;
+  noScoreLabel: string;
+}
+
+export interface PathfinderContextLabels {
+  intro: string;
+  results: string;
+  review: string;
 }
 
 export interface PathfinderDefinition {
@@ -114,4 +123,5 @@ export interface PathfinderDefinition {
   results: PathfinderResultsConfig;
   profile: PathfinderProfileConfig;
   intro: PathfinderIntroCopy;
+  contextLabels: PathfinderContextLabels;
 }

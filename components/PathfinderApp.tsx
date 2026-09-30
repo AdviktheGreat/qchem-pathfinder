@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Atom,
+  Boxes,
   Check,
   ChevronDown,
   Home,
@@ -34,6 +35,14 @@ import { resolveAnswerConflicts } from "@/lib/answer-conflicts";
 import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
 
 type Screen = PersistedSurveyState["screen"];
+
+function BrandIcon({ icon }: { icon: "atom" | "material" }) {
+  return icon === "material" ? (
+    <Boxes size={18} aria-hidden="true" />
+  ) : (
+    <Atom size={18} aria-hidden="true" />
+  );
+}
 
 export function PathfinderApp() {
   const mainRef = useRef<HTMLElement>(null);
@@ -140,10 +149,10 @@ export function PathfinderApp() {
     screen === "survey" && currentQuestion
       ? stageLabels[currentQuestion.stage]
       : screen === "results"
-        ? "Exploration map"
+        ? quantumChemistryPathfinder.contextLabels.results
         : screen === "review"
-          ? "Answer review"
-          : "Research orientation";
+          ? quantumChemistryPathfinder.contextLabels.review
+          : quantumChemistryPathfinder.contextLabels.intro;
 
   function begin() {
     setAnswerResolutionNotice(undefined);
@@ -284,13 +293,13 @@ export function PathfinderApp() {
             <button
               className="brand brand-button"
               type="button"
-              aria-label="Quantum Research Pathfinder"
+              aria-label={quantumChemistryPathfinder.identity.ariaLabel}
               onClick={() => showScreen("intro")}
             >
               <span className="brand-mark">
-                <Atom size={18} />
+                <BrandIcon icon={quantumChemistryPathfinder.identity.icon} />
               </span>
-              <span>Quantum Research Pathfinder</span>
+              <span>{quantumChemistryPathfinder.identity.brandLabel}</span>
             </button>
           </div>
           <div className="header-context" aria-live="polite">
@@ -389,6 +398,7 @@ export function PathfinderApp() {
 
           {screen === "intro" && (
             <IntroScreen
+              intro={quantumChemistryPathfinder.intro}
               hasProgress={Object.keys(answers).length > 0}
               resumeDetail={
                 surveyComplete

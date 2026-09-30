@@ -75,5 +75,13 @@ export const quantumChemistryPathfinder = {
     title: "Find a quantum chemistry direction worth looking into.",
     description:
       "You know the broad landscape. In about ten minutes, we’ll help you identify one promising quantum chemistry direction—and two nearby paths worth keeping open.",
+    durationLabel: "About 10 minutes",
+    privacyLabel: "Answers stay on this device",
+    noScoreLabel: "No scores or wrong answers",
+  },
+  contextLabels: {
+    intro: "Research orientation",
+    results: "Exploration map",
+    review: "Answer review",
   },
 } satisfies PathfinderDefinition;

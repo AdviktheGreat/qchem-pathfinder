@@ -7,8 +7,11 @@ import {
   Sparkles,
 } from "lucide-react";
 import { ResearchMapPreview } from "@/components/ResearchMapPreview";
+import type { PathfinderIntroCopy } from "@/lib/pathfinder-definition";
+import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
 
 interface IntroScreenProps {
+  intro?: PathfinderIntroCopy;
   hasProgress: boolean;
   resumeDetail: string;
   onBegin: () => void;
@@ -16,6 +19,7 @@ interface IntroScreenProps {
 }
 
 export function IntroScreen({
+  intro = quantumChemistryPathfinder.intro,
   hasProgress,
   resumeDetail,
   onBegin,
@@ -26,16 +30,12 @@ export function IntroScreen({
       <section className="hero" aria-labelledby="intro-title">
         <div className="hero-copy">
           <p className="eyebrow">
-            <Sparkles size={15} /> A guided research exploration
+            <Sparkles size={15} /> {intro.eyebrow}
           </p>
           <h1 id="intro-title" tabIndex={-1}>
-            Find a quantum chemistry direction worth looking into.
+            {intro.title}
           </h1>
-          <p className="lede">
-            You know the broad landscape. In about ten minutes, we’ll help you
-            identify one promising quantum chemistry direction—and two nearby
-            paths worth keeping open.
-          </p>
+          <p className="lede">{intro.description}</p>
           <div className="hero-actions">
             <button
               className="primary-button"
@@ -54,13 +54,13 @@ export function IntroScreen({
           </div>
           <div className="reassurance-row" aria-label="What to expect">
             <span>
-              <Clock3 size={15} /> About 10 minutes
+              <Clock3 size={15} /> {intro.durationLabel}
             </span>
             <span>
-              <ShieldCheck size={15} /> Answers stay on this device
+              <ShieldCheck size={15} /> {intro.privacyLabel}
             </span>
             <span>
-              <SlidersHorizontal size={15} /> No scores or wrong answers
+              <SlidersHorizontal size={15} /> {intro.noScoreLabel}
             </span>
           </div>
         </div>
