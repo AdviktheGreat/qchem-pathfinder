@@ -23,4 +23,17 @@ describe("pathfinder catalog", () => {
       href: "/pathfinders/quantum-chemistry",
     });
   });
+
+  it("keeps roadmap previews non-interactive until they are complete", () => {
+    const previews = pathfinders.filter(
+      (pathfinder) => pathfinder.status === "coming-soon",
+    );
+    expect(previews.map((pathfinder) => pathfinder.id)).toEqual([
+      "computational-materials",
+      "computational-biology",
+    ]);
+    expect(previews.every((pathfinder) => pathfinder.href === undefined)).toBe(
+      true,
+    );
+  });
 });

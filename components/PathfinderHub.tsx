@@ -3,10 +3,14 @@ import { Compass } from "lucide-react";
 import { pathfinders } from "@/data/pathfinders";
 import { HubField } from "@/components/HubField";
 import { PathfinderCard } from "@/components/PathfinderCard";
+import { PathfinderPreviewCard } from "@/components/PathfinderPreviewCard";
 
 export function PathfinderHub() {
   const availablePathfinders = pathfinders.filter(
     (pathfinder) => pathfinder.status === "available" && pathfinder.href,
+  );
+  const upcomingPathfinders = pathfinders.filter(
+    (pathfinder) => pathfinder.status === "coming-soon",
   );
 
   return (
@@ -85,6 +89,31 @@ export function PathfinderHub() {
             <div className="pathfinder-grid">
               {availablePathfinders.map((pathfinder) => (
                 <PathfinderCard pathfinder={pathfinder} key={pathfinder.id} />
+              ))}
+            </div>
+          </section>
+
+          <section
+            className="pathfinder-roadmap"
+            aria-labelledby="roadmap-title"
+          >
+            <div className="section-heading">
+              <div>
+                <p className="section-kicker">On the horizon</p>
+                <h2 id="roadmap-title">More scientific neighborhoods.</h2>
+              </div>
+              <p>
+                These previews show where the collection can grow. They will
+                open only after their questions, recommendations, and search
+                guidance are complete.
+              </p>
+            </div>
+            <div className="pathfinder-preview-grid">
+              {upcomingPathfinders.map((pathfinder) => (
+                <PathfinderPreviewCard
+                  pathfinder={pathfinder}
+                  key={pathfinder.id}
+                />
               ))}
             </div>
           </section>

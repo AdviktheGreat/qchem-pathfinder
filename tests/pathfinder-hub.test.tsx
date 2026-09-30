@@ -20,5 +20,9 @@ describe("PathfinderHub", () => {
         .getByRole("link", { name: /quantum chemistry/i })
         .getAttribute("href"),
     ).toBe("/pathfinders/quantum-chemistry");
+    expect(screen.getAllByText("Coming later")).toHaveLength(2);
+    expect(
+      screen.queryByRole("link", { name: /Computational Materials/ }),
+    ).toBeNull();
   });
 });
