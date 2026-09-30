@@ -14,25 +14,17 @@ import {
   Save,
   ScanLine,
 } from "lucide-react";
-import {
-  getVisibleQuestions,
-  pruneHiddenAnswers,
-  getPlannedQuestionCount,
-} from "@/lib/branching";
-import {
-  createPersistedState,
-  restoreProgress,
-  serializeProgress,
-  STORAGE_KEY,
-} from "@/lib/persistence";
+import { pruneHiddenAnswers } from "@/lib/branching";
+import { createPathfinderPersistence } from "@/lib/persistence";
 import type { AnswerMap, PersistedSurveyState } from "@/lib/types";
 import { IntroScreen } from "@/components/IntroScreen";
 import { SurveyScreen } from "@/components/SurveyScreen";
 import { ResultsScreen } from "@/components/ResultsScreen";
 import { ReviewScreen } from "@/components/ReviewScreen";
-import { stageLabels, questionById } from "@/data/questions";
 import { resolveAnswerConflicts } from "@/lib/answer-conflicts";
 import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
+import type { PathfinderDefinition } from "@/lib/pathfinder-definition";
+import { getSurveyProgress, indexQuestions } from "@/lib/survey-progress";
 
 type Screen = PersistedSurveyState["screen"];
 
@@ -44,7 +36,19 @@ function BrandIcon({ icon }: { icon: "atom" | "material" }) {
   );
 }
 
-export function PathfinderApp() {
+export function PathfinderApp({
+  definition = quantumChemistryPathfinder,
+}: {
+  definition?: PathfinderDefinition;
+}) {
+  const persistence = useMemo(
+    () => createPathfinderPersistence(definition),
+    [definition],
+  );
+  const questionById = useMemo(
+    () => indexQuestions(definition.survey.questions),
+    [definition.survey.questions],
+  );
   const mainRef = useRef<HTMLElement>(null);
   const [screen, setScreen] = useState<Screen>("intro");
   const [answers, setAnswers] = useState<AnswerMap>({});
@@ -74,8 +78,8 @@ export function PathfinderApp() {
   useEffect(() => {
     const timer = window.setTimeout(() => {
       try {
-        const { state: saved, notice } = restoreProgress(
-          window.localStorage.getItem(STORAGE_KEY),
+        const { state: saved, notice } = persistence.restoreProgress(
+          window.localStorage.getItem(persistence.storageKey),
         );
         setRecoveryNotice(notice);
         if (saved) {
@@ -91,11 +95,11 @@ export function PathfinderApp() {
       setHydrated(true);
     }, 0);
     return () => window.clearTimeout(timer);
-  }, []);
+  }, [persistence]);
 
   useEffect(() => {
     if (!hydrated || !storageAvailable) return;
-    const state = createPersistedState({
+    const state = persistence.createPersistedState({
       screen,
       answers,
       currentQuestionId,
@@ -104,7 +108,10 @@ export function PathfinderApp() {
     });
     try {
       const savingTimer = window.setTimeout(() => setSaveStatus("saving"), 0);
-      window.localStorage.setItem(STORAGE_KEY, serializeProgress(state));
+      window.localStorage.setItem(
+        persistence.storageKey,
+        persistence.serializeProgress(state),
+      );
       window.clearTimeout(saveTimerRef.current);
       saveTimerRef.current = window.setTimeout(
         () => setSaveStatus("saved"),
@@ -123,36 +130,40 @@ export function PathfinderApp() {
     currentQuestionId,
     hydrated,
     primaryOverride,
+    persistence,
     screen,
     storageAvailable,
     shortcutsEnabled,
   ]);
 
-  const visibleQuestions = useMemo(
-    () => getVisibleQuestions(answers),
-    [answers],
+  const progress = useMemo(
+    () =>
+      getSurveyProgress(
+        answers,
+        currentQuestionId,
+        definition.survey.questions,
+        definition.survey.branchQuestionId,
+      ),
+    [answers, currentQuestionId, definition.survey],
   );
-  const surveyComplete = visibleQuestions.every(
-    (question) => (answers[question.id]?.length ?? 0) > 0,
-  );
-  const resumeQuestion =
-    visibleQuestions.find((question) => question.id === currentQuestionId) ??
-    visibleQuestions.find((question) => !answers[question.id]?.length) ??
-    visibleQuestions[0];
-  const resumeIndex = visibleQuestions.findIndex(
-    (question) => question.id === resumeQuestion?.id,
-  );
+  const {
+    visibleQuestions,
+    isComplete: surveyComplete,
+    resumeQuestion,
+    resumeIndex,
+    plannedQuestionCount,
+  } = progress;
   const currentQuestion = currentQuestionId
     ? questionById[currentQuestionId]
     : undefined;
   const contextLabel =
     screen === "survey" && currentQuestion
-      ? stageLabels[currentQuestion.stage]
+      ? definition.survey.stageLabels[currentQuestion.stage]
       : screen === "results"
-        ? quantumChemistryPathfinder.contextLabels.results
+        ? definition.contextLabels.results
         : screen === "review"
-          ? quantumChemistryPathfinder.contextLabels.review
-          : quantumChemistryPathfinder.contextLabels.intro;
+          ? definition.contextLabels.review
+          : definition.contextLabels.intro;
 
   function begin() {
     setAnswerResolutionNotice(undefined);
@@ -210,9 +221,9 @@ export function PathfinderApp() {
       setAnswerResolutionNotice(undefined);
     }
     if (
-      questionId === "motivation" &&
-      answers.motivation?.length &&
-      answers.motivation[0] !== optionIds[0]
+      questionId === definition.survey.branchQuestionId &&
+      answers[definition.survey.branchQuestionId]?.length &&
+      answers[definition.survey.branchQuestionId]?.[0] !== optionIds[0]
     )
       setBranchChanged(true);
     setAnswers((current) => {
@@ -221,11 +232,14 @@ export function PathfinderApp() {
         question?.type === "single"
           ? [...currentPrevious, ...optionIds]
           : optionIds;
-      const resolved = resolveAnswerConflicts({
-        ...current,
-        [questionId]: candidateIds,
-      }).answers;
-      return pruneHiddenAnswers(resolved);
+      const resolved = resolveAnswerConflicts(
+        {
+          ...current,
+          [questionId]: candidateIds,
+        },
+        definition.survey.questions,
+      ).answers;
+      return pruneHiddenAnswers(resolved, definition.survey.questions);
     });
     setPrimaryOverride(undefined);
   }
@@ -237,7 +251,7 @@ export function PathfinderApp() {
     )
       return;
     try {
-      window.localStorage.removeItem(STORAGE_KEY);
+      window.localStorage.removeItem(persistence.storageKey);
     } catch {
       setStorageAvailable(false);
     }
@@ -293,13 +307,13 @@ export function PathfinderApp() {
             <button
               className="brand brand-button"
               type="button"
-              aria-label={quantumChemistryPathfinder.identity.ariaLabel}
+              aria-label={definition.identity.ariaLabel}
               onClick={() => showScreen("intro")}
             >
               <span className="brand-mark">
-                <BrandIcon icon={quantumChemistryPathfinder.identity.icon} />
+                <BrandIcon icon={definition.identity.icon} />
               </span>
-              <span>{quantumChemistryPathfinder.identity.brandLabel}</span>
+              <span>{definition.identity.brandLabel}</span>
             </button>
           </div>
           <div className="header-context" aria-live="polite">
@@ -398,12 +412,12 @@ export function PathfinderApp() {
 
           {screen === "intro" && (
             <IntroScreen
-              intro={quantumChemistryPathfinder.intro}
+              intro={definition.intro}
               hasProgress={Object.keys(answers).length > 0}
               resumeDetail={
                 surveyComplete
                   ? "Your completed research map is ready"
-                  : `Saved at question ${resumeIndex + 1} of ${getPlannedQuestionCount(answers)}`
+                  : `Saved at question ${resumeIndex + 1} of ${plannedQuestionCount}`
               }
               onBegin={begin}
               onResume={resume}
@@ -411,7 +425,7 @@ export function PathfinderApp() {
           )}
           {screen === "survey" && currentQuestionId && (
             <SurveyScreen
-              survey={quantumChemistryPathfinder.survey}
+              survey={definition.survey}
               answers={answers}
               currentQuestionId={currentQuestionId}
               onAnswer={updateAnswer}
@@ -429,7 +443,7 @@ export function PathfinderApp() {
           )}
           {screen === "results" && (
             <ResultsScreen
-              definition={quantumChemistryPathfinder}
+              definition={definition}
               answers={answers}
               primaryOverride={primaryOverride}
               onExploreNearby={setPrimaryOverride}
@@ -439,7 +453,7 @@ export function PathfinderApp() {
           )}
           {screen === "review" && (
             <ReviewScreen
-              survey={quantumChemistryPathfinder.survey}
+              survey={definition.survey}
               answers={answers}
               onEdit={(questionId) => {
                 setCurrentQuestionId(questionId);

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PathfinderApp } from "@/components/PathfinderApp";
 import { PathfinderVisitTracker } from "@/components/PathfinderVisitTracker";
+import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
 
 export const metadata: Metadata = {
   title: "Quantum Chemistry Pathfinder",
@@ -12,7 +13,7 @@ export default function QuantumChemistryPathfinderPage() {
   return (
     <>
       <PathfinderVisitTracker pathfinderId="quantum-chemistry" />
-      <PathfinderApp />
+      <PathfinderApp definition={quantumChemistryPathfinder} />
     </>
   );
 }
