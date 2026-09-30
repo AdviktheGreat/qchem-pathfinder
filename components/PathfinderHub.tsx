@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { ArrowRight, Atom, Compass } from "lucide-react";
+import { Compass } from "lucide-react";
 import { pathfinders } from "@/data/pathfinders";
 import { HubField } from "@/components/HubField";
+import { PathfinderCard } from "@/components/PathfinderCard";
 
 export function PathfinderHub() {
   const availablePathfinders = pathfinders.filter(
@@ -83,26 +84,7 @@ export function PathfinderHub() {
             </div>
             <div className="pathfinder-grid">
               {availablePathfinders.map((pathfinder) => (
-                <article className="pathfinder-card" key={pathfinder.id}>
-                  <div className="pathfinder-card-icon" aria-hidden="true">
-                    <Atom size={24} />
-                  </div>
-                  <p className="eyebrow">{pathfinder.eyebrow}</p>
-                  <h3>{pathfinder.name}</h3>
-                  <p>{pathfinder.description}</p>
-                  <ul
-                    className="pathfinder-focus-list"
-                    aria-label="Focus areas"
-                  >
-                    {pathfinder.focusAreas.map((area) => (
-                      <li key={area}>{area}</li>
-                    ))}
-                  </ul>
-                  <p className="pathfinder-outcome">{pathfinder.outcome}</p>
-                  <Link className="primary-button" href={pathfinder.href!}>
-                    Open {pathfinder.shortName} <ArrowRight size={17} />
-                  </Link>
-                </article>
+                <PathfinderCard pathfinder={pathfinder} key={pathfinder.id} />
               ))}
             </div>
           </section>

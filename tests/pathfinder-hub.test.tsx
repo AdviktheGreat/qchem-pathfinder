@@ -17,7 +17,7 @@ describe("PathfinderHub", () => {
     ).toBeDefined();
     expect(
       screen
-        .getByRole("link", { name: /Open Quantum chemistry/ })
+        .getByRole("link", { name: /quantum chemistry/i })
         .getAttribute("href"),
     ).toBe("/pathfinders/quantum-chemistry");
   });

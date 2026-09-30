@@ -2177,6 +2177,40 @@ h2 {
   background: var(--stage-soft);
   color: var(--teal);
 }
+.pathfinder-card-topline {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.pathfinder-card-status {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--teal);
+}
+.pathfinder-card-status.is-complete {
+  border-color: rgba(22, 115, 90, 0.25);
+  background: rgba(22, 115, 90, 0.08);
+  color: var(--success);
+}
+.pathfinder-card-status span {
+  display: grid;
+  gap: 0.1rem;
+}
+.pathfinder-card-status strong,
+.pathfinder-card-status small {
+  font-size: 0.68rem;
+  line-height: 1.2;
+}
+.pathfinder-card-status small {
+  color: var(--muted);
+  font-weight: 600;
+}
 .pathfinder-card h3 {
   max-width: 640px;
   margin: 0.6rem 0 0.75rem;
@@ -2210,6 +2244,20 @@ h2 {
 .pathfinder-outcome {
   padding-left: 1rem;
   border-left: 2px solid var(--violet);
+}
+.pathfinder-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem 1.2rem;
+  margin: 1.25rem 0 0.4rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+.pathfinder-card-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
 }
 .pathfinder-card .primary-button {
   position: relative;
