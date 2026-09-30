@@ -7,6 +7,7 @@ import { getVisibleQuestions } from "@/lib/branching";
 import { formatResearchProfile } from "@/lib/profile-export";
 import { rankNiches } from "@/lib/recommendation";
 import { restoreProgress, sanitizeAnswers } from "@/lib/persistence";
+import type { SurveyQuestion } from "@/lib/types";
 
 describe("answer conflict resolution", () => {
   it("keeps the latest answer when a single-choice question has two values", () => {
@@ -36,6 +37,27 @@ describe("answer conflict resolution", () => {
         "concept-familiarity": ["uncertain", "orbitals"],
       }),
     ).toEqual({ "concept-familiarity": ["orbitals"] });
+  });
+
+  it("resolves answers against a supplied pathfinder question set", () => {
+    const materialQuestion: SurveyQuestion = {
+      id: "material-family",
+      stage: "motivation",
+      kicker: "Materials",
+      title: "Which material family interests you?",
+      type: "single",
+      options: [
+        { id: "crystal", label: "Crystalline materials" },
+        { id: "soft", label: "Soft materials" },
+      ],
+    };
+
+    expect(
+      resolveAnswerConflicts(
+        { "material-family": ["crystal", "soft"], motivation: ["energy"] },
+        [materialQuestion],
+      ).answers,
+    ).toEqual({ "material-family": ["soft"] });
   });
 
   it("uses only the resolved value in scoring and the exported profile", () => {

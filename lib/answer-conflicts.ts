@@ -1,5 +1,5 @@
 import { questions } from "@/data/questions";
-import type { AnswerMap } from "@/lib/types";
+import type { AnswerMap, SurveyQuestion } from "@/lib/types";
 
 export interface AnswerConflict {
   questionId: string;
@@ -17,11 +17,14 @@ export interface AnswerResolution {
  * Converts any answer map into the same invariant the live controls enforce.
  * For a single-choice conflict, the final entry is treated as the latest edit.
  */
-export function resolveAnswerConflicts(answers: AnswerMap): AnswerResolution {
+export function resolveAnswerConflicts(
+  answers: AnswerMap,
+  questionSet: readonly SurveyQuestion[] = questions,
+): AnswerResolution {
   const resolved: AnswerMap = {};
   const conflicts: AnswerConflict[] = [];
 
-  for (const question of questions) {
+  for (const question of questionSet) {
     const validIds = new Set(question.options.map((option) => option.id));
     const selected = [...new Set(answers[question.id] ?? [])].filter((id) =>
       validIds.has(id),
@@ -81,6 +84,9 @@ export function resolveAnswerConflicts(answers: AnswerMap): AnswerResolution {
   return { answers: resolved, conflicts };
 }
 
-export function normalizeAnswers(answers: AnswerMap): AnswerMap {
-  return resolveAnswerConflicts(answers).answers;
+export function normalizeAnswers(
+  answers: AnswerMap,
+  questionSet: readonly SurveyQuestion[] = questions,
+): AnswerMap {
+  return resolveAnswerConflicts(answers, questionSet).answers;
 }
