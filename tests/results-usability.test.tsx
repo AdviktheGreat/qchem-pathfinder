@@ -10,6 +10,7 @@ import { afterEach, expect, it, vi } from "vitest";
 import { ResultsScreen } from "@/components/ResultsScreen";
 import { queryGuidance, paperNoteTemplate } from "@/data/reading-guidance";
 import { getRecommendations, explainDifference } from "@/lib/recommendation";
+import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
 afterEach(cleanup);
 it("downloads the current direction profile and releases its object URL", () => {
   const createObjectURL = vi.fn().mockReturnValue("blob:profile-download");
@@ -140,6 +141,33 @@ it("explains all qualitative recommendation labels", () => {
     "Starting point",
   ])
     expect(within(disclosure).getByText(label)).toBeDefined();
+});
+it("renders supporting resources from the active pathfinder", () => {
+  render(
+    <ResultsScreen
+      {...handlers}
+      definition={{
+        ...quantumChemistryPathfinder,
+        results: {
+          ...quantumChemistryPathfinder.results,
+          glossary: [
+            {
+              term: "Periodic boundary conditions",
+              text: "A materials-specific glossary explanation.",
+            },
+          ],
+        },
+      }}
+      answers={{}}
+    />,
+  );
+  fireEvent.click(
+    screen.getByText("Quick glossary for common computational terms"),
+  );
+  expect(screen.getByText("Periodic boundary conditions")).toBeDefined();
+  expect(
+    screen.getByText("A materials-specific glossary explanation."),
+  ).toBeDefined();
 });
 it("does not describe open-ended defaults as discovered matches", () => {
   const view = render(<ResultsScreen {...handlers} answers={{}} />);

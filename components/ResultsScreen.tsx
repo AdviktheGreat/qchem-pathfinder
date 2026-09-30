@@ -16,14 +16,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { CopyButton } from "@/components/CopyButton";
-import { glossary } from "@/data/glossary";
-import { fitLabelDescriptions } from "@/data/fit-labels";
-import {
-  queryGuidance,
-  searchRefinements,
-  paperTypeGuide,
-  paperNoteTemplate,
-} from "@/data/reading-guidance";
+import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
 import { formatResearchProfile, profileFilename } from "@/lib/profile-export";
 import { getPreparationProfile } from "@/lib/preparation";
 import {
@@ -33,10 +26,16 @@ import {
   getKnowledgeProfile,
   getRecommendationEvidence,
   getRecommendations,
+  type RecommendationContext,
 } from "@/lib/recommendation";
 import type { AnswerMap, RankedNiche } from "@/lib/types";
+import type {
+  PathfinderDefinition,
+  PathfinderResultsConfig,
+} from "@/lib/pathfinder-definition";
 
 interface ResultsScreenProps {
+  definition?: PathfinderDefinition;
   answers: AnswerMap;
   primaryOverride?: string;
   onExploreNearby: (nicheId: string | undefined) => void;
@@ -63,9 +62,11 @@ function areaTheme(area: string): string {
 function DirectionDetails({
   result,
   primary,
+  results,
 }: {
   result: RankedNiche;
   primary: RankedNiche;
+  results: PathfinderResultsConfig;
 }) {
   const niche = result.niche;
   return (
@@ -102,6 +103,7 @@ function DirectionDetails({
       <SearchLaunchpad
         result={result}
         compact={primary.niche.id !== niche.id}
+        results={results}
       />
     </div>
   );
@@ -110,10 +112,18 @@ function DirectionDetails({
 function SearchLaunchpad({
   result,
   compact = false,
+  results,
 }: {
   result: RankedNiche;
   compact?: boolean;
+  results: PathfinderResultsConfig;
 }) {
+  const {
+    queryGuidance,
+    searchRefinements,
+    paperTypeGuide,
+    paperNoteTemplate,
+  } = results;
   const niche = result.niche;
   const [activeQuery, setActiveQuery] =
     useState<keyof typeof queryLabels>("orientation");
@@ -322,19 +332,28 @@ function SearchLaunchpad({
 }
 
 export function ResultsScreen({
+  definition = quantumChemistryPathfinder,
   answers,
   primaryOverride,
   onExploreNearby,
   onReview,
   onRestart,
 }: ResultsScreenProps) {
+  const recommendationContext = useMemo<RecommendationContext>(
+    () => ({
+      questions: definition.survey.questions,
+      niches: definition.recommendations.niches,
+      openExplorationIds: definition.recommendations.openExplorationIds,
+    }),
+    [definition],
+  );
   const recommendations = useMemo(
-    () => getRecommendations(answers, primaryOverride),
-    [answers, primaryOverride],
+    () => getRecommendations(answers, primaryOverride, recommendationContext),
+    [answers, primaryOverride, recommendationContext],
   );
   const originalRecommendations = useMemo(
-    () => getRecommendations(answers),
-    [answers],
+    () => getRecommendations(answers, undefined, recommendationContext),
+    [answers, recommendationContext],
   );
   const originalPrimary = originalRecommendations[0];
   const bestScore = Math.max(
@@ -342,11 +361,29 @@ export function ResultsScreen({
   );
   const [primary, ...alternatives] = recommendations;
   const isChosenAlternative = primary.niche.id !== originalPrimary.niche.id;
-  const preparation = getPreparationProfile(answers, primary.niche);
-  const knowledge = getKnowledgeProfile(answers);
-  const recommendationEvidence = getRecommendationEvidence(answers, primary);
+  const preparation = getPreparationProfile(
+    answers,
+    primary.niche,
+    definition.preparation,
+    definition.survey.questions,
+  );
+  const knowledge = getKnowledgeProfile(
+    answers,
+    definition.preparation,
+    definition.survey.questions,
+  );
+  const recommendationEvidence = getRecommendationEvidence(
+    answers,
+    primary,
+    4,
+    recommendationContext,
+  );
   const explanationGuide = preparation.explanation;
-  const profileText = formatResearchProfile(answers, primary.niche.id);
+  const profileText = formatResearchProfile(
+    answers,
+    primary.niche.id,
+    definition,
+  );
   const [openAlternative, setOpenAlternative] = useState<string>();
   const alternativesHeadingRef = useRef<HTMLHeadingElement>(null);
   const primaryHeadingRef = useRef<HTMLHeadingElement>(null);
@@ -370,7 +407,7 @@ export function ResultsScreen({
     const href = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = href;
-    anchor.download = profileFilename(primary.niche.id);
+    anchor.download = profileFilename(primary.niche.id, new Date(), definition);
     anchor.click();
     URL.revokeObjectURL(href);
   }
@@ -426,14 +463,16 @@ export function ResultsScreen({
       <details className="definition-card fit-label-guide">
         <summary>What do the recommendation labels mean?</summary>
         <dl>
-          {fitLabelDescriptions.map(({ label, description }) => (
-            <div key={label}>
-              <dt>
-                <strong>{label}</strong>
-              </dt>
-              <dd>{description}</dd>
-            </div>
-          ))}
+          {definition.results.fitLabelDescriptions.map(
+            ({ label, description }) => (
+              <div key={label}>
+                <dt>
+                  <strong>{label}</strong>
+                </dt>
+                <dd>{description}</dd>
+              </div>
+            ),
+          )}
         </dl>
         <p>
           These labels summarize declared interests—not ability, readiness, or
@@ -578,7 +617,11 @@ export function ResultsScreen({
             </p>
           </aside>
         </div>
-        <DirectionDetails result={primary} primary={primary} />
+        <DirectionDetails
+          result={primary}
+          primary={primary}
+          results={definition.results}
+        />
       </section>
 
       <section className="preparation-card">
@@ -613,7 +656,7 @@ export function ResultsScreen({
       <details className="results-glossary">
         <summary>Quick glossary for common computational terms</summary>
         <dl>
-          {glossary.map((entry) => (
+          {definition.results.glossary.map((entry) => (
             <div key={entry.term}>
               <dt>{entry.term}</dt>
               <dd>{entry.text}</dd>
@@ -733,7 +776,11 @@ export function ResultsScreen({
                       : "alternative-details print-only"
                   }
                 >
-                  <DirectionDetails result={result} primary={primary} />
+                  <DirectionDetails
+                    result={result}
+                    primary={primary}
+                    results={definition.results}
+                  />
                 </div>
               </article>
             );

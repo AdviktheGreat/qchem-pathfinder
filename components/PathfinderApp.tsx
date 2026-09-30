@@ -419,6 +419,7 @@ export function PathfinderApp() {
           )}
           {screen === "results" && (
             <ResultsScreen
+              definition={quantumChemistryPathfinder}
               answers={answers}
               primaryOverride={primaryOverride}
               onExploreNearby={setPrimaryOverride}
