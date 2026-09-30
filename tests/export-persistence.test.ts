@@ -3,12 +3,14 @@ import { formatResearchProfile } from "@/lib/profile-export";
 import { getRecommendations } from "@/lib/recommendation";
 import {
   createPersistedState,
+  createPathfinderPersistence,
   parseProgress,
   serializeProgress,
   STORAGE_VERSION,
   sanitizeAnswers,
 } from "@/lib/persistence";
 import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
+import type { PathfinderDefinition } from "@/lib/pathfinder-definition";
 
 const answers = {
   "phase-one-memory": ["recognize"],
@@ -86,6 +88,44 @@ describe("research profile export", () => {
 });
 
 describe("progress persistence", () => {
+  it("creates isolated persistence for a supplied pathfinder", () => {
+    const materialsDefinition: PathfinderDefinition = {
+      ...quantumChemistryPathfinder,
+      storage: {
+        key: "materials-pathfinder:progress",
+        version: 7,
+      },
+      survey: {
+        ...quantumChemistryPathfinder.survey,
+        questions: [
+          {
+            id: "material-family",
+            stage: "motivation",
+            kicker: "Materials",
+            title: "Choose a material family",
+            type: "single",
+            options: [{ id: "battery", label: "Battery materials" }],
+          },
+        ],
+      },
+    };
+    const materialsPersistence =
+      createPathfinderPersistence(materialsDefinition);
+    const state = materialsPersistence.createPersistedState({
+      screen: "intro",
+      answers: {
+        "material-family": ["battery"],
+        motivation: ["light"],
+      },
+    });
+
+    expect(materialsPersistence.storageKey).toBe(
+      "materials-pathfinder:progress",
+    );
+    expect(state.version).toBe(7);
+    expect(state.answers).toEqual({ "material-family": ["battery"] });
+  });
+
   it("recovers missing navigation and incomplete results", () => {
     for (const screen of ["survey", "results", "review"] as const) {
       const restored = parseProgress(
