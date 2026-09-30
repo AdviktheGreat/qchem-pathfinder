@@ -67,6 +67,8 @@ export const quantumChemistryPathfinder = {
     researchStyleLabels,
     exportTitle: "QUANTUM RESEARCH EXPLORATION PROFILE",
     filenamePrefix: "quantum-research-profile",
+    motivationQuestionId: "motivation",
+    questionTypeQuestionId: "question-kind",
   },
   intro: {
     eyebrow: "A guided research exploration",

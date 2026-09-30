@@ -8,6 +8,7 @@ import {
   STORAGE_VERSION,
   sanitizeAnswers,
 } from "@/lib/persistence";
+import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
 
 const answers = {
   "phase-one-memory": ["recognize"],
@@ -67,6 +68,20 @@ describe("research profile export", () => {
     expect(output).toMatch(/STARTER KEYWORDS\n(?:[^\n]+\n[^\n]+\n){3}/);
     expect(output.match(/^- (?:Broad|Focused|Review):/gm)).toHaveLength(9);
     expect(output).toContain("Verify citations");
+  });
+
+  it("uses the active pathfinder profile identity", () => {
+    const materialsDefinition = {
+      ...quantumChemistryPathfinder,
+      profile: {
+        ...quantumChemistryPathfinder.profile,
+        exportTitle: "COMPUTATIONAL MATERIALS EXPLORATION PROFILE",
+      },
+    };
+
+    expect(
+      formatResearchProfile(answers, undefined, materialsDefinition),
+    ).toMatch(/^COMPUTATIONAL MATERIALS EXPLORATION PROFILE\n=+/);
   });
 });
 

@@ -95,6 +95,8 @@ export interface PathfinderProfileConfig {
   researchStyleLabels: Readonly<Record<string, string>>;
   exportTitle: string;
   filenamePrefix: string;
+  motivationQuestionId: string;
+  questionTypeQuestionId: string;
 }
 
 export interface PathfinderIntroCopy {

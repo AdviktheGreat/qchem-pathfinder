@@ -1,5 +1,6 @@
 import { expect, it } from "vitest";
 import { profileFilename } from "@/lib/profile-export";
+import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
 it("names a downloaded profile with its direction and date", () => {
   const date = new Date("2026-09-26T12:00:00Z");
   expect(profileFilename("charge-transfer", date)).toBe(
@@ -11,4 +12,13 @@ it("names a downloaded profile with its direction and date", () => {
   expect(profileFilename("../New Direction!", date)).toBe(
     "quantum-research-profile-new-direction-2026-09-26.txt",
   );
+  expect(
+    profileFilename("battery-materials", date, {
+      ...quantumChemistryPathfinder,
+      profile: {
+        ...quantumChemistryPathfinder.profile,
+        filenamePrefix: "materials-exploration-profile",
+      },
+    }),
+  ).toBe("materials-exploration-profile-battery-materials-2026-09-26.txt");
 });
