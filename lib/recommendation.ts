@@ -4,24 +4,48 @@ import { questionById, questions } from "@/data/questions";
 import type {
   AnswerMap,
   KnowledgeProfile,
+  Niche,
   RankedNiche,
   SurveyOption,
+  SurveyQuestion,
 } from "@/lib/types";
 import { normalizeAnswers } from "@/lib/answer-conflicts";
 
-const calibrationQuestionIds = new Set(
-  questions
-    .filter((question) => question.stage === "calibration")
-    .map((question) => question.id),
-);
+export interface RecommendationContext {
+  questions: readonly SurveyQuestion[];
+  niches: readonly Niche[];
+  openExplorationIds: readonly string[];
+}
+
+const defaultRecommendationContext: RecommendationContext = {
+  questions,
+  niches,
+  openExplorationIds,
+};
+
+function getCalibrationQuestionIds(context: RecommendationContext) {
+  return new Set(
+    context.questions
+      .filter((question) => question.stage === "calibration")
+      .map((question) => question.id),
+  );
+}
+
+function getQuestionMap(context: RecommendationContext) {
+  return Object.fromEntries(
+    context.questions.map((question) => [question.id, question]),
+  );
+}
 
 export function getSelectedOptions(
   answers: AnswerMap,
   excludedQuestionIds = new Set<string>(),
+  context: RecommendationContext = defaultRecommendationContext,
 ): SurveyOption[] {
-  const normalized = normalizeAnswers(answers);
+  const normalized = normalizeAnswers(answers, context.questions);
+  const contextQuestionById = getQuestionMap(context);
   return Object.entries(normalized).flatMap(([questionId, optionIds]) => {
-    const question = questionById[questionId];
+    const question = contextQuestionById[questionId];
     if (excludedQuestionIds.has(questionId)) return [];
     if (!question) return [];
     return optionIds
@@ -32,9 +56,16 @@ export function getSelectedOptions(
   });
 }
 
-export function aggregateSignals(answers: AnswerMap): Record<string, number> {
+export function aggregateSignals(
+  answers: AnswerMap,
+  context: RecommendationContext = defaultRecommendationContext,
+): Record<string, number> {
   const totals: Record<string, number> = {};
-  for (const option of getSelectedOptions(answers, calibrationQuestionIds)) {
+  for (const option of getSelectedOptions(
+    answers,
+    getCalibrationQuestionIds(context),
+    context,
+  )) {
     for (const [signal, value] of Object.entries(option.signals ?? {})) {
       totals[signal] = (totals[signal] ?? 0) + value;
     }
@@ -48,20 +79,26 @@ export function signalCategory(signal: string): "interest" | "style" {
     : "style";
 }
 
-export function rankNiches(answers: AnswerMap): RankedNiche[] {
-  const normalized = normalizeAnswers(answers);
-  const signals = aggregateSignals(normalized);
+export function rankNiches(
+  answers: AnswerMap,
+  context: RecommendationContext = defaultRecommendationContext,
+): RankedNiche[] {
+  const normalized = normalizeAnswers(answers, context.questions);
+  const calibrationQuestionIds = getCalibrationQuestionIds(context);
+  const signals = aggregateSignals(normalized, context);
   const selectedOptions = getSelectedOptions(
     normalized,
     calibrationQuestionIds,
+    context,
   );
   const uncertainCount = getSelectedOptions(
     normalized,
     calibrationQuestionIds,
+    context,
   ).filter((option) => option.uncertainty).length;
   const openness = signals["interest:open"] ?? 0;
 
-  return niches
+  return context.niches
     .map((niche) => {
       let interestScore = 0;
       let styleScore = 0;
@@ -79,7 +116,7 @@ export function rankNiches(answers: AnswerMap): RankedNiche[] {
       const openBonus = niche.explorationFriendly
         ? openness * 0.75 + uncertainCount * 0.35
         : 0;
-      const preferenceEvidenceCount = questions.filter(
+      const preferenceEvidenceCount = context.questions.filter(
         (question) =>
           question.stage !== "calibration" &&
           (normalized[question.id] ?? []).some((id) => {
@@ -152,12 +189,13 @@ export function rankNiches(answers: AnswerMap): RankedNiche[] {
 export function getRecommendations(
   answers: AnswerMap,
   primaryOverride?: string,
+  context: RecommendationContext = defaultRecommendationContext,
 ): RankedNiche[] {
-  const ranked = rankNiches(answers);
+  const ranked = rankNiches(answers, context);
   const suggestions = ranked.every(
     (result) => result.preferenceEvidenceCount === 0,
   )
-    ? openExplorationIds.flatMap((id) =>
+    ? context.openExplorationIds.flatMap((id) =>
         ranked.filter((result) => result.niche.id === id),
       )
     : ranked.slice(0, 3);
@@ -226,9 +264,13 @@ export function getKnowledgeProfile(answers: AnswerMap): KnowledgeProfile {
   };
 }
 
-export function getAnswerLabels(answers: AnswerMap, stage?: string): string[] {
-  const normalized = normalizeAnswers(answers);
-  return questions
+export function getAnswerLabels(
+  answers: AnswerMap,
+  stage?: string,
+  context: RecommendationContext = defaultRecommendationContext,
+): string[] {
+  const normalized = normalizeAnswers(answers, context.questions);
+  return context.questions
     .filter((question) => !stage || question.stage === stage)
     .flatMap((question) =>
       (normalized[question.id] ?? []).map((optionId) => {
@@ -288,9 +330,10 @@ export function getRecommendationEvidence(
   answers: AnswerMap,
   result: RankedNiche,
   limit = 4,
+  context: RecommendationContext = defaultRecommendationContext,
 ): RecommendationEvidence[] {
-  const normalized = normalizeAnswers(answers);
-  return questions
+  const normalized = normalizeAnswers(answers, context.questions);
+  return context.questions
     .filter((question) => question.stage !== "calibration")
     .flatMap((question) =>
       (normalized[question.id] ?? []).flatMap((optionId) => {

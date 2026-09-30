@@ -1,8 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { niches } from "@/data/niches";
 import { questions } from "@/data/questions";
-import { getRecommendations, rankNiches } from "@/lib/recommendation";
-import type { AnswerMap } from "@/lib/types";
+import {
+  getRecommendations,
+  rankNiches,
+  type RecommendationContext,
+} from "@/lib/recommendation";
+import type { AnswerMap, SurveyQuestion } from "@/lib/types";
 
 import { studentProfiles as profiles } from "./fixtures/student-profiles";
 
@@ -57,6 +61,45 @@ describe("recommendation scoring", () => {
     const second = getRecommendations(answers).map((result) => result.niche.id);
     expect(first).toEqual(second);
     expect(new Set(first).size).toBe(3);
+  });
+
+  it("ranks a supplied pathfinder taxonomy", () => {
+    const materialQuestion: SurveyQuestion = {
+      id: "materials-interest",
+      stage: "motivation",
+      kicker: "Materials",
+      title: "What would you like to model?",
+      type: "single",
+      options: [
+        {
+          id: "battery",
+          label: "Battery materials",
+          signals: { "interest:battery": 3 },
+        },
+      ],
+    };
+    const context: RecommendationContext = {
+      questions: [materialQuestion],
+      niches: [
+        {
+          ...niches[0],
+          id: "battery-materials",
+          name: "Battery materials",
+          affinities: { "interest:battery": 4 },
+        },
+        {
+          ...niches[1],
+          id: "structural-materials",
+          name: "Structural materials",
+          affinities: {},
+        },
+      ],
+      openExplorationIds: ["structural-materials"],
+    };
+
+    expect(
+      rankNiches({ "materials-interest": ["battery"] }, context)[0].niche.id,
+    ).toBe("battery-materials");
   });
 
   it("explains direct narrowing choices that drive a recommendation", () => {
