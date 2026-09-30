@@ -49,6 +49,17 @@ export interface PathfinderPreparationConfig {
   codingAdvice: Readonly<Record<string, string>>;
   explanationGuides: Readonly<Record<string, string>>;
   conceptOverlaps: readonly ConceptOverlap[];
+  knowledge: {
+    memoryQuestionId: string;
+    conceptQuestionId: string;
+    startingPointByAnswer: Readonly<Record<string, string>>;
+    defaultStartingPoint: string;
+    conceptReviewLabels: Readonly<Record<string, string>>;
+    mathFallback: string;
+    codingFallback: string;
+    explanationFallback: string;
+    contextReadyOptionId: string;
+  };
 }
 
 export interface GlossaryItem {

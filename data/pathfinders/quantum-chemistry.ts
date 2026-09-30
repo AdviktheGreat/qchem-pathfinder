@@ -6,6 +6,7 @@ import { niches } from "@/data/niches";
 import {
   codingPreparation,
   explanationGuides,
+  knowledgePreparation,
   mathPreparation,
 } from "@/data/preparation";
 import { researchStyleLabels } from "@/data/profile";
@@ -52,6 +53,7 @@ export const quantumChemistryPathfinder = {
     codingAdvice: codingPreparation,
     explanationGuides,
     conceptOverlaps,
+    knowledge: knowledgePreparation,
   },
   results: {
     glossary,

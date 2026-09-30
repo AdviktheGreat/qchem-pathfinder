@@ -31,3 +31,27 @@ export const explanationGuides: Record<string, string> = {
   unsure:
     "Try a molecular picture alongside a small data table. You can choose how much mathematical detail to explore as you read.",
 };
+
+export const knowledgePreparation = {
+  memoryQuestionId: "phase-one-memory",
+  conceptQuestionId: "concept-familiarity",
+  startingPointByAnswer: {
+    fresh:
+      "The Phase 1 big picture feels available; build from it while checking details as needed.",
+    recognize:
+      "Many Phase 1 ideas are recognizable; a short vocabulary refresh will make the literature easier to enter.",
+  },
+  defaultStartingPoint:
+    "Begin with a concise concept map and definitions. Knowledge gaps are preparation notes, not limits on what you can explore.",
+  conceptReviewLabels: {
+    orbitals: "Orbitals and electron density",
+    energy: "Potential energy, stability, and energy profiles",
+    bonding: "Bonding and molecular geometry",
+    spectra: "Light absorption and molecular spectra",
+    methods: "What DFT approximates and why methods differ",
+  },
+  mathFallback: "Still exploring how much mathematical detail feels useful",
+  codingFallback: "Still exploring comfort with computational tools",
+  explanationFallback: "Open to different explanation styles",
+  contextReadyOptionId: "fresh",
+} as const;

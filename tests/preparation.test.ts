@@ -3,6 +3,9 @@ import { getPreparationProfile, mergeConcepts } from "@/lib/preparation";
 import { getRecommendations } from "@/lib/recommendation";
 import { formatResearchProfile } from "@/lib/profile-export";
 import { getPreparationSteps, getExplanationGuide } from "@/lib/preparation";
+import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
+import type { PathfinderPreparationConfig } from "@/lib/pathfinder-definition";
+import type { SurveyQuestion } from "@/lib/types";
 
 it("folds covered concepts into present umbrella topics without removing distinct concepts", () => {
   expect(
@@ -46,6 +49,51 @@ it("adapts the entry explanation and initial context depth", () => {
   });
   expect(quantitative.text).toContain("measurable property");
   expect(quantitative.showContextInitially).toBe(false);
+});
+
+it("uses pathfinder-specific preparation questions and advice", () => {
+  const materialQuestions: SurveyQuestion[] = [
+    {
+      id: "materials-math",
+      stage: "calibration",
+      kicker: "Math",
+      title: "How do equations feel?",
+      type: "single",
+      options: [{ id: "ready", label: "Ready" }],
+    },
+    {
+      id: "materials-code",
+      stage: "calibration",
+      kicker: "Code",
+      title: "How does coding feel?",
+      type: "single",
+      options: [{ id: "learning", label: "Learning" }],
+    },
+  ];
+  const config: PathfinderPreparationConfig = {
+    ...quantumChemistryPathfinder.preparation,
+    mathQuestionId: "materials-math",
+    codingQuestionId: "materials-code",
+    mathAdvice: {
+      ready: "Read a materials property equation.",
+      unsure: "Try one equation.",
+    },
+    codingAdvice: {
+      learning: "Modify a small simulation input.",
+      unsure: "Try one tool.",
+    },
+  };
+
+  expect(
+    getPreparationSteps(
+      { "materials-math": ["ready"], "materials-code": ["learning"] },
+      config,
+      materialQuestions,
+    ),
+  ).toEqual([
+    "Read a materials property equation.",
+    "Modify a small simulation input.",
+  ]);
 });
 
 it("exports the same personalized preparation shown in results", () => {

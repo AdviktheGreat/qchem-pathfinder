@@ -1,6 +1,6 @@
 import { niches } from "@/data/niches";
 import { openExplorationIds } from "@/data/exploration";
-import { questionById, questions } from "@/data/questions";
+import { questions } from "@/data/questions";
 import type {
   AnswerMap,
   KnowledgeProfile,
@@ -10,6 +10,8 @@ import type {
   SurveyQuestion,
 } from "@/lib/types";
 import { normalizeAnswers } from "@/lib/answer-conflicts";
+import { knowledgePreparation } from "@/data/preparation";
+import type { PathfinderPreparationConfig } from "@/lib/pathfinder-definition";
 
 export interface RecommendationContext {
   questions: readonly SurveyQuestion[];
@@ -212,53 +214,71 @@ function optionLabel(
   answers: AnswerMap,
   questionId: string,
   fallback: string,
+  questionSet: readonly SurveyQuestion[] = questions,
 ): string {
   const optionId = answers[questionId]?.[0];
+  const contextQuestion = questionSet.find(
+    (question) => question.id === questionId,
+  );
   return (
-    questionById[questionId]?.options.find((option) => option.id === optionId)
-      ?.label ?? fallback
+    contextQuestion?.options.find((option) => option.id === optionId)?.label ??
+    fallback
   );
 }
 
-export function getKnowledgeProfile(answers: AnswerMap): KnowledgeProfile {
-  const normalized = normalizeAnswers(answers);
-  const memory = normalized["phase-one-memory"]?.[0];
-  const familiar = new Set(normalized["concept-familiarity"] ?? []);
-  const conceptsToRevisit: string[] = [];
-  if (!familiar.has("orbitals"))
-    conceptsToRevisit.push("Orbitals and electron density");
-  if (!familiar.has("energy"))
-    conceptsToRevisit.push("Potential energy, stability, and energy profiles");
-  if (!familiar.has("bonding"))
-    conceptsToRevisit.push("Bonding and molecular geometry");
-  if (!familiar.has("spectra"))
-    conceptsToRevisit.push("Light absorption and molecular spectra");
-  if (!familiar.has("methods"))
-    conceptsToRevisit.push("What DFT approximates and why methods differ");
+const defaultPreparationConfig = {
+  mathQuestionId: "math-comfort",
+  codingQuestionId: "coding-comfort",
+  explanationQuestionId: "explanation-style",
+  knowledge: knowledgePreparation,
+} as Pick<
+  PathfinderPreparationConfig,
+  "mathQuestionId" | "codingQuestionId" | "explanationQuestionId" | "knowledge"
+>;
+
+export function getKnowledgeProfile(
+  answers: AnswerMap,
+  config: Pick<
+    PathfinderPreparationConfig,
+    | "mathQuestionId"
+    | "codingQuestionId"
+    | "explanationQuestionId"
+    | "knowledge"
+  > = defaultPreparationConfig,
+  questionSet: readonly SurveyQuestion[] = questions,
+): KnowledgeProfile {
+  const normalized = normalizeAnswers(answers, questionSet);
+  const memory = normalized[config.knowledge.memoryQuestionId]?.[0];
+  const familiar = new Set(
+    normalized[config.knowledge.conceptQuestionId] ?? [],
+  );
+  const conceptsToRevisit = Object.entries(config.knowledge.conceptReviewLabels)
+    .filter(([optionId]) => !familiar.has(optionId))
+    .map(([, label]) => label);
 
   const startingPoint =
-    memory === "fresh"
-      ? "The Phase 1 big picture feels available; build from it while checking details as needed."
-      : memory === "recognize"
-        ? "Many Phase 1 ideas are recognizable; a short vocabulary refresh will make the literature easier to enter."
-        : "Begin with a concise concept map and definitions. Knowledge gaps are preparation notes, not limits on what you can explore.";
+    config.knowledge.startingPointByAnswer[memory] ??
+    config.knowledge.defaultStartingPoint;
 
   return {
     startingPoint,
     mathComfort: optionLabel(
       normalized,
-      "math-comfort",
-      "Still exploring how much mathematical detail feels useful",
+      config.mathQuestionId,
+      config.knowledge.mathFallback,
+      questionSet,
     ),
     codingComfort: optionLabel(
       normalized,
-      "coding-comfort",
-      "Still exploring comfort with computational tools",
+      config.codingQuestionId,
+      config.knowledge.codingFallback,
+      questionSet,
     ),
     explanationPreference: optionLabel(
       normalized,
-      "explanation-style",
-      "Open to different explanation styles",
+      config.explanationQuestionId,
+      config.knowledge.explanationFallback,
+      questionSet,
     ),
     conceptsToRevisit,
   };

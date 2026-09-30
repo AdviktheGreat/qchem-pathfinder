@@ -2,17 +2,34 @@ import {
   codingPreparation,
   mathPreparation,
   explanationGuides,
+  knowledgePreparation,
 } from "@/data/preparation";
-import type { AnswerMap, Niche } from "@/lib/types";
+import { questions } from "@/data/questions";
+import type { AnswerMap, Niche, SurveyQuestion } from "@/lib/types";
 import { getKnowledgeProfile } from "@/lib/recommendation";
 import { conceptOverlaps } from "@/data/concept-overlaps";
 import { normalizeAnswers } from "@/lib/answer-conflicts";
+import type { PathfinderPreparationConfig } from "@/lib/pathfinder-definition";
 
-export function mergeConcepts(concepts: string[]): string[] {
+const defaultPreparationConfig: PathfinderPreparationConfig = {
+  mathQuestionId: "math-comfort",
+  codingQuestionId: "coding-comfort",
+  explanationQuestionId: "explanation-style",
+  mathAdvice: mathPreparation,
+  codingAdvice: codingPreparation,
+  explanationGuides,
+  conceptOverlaps,
+  knowledge: knowledgePreparation,
+};
+
+export function mergeConcepts(
+  concepts: string[],
+  overlaps = defaultPreparationConfig.conceptOverlaps,
+): string[] {
   const key = (value: string) => value.trim().toLowerCase();
   const present = new Set(concepts.map(key));
   const aliases = new Map<string, string>();
-  for (const group of conceptOverlaps) {
+  for (const group of overlaps) {
     if (present.has(key(group.umbrella))) {
       for (const label of group.covered)
         aliases.set(key(label), group.umbrella);
@@ -28,37 +45,53 @@ export function mergeConcepts(concepts: string[]): string[] {
   ];
 }
 
-export function getPreparationSteps(answers: AnswerMap): string[] {
-  const normalized = normalizeAnswers(answers);
+export function getPreparationSteps(
+  answers: AnswerMap,
+  config: PathfinderPreparationConfig = defaultPreparationConfig,
+  questionSet: readonly SurveyQuestion[] = questions,
+): string[] {
+  const normalized = normalizeAnswers(answers, questionSet);
   return [
-    mathPreparation[normalized["math-comfort"]?.[0]] ?? mathPreparation.unsure,
-    codingPreparation[normalized["coding-comfort"]?.[0]] ??
-      codingPreparation.unsure,
+    config.mathAdvice[normalized[config.mathQuestionId]?.[0]] ??
+      config.mathAdvice.unsure,
+    config.codingAdvice[normalized[config.codingQuestionId]?.[0]] ??
+      config.codingAdvice.unsure,
   ];
 }
 
-export function getExplanationGuide(answers: AnswerMap) {
-  const normalized = normalizeAnswers(answers);
+export function getExplanationGuide(
+  answers: AnswerMap,
+  config: PathfinderPreparationConfig = defaultPreparationConfig,
+  questionSet: readonly SurveyQuestion[] = questions,
+) {
+  const normalized = normalizeAnswers(answers, questionSet);
   return {
     text:
-      explanationGuides[normalized["explanation-style"]?.[0]] ??
-      explanationGuides.unsure,
-    showContextInitially: normalized["phase-one-memory"]?.[0] !== "fresh",
+      config.explanationGuides[normalized[config.explanationQuestionId]?.[0]] ??
+      config.explanationGuides.unsure,
+    showContextInitially:
+      normalized[config.knowledge.memoryQuestionId]?.[0] !==
+      config.knowledge.contextReadyOptionId,
   };
 }
 
-export function getPreparationProfile(answers: AnswerMap, niche: Niche) {
-  const normalized = normalizeAnswers(answers);
-  const knowledge = getKnowledgeProfile(normalized);
-  const concepts = mergeConcepts([
-    ...niche.concepts,
-    ...knowledge.conceptsToRevisit,
-  ]);
+export function getPreparationProfile(
+  answers: AnswerMap,
+  niche: Niche,
+  config: PathfinderPreparationConfig = defaultPreparationConfig,
+  questionSet: readonly SurveyQuestion[] = questions,
+) {
+  const normalized = normalizeAnswers(answers, questionSet);
+  const knowledge = getKnowledgeProfile(normalized, config, questionSet);
+  const concepts = mergeConcepts(
+    [...niche.concepts, ...knowledge.conceptsToRevisit],
+    config.conceptOverlaps,
+  );
   return {
     startingPoint: knowledge.startingPoint,
     concepts,
-    explanation: getExplanationGuide(normalized),
+    explanation: getExplanationGuide(normalized, config, questionSet),
     nicheNote: niche.preparation,
-    steps: getPreparationSteps(normalized),
+    steps: getPreparationSteps(normalized, config, questionSet),
   };
 }
