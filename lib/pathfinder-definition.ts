@@ -1,0 +1,104 @@
+import type {
+  Niche,
+  SearchQueries,
+  SurveyQuestion,
+  SurveyStage,
+} from "@/lib/types";
+
+export type PathfinderIcon = "atom" | "material";
+
+export type StageLabels = Record<SurveyStage, string>;
+
+export interface PathfinderIdentity {
+  id: string;
+  name: string;
+  shortName: string;
+  brandLabel: string;
+  ariaLabel: string;
+  route: string;
+  icon: PathfinderIcon;
+}
+
+export interface PathfinderStorageConfig {
+  key: string;
+  version: number;
+}
+
+export interface PathfinderSurveyConfig {
+  questions: readonly SurveyQuestion[];
+  stageLabels: StageLabels;
+  branchQuestionId: string;
+  calibrationQuestionIds: readonly string[];
+}
+
+export interface PathfinderRecommendationConfig {
+  niches: readonly Niche[];
+  openExplorationIds: readonly string[];
+}
+
+export interface ConceptOverlap {
+  umbrella: string;
+  covered: readonly string[];
+}
+
+export interface PathfinderPreparationConfig {
+  mathQuestionId: string;
+  codingQuestionId: string;
+  explanationQuestionId: string;
+  mathAdvice: Readonly<Record<string, string>>;
+  codingAdvice: Readonly<Record<string, string>>;
+  explanationGuides: Readonly<Record<string, string>>;
+  conceptOverlaps: readonly ConceptOverlap[];
+}
+
+export interface GlossaryItem {
+  term: string;
+  text: string;
+}
+
+export interface FitLabelDescription {
+  label: string;
+  description: string;
+}
+
+export interface SearchRefinement {
+  title: string;
+  text: string;
+}
+
+export interface PaperTypeGuideEntry {
+  term: string;
+  text: string;
+}
+
+export interface PathfinderResultsConfig {
+  glossary: readonly GlossaryItem[];
+  fitLabelDescriptions: readonly FitLabelDescription[];
+  queryGuidance: Readonly<Record<keyof SearchQueries, string>>;
+  searchRefinements: readonly SearchRefinement[];
+  paperTypeGuide: readonly PaperTypeGuideEntry[];
+  paperNoteTemplate: string;
+}
+
+export interface PathfinderProfileConfig {
+  researchStyleLabels: Readonly<Record<string, string>>;
+  exportTitle: string;
+  filenamePrefix: string;
+}
+
+export interface PathfinderIntroCopy {
+  eyebrow: string;
+  title: string;
+  description: string;
+}
+
+export interface PathfinderDefinition {
+  identity: PathfinderIdentity;
+  storage: PathfinderStorageConfig;
+  survey: PathfinderSurveyConfig;
+  recommendations: PathfinderRecommendationConfig;
+  preparation: PathfinderPreparationConfig;
+  results: PathfinderResultsConfig;
+  profile: PathfinderProfileConfig;
+  intro: PathfinderIntroCopy;
+}
