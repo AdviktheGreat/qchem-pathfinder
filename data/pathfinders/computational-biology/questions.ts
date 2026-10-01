@@ -383,4 +383,65 @@ export const computationalBiologyQuestions: SurveyQuestion[] = [
       unsureOption,
     ],
   },
+  {
+    id: "biology-scale",
+    stage: "style",
+    kicker: "Where to focus",
+    title: "Which levels of living systems would you most like to investigate?",
+    prompt:
+      "Choose up to two. Many computational biology projects connect neighboring scales, so this is a preference rather than a boundary.",
+    type: "multi",
+    maxSelections: 2,
+    options: [
+      {
+        id: "molecules",
+        label: "Proteins, RNA, and molecular interactions",
+        description:
+          "Focus on sequence, structure, binding, motion, and molecular function.",
+        signals: { "scale:molecular": 3 },
+      },
+      {
+        id: "genes-genomes",
+        label: "Genes, genomes, and inherited variation",
+        description:
+          "Focus on DNA sequence, gene organization, variation, and evolution.",
+        signals: { "scale:genomic": 3 },
+      },
+      {
+        id: "cells-tissues",
+        label: "Cells, cell types, and tissues",
+        description:
+          "Focus on gene activity, cellular identity, communication, and spatial organization.",
+        signals: { "scale:cellular": 3 },
+      },
+      {
+        id: "organisms",
+        label: "Whole organisms and traits",
+        description:
+          "Connect biological measurements to development, physiology, behavior, or observable traits.",
+        signals: { "scale:organism": 3 },
+      },
+      {
+        id: "populations-species",
+        label: "Populations, species, and evolutionary lineages",
+        description:
+          "Study variation, ancestry, adaptation, transmission, and relationships through time.",
+        signals: { "scale:population": 3 },
+      },
+      {
+        id: "communities-ecosystems",
+        label: "Communities and ecosystems",
+        description:
+          "Study interacting species, microbial communities, biodiversity, and environmental context.",
+        signals: { "scale:ecosystem": 3 },
+      },
+      {
+        id: "open",
+        label: "I’d like to compare several scales",
+        description:
+          "Keep directions open across molecules, cells, organisms, and communities.",
+        uncertainty: true,
+      },
+    ],
+  },
 ];
