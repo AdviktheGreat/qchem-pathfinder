@@ -45,3 +45,33 @@ export const materialsExplanationGuides: Record<string, string> = {
   unsure:
     "Try a structure image, a small property table, and a short explanation together; notice which part helps the idea click.",
 };
+
+export const materialsWorkflowPreparation: Record<string, string> = {
+  "visual-models":
+    "Choose one structure viewer and practice connecting a visible feature—such as a pore, defect, layer, or interface—to a reported property.",
+  equations:
+    "Take one central model equation from a review and annotate its variables, units, assumptions, and the material behavior each term represents.",
+  datasets:
+    "Inspect a small materials dataset for units, missing values, provenance, and outliers before looking for a scientific trend.",
+  coding:
+    "Reproduce one published materials plot or analysis in a notebook and record every transformation from source data to figure.",
+  comparisons:
+    "Build a comparison table that changes one material, method, or condition at a time and records which conclusion remains stable.",
+  "experimental-evidence":
+    "Pair one calculated output with the experimental plot it is meant to explain, noting resolution, conditions, and uncertainties on both sides.",
+  unsure:
+    "Sample a structure model, a short notebook, and an experimental plot before deciding which working style to practice first.",
+};
+
+export const materialsExperimentPreparation: Record<string, string> = {
+  interpret:
+    "Start with one measured feature and ask exactly which calculated quantity can be compared with it—and which parts require an indirect interpretation.",
+  predict:
+    "Write the testable prediction, expected units, operating conditions, and an outcome that would challenge the model before searching for confirming evidence.",
+  "feedback-loop":
+    "Sketch a calculation–measurement loop: what the experiment constrains, what the model predicts next, and how disagreement would update either side.",
+  theory:
+    "State which idealization makes the question tractable and identify one real-world effect the first model intentionally leaves out.",
+  unsure:
+    "Compare one paper that interprets an existing measurement with one that makes a testable prediction, then note which role feels more engaging.",
+};

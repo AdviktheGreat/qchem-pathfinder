@@ -8,15 +8,19 @@ import type { PathfinderDefinition } from "@/lib/pathfinder-definition";
 import { computationalMaterialsQuestions } from "@/data/pathfinders/computational-materials/questions";
 import {
   materialsCodingPreparation,
+  materialsExperimentPreparation,
   materialsExplanationGuides,
   materialsMathPreparation,
   materialsToolPreparation,
+  materialsWorkflowPreparation,
 } from "@/data/pathfinders/computational-materials/preparation";
 import {
   materialsOpenExplorationIds,
   materialsRecommendationScoring,
 } from "@/data/pathfinders/computational-materials/scoring";
 import { computationalMaterialsNiches } from "@/data/pathfinders/computational-materials/niches";
+import { materialsConceptOverlaps } from "@/data/pathfinders/computational-materials/concept-overlaps";
+import { materialsGlossary } from "@/data/pathfinders/computational-materials/glossary";
 
 export const computationalMaterialsPathfinder = {
   identity: {
@@ -63,8 +67,16 @@ export const computationalMaterialsPathfinder = {
         questionId: "materials-tools-comfort",
         advice: materialsToolPreparation,
       },
+      {
+        questionId: "materials-workflow",
+        advice: materialsWorkflowPreparation,
+      },
+      {
+        questionId: "materials-experiment-connection",
+        advice: materialsExperimentPreparation,
+      },
     ],
-    conceptOverlaps: [],
+    conceptOverlaps: materialsConceptOverlaps,
     knowledge: {
       memoryQuestionId: "materials-starting-point",
       conceptQuestionId: "materials-concept-familiarity",
@@ -91,7 +103,7 @@ export const computationalMaterialsPathfinder = {
     },
   },
   results: {
-    glossary: [],
+    glossary: materialsGlossary,
     fitLabelDescriptions,
     queryGuidance,
     searchRefinements: [],

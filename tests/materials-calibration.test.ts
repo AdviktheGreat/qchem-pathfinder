@@ -39,22 +39,26 @@ describe("computational materials knowledge calibration", () => {
       "materials-coding-comfort": ["new"],
       "materials-tools-comfort": ["guided"],
       "materials-explanation-style": ["visual"],
+      "materials-workflow": ["comparisons"],
+      "materials-experiment-connection": ["predict"],
     };
     const steps = getPreparationSteps(
       answers,
       computationalMaterialsPathfinder.preparation,
-      calibrationQuestions,
+      questions,
     );
 
-    expect(steps).toHaveLength(3);
+    expect(steps).toHaveLength(5);
     expect(steps[0]).toContain("structure image or property plot");
     expect(steps[1]).toContain("prepared notebook");
     expect(steps[2]).toContain("Repeat a guided calculation");
+    expect(steps[3]).toContain("comparison table");
+    expect(steps[4]).toContain("testable prediction");
     expect(
       getExplanationGuide(
         answers,
         computationalMaterialsPathfinder.preparation,
-        calibrationQuestions,
+        questions,
       ).text,
     ).toContain("unit-cell image");
   });
