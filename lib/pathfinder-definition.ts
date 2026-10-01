@@ -6,7 +6,7 @@ import type {
 } from "@/lib/types";
 import type { RecommendationScoringConfig } from "@/lib/recommendation";
 
-export type PathfinderIcon = "atom" | "material";
+export type PathfinderIcon = "atom" | "material" | "biology";
 
 export type StageLabels = Record<SurveyStage, string>;
 

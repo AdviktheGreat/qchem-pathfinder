@@ -7,6 +7,7 @@ import {
   Boxes,
   Check,
   ChevronDown,
+  Dna,
   Home,
   LayoutGrid,
   LockKeyhole,
@@ -24,17 +25,18 @@ import { ReviewScreen } from "@/components/ReviewScreen";
 import { PathfinderSwitcher } from "@/components/PathfinderSwitcher";
 import { resolveAnswerConflicts } from "@/lib/answer-conflicts";
 import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
-import type { PathfinderDefinition } from "@/lib/pathfinder-definition";
+import type {
+  PathfinderDefinition,
+  PathfinderIcon,
+} from "@/lib/pathfinder-definition";
 import { getSurveyProgress, indexQuestions } from "@/lib/survey-progress";
 
 type Screen = PersistedSurveyState["screen"];
 
-function BrandIcon({ icon }: { icon: "atom" | "material" }) {
-  return icon === "material" ? (
-    <Boxes size={18} aria-hidden="true" />
-  ) : (
-    <Atom size={18} aria-hidden="true" />
-  );
+function BrandIcon({ icon }: { icon: PathfinderIcon }) {
+  if (icon === "material") return <Boxes size={18} aria-hidden="true" />;
+  if (icon === "biology") return <Dna size={18} aria-hidden="true" />;
+  return <Atom size={18} aria-hidden="true" />;
 }
 
 export function PathfinderApp({
