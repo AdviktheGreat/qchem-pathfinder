@@ -485,4 +485,79 @@ export const computationalMaterialsQuestions: SurveyQuestion[] = [
       },
     ],
   },
+  {
+    id: "materials-phenomena",
+    stage: "style",
+    kicker: "Follow the behavior",
+    title: "Which material behaviors would you most like to understand?",
+    prompt:
+      "Choose up to two. Many materials problems connect several of these, so a pair can be especially useful.",
+    type: "multi",
+    maxSelections: 2,
+    options: [
+      {
+        id: "electrons",
+        label: "Electrons and electrical behavior",
+        description:
+          "How charge moves, becomes localized, or produces conducting, insulating, and electronic properties.",
+        signals: { "phenomenon:electrons": 3 },
+      },
+      {
+        id: "ions",
+        label: "Ions and mass transport",
+        description:
+          "How charged atoms or molecules move through a solid, liquid, interface, or porous structure.",
+        signals: { "phenomenon:ions": 3 },
+      },
+      {
+        id: "thermal",
+        label: "Heat and thermal behavior",
+        description:
+          "How a material stores, conducts, releases, or converts thermal energy across different conditions.",
+        signals: { "phenomenon:thermal": 3 },
+      },
+      {
+        id: "optical",
+        label: "Light and optical response",
+        description:
+          "How materials absorb, emit, transmit, or manipulate light through their electronic and structural features.",
+        signals: { "phenomenon:optical": 3 },
+      },
+      {
+        id: "magnetic",
+        label: "Magnetism and spin",
+        description:
+          "How magnetic moments and electron spin organize, interact, and respond to external conditions.",
+        signals: { "phenomenon:magnetic": 3 },
+      },
+      {
+        id: "mechanical",
+        label: "Strength and mechanical response",
+        description:
+          "How materials deform, fracture, recover, or withstand forces because of their structure and defects.",
+        signals: { "phenomenon:mechanical": 3 },
+      },
+      {
+        id: "surfaces",
+        label: "Surfaces and interfaces",
+        description:
+          "How boundaries between materials or their surroundings change stability, transport, and reactivity.",
+        signals: { "phenomenon:surfaces": 3 },
+      },
+      {
+        id: "chemical-change",
+        label: "Chemical change inside or on a material",
+        description:
+          "How bonds break and form during catalysis, corrosion, degradation, charging, or phase transformation.",
+        signals: { "phenomenon:chemical-change": 3 },
+      },
+      {
+        id: "unsure",
+        label: "I’m not sure which behavior yet",
+        description:
+          "Leave the phenomenon open and use later examples to see which kind of change holds your attention.",
+        uncertainty: true,
+      },
+    ],
+  },
 ];

@@ -95,6 +95,7 @@ export const computationalMaterialsPathfinder = {
   profile: {
     researchStyleLabels: {
       "materials-family": "Material family",
+      "materials-phenomena": "Material behaviors",
     },
     exportTitle: "COMPUTATIONAL MATERIALS EXPLORATION PROFILE",
     filenamePrefix: "computational-materials-profile",

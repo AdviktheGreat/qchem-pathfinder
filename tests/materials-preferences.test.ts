@@ -104,3 +104,52 @@ describe("computational materials family preferences", () => {
     ).toEqual({});
   });
 });
+
+describe("computational materials phenomenon preferences", () => {
+  const phenomena = question("materials-phenomena");
+
+  it("lets students combine up to two distinct kinds of material behavior", () => {
+    expect(phenomena).toMatchObject({
+      stage: "style",
+      type: "multi",
+      maxSelections: 2,
+    });
+    expect(phenomena.options.map((option) => option.id)).toEqual([
+      "electrons",
+      "ions",
+      "thermal",
+      "optical",
+      "magnetic",
+      "mechanical",
+      "surfaces",
+      "chemical-change",
+      "unsure",
+    ]);
+    expect(
+      computationalMaterialsPathfinder.profile.researchStyleLabels[
+        "materials-phenomena"
+      ],
+    ).toBe("Material behaviors");
+  });
+
+  it("preserves both signals from a related pair", () => {
+    expect(
+      aggregateSignals(
+        { "materials-phenomena": ["electrons", "optical"] },
+        context,
+      ),
+    ).toEqual({
+      "phenomenon:electrons": 3,
+      "phenomenon:optical": 3,
+    });
+  });
+
+  it("keeps the phenomenon open without adding evidence", () => {
+    expect(
+      aggregateSignals({ "materials-phenomena": ["unsure"] }, context),
+    ).toEqual({});
+    expect(
+      phenomena.options.find((option) => option.id === "unsure"),
+    ).toMatchObject({ uncertainty: true });
+  });
+});
