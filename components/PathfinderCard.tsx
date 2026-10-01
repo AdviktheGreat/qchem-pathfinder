@@ -3,68 +3,44 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowRight, Atom, Check, Clock3 } from "lucide-react";
+import { getPathfinderDefinition } from "@/data/pathfinder-definitions";
 import type { PathfinderCatalogEntry } from "@/data/pathfinders";
 import {
-  getAnsweredCount,
-  getPlannedQuestionCount,
-  getVisibleQuestions,
-} from "@/lib/branching";
-import { restoreProgress, STORAGE_KEY } from "@/lib/persistence";
-
-interface CardProgress {
-  label: string;
-  detail: string;
-  cta: string;
-  complete: boolean;
-}
-
-const newProgress: CardProgress = {
-  label: "Ready when you are",
-  detail: "No saved answers yet",
-  cta: "Open quantum chemistry",
-  complete: false,
-};
-
-function readQuantumChemistryProgress(): CardProgress {
-  try {
-    const { state } = restoreProgress(window.localStorage.getItem(STORAGE_KEY));
-    if (!state || Object.keys(state.answers).length === 0) return newProgress;
-    const visible = getVisibleQuestions(state.answers);
-    const complete = visible.every(
-      (question) => (state.answers[question.id]?.length ?? 0) > 0,
-    );
-    if (complete)
-      return {
-        label: "Research map ready",
-        detail: "Your completed exploration is saved on this device",
-        cta: "Review my quantum chemistry map",
-        complete: true,
-      };
-    return {
-      label: "Exploration in progress",
-      detail: `${getAnsweredCount(state.answers)} of ${getPlannedQuestionCount(state.answers)} questions answered`,
-      cta: "Continue quantum chemistry",
-      complete: false,
-    };
-  } catch {
-    return newProgress;
-  }
-}
+  getNewPathfinderProgress,
+  readPathfinderProgress,
+} from "@/lib/pathfinder-progress-summary";
 
 export function PathfinderCard({
   pathfinder,
 }: {
   pathfinder: PathfinderCatalogEntry;
 }) {
-  const [progress, setProgress] = useState(newProgress);
+  const definition = getPathfinderDefinition(pathfinder.id);
+  const [progress, setProgress] = useState(() =>
+    definition
+      ? getNewPathfinderProgress(definition)
+      : {
+          label: "Ready when you are",
+          detail: "No saved answers yet",
+          cta: `Open ${pathfinder.shortName.toLowerCase()}`,
+          complete: false,
+        },
+  );
 
   useEffect(() => {
+    if (!definition) return;
     const timer = window.setTimeout(
-      () => setProgress(readQuantumChemistryProgress()),
+      () =>
+        setProgress(
+          readPathfinderProgress(
+            definition,
+            window.localStorage.getItem(definition.storage.key),
+          ),
+        ),
       0,
     );
     return () => window.clearTimeout(timer);
-  }, []);
+  }, [definition]);
 
   if (!pathfinder.href) return null;
 
