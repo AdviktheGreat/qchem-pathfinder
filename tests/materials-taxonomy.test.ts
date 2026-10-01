@@ -178,4 +178,22 @@ describe("computational materials taxonomy", () => {
       ).toBe(expected);
     }
   });
+
+  it("separates general soft matter from biological interfaces", () => {
+    for (const [choice, expected] of [
+      ["polymers-soft", "polymers-soft-materials"],
+      ["biomaterials", "computational-biomaterials"],
+    ]) {
+      expect(
+        getRecommendations(
+          {
+            "materials-motivation": ["soft-health"],
+            "materials-structural-soft-direction": [choice],
+          },
+          undefined,
+          context,
+        )[0].niche.id,
+      ).toBe(expected);
+    }
+  });
 });

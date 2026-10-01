@@ -2,6 +2,7 @@ import type { Niche } from "@/lib/types";
 import { materialsNicheDefaults } from "@/data/pathfinders/computational-materials/niche-defaults";
 import { catalysisDirections } from "@/data/pathfinders/computational-materials/niches-catalysis";
 import { porousStorageDirections } from "@/data/pathfinders/computational-materials/niches-porous-storage";
+import { softBiomaterialDirections } from "@/data/pathfinders/computational-materials/niches-soft-biomaterials";
 
 export const computationalMaterialsNiches: Niche[] = [
   {
@@ -1082,4 +1083,5 @@ export const computationalMaterialsNiches: Niche[] = [
   },
   ...catalysisDirections,
   ...porousStorageDirections,
+  ...softBiomaterialDirections,
 ];
