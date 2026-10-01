@@ -1439,6 +1439,12 @@ h2 {
 .direction-details {
   padding: 0 clamp(1.5rem, 5vw, 4rem) clamp(1.5rem, 5vw, 4rem);
 }
+.detail-intro {
+  margin: -0.2rem 0 0.75rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.55;
+}
 .detail-grid {
   display: grid;
   gap: 2rem;

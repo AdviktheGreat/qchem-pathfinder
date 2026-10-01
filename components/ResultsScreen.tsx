@@ -73,7 +73,10 @@ function DirectionDetails({
     <div className="direction-details">
       <div className="detail-grid two-up">
         <section>
-          <h3>What researchers ask</h3>
+          <h3>
+            {results.directionDetailsCopy?.questionsHeading ??
+              "What researchers ask"}
+          </h3>
           <ul>
             {niche.questions.map((item) => (
               <li key={item}>{item}</li>
@@ -81,7 +84,14 @@ function DirectionDetails({
           </ul>
         </section>
         <section>
-          <h3>Example systems</h3>
+          <h3>
+            {results.directionDetailsCopy?.systemsHeading ?? "Example systems"}
+          </h3>
+          {results.directionDetailsCopy?.systemsDescription && (
+            <p className="detail-intro">
+              {results.directionDetailsCopy.systemsDescription}
+            </p>
+          )}
           <div className="tag-list">
             {niche.systems.map((item) => (
               <span key={item}>{item}</span>

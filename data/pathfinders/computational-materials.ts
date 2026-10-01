@@ -144,6 +144,12 @@ export const computationalMaterialsPathfinder = {
         "Use this as a well-supported starting point for reading and comparison—not as a final topic or a limit on what you can study.",
       contextSummary: "Beginner-friendly scientific orientation",
     },
+    directionDetailsCopy: {
+      questionsHeading: "Questions materials researchers ask",
+      systemsHeading: "Materials, applications, and contexts",
+      systemsDescription:
+        "These examples connect the direction to material families, devices, and real operating settings you may meet in the literature.",
+    },
   },
   profile: {
     researchStyleLabels: {

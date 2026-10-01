@@ -111,6 +111,11 @@ export interface PathfinderResultsConfig {
     description: string;
     contextSummary: string;
   };
+  directionDetailsCopy?: {
+    questionsHeading: string;
+    systemsHeading: string;
+    systemsDescription: string;
+  };
 }
 
 export interface PathfinderProfileConfig {

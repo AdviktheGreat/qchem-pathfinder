@@ -72,4 +72,29 @@ describe("computational materials results", () => {
       scopedOverview.getByText("Interfaces, devices, and operating conditions"),
     ).toBeDefined();
   });
+
+  it("connects research questions to materials and application contexts", () => {
+    renderMaterialsResults();
+    const primary = screen
+      .getByRole("heading", { name: "Photovoltaic materials" })
+      .closest("section");
+    expect(primary).not.toBeNull();
+    const scopedPrimary = within(primary as HTMLElement);
+
+    expect(
+      scopedPrimary.getByRole("heading", {
+        name: "Questions materials researchers ask",
+      }),
+    ).toBeDefined();
+    expect(
+      scopedPrimary.getByRole("heading", {
+        name: "Materials, applications, and contexts",
+      }),
+    ).toBeDefined();
+    expect(
+      scopedPrimary.getByText(
+        /material families, devices, and real operating settings/i,
+      ),
+    ).toBeDefined();
+  });
 });
