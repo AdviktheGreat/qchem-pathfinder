@@ -72,4 +72,37 @@ describe("adaptive computational materials questions", () => {
     expect(energyIds).not.toContain("materials-electronic-direction");
     expect(energyIds).not.toContain("materials-electronic-phenomenon");
   });
+
+  it.each(["catalysis", "climate-environment"])(
+    "shows two surface and environment follow-ups for %s",
+    (motivation) => {
+      const visible = getVisibleQuestions(
+        { "materials-motivation": [motivation] },
+        questions,
+      );
+      expect(
+        visible
+          .filter((question) => question.stage === "narrowing")
+          .map((question) => question.id),
+      ).toEqual([
+        "materials-surface-environment-direction",
+        "materials-surface-environment-process",
+      ]);
+      expect(visible).toHaveLength(17);
+    },
+  );
+
+  it("covers catalysis, separation, storage, and environmental protection", () => {
+    const direction = questions.find(
+      (question) => question.id === "materials-surface-environment-direction",
+    )!;
+    expect(direction.options.map((option) => option.id)).toEqual([
+      "surface-catalysis",
+      "electrocatalysis",
+      "separation",
+      "molecular-storage",
+      "protective-interfaces",
+      "unsure",
+    ]);
+  });
 });

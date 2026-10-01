@@ -2,6 +2,7 @@ import type { SurveyQuestion } from "@/lib/types";
 
 const energyMotivations = ["energy-storage", "energy-conversion"];
 const electronicMotivations = ["electronics", "light-sensing"];
+const surfaceEnvironmentMotivations = ["catalysis", "climate-environment"];
 
 export const computationalMaterialsAdaptiveQuestions: SurveyQuestion[] = [
   {
@@ -246,6 +247,127 @@ export const computationalMaterialsAdaptiveQuestions: SurveyQuestion[] = [
         label: "I’m not sure which electronic story yet",
         description:
           "Leave the microscopic behavior open and compare a few visual examples first.",
+        uncertainty: true,
+      },
+    ],
+  },
+  {
+    id: "materials-surface-environment-direction",
+    stage: "narrowing",
+    kicker: "Narrow the surface system",
+    title:
+      "Which surface or environmental materials problem would you enter first?",
+    prompt:
+      "These directions all depend on how a material interacts with molecules or its surroundings, but they ask different questions.",
+    type: "single",
+    visibleWhen: {
+      questionId: "materials-motivation",
+      anyOf: surfaceEnvironmentMotivations,
+    },
+    options: [
+      {
+        id: "surface-catalysis",
+        label: "Catalysis on solid surfaces",
+        description:
+          "How molecules bind, react, and leave active sites on a catalyst’s surface.",
+        nicheBoosts: { "heterogeneous-catalysis-surfaces": 6 },
+      },
+      {
+        id: "electrocatalysis",
+        label: "Electrocatalysis at an electrode",
+        description:
+          "How voltage, charge, solvent, and surface structure work together during a chemical reaction.",
+        nicheBoosts: { electrocatalysis: 6 },
+      },
+      {
+        id: "separation",
+        label: "Selective capture and separation",
+        description:
+          "How pores and chemical environments distinguish one gas, ion, or contaminant from another.",
+        nicheBoosts: { "porous-separation-storage": 6 },
+      },
+      {
+        id: "molecular-storage",
+        label: "Store gases or small molecules",
+        description:
+          "How a porous or reactive material can hold useful molecules and release them under controlled conditions.",
+        nicheBoosts: {
+          "porous-separation-storage": 5,
+          "hydrogen-storage-materials": 3,
+        },
+      },
+      {
+        id: "protective-interfaces",
+        label: "Protect a material in a harsh environment",
+        description:
+          "How coatings, oxide layers, or interfaces slow corrosion and environmental degradation.",
+        nicheBoosts: { "corrosion-protective-interfaces": 6 },
+      },
+      {
+        id: "unsure",
+        label: "Show me several surface and environment problems",
+        description:
+          "Keep catalysis, capture, storage, and protection open until their workflows are easier to compare.",
+        uncertainty: true,
+      },
+    ],
+  },
+  {
+    id: "materials-surface-environment-process",
+    stage: "narrowing",
+    kicker: "Choose the interaction",
+    title: "Which material–environment interaction sounds most interesting?",
+    prompt:
+      "Focus on the event you would most like a simulation to reveal at the atomic or molecular level.",
+    type: "single",
+    visibleWhen: {
+      questionId: "materials-motivation",
+      anyOf: surfaceEnvironmentMotivations,
+    },
+    options: [
+      {
+        id: "adsorption-reaction",
+        label: "Adsorption and reaction at an active site",
+        description:
+          "Compare where molecules attach, how bonds change, and which surface arrangement lowers a reaction barrier.",
+        nicheBoosts: { "heterogeneous-catalysis-surfaces": 5 },
+      },
+      {
+        id: "charge-transfer-interface",
+        label: "Charge transfer at an electrode interface",
+        description:
+          "Follow electrons, ions, and nearby solvent as an electrochemical reaction proceeds.",
+        nicheBoosts: { electrocatalysis: 5 },
+      },
+      {
+        id: "selective-passage",
+        label: "Selective binding or passage through pores",
+        description:
+          "Explain why a framework captures or transports one molecular species more readily than another.",
+        nicheBoosts: { "porous-separation-storage": 5 },
+      },
+      {
+        id: "binding-release",
+        label: "Reversible storage and release",
+        description:
+          "Balance strong molecular binding with the ability to recover a stored gas when it is needed.",
+        nicheBoosts: {
+          "hydrogen-storage-materials": 5,
+          "porous-separation-storage": 2,
+        },
+      },
+      {
+        id: "degradation-barrier",
+        label: "Degradation and protective barriers",
+        description:
+          "Study how water, oxygen, salt, or heat reaches a material and begins to damage it.",
+        nicheBoosts: { "corrosion-protective-interfaces": 5 },
+      },
+      {
+        id: "unsure",
+        label: "I’m not sure which interaction yet",
+        description:
+          "Keep several interface processes in view and compare their molecular pictures first.",
         uncertainty: true,
       },
     ],
