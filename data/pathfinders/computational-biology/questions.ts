@@ -134,4 +134,76 @@ export const computationalBiologyQuestions: SurveyQuestion[] = [
       unsureOption,
     ],
   },
+  {
+    id: "biology-coding-comfort",
+    stage: "calibration",
+    kicker: "Coding check-in",
+    title: "What is your current relationship with coding?",
+    prompt:
+      "Coding experience changes the support suggested in your results; it does not decide which biological questions belong to you.",
+    type: "single",
+    options: [
+      {
+        id: "enjoy",
+        label: "I enjoy writing or adapting code",
+        description:
+          "I would be happy working with scripts, notebooks, data tables, or visualization libraries.",
+      },
+      {
+        id: "learning",
+        label: "I’m learning",
+        description:
+          "I can work through examples and would like more practice changing or explaining code.",
+      },
+      {
+        id: "new",
+        label: "Mostly new to me",
+        description:
+          "I would want a guided notebook or a small, well-explained dataset as a starting point.",
+      },
+      {
+        id: "tools-first",
+        label: "I’d rather begin with established tools",
+        description:
+          "I’m open to learning code, but I want the biological question to remain central.",
+      },
+      unsureOption,
+    ],
+  },
+  {
+    id: "biology-tools-comfort",
+    stage: "calibration",
+    kicker: "Data-tool check-in",
+    title: "Which computational workflow feels closest to your experience?",
+    prompt:
+      "A workflow might use a spreadsheet, notebook, sequence browser, structure viewer, command line, or analysis platform.",
+    type: "single",
+    options: [
+      {
+        id: "independent",
+        label: "I’ve built or modified an analysis myself",
+        description:
+          "I have made choices about data, settings, code, or visualizations and checked the output.",
+      },
+      {
+        id: "guided",
+        label: "I’ve followed a guided notebook or workflow",
+        description:
+          "I can navigate a worked analysis even if I still need support making changes.",
+      },
+      {
+        id: "basic-tools",
+        label: "I’ve mainly used tables, charts, or web tools",
+        description:
+          "I can organize information and inspect results, but more technical workflows are new to me.",
+      },
+      {
+        id: "new",
+        label: "These tools are new to me",
+        description:
+          "I would want an explanation of the data, inputs, outputs, and scientific choices.",
+      },
+      unsureOption,
+    ],
+  },
 ];
