@@ -193,7 +193,14 @@ function SearchLaunchpad({
         </p>
       </div>
       <div className="query-heading">
-        <h3>Ready-to-use searches</h3>
+        <div>
+          <h3>
+            {results.searchCopy?.queriesHeading ?? "Ready-to-use searches"}
+          </h3>
+          {results.searchCopy?.queriesDescription && (
+            <p>{results.searchCopy.queriesDescription}</p>
+          )}
+        </div>
         <CopyButton
           text={allQueries}
           label="Copy all queries"

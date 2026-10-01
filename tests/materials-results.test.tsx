@@ -212,4 +212,26 @@ describe("computational materials results", () => {
         .length,
     ).toBeGreaterThan(0);
   });
+
+  it("offers broad, focused, and review searches at distinct depths", () => {
+    renderMaterialsResults();
+
+    expect(
+      screen.getAllByRole("heading", {
+        name: "Three searches at different depths",
+      }).length,
+    ).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText(/material–property–method combination/i).length,
+    ).toBeGreaterThan(0);
+    expect(
+      screen.getAllByRole("tab", { name: "Orientation" }).length,
+    ).toBeGreaterThan(0);
+    expect(
+      screen.getAllByRole("tab", { name: "Focused" }).length,
+    ).toBeGreaterThan(0);
+    expect(
+      screen.getAllByRole("tab", { name: "Review" }).length,
+    ).toBeGreaterThan(0);
+  });
 });

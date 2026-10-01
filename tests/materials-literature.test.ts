@@ -22,4 +22,21 @@ describe("computational materials literature vocabulary", () => {
       ).toBe(true);
     }
   });
+
+  it("gives every direction broad, focused, and review searches", () => {
+    for (const niche of computationalMaterialsNiches) {
+      expect(
+        niche.searches.orientation.trim().length,
+        niche.name,
+      ).toBeGreaterThan(20);
+      expect(niche.searches.focused.trim().length, niche.name).toBeGreaterThan(
+        20,
+      );
+      expect(niche.searches.review.trim().length, niche.name).toBeGreaterThan(
+        20,
+      );
+      expect(niche.searches.review, niche.name).toMatch(/review|perspective/i);
+      expect(new Set(Object.values(niche.searches)).size, niche.name).toBe(3);
+    }
+  });
 });

@@ -1808,6 +1808,13 @@ h2 {
   gap: 1rem;
   margin-top: 1.25rem;
 }
+.query-heading > div > p {
+  max-width: 68ch;
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+  font-size: 0.74rem;
+  line-height: 1.5;
+}
 .keyword-heading {
   display: flex;
   align-items: center;

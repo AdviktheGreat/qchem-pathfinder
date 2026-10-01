@@ -149,6 +149,8 @@ export interface PathfinderResultsConfig {
     keywordsHeading: string;
     keywordsDescription: string;
     synonymsLabel: string;
+    queriesHeading: string;
+    queriesDescription: string;
   };
 }
 

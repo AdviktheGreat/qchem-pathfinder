@@ -188,6 +188,9 @@ export const computationalMaterialsPathfinder = {
       keywordsDescription:
         "Combine a material family, a target property, and a modeling method to make these terms more specific.",
       synonymsLabel: "Related phrases used in materials literature",
+      queriesHeading: "Three searches at different depths",
+      queriesDescription:
+        "Start broad enough to learn the field’s language, then move toward a material–property–method combination and a recent review.",
     },
   },
   profile: {
