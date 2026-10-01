@@ -1,17 +1,26 @@
-# Verification after the usability improvements
+# Computational materials release verification
 
-Verified September 26, 2026 using the local production build.
+Verified October 1, 2026 against the local production build.
 
-- Prettier check: passed for application, components, data, library, tests, documentation, and README.
-- ESLint and TypeScript: passed.
-- Vitest: 106 tests passed across 22 files.
-- Next.js production build: passed; application routes statically prerendered.
-- Desktop (1366 × 900): results navigation, label explanation, and three-direction overview visually reviewed.
-- Mobile (390 × 844): expanded alternative reviewed; results document width matched the viewport without horizontal overflow.
-- Restored a complete open-ended profile, filtered its uncertain answers, edited calibration, and returned directly through “Update my directions.”
-- Alternative comparisons and uniquely named expansion/search controls checked in the rendered page.
-- Copy reported success in the browser, but its clipboard bridge returned no text and its download event did not surface. Clipboard failure/recovery and download filename/object-URL behavior are covered by automated tests; native clipboard and download transport should also be checked in the workshop browser.
-- Print regression test confirms both alternative launchpads remain in the document with all their queries, independent of expansion. Print CSS exposes those panels and hides interactive controls. The in-app browser did not expose a native print preview, so physical pagination remains a manual cross-browser check.
-- Browser console: no captured warnings or errors during this journey.
+## Automated release gate
 
-Automated journeys separately cover all six representative student profiles and motivation edits. This verification is not a full screen-reader, cross-browser, print-layout, or scientific-content audit. Recheck those areas with the workshop facilitator before a student session. No deployment was performed as part of verification.
+- Prettier passed for the application, components, data, libraries, tests, documentation, and README.
+- ESLint and TypeScript checks passed.
+- Vitest passed all 308 tests across 54 files.
+- The Next.js production build passed and statically prerendered the hub, not-found page, quantum chemistry pathfinder, and computational materials pathfinder.
+- Automated coverage includes complete student journeys, all 22 computational materials directions, balanced and uncertain profiles, ties, answer editing, manual alternative selection, isolated persistence, and corrupted-storage recovery.
+
+## Production browser review
+
+- Reviewed the computational materials introduction, adaptive survey, and results experience at desktop, tablet, and phone sizes.
+- Checked 1280 × 900, 768 × 1024, and 390 × 844 viewports. At each size, the document width matched the viewport with no horizontal overflow.
+- Confirmed the materials page title, primary heading, canonical URL, visible launch action, responsive navigation, and cross-pathfinder controls.
+- Verified touch-target sizing and keyboard-visible focus treatment through the accessibility test suite and responsive browser review.
+- Confirmed no captured browser warnings or errors during the production smoke test.
+- Confirmed HTTP 200 responses for the hub, computational materials pathfinder, and quantum chemistry pathfinder from the production server.
+
+## Remaining manual checks
+
+This verification is not a complete screen-reader, physical-device, native print-preview, multi-browser, or independent scientific-content review. Before a workshop, test the deployed preview in the browsers and devices students will use, try the full flow with a screen reader, inspect printed results, and have a subject-matter expert review any newly edited scientific copy.
+
+No deployment was performed as part of this verification.
