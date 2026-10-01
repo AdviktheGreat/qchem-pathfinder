@@ -153,3 +153,56 @@ describe("computational materials phenomenon preferences", () => {
     ).toMatchObject({ uncertainty: true });
   });
 });
+
+describe("computational materials research style preferences", () => {
+  const styleQuestionIds = [
+    "materials-purpose-balance",
+    "materials-scale",
+    "materials-change-style",
+    "materials-experiment-connection",
+  ] as const;
+
+  it("covers purpose, scale, change, and experimental connection", () => {
+    expect(questions).toHaveLength(14);
+    for (const id of styleQuestionIds) {
+      expect(question(id)).toMatchObject({ stage: "style", type: "single" });
+      expect(
+        computationalMaterialsPathfinder.profile.researchStyleLabels[id],
+      ).toBeTypeOf("string");
+    }
+  });
+
+  it("combines compatible style evidence without collapsing its dimensions", () => {
+    expect(
+      aggregateSignals(
+        {
+          "materials-purpose-balance": ["bridge"],
+          "materials-scale": ["atomic"],
+          "materials-change-style": ["dynamic"],
+          "materials-experiment-connection": ["interpret"],
+        },
+        context,
+      ),
+    ).toEqual({
+      "purpose:fundamental": 2,
+      "purpose:applied": 2,
+      "scale:atomic": 3,
+      "change:dynamic": 3,
+      "connection:interpret": 3,
+      "connection:experiment": 2,
+    });
+  });
+
+  it("keeps every undecided style dimension neutral", () => {
+    const uncertainAnswers = Object.fromEntries(
+      styleQuestionIds.map((id) => [id, ["unsure"]]),
+    );
+    expect(aggregateSignals(uncertainAnswers, context)).toEqual({});
+
+    for (const id of styleQuestionIds) {
+      expect(
+        question(id).options.find((option) => option.id === "unsure"),
+      ).toMatchObject({ uncertainty: true });
+    }
+  });
+});

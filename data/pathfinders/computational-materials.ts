@@ -96,6 +96,10 @@ export const computationalMaterialsPathfinder = {
     researchStyleLabels: {
       "materials-family": "Material family",
       "materials-phenomena": "Material behaviors",
+      "materials-purpose-balance": "Fundamental or applied emphasis",
+      "materials-scale": "Modeling scale",
+      "materials-change-style": "Static or changing systems",
+      "materials-experiment-connection": "Connection to experiments",
     },
     exportTitle: "COMPUTATIONAL MATERIALS EXPLORATION PROFILE",
     filenamePrefix: "computational-materials-profile",

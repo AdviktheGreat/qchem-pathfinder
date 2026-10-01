@@ -560,4 +560,168 @@ export const computationalMaterialsQuestions: SurveyQuestion[] = [
       },
     ],
   },
+  {
+    id: "materials-purpose-balance",
+    stage: "style",
+    kicker: "Set the purpose",
+    title: "How would you like the research to connect to practical use?",
+    prompt:
+      "Fundamental and applied work support each other. This choice only describes where you would like to begin.",
+    type: "single",
+    options: [
+      {
+        id: "fundamental",
+        label: "Start with a fundamental puzzle",
+        description:
+          "Understand the physical principles behind a material behavior, even when an application is not immediate.",
+        signals: { "purpose:fundamental": 3 },
+      },
+      {
+        id: "applied",
+        label: "Start with a practical challenge",
+        description:
+          "Investigate a material because it could improve a technology, process, device, or environmental outcome.",
+        signals: { "purpose:applied": 3 },
+      },
+      {
+        id: "bridge",
+        label: "Connect mechanism to application",
+        description:
+          "Use fundamental understanding to explain or improve performance in a recognizable real-world setting.",
+        signals: {
+          "purpose:fundamental": 2,
+          "purpose:applied": 2,
+        },
+      },
+      unsureOption,
+    ],
+  },
+  {
+    id: "materials-scale",
+    stage: "style",
+    kicker: "Choose the scale",
+    title: "At what scale would you most enjoy building an explanation?",
+    prompt:
+      "Researchers often connect these scales, but choosing a starting lens helps distinguish nearby directions.",
+    type: "single",
+    options: [
+      {
+        id: "atomic",
+        label: "Atoms, electrons, and individual defects",
+        description:
+          "Focus closely on bonding, charge, local arrangements, or one structural imperfection at a time.",
+        signals: { "scale:atomic": 3 },
+      },
+      {
+        id: "microstructure",
+        label: "Grains, phases, pores, and microstructure",
+        description:
+          "Study how many local features combine into patterns that shape a material’s larger-scale behavior.",
+        signals: { "scale:microstructure": 3 },
+      },
+      {
+        id: "device",
+        label: "Interfaces, devices, and operating conditions",
+        description:
+          "Connect material behavior to electrodes, junctions, components, or realistic environments.",
+        signals: { "scale:device": 3 },
+      },
+      {
+        id: "multiscale",
+        label: "Connect several scales",
+        description:
+          "Trace how atomic-level choices influence microstructure and eventually affect a usable system.",
+        signals: { "scale:multiscale": 3 },
+      },
+      unsureOption,
+    ],
+  },
+  {
+    id: "materials-change-style",
+    stage: "style",
+    kicker: "Still picture or process",
+    title: "Would you rather study a material’s state or how it changes?",
+    prompt:
+      "A stable structure can still contain motion, and a changing process often begins with a static description.",
+    type: "single",
+    options: [
+      {
+        id: "static",
+        label: "A structure or stable state",
+        description:
+          "Compare energies, arrangements, electronic states, or properties under a defined set of conditions.",
+        signals: { "change:static": 3 },
+      },
+      {
+        id: "dynamic",
+        label: "Motion, transformation, or response over time",
+        description:
+          "Follow diffusion, reactions, phase changes, deformation, or responses to an external stimulus.",
+        signals: { "change:dynamic": 3 },
+      },
+      {
+        id: "both",
+        label: "Connect stable states to the path between them",
+        description:
+          "Understand both the structures a system favors and the route it takes as conditions change.",
+        signals: {
+          "change:static": 2,
+          "change:dynamic": 2,
+        },
+      },
+      unsureOption,
+    ],
+  },
+  {
+    id: "materials-experiment-connection",
+    stage: "style",
+    kicker: "Connect calculation and evidence",
+    title: "How would you like computation to relate to experiments?",
+    prompt:
+      "Computational projects can explain existing evidence, make testable predictions, or examine ideas that are difficult to isolate experimentally.",
+    type: "single",
+    options: [
+      {
+        id: "interpret",
+        label: "Explain a measurement",
+        description:
+          "Use simulations or calculated properties to help interpret spectra, images, curves, or observed trends.",
+        signals: {
+          "connection:interpret": 3,
+          "connection:experiment": 2,
+        },
+      },
+      {
+        id: "predict",
+        label: "Make a prediction an experiment could test",
+        description:
+          "Estimate a property, candidate, or condition before the corresponding measurement is available.",
+        signals: {
+          "connection:predict": 3,
+          "connection:experiment": 1,
+        },
+      },
+      {
+        id: "feedback-loop",
+        label: "Move back and forth between both",
+        description:
+          "Let experiments refine a model, then use the improved model to suggest the next experiment.",
+        signals: {
+          "connection:feedback-loop": 3,
+          "connection:experiment": 2,
+        },
+      },
+      {
+        id: "theory",
+        label: "Probe a model or inaccessible condition",
+        description:
+          "Use computation to isolate a principle or explore a system that is difficult to create or measure directly.",
+        signals: {
+          "connection:theory": 3,
+          "purpose:fundamental": 1,
+        },
+      },
+      unsureOption,
+    ],
+  },
 ];
