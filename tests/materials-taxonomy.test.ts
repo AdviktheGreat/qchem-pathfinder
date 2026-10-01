@@ -214,4 +214,22 @@ describe("computational materials taxonomy", () => {
       ).toBe(expected);
     }
   });
+
+  it("separates learned property models from automated screening", () => {
+    for (const [choice, expected] of [
+      ["machine-learning", "ml-property-prediction"],
+      ["high-throughput", "high-throughput-materials-discovery"],
+    ]) {
+      expect(
+        getRecommendations(
+          {
+            "materials-motivation": ["data-discovery"],
+            "materials-computation-direction": [choice],
+          },
+          undefined,
+          context,
+        )[0].niche.id,
+      ).toBe(expected);
+    }
+  });
 });
