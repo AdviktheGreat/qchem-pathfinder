@@ -35,5 +35,10 @@ it("exposes clear hub landmarks, destinations, and roadmap states", () => {
       name: "Computational Materials Pathfinder",
     }),
   ).toBeDefined();
-  expect(screen.getAllByText("Coming later")).toHaveLength(2);
+  expect(
+    screen
+      .getByRole("link", { name: /Open computational materials/i })
+      .getAttribute("href"),
+  ).toBe("/pathfinders/computational-materials");
+  expect(screen.getAllByText("Coming later")).toHaveLength(1);
 });

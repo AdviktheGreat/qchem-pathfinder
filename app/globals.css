@@ -3269,6 +3269,22 @@ h2 {
   *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+@media (prefers-contrast: more) {
+  :root {
+    --muted: #465268;
+    --line: #8d98aa;
+    --line-strong: #58657a;
+  }
+  .primary-button,
+  .secondary-button,
+  .choice-card,
+  .pathfinder-card,
+  .alternative-card {
+    border-width: 2px;
   }
 }
 @media (forced-colors: active) {
@@ -3294,6 +3310,7 @@ h2 {
   .pathfinder-card,
   .pathfinder-preview-card,
   .recent-pathfinder,
+  .pathfinder-switcher,
   .hub-section-nav a {
     border: 1px solid CanvasText;
   }

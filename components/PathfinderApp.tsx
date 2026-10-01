@@ -317,7 +317,12 @@ export function PathfinderApp({
               <span>{definition.identity.brandLabel}</span>
             </button>
           </div>
-          <div className="header-context" aria-live="polite">
+          <div
+            className="header-context"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          >
             <span className="context-label">{contextLabel}</span>
             <span
               className={`save-state save-${storageAvailable ? saveStatus : "failed"}`}
