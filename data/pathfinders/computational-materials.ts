@@ -137,6 +137,13 @@ export const computationalMaterialsPathfinder = {
         },
       ],
     },
+    primaryCopy: {
+      eyebrow: "Your computational materials map",
+      title: "A promising materials direction to investigate",
+      description:
+        "Use this as a well-supported starting point for reading and comparison—not as a final topic or a limit on what you can study.",
+      contextSummary: "Beginner-friendly scientific orientation",
+    },
   },
   profile: {
     researchStyleLabels: {

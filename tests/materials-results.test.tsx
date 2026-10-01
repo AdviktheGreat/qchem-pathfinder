@@ -28,6 +28,25 @@ function renderMaterialsResults() {
 }
 
 describe("computational materials results", () => {
+  it("introduces the primary direction as an exploratory scientific starting point", () => {
+    renderMaterialsResults();
+
+    expect(
+      screen.getByRole("heading", {
+        level: 1,
+        name: "A promising materials direction to investigate",
+      }),
+    ).toBeDefined();
+    expect(
+      screen.getByText(
+        /well-supported starting point for reading and comparison/i,
+      ),
+    ).toBeDefined();
+    expect(
+      screen.getByText("Beginner-friendly scientific orientation"),
+    ).toBeDefined();
+  });
+
   it("summarizes the student’s material family, target, phenomenon, and scale", () => {
     renderMaterialsResults();
     const overview = screen

@@ -105,6 +105,12 @@ export interface PathfinderResultsConfig {
       fallback: string;
     }[];
   };
+  primaryCopy?: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    contextSummary: string;
+  };
 }
 
 export interface PathfinderProfileConfig {

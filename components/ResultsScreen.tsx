@@ -414,6 +414,7 @@ export function ResultsScreen({
   }
 
   const overview = definition.results.overview;
+  const primaryCopy = definition.results.primaryCopy;
   const overviewDimensions = overview?.dimensions.map((dimension) => {
     const question = definition.survey.questions.find(
       (candidate) => candidate.id === dimension.questionId,
@@ -435,12 +436,15 @@ export function ResultsScreen({
       <section className="result-hero">
         <div>
           <p className="eyebrow">
-            <Sparkles size={15} /> Your exploration map
+            <Sparkles size={15} />{" "}
+            {primaryCopy?.eyebrow ?? "Your exploration map"}
           </p>
-          <h1 tabIndex={-1}>Here’s a promising place to begin.</h1>
+          <h1 tabIndex={-1}>
+            {primaryCopy?.title ?? "Here’s a promising place to begin."}
+          </h1>
           <p>
-            This is a research direction to investigate, not a verdict or final
-            question. Your nearby paths stay open.
+            {primaryCopy?.description ??
+              "This is a research direction to investigate, not a verdict or final question. Your nearby paths stay open."}
           </p>
         </div>
         <div className="result-actions no-print">
@@ -603,7 +607,9 @@ export function ResultsScreen({
               key={primary.niche.id}
               open={explanationGuide.showContextInitially}
             >
-              <summary>A little more context</summary>
+              <summary>
+                {primaryCopy?.contextSummary ?? "A little more context"}
+              </summary>
               <p>{primary.niche.explanation}</p>
             </details>
           </div>
