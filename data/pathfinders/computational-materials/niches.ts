@@ -5,6 +5,7 @@ import { porousStorageDirections } from "@/data/pathfinders/computational-materi
 import { softBiomaterialDirections } from "@/data/pathfinders/computational-materials/niches-soft-biomaterials";
 import { structuralCorrosionDirections } from "@/data/pathfinders/computational-materials/niches-structural-corrosion";
 import { dataDrivenDirections } from "@/data/pathfinders/computational-materials/niches-data-driven";
+import { modelingMethodDirections } from "@/data/pathfinders/computational-materials/niches-modeling-methods";
 
 export const computationalMaterialsNiches: Niche[] = [
   {
@@ -1088,4 +1089,5 @@ export const computationalMaterialsNiches: Niche[] = [
   ...softBiomaterialDirections,
   ...structuralCorrosionDirections,
   ...dataDrivenDirections,
+  ...modelingMethodDirections,
 ];

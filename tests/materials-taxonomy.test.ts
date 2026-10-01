@@ -232,4 +232,25 @@ describe("computational materials taxonomy", () => {
       ).toBe(expected);
     }
   });
+
+  it("completes 22 unique directions with multiscale and method evaluation", () => {
+    expect(niches).toHaveLength(22);
+    expect(new Set(niches.map((niche) => niche.id))).toHaveLength(22);
+
+    for (const [choice, expected] of [
+      ["multiscale", "multiscale-materials-modeling"],
+      ["method-comparison", "method-potential-evaluation"],
+    ]) {
+      expect(
+        getRecommendations(
+          {
+            "materials-motivation": ["fundamentals"],
+            "materials-computation-direction": [choice],
+          },
+          undefined,
+          context,
+        )[0].niche.id,
+      ).toBe(expected);
+    }
+  });
 });
