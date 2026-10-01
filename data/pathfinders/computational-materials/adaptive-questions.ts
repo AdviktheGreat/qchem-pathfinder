@@ -4,6 +4,7 @@ const energyMotivations = ["energy-storage", "energy-conversion"];
 const electronicMotivations = ["electronics", "light-sensing"];
 const surfaceEnvironmentMotivations = ["catalysis", "climate-environment"];
 const structuralSoftMotivations = ["structural", "soft-health"];
+const computationalOpenMotivations = ["fundamentals", "data-discovery", "open"];
 
 export const computationalMaterialsAdaptiveQuestions: SurveyQuestion[] = [
   {
@@ -486,6 +487,126 @@ export const computationalMaterialsAdaptiveQuestions: SurveyQuestion[] = [
         label: "I’m not sure which response yet",
         description:
           "Leave the response open and compare static structures, motions, and mechanical evidence first.",
+        uncertainty: true,
+      },
+    ],
+  },
+  {
+    id: "materials-computation-direction",
+    stage: "narrowing",
+    kicker: "Narrow the computational lens",
+    title: "Which role for computation sounds most interesting?",
+    prompt:
+      "Choose a starting role, from examining one model carefully to searching thousands of candidate materials.",
+    type: "single",
+    visibleWhen: {
+      questionId: "materials-motivation",
+      anyOf: computationalOpenMotivations,
+    },
+    options: [
+      {
+        id: "fundamental-theory",
+        label: "Explain a fundamental material behavior",
+        description:
+          "Use an electronic or atomistic model to understand why a structure, phase, or property emerges.",
+        nicheBoosts: {
+          "crystal-phase-stability": 4,
+          "two-dimensional-quantum-materials": 3,
+        },
+      },
+      {
+        id: "method-comparison",
+        label: "Compare methods or approximations",
+        description:
+          "Test how modeling choices change a prediction and identify which method is reliable enough for the question.",
+        nicheBoosts: { "method-potential-evaluation": 6 },
+      },
+      {
+        id: "high-throughput",
+        label: "Screen many candidate materials",
+        description:
+          "Run a consistent computational workflow across a large search space to find promising candidates and trends.",
+        nicheBoosts: { "high-throughput-materials-discovery": 6 },
+      },
+      {
+        id: "machine-learning",
+        label: "Learn material-property patterns from data",
+        description:
+          "Build or evaluate a model that predicts properties from composition, structure, or calculated descriptors.",
+        nicheBoosts: { "ml-property-prediction": 6 },
+      },
+      {
+        id: "multiscale",
+        label: "Connect models across several scales",
+        description:
+          "Link atom-level information to microstructure, devices, or larger-scale material performance.",
+        nicheBoosts: { "multiscale-materials-modeling": 6 },
+      },
+      {
+        id: "unsure",
+        label: "Let me compare several computational roles",
+        description:
+          "Keep theory, data, screening, and multiscale work open while you see what each workflow produces.",
+        uncertainty: true,
+      },
+    ],
+  },
+  {
+    id: "materials-computation-evidence",
+    stage: "narrowing",
+    kicker: "Choose the evidence",
+    title: "What kind of computational evidence would you like to examine?",
+    prompt:
+      "There is no assumed skill level here. Pick the output that seems most likely to spark a useful question.",
+    type: "single",
+    visibleWhen: {
+      questionId: "materials-motivation",
+      anyOf: computationalOpenMotivations,
+    },
+    options: [
+      {
+        id: "energy-landscape",
+        label: "An energy landscape of structures and phases",
+        description:
+          "Compare which arrangements are stable and how temperature, pressure, or composition could change the answer.",
+        nicheBoosts: { "crystal-phase-stability": 5 },
+      },
+      {
+        id: "motion-defects",
+        label: "Atomic motion, defects, and disorder",
+        description:
+          "Watch how imperfections and local rearrangements control diffusion or long-term material behavior.",
+        nicheBoosts: { "defects-disorder-diffusion": 5 },
+      },
+      {
+        id: "prediction-table",
+        label: "A table of predicted properties",
+        description:
+          "Compare many materials, identify patterns, and decide which candidates deserve closer study.",
+        nicheBoosts: {
+          "high-throughput-materials-discovery": 4,
+          "ml-property-prediction": 3,
+        },
+      },
+      {
+        id: "model-errors",
+        label: "Where two models agree or fail",
+        description:
+          "Analyze errors, tradeoffs, and reference data to understand which approximation can be trusted.",
+        nicheBoosts: { "method-potential-evaluation": 5 },
+      },
+      {
+        id: "scale-connection",
+        label: "A link from atoms to larger-scale performance",
+        description:
+          "Trace how local structure passes information into a microstructure, component, or device model.",
+        nicheBoosts: { "multiscale-materials-modeling": 5 },
+      },
+      {
+        id: "unsure",
+        label: "Surprise me with varied examples",
+        description:
+          "Keep the evidence format open so the results can offer scientifically different starting points.",
         uncertainty: true,
       },
     ],

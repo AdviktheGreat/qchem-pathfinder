@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { computationalMaterialsQuestions as questions } from "@/data/pathfinders/computational-materials/questions";
-import { getVisibleQuestions } from "@/lib/branching";
+import {
+  getPlannedQuestionCount,
+  getVisibleQuestions,
+  pruneHiddenAnswers,
+} from "@/lib/branching";
 
 describe("adaptive computational materials questions", () => {
   it.each(["energy-storage", "energy-conversion"])(
@@ -137,5 +141,73 @@ describe("adaptive computational materials questions", () => {
       "composites",
       "unsure",
     ]);
+  });
+
+  it.each(["fundamentals", "data-discovery", "open"])(
+    "shows two computational and open-exploration follow-ups for %s",
+    (motivation) => {
+      const visible = getVisibleQuestions(
+        { "materials-motivation": [motivation] },
+        questions,
+      );
+      expect(
+        visible
+          .filter((question) => question.stage === "narrowing")
+          .map((question) => question.id),
+      ).toEqual([
+        "materials-computation-direction",
+        "materials-computation-evidence",
+      ]);
+      expect(visible).toHaveLength(17);
+    },
+  );
+
+  it("provides a complete 17-question path for every broad motivation", () => {
+    const motivation = questions.find(
+      (question) => question.id === "materials-motivation",
+    )!;
+
+    for (const option of motivation.options) {
+      const answers = { "materials-motivation": [option.id] };
+      const visible = getVisibleQuestions(answers, questions);
+      expect(visible, option.id).toHaveLength(17);
+      expect(
+        visible.filter((question) => question.stage === "narrowing"),
+        option.id,
+      ).toHaveLength(2);
+    }
+    expect(getPlannedQuestionCount({}, questions, "materials-motivation")).toBe(
+      17,
+    );
+  });
+
+  it("removes answers from a previous branch when motivation changes", () => {
+    const changed = pruneHiddenAnswers(
+      {
+        "materials-motivation": ["electronics"],
+        "materials-energy-direction": ["photovoltaics"],
+        "materials-electronic-direction": ["semiconductors"],
+      },
+      questions,
+    );
+    expect(changed["materials-energy-direction"]).toBeUndefined();
+    expect(changed["materials-electronic-direction"]).toEqual([
+      "semiconductors",
+    ]);
+  });
+
+  it("makes uncertain branch answers neutral and available everywhere", () => {
+    const branchQuestions = questions.filter(
+      (question) => question.stage === "narrowing",
+    );
+    expect(branchQuestions).toHaveLength(10);
+    for (const branchQuestion of branchQuestions) {
+      const unsure = branchQuestion.options.find(
+        (option) => option.id === "unsure",
+      );
+      expect(unsure, branchQuestion.id).toMatchObject({ uncertainty: true });
+      expect(unsure?.signals, branchQuestion.id).toBeUndefined();
+      expect(unsure?.nicheBoosts, branchQuestion.id).toBeUndefined();
+    }
   });
 });
