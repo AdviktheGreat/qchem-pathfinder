@@ -407,6 +407,7 @@ h2 {
   font-weight: 540;
   line-height: 1.01;
   letter-spacing: -0.045em;
+  text-wrap: balance;
 }
 .hero-copy {
   position: relative;
@@ -417,6 +418,7 @@ h2 {
   color: #3d514d;
   font-size: clamp(1.05rem, 2vw, 1.3rem);
   line-height: 1.65;
+  text-wrap: pretty;
 }
 .intro-scope-note {
   max-width: 680px;
@@ -2525,7 +2527,7 @@ h2 {
     grid-template-columns: 1fr;
   }
   .header-context {
-    justify-self: center;
+    display: none;
   }
   .context-label {
     display: none;
@@ -3128,9 +3130,33 @@ h2 {
   font-size: 0.85rem;
 }
 .result-section-nav a {
-  padding: 0.65rem 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.45);
+  color: var(--ink-soft);
   font-weight: 650;
-  text-underline-offset: 0.2em;
+  text-decoration: none;
+}
+.result-section-nav a:hover {
+  border-color: var(--line-strong);
+  background: var(--stage-soft);
+  color: var(--teal-dark);
+}
+@media (max-width: 620px) {
+  .result-section-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+  .result-section-nav a {
+    padding-inline: 0.5rem;
+    text-align: center;
+  }
 }
 [id$="-title"] {
   scroll-margin-top: 1.5rem;
