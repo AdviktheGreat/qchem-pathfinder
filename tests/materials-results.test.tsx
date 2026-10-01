@@ -253,4 +253,25 @@ describe("computational materials results", () => {
     ).toBeDefined();
     expect(screen.getByText("Benchmark or validation study")).toBeDefined();
   });
+
+  it("links each search to scholarly tools and keeps a copy action", () => {
+    renderMaterialsResults();
+
+    const googleScholar = screen.getByRole("link", {
+      name: /search google scholar — broad orientation/i,
+    });
+    const semanticScholar = screen.getByRole("link", {
+      name: /search semantic scholar — broad orientation/i,
+    });
+    expect(googleScholar.getAttribute("href")).toContain("scholar.google.com");
+    expect(semanticScholar.getAttribute("href")).toContain(
+      "semanticscholar.org/search",
+    );
+    expect(googleScholar.getAttribute("href")).toContain("%20");
+    expect(
+      screen.getByRole("button", {
+        name: /copy query — broad orientation for photovoltaic materials/i,
+      }),
+    ).toBeDefined();
+  });
 });

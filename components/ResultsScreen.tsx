@@ -49,6 +49,17 @@ const queryLabels = {
   review: "Review or perspective",
 } as const;
 
+const defaultSearchProviders = [
+  {
+    label: "Google Scholar",
+    urlTemplate: "https://scholar.google.com/scholar?q={query}",
+  },
+] as const;
+
+function buildSearchUrl(template: string, query: string): string {
+  return template.replace("{query}", encodeURIComponent(query));
+}
+
 function areaTheme(area: string): string {
   const value = area.toLowerCase();
   if (/reaction|catal|selectiv/.test(value)) return "reaction";
@@ -154,6 +165,7 @@ function SearchLaunchpad({
     ...niche.keywords,
     ...niche.synonyms.map((synonym) => `Related: ${synonym}`),
   ].join("\n");
+  const searchProviders = results.searchProviders ?? defaultSearchProviders;
   return (
     <section className={`search-launchpad ${compact ? "compact" : ""}`}>
       <div className="section-heading">
@@ -263,17 +275,28 @@ function SearchLaunchpad({
                 <code>{query}</code>
                 <p>{queryGuidance[kind as keyof typeof queryGuidance]}</p>
               </div>
-              <div className="query-actions">
-                <a
-                  className="scholar-link"
-                  href={`https://scholar.google.com/scholar?q=${encodeURIComponent(query)}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={`Open Scholar — ${queryLabels[kind as keyof typeof queryLabels]} for ${niche.name} (opens in a new tab)`}
-                >
-                  <ExternalLink size={14} /> Open Scholar{" "}
-                  <span className="sr-only">(opens in a new tab)</span>
-                </a>
+              <div
+                className="query-actions"
+                aria-label={`Search and copy actions for ${queryLabels[kind as keyof typeof queryLabels]}`}
+              >
+                {searchProviders.map((provider) => {
+                  const actionLabel = results.searchProviders
+                    ? `Search ${provider.label}`
+                    : "Open Scholar";
+                  return (
+                    <a
+                      className="scholar-link"
+                      href={buildSearchUrl(provider.urlTemplate, query)}
+                      target="_blank"
+                      rel="noreferrer"
+                      key={provider.label}
+                      aria-label={`${actionLabel} — ${queryLabels[kind as keyof typeof queryLabels]} for ${niche.name} (opens in a new tab)`}
+                    >
+                      <ExternalLink size={14} /> {actionLabel}{" "}
+                      <span className="sr-only">(opens in a new tab)</span>
+                    </a>
+                  );
+                })}
                 <CopyButton
                   text={query}
                   label="Copy query"

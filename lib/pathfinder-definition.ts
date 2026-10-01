@@ -158,6 +158,10 @@ export interface PathfinderResultsConfig {
     citationWarning: string;
     checklist: readonly string[];
   };
+  searchProviders?: readonly {
+    label: string;
+    urlTemplate: string;
+  }[];
 }
 
 export interface PathfinderProfileConfig {

@@ -195,6 +195,16 @@ export const computationalMaterialsPathfinder = {
         "Start broad enough to learn the field’s language, then move toward a material–property–method combination and a recent review.",
     },
     readingCopy: materialsReadingCopy,
+    searchProviders: [
+      {
+        label: "Google Scholar",
+        urlTemplate: "https://scholar.google.com/scholar?q={query}",
+      },
+      {
+        label: "Semantic Scholar",
+        urlTemplate: "https://www.semanticscholar.org/search?q={query}",
+      },
+    ],
   },
   profile: {
     researchStyleLabels: {
