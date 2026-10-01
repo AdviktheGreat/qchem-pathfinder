@@ -52,6 +52,10 @@ function getQuestionMap(context: RecommendationContext) {
   );
 }
 
+function uniqueReasons(reasons: string[]): string[] {
+  return reasons.filter((reason, index) => reasons.indexOf(reason) === index);
+}
+
 export function getSelectedOptions(
   answers: AnswerMap,
   excludedQuestionIds = new Set<string>(),
@@ -158,7 +162,7 @@ export function rankNiches(
         .filter((reason) => reason.boost > 0)
         .sort((a, b) => b.boost - a.boost)
         .map((reason) => reason.text);
-      const interestReasons = [
+      const interestReasons = uniqueReasons([
         ...directReasons,
         ...niche.reasons
           .filter(
@@ -168,15 +172,16 @@ export function rankNiches(
           )
           .sort((a, b) => (signals[b.signal] ?? 0) - (signals[a.signal] ?? 0))
           .map((reason) => reason.text),
-      ].slice(0, 2);
-      const styleReasons = niche.reasons
-        .filter(
-          (reason) =>
-            reason.category === "style" && (signals[reason.signal] ?? 0) > 0,
-        )
-        .sort((a, b) => (signals[b.signal] ?? 0) - (signals[a.signal] ?? 0))
-        .map((reason) => reason.text)
-        .slice(0, 2);
+      ]).slice(0, 2);
+      const styleReasons = uniqueReasons(
+        niche.reasons
+          .filter(
+            (reason) =>
+              reason.category === "style" && (signals[reason.signal] ?? 0) > 0,
+          )
+          .sort((a, b) => (signals[b.signal] ?? 0) - (signals[a.signal] ?? 0))
+          .map((reason) => reason.text),
+      ).slice(0, 2);
 
       return {
         niche,
@@ -373,6 +378,7 @@ export function getRecommendationEvidence(
   context: RecommendationContext = defaultRecommendationContext,
 ): RecommendationEvidence[] {
   const normalized = normalizeAnswers(answers, context.questions);
+  const scoring = context.scoring ?? defaultScoring;
   return context.questions
     .filter((question) => question.stage !== "calibration")
     .flatMap((question) =>
@@ -385,7 +391,9 @@ export function getRecommendationEvidence(
           0,
         );
         const strength =
-          signalContribution + (option.nicheBoosts?.[result.niche.id] ?? 0) * 5;
+          signalContribution +
+          (option.nicheBoosts?.[result.niche.id] ?? 0) *
+            scoring.directBoostMultiplier;
         if (strength <= 0) return [];
         return [
           {
