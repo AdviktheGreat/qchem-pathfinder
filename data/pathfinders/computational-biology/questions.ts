@@ -248,4 +248,78 @@ export const computationalBiologyQuestions: SurveyQuestion[] = [
       unsureOption,
     ],
   },
+  {
+    id: "biology-motivation",
+    stage: "motivation",
+    kicker: "Follow your attention",
+    title: "Which biological doorway makes you most curious today?",
+    prompt:
+      "Choose what you would like to explore first. You are not committing to a career, project, or final research question.",
+    type: "single",
+    options: [
+      {
+        id: "health-disease",
+        label: "Understand health and disease through biological data",
+        description:
+          "Explore how genetic variation, gene activity, cells, or biological pathways differ across conditions.",
+        signals: { "interest:health": 3, "context:biomedical": 2 },
+      },
+      {
+        id: "therapeutics",
+        label: "Help discover or understand treatments",
+        description:
+          "Investigate potential targets, molecular interactions, drug response, or computational screening.",
+        signals: { "interest:therapeutics": 3, "scale:molecular": 2 },
+      },
+      {
+        id: "proteins",
+        label: "Understand how proteins and other biomolecules work",
+        description:
+          "Connect sequence, three-dimensional structure, interactions, and motion to biological function.",
+        signals: { "interest:proteins": 3, "scale:molecular": 2 },
+      },
+      {
+        id: "genomes",
+        label: "Read patterns written across genomes",
+        description:
+          "Compare DNA sequences, variation, gene organization, and function within or across species.",
+        signals: { "interest:genomics": 3, "evidence:sequence": 2 },
+      },
+      {
+        id: "evolution",
+        label: "Reconstruct evolution and biological change",
+        description:
+          "Study relationships, adaptation, population history, or how organisms and pathogens change over time.",
+        signals: { "interest:evolution": 3, "scale:population": 2 },
+      },
+      {
+        id: "cells-systems",
+        label: "Understand cells as changing systems",
+        description:
+          "Explore gene activity, cell types, pathways, networks, and how biological components influence one another.",
+        signals: { "interest:cells": 3, "interest:systems": 2 },
+      },
+      {
+        id: "microbes-ecosystems",
+        label: "Explore microbes, communities, or ecosystems",
+        description:
+          "Investigate microbial communities, environmental DNA, biodiversity, and relationships across ecological scales.",
+        signals: { "interest:ecology": 3, "interest:microbes": 2 },
+      },
+      {
+        id: "data-methods",
+        label: "Build better ways to learn from biological data",
+        description:
+          "Compare algorithms, create predictive models, integrate datasets, or make complex results easier to interpret.",
+        signals: { "interest:methods": 3, "style:data": 2 },
+      },
+      {
+        id: "open",
+        label: "Show me several kinds of computational biology",
+        description:
+          "Keep multiple biological scales and question types visible while I discover what stands out.",
+        uncertainty: true,
+      },
+    ],
+  },
 ];
