@@ -140,6 +140,10 @@ export interface PathfinderResultsConfig {
     matchedReasonLabel: string;
     sampleReasonLabel: string;
     chooseActionLabel: string;
+    comparisonHeading: string;
+    comparisonDescription: string;
+    detailOpenLabel: string;
+    detailCloseLabel: string;
   };
 }
 

@@ -765,6 +765,12 @@ export function ResultsScreen({
           className="comparison-view"
           aria-label="Compare your three directions"
         >
+          {alternativesCopy && (
+            <div className="comparison-intro">
+              <h3>{alternativesCopy.comparisonHeading}</h3>
+              <p>{alternativesCopy.comparisonDescription}</p>
+            </div>
+          )}
           {recommendations.map((result, index) => (
             <article key={result.niche.id}>
               <header>
@@ -842,18 +848,27 @@ export function ResultsScreen({
                     className="expand-button"
                     type="button"
                     aria-expanded={open}
-                    aria-label={`${open ? "Hide details" : "Explore details"} for ${result.niche.name}`}
+                    aria-label={`${
+                      open
+                        ? (alternativesCopy?.detailCloseLabel ?? "Hide details")
+                        : (alternativesCopy?.detailOpenLabel ??
+                          "Explore details")
+                    } for ${result.niche.name}`}
                     aria-controls={panelId}
                     onClick={() =>
                       setOpenAlternative(open ? undefined : result.niche.id)
                     }
                   >
-                    {open ? "Hide details" : "Explore details"}
+                    {open
+                      ? (alternativesCopy?.detailCloseLabel ?? "Hide details")
+                      : (alternativesCopy?.detailOpenLabel ??
+                        "Explore details")}
                     <ChevronDown size={17} />
                   </button>
                 </div>
                 <div
                   id={panelId}
+                  aria-hidden={!open}
                   className={
                     open
                       ? "alternative-details"

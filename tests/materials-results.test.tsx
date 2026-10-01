@@ -1,6 +1,12 @@
 // @vitest-environment jsdom
 
-import { cleanup, render, screen, within } from "@testing-library/react";
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  within,
+} from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ResultsScreen } from "@/components/ResultsScreen";
 import { computationalMaterialsPathfinder } from "@/data/pathfinders/computational-materials";
@@ -167,5 +173,26 @@ describe("computational materials results", () => {
         name: /explore .* as my primary direction/i,
       }),
     ).toHaveLength(2);
+  });
+
+  it("compares alternatives and expands their full research details", () => {
+    renderMaterialsResults();
+
+    expect(screen.getByText("Compare the research emphasis")).toBeDefined();
+    expect(
+      screen.getByText(
+        /scientific focus—not the difficulty, importance, or quality/i,
+      ),
+    ).toBeDefined();
+
+    const expand = screen.getAllByRole("button", {
+      name: /see questions, methods, and searches for/i,
+    })[0];
+    expect(expand.getAttribute("aria-expanded")).toBe("false");
+    fireEvent.click(expand);
+    expect(expand.getAttribute("aria-expanded")).toBe("true");
+    expect(expand.textContent).toContain(
+      "Hide questions, methods, and searches",
+    );
   });
 });

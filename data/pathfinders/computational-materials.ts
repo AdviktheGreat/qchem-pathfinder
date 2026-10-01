@@ -177,6 +177,11 @@ export const computationalMaterialsPathfinder = {
       matchedReasonLabel: "Why it also fits",
       sampleReasonLabel: "Why it is worth sampling",
       chooseActionLabel: "Explore this materials direction",
+      comparisonHeading: "Compare the research emphasis",
+      comparisonDescription:
+        "Each difference statement compares the scientific focus—not the difficulty, importance, or quality of the direction.",
+      detailOpenLabel: "See questions, methods, and searches",
+      detailCloseLabel: "Hide questions, methods, and searches",
     },
   },
   profile: {

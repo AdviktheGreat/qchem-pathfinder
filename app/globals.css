@@ -1617,6 +1617,21 @@ h2 {
   gap: 0.8rem;
   margin-bottom: 1.2rem;
 }
+.comparison-intro {
+  grid-column: 1 / -1;
+  padding: 0.2rem 0 0.35rem;
+}
+.comparison-intro h3 {
+  margin: 0 0 0.3rem;
+  font-size: 0.9rem;
+}
+.comparison-intro p {
+  max-width: 65ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.74rem;
+  line-height: 1.5;
+}
 .comparison-view article {
   overflow: hidden;
   border: 1px solid var(--line);
