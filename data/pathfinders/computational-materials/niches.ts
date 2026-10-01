@@ -435,4 +435,223 @@ export const computationalMaterialsNiches: Niche[] = [
     comparisonLens:
       "Compared with battery-electrode modeling, this direction focuses on transporting ions through an electronically insulating medium and across its interfaces.",
   },
+  {
+    ...materialsNicheDefaults,
+    id: "photovoltaic-materials",
+    area: "Energy conversion",
+    name: "Photovoltaic materials",
+    shortDescription:
+      "Connect light absorption, charge separation, and material stability in solar-energy absorbers.",
+    explanation:
+      "A photovoltaic material must absorb useful parts of sunlight, create mobile positive and negative charge, move those charges toward contacts, and avoid losing them too quickly. Computation can connect electronic structure, defects, interfaces, composition, and atomic motion to each step of that energy-conversion sequence.",
+    questions: [
+      "Which compositions have an electronic structure suited to absorbing sunlight?",
+      "How do defects or interfaces trap charge and promote recombination?",
+      "Can a candidate remain structurally and chemically stable under operating conditions?",
+    ],
+    systems: [
+      "Metal-halide perovskites",
+      "Silicon and compound semiconductors",
+      "Organic photovoltaic materials",
+      "Thin-film absorber and interface stacks",
+    ],
+    approaches: [
+      {
+        name: "Electronic-structure and band-gap calculations",
+        explanation:
+          "DFT and higher-accuracy corrections estimate allowed electronic states, band alignment, and light-absorption trends.",
+      },
+      {
+        name: "Optical and excited-state modeling",
+        explanation:
+          "Calculated transitions connect photon energy to absorption and the creation of electron–hole excitations.",
+      },
+      {
+        name: "Defect and interface calculations",
+        explanation:
+          "Atomistic models identify charge traps, band offsets, and structural changes that can help or hinder charge collection.",
+      },
+    ],
+    concepts: [
+      "Electronic bands and band gaps",
+      "Light absorption and excited charge",
+      "Defects and recombination",
+      "Interfaces and energy alignment",
+    ],
+    preparation:
+      "Start by relating a simple band diagram and absorption spectrum to the job of a solar absorber. More advanced excited-state and defect methods can be introduced after that physical sequence is clear.",
+    keywords: [
+      "photovoltaic materials",
+      "solar absorber",
+      "band gap",
+      "charge separation",
+      "recombination",
+      "defect tolerance",
+      "band alignment",
+    ],
+    synonyms: [
+      "computational solar-cell materials",
+      "photoabsorber modeling",
+      "first-principles photovoltaics",
+    ],
+    searches: {
+      orientation:
+        "computational photovoltaic materials electronic structure overview",
+      focused:
+        "DFT defects band alignment charge separation solar absorber material",
+      review:
+        "recent review computational modeling photovoltaic absorber materials",
+    },
+    affinities: {
+      "interest:energy-conversion": 3,
+      "interest:light": 3,
+      "application:energy": 3,
+      "mode:predict": 3,
+      "mode:design": 3,
+      "mode:optimize": 2,
+      "family:crystalline": 2,
+      "family:layered": 2,
+      "family:soft": 1,
+      "phenomenon:optical": 3,
+      "phenomenon:electrons": 3,
+      "purpose:applied": 3,
+      "scale:atomic": 2,
+      "scale:device": 3,
+      "connection:experiment": 2,
+      "evidence:experiment": 2,
+    },
+    reasons: [
+      {
+        signal: "interest:energy-conversion",
+        category: "interest",
+        text: "You chose materials that convert energy from one form into another.",
+      },
+      {
+        signal: "interest:light",
+        category: "interest",
+        text: "You were drawn to how materials interact with light and create useful signals or energy.",
+      },
+      {
+        signal: "phenomenon:optical",
+        category: "style",
+        text: "Light absorption and optical response were among the behaviors you wanted to understand.",
+      },
+      {
+        signal: "scale:device",
+        category: "style",
+        text: "This direction connects atomic electronic structure to interfaces and device operation.",
+      },
+    ],
+    comparisonLens:
+      "Compared with broader optoelectronic materials, this direction centers the full light-to-electrical-energy sequence and the losses that limit a solar cell.",
+  },
+  {
+    ...materialsNicheDefaults,
+    id: "thermoelectric-materials",
+    area: "Energy conversion",
+    name: "Thermoelectric materials",
+    shortDescription:
+      "Explore materials that convert temperature differences into electricity by balancing charge and heat flow.",
+    explanation:
+      "A useful thermoelectric needs electrical charge to move readily while limiting unwanted heat flow through the atomic lattice. Those goals often compete. Computational studies examine electronic bands, carrier scattering, atomic vibrations, defects, and microstructure to understand and improve that balance.",
+    questions: [
+      "Which electronic structures produce a strong voltage response to a temperature difference?",
+      "How do atomic vibrations and defects control thermal conductivity?",
+      "Can composition or nanostructure reduce heat flow without blocking useful charge transport?",
+    ],
+    systems: [
+      "Bismuth and tellurium compounds",
+      "Half-Heusler alloys",
+      "Skutterudites and complex crystals",
+      "Layered and low-dimensional thermoelectrics",
+    ],
+    approaches: [
+      {
+        name: "Electronic transport calculations",
+        explanation:
+          "Band structures combined with transport models estimate conductivity and the Seebeck response to a temperature gradient.",
+      },
+      {
+        name: "Phonon transport modeling",
+        explanation:
+          "Atomic-vibration calculations estimate how efficiently lattice vibrations carry heat and where they scatter.",
+      },
+      {
+        name: "Defect and alloy design",
+        explanation:
+          "Models vary composition, disorder, and interfaces to test how they separately affect electrical and thermal transport.",
+      },
+    ],
+    concepts: [
+      "Electronic bands and charge carriers",
+      "Heat flow and thermal conductivity",
+      "Atomic vibrations or phonons",
+      "Competing property tradeoffs",
+    ],
+    preparation:
+      "Begin with the qualitative goal—good electrical transport but poor lattice heat transport—then learn how band and phonon plots represent each side. Detailed transport equations can follow with guidance.",
+    keywords: [
+      "thermoelectric materials",
+      "Seebeck coefficient",
+      "electronic transport",
+      "thermal conductivity",
+      "phonon transport",
+      "power factor",
+      "figure of merit",
+    ],
+    synonyms: [
+      "waste-heat conversion materials",
+      "computational thermoelectrics",
+      "coupled electron phonon transport",
+    ],
+    searches: {
+      orientation:
+        "computational thermoelectric materials transport beginner overview",
+      focused:
+        "electronic structure phonon thermal conductivity thermoelectric material modeling",
+      review:
+        "recent review first principles thermoelectric materials transport",
+    },
+    affinities: {
+      "interest:energy-conversion": 3,
+      "application:energy": 3,
+      "mode:predict": 3,
+      "mode:compare": 2,
+      "mode:design": 3,
+      "mode:optimize": 3,
+      "family:crystalline": 2,
+      "family:layered": 2,
+      "phenomenon:thermal": 3,
+      "phenomenon:electrons": 2,
+      "purpose:applied": 3,
+      "scale:atomic": 2,
+      "scale:multiscale": 2,
+      "medium:equations": 3,
+      "medium:data": 2,
+    },
+    reasons: [
+      {
+        signal: "interest:energy-conversion",
+        category: "interest",
+        text: "You were interested in materials that turn an available energy source into useful electricity.",
+      },
+      {
+        signal: "mode:optimize",
+        category: "interest",
+        text: "Thermoelectric design requires balancing electrical transport against heat transport.",
+      },
+      {
+        signal: "phenomenon:thermal",
+        category: "style",
+        text: "Heat flow and thermal behavior were among the phenomena you wanted to investigate.",
+      },
+      {
+        signal: "medium:equations",
+        category: "style",
+        text: "Quantitative transport relationships are a useful organizing language for this direction.",
+      },
+    ],
+    comparisonLens:
+      "Compared with photovoltaic materials, this direction begins with a temperature difference and the coupled movement of charge and heat rather than photon absorption.",
+  },
 ];

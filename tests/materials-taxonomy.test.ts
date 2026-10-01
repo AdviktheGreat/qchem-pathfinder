@@ -71,4 +71,30 @@ describe("computational materials taxonomy", () => {
       ).toBe(expected);
     }
   });
+
+  it("separates solar conversion from coupled heat and charge transport", () => {
+    const conversionIds = niches
+      .filter((niche) => niche.area === "Energy conversion")
+      .map((niche) => niche.id);
+    expect(conversionIds).toEqual([
+      "photovoltaic-materials",
+      "thermoelectric-materials",
+    ]);
+
+    for (const [choice, expected] of [
+      ["photovoltaics", "photovoltaic-materials"],
+      ["thermal", "thermoelectric-materials"],
+    ]) {
+      expect(
+        getRecommendations(
+          {
+            "materials-motivation": ["energy-conversion"],
+            "materials-energy-direction": [choice],
+          },
+          undefined,
+          context,
+        )[0].niche.id,
+      ).toBe(expected);
+    }
+  });
 });
