@@ -1,15 +1,6 @@
 import type { Niche } from "@/lib/types";
-
-const materialsStarterPaperTypes = [
-  "A recent review or perspective for the field map",
-  "A tutorial or methods paper for the computational workflow",
-  "One recent application paper that compares calculation with evidence",
-];
-
-const materialsNicheDefaults = {
-  paperTypes: materialsStarterPaperTypes,
-  explorationFriendly: false,
-};
+import { materialsNicheDefaults } from "@/data/pathfinders/computational-materials/niche-defaults";
+import { catalysisDirections } from "@/data/pathfinders/computational-materials/niches-catalysis";
 
 export const computationalMaterialsNiches: Niche[] = [
   {
@@ -1088,4 +1079,5 @@ export const computationalMaterialsNiches: Niche[] = [
     comparisonLens:
       "Compared with magnetic materials, this direction spans a wider set of low-dimensional and emergent quantum states; magnetism may be one ingredient rather than the central target.",
   },
+  ...catalysisDirections,
 ];

@@ -117,7 +117,6 @@ describe("computational materials taxonomy", () => {
   });
 
   it("separates magnetic spin behavior from broader layered quantum states", () => {
-    expect(niches).toHaveLength(10);
     for (const [choice, expected] of [
       ["magnetism", "magnetic-spintronic-materials"],
       ["two-dimensional", "two-dimensional-quantum-materials"],
@@ -128,6 +127,24 @@ describe("computational materials taxonomy", () => {
           {
             "materials-motivation": ["electronics"],
             "materials-electronic-direction": [choice],
+          },
+          undefined,
+          context,
+        )[0].niche.id,
+      ).toBe(expected);
+    }
+  });
+
+  it("separates heterogeneous surface chemistry from electrocatalysis", () => {
+    for (const [choice, expected] of [
+      ["surface-catalysis", "heterogeneous-catalysis-surfaces"],
+      ["electrocatalysis", "electrocatalysis"],
+    ]) {
+      expect(
+        getRecommendations(
+          {
+            "materials-motivation": ["catalysis"],
+            "materials-surface-environment-direction": [choice],
           },
           undefined,
           context,
