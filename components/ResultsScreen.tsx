@@ -928,25 +928,33 @@ export function ResultsScreen({
       <section className="export-card">
         <div>
           <p className="section-kicker">
-            <ExternalLink size={14} /> Take your map with you
+            <ExternalLink size={14} />{" "}
+            {definition.results.exportCopy?.eyebrow ?? "Take your map with you"}
           </p>
           <h2 id="export-title" tabIndex={-1}>
-            Research exploration profile
+            {definition.results.exportCopy?.title ??
+              "Research exploration profile"}
           </h2>
           <p>
-            Copy this consistent plain-text summary into your workshop notes or
-            a later literature-search prompt kit.
+            {definition.results.exportCopy?.description ??
+              "Copy this consistent plain-text summary into your workshop notes or a later literature-search prompt kit."}
           </p>
         </div>
         <pre>{profileText}</pre>
         <div className="export-actions no-print">
-          <CopyButton text={profileText} label="Copy full profile" />
+          <CopyButton
+            text={profileText}
+            label={
+              definition.results.exportCopy?.copyLabel ?? "Copy full profile"
+            }
+          />
           <button
             className="secondary-button"
             type="button"
             onClick={downloadProfile}
           >
-            <Download size={16} /> Download .txt
+            <Download size={16} />{" "}
+            {definition.results.exportCopy?.downloadLabel ?? "Download .txt"}
           </button>
         </div>
       </section>

@@ -205,6 +205,14 @@ export const computationalMaterialsPathfinder = {
         urlTemplate: "https://www.semanticscholar.org/search?q={query}",
       },
     ],
+    exportCopy: {
+      eyebrow: "Take your materials map with you",
+      title: "Computational materials exploration profile",
+      description:
+        "Copy or download this consistent plain-text profile for workshop notes and a later literature-search prompt kit. It contains no personal information.",
+      copyLabel: "Copy materials profile",
+      downloadLabel: "Download materials profile",
+    },
   },
   profile: {
     researchStyleLabels: {

@@ -162,6 +162,13 @@ export interface PathfinderResultsConfig {
     label: string;
     urlTemplate: string;
   }[];
+  exportCopy?: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    copyLabel: string;
+    downloadLabel: string;
+  };
 }
 
 export interface PathfinderProfileConfig {

@@ -274,4 +274,21 @@ describe("computational materials results", () => {
       }),
     ).toBeDefined();
   });
+
+  it("offers a copyable and downloadable materials research profile", () => {
+    renderMaterialsResults();
+
+    expect(
+      screen.getByRole("heading", {
+        name: "Computational materials exploration profile",
+      }),
+    ).toBeDefined();
+    expect(screen.getByText(/contains no personal information/i)).toBeDefined();
+    expect(
+      screen.getByRole("button", { name: "Copy materials profile" }),
+    ).toBeDefined();
+    expect(
+      screen.getByRole("button", { name: "Download materials profile" }),
+    ).toBeDefined();
+  });
 });
