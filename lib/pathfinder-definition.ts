@@ -118,6 +118,15 @@ export interface PathfinderResultsConfig {
     approachesHeading: string;
     approachesDescription: string;
   };
+  fitEvidenceCopy?: {
+    matchedHeading: string;
+    startingHeading: string;
+    explanationSummary: string;
+    interestHeading: string;
+    styleHeading: string;
+    transparentNote: string;
+    openInitially?: boolean;
+  };
 }
 
 export interface PathfinderProfileConfig {

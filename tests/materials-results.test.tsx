@@ -112,4 +112,16 @@ describe("computational materials results", () => {
     expect(screen.getByText("Finite-element method")).toBeDefined();
     expect(screen.getByText("Machine learning")).toBeDefined();
   });
+
+  it("separates traceable interest and research-style evidence", () => {
+    renderMaterialsResults();
+
+    const trace = screen.getByText("Trace the recommendation to your answers");
+    expect(trace.closest("details")?.hasAttribute("open")).toBe(true);
+    expect(screen.getByText("Interest fit")).toBeDefined();
+    expect(screen.getByText("Research-style fit")).toBeDefined();
+    expect(
+      screen.getByText(/familiarity only changes the preparation guidance/i),
+    ).toBeDefined();
+  });
 });

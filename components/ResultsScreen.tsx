@@ -433,6 +433,7 @@ export function ResultsScreen({
 
   const overview = definition.results.overview;
   const primaryCopy = definition.results.primaryCopy;
+  const fitEvidenceCopy = definition.results.fitEvidenceCopy;
   const overviewDimensions = overview?.dimensions.map((dimension) => {
     const question = definition.survey.questions.find(
       (candidate) => candidate.id === dimension.questionId,
@@ -635,8 +636,9 @@ export function ResultsScreen({
             <p className="section-kicker">
               <ClipboardCheck size={14} />{" "}
               {primary.preferenceEvidenceCount === 0
-                ? "Why this is a starting point"
-                : "Why it matched"}
+                ? (fitEvidenceCopy?.startingHeading ??
+                  "Why this is a starting point")
+                : (fitEvidenceCopy?.matchedHeading ?? "Why it matched")}
             </p>
             {recommendationEvidence.length > 0 && (
               <div
@@ -651,13 +653,19 @@ export function ResultsScreen({
                 ))}
               </div>
             )}
-            <details className="evidence-explanation">
-              <summary>See how these answers connect</summary>
+            <details
+              className="evidence-explanation"
+              open={fitEvidenceCopy?.openInitially}
+            >
+              <summary>
+                {fitEvidenceCopy?.explanationSummary ??
+                  "See how these answers connect"}
+              </summary>
               <div>
                 <strong>
                   {primary.preferenceEvidenceCount === 0
                     ? "An interest to sample"
-                    : "Interest fit"}
+                    : (fitEvidenceCopy?.interestHeading ?? "Interest fit")}
                 </strong>
                 {primary.interestReasons.map((reason) => (
                   <p key={reason}>{reason}</p>
@@ -667,7 +675,7 @@ export function ResultsScreen({
                 <strong>
                   {primary.preferenceEvidenceCount === 0
                     ? "Ways to approach it"
-                    : "Research-style fit"}
+                    : (fitEvidenceCopy?.styleHeading ?? "Research-style fit")}
                 </strong>
                 {primary.styleReasons.map((reason) => (
                   <p key={reason}>{reason}</p>
@@ -675,8 +683,8 @@ export function ResultsScreen({
               </div>
             </details>
             <p className="transparent-note">
-              The engine compares explicit answer weights—never grades or hidden
-              personality labels.
+              {fitEvidenceCopy?.transparentNote ??
+                "The engine compares explicit answer weights—never grades or hidden personality labels."}
             </p>
           </aside>
         </div>

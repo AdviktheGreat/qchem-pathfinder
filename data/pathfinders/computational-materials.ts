@@ -153,6 +153,16 @@ export const computationalMaterialsPathfinder = {
       approachesDescription:
         "Each method answers a different kind of question or works at a different scale. You do not need to master these tools before you begin reading.",
     },
+    fitEvidenceCopy: {
+      matchedHeading: "Why this materials direction matched",
+      startingHeading: "Why this is a useful direction to sample",
+      explanationSummary: "Trace the recommendation to your answers",
+      interestHeading: "Interest fit",
+      styleHeading: "Research-style fit",
+      transparentNote:
+        "Interest choices and research-style choices are scored separately. Familiarity only changes the preparation guidance below—it never lowers a direction’s value or blocks it.",
+      openInitially: true,
+    },
   },
   profile: {
     researchStyleLabels: {
