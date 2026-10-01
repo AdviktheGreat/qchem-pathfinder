@@ -24,6 +24,10 @@ import {
   materialsSearchRefinements,
 } from "@/data/pathfinders/computational-materials/reading-guidance";
 
+export const COMPUTATIONAL_MATERIALS_STORAGE_KEY =
+  "computational-materials-pathfinder:progress";
+export const COMPUTATIONAL_MATERIALS_STORAGE_VERSION = 1;
+
 export const computationalMaterialsPathfinder = {
   identity: {
     id: "computational-materials",
@@ -35,8 +39,8 @@ export const computationalMaterialsPathfinder = {
     icon: "material",
   },
   storage: {
-    key: "computational-materials-pathfinder:progress",
-    version: 1,
+    key: COMPUTATIONAL_MATERIALS_STORAGE_KEY,
+    version: COMPUTATIONAL_MATERIALS_STORAGE_VERSION,
   },
   survey: {
     questions: computationalMaterialsQuestions,
