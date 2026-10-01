@@ -48,6 +48,7 @@ export function formatResearchProfile(
     questions,
     niches: definition.recommendations.niches,
     openExplorationIds: definition.recommendations.openExplorationIds,
+    scoring: definition.recommendations.scoring,
   };
   const normalized = normalizeAnswers(answers, questions);
   const recommendations = getRecommendations(

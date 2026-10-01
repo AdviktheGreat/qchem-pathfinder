@@ -12,7 +12,10 @@ import {
   materialsMathPreparation,
   materialsToolPreparation,
 } from "@/data/pathfinders/computational-materials/preparation";
-import { materialsOpenExplorationIds } from "@/data/pathfinders/computational-materials/scoring";
+import {
+  materialsOpenExplorationIds,
+  materialsRecommendationScoring,
+} from "@/data/pathfinders/computational-materials/scoring";
 import { computationalMaterialsNiches } from "@/data/pathfinders/computational-materials/niches";
 
 export const computationalMaterialsPathfinder = {
@@ -46,6 +49,7 @@ export const computationalMaterialsPathfinder = {
   recommendations: {
     niches: computationalMaterialsNiches,
     openExplorationIds: materialsOpenExplorationIds,
+    scoring: materialsRecommendationScoring,
   },
   preparation: {
     mathQuestionId: "materials-math-comfort",

@@ -17,7 +17,20 @@ export interface RecommendationContext {
   questions: readonly SurveyQuestion[];
   niches: readonly Niche[];
   openExplorationIds: readonly string[];
+  scoring?: RecommendationScoringConfig;
 }
+
+export interface RecommendationScoringConfig {
+  directBoostMultiplier: number;
+  openInterestMultiplier: number;
+  uncertaintyBonus: number;
+}
+
+const defaultScoring: RecommendationScoringConfig = {
+  directBoostMultiplier: 5,
+  openInterestMultiplier: 0.75,
+  uncertaintyBonus: 0.35,
+};
 
 const defaultRecommendationContext: RecommendationContext = {
   questions,
@@ -99,6 +112,7 @@ export function rankNiches(
     context,
   ).filter((option) => option.uncertainty).length;
   const openness = signals["interest:open"] ?? 0;
+  const scoring = context.scoring ?? defaultScoring;
 
   return context.niches
     .map((niche) => {
@@ -116,7 +130,8 @@ export function rankNiches(
         0,
       );
       const openBonus = niche.explorationFriendly
-        ? openness * 0.75 + uncertainCount * 0.35
+        ? openness * scoring.openInterestMultiplier +
+          uncertainCount * scoring.uncertaintyBonus
         : 0;
       const preferenceEvidenceCount = context.questions.filter(
         (question) =>
@@ -165,8 +180,13 @@ export function rankNiches(
 
       return {
         niche,
-        score: interestScore + styleScore + directScore * 5 + openBonus,
-        interestScore: interestScore + directScore * 5,
+        score:
+          interestScore +
+          styleScore +
+          directScore * scoring.directBoostMultiplier +
+          openBonus,
+        interestScore:
+          interestScore + directScore * scoring.directBoostMultiplier,
         styleScore,
         directScore,
         explorationBonus: openBonus,

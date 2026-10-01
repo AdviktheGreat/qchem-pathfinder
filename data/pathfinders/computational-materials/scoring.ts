@@ -10,7 +10,14 @@ export const materialsScoringWeights = {
     strong: 5,
     primary: 6,
   },
+  engine: {
+    directBoostMultiplier: 6,
+    openInterestMultiplier: 0.75,
+    uncertaintyBonus: 0.35,
+  },
 } as const;
+
+export const materialsRecommendationScoring = materialsScoringWeights.engine;
 
 export const materialsSignalGroups = {
   interest: [

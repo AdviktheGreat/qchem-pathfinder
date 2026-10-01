@@ -344,6 +344,7 @@ export function ResultsScreen({
       questions: definition.survey.questions,
       niches: definition.recommendations.niches,
       openExplorationIds: definition.recommendations.openExplorationIds,
+      scoring: definition.recommendations.scoring,
     }),
     [definition],
   );

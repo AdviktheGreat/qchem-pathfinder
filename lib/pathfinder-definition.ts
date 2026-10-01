@@ -4,6 +4,7 @@ import type {
   SurveyQuestion,
   SurveyStage,
 } from "@/lib/types";
+import type { RecommendationScoringConfig } from "@/lib/recommendation";
 
 export type PathfinderIcon = "atom" | "material";
 
@@ -34,6 +35,7 @@ export interface PathfinderSurveyConfig {
 export interface PathfinderRecommendationConfig {
   niches: readonly Niche[];
   openExplorationIds: readonly string[];
+  scoring?: RecommendationScoringConfig;
 }
 
 export interface ConceptOverlap {
