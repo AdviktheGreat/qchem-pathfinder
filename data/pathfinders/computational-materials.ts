@@ -12,6 +12,7 @@ import {
   materialsMathPreparation,
   materialsToolPreparation,
 } from "@/data/pathfinders/computational-materials/preparation";
+import { materialsOpenExplorationIds } from "@/data/pathfinders/computational-materials/scoring";
 
 export const computationalMaterialsPathfinder = {
   identity: {
@@ -43,7 +44,7 @@ export const computationalMaterialsPathfinder = {
   },
   recommendations: {
     niches: [],
-    openExplorationIds: [],
+    openExplorationIds: materialsOpenExplorationIds,
   },
   preparation: {
     mathQuestionId: "materials-math-comfort",
