@@ -14,7 +14,7 @@ import { computationalMaterialsPathfinder } from "@/data/pathfinders/computation
 afterEach(() => cleanup());
 
 function renderMaterialsResults() {
-  render(
+  return render(
     <ResultsScreen
       definition={computationalMaterialsPathfinder}
       answers={{
@@ -290,5 +290,24 @@ describe("computational materials results", () => {
     expect(
       screen.getByRole("button", { name: "Download materials profile" }),
     ).toBeDefined();
+  });
+
+  it("keeps complete alternative content available to the print layout", () => {
+    const { container } = renderMaterialsResults();
+    const alternativePanels = container.querySelectorAll(
+      ".alternative-details.print-only",
+    );
+
+    expect(alternativePanels).toHaveLength(2);
+    for (const panel of alternativePanels) {
+      expect(
+        within(panel as HTMLElement).getByText(/starter materials keywords/i),
+      ).toBeDefined();
+      expect(
+        within(panel as HTMLElement).getByText(
+          /how researchers model this direction/i,
+        ),
+      ).toBeDefined();
+    }
   });
 });

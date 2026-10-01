@@ -2994,6 +2994,33 @@ h2 {
   font-weight: 670;
   line-height: 1.4;
 }
+@media (max-width: 900px) {
+  .research-coordinates {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+@media (max-width: 620px) {
+  .research-coordinates {
+    padding: 1.1rem;
+  }
+  .research-coordinates dl {
+    grid-template-columns: 1fr;
+  }
+  .comparison-view {
+    overflow: visible;
+    grid-template-columns: 1fr;
+  }
+  .comparison-view article {
+    min-width: 0;
+  }
+  .query-actions > * {
+    flex-basis: 100%;
+  }
+  .export-card pre {
+    font-size: 0.68rem;
+  }
+}
 .research-passport {
   overflow: hidden;
   border: 1px solid var(--line);
@@ -3128,12 +3155,21 @@ h2 {
     font-size: 34pt;
   }
   .primary-result,
+  .research-coordinates,
   .search-launchpad,
   .preparation-card,
   .alternative-card,
   .export-card {
     break-inside: auto;
     box-shadow: none;
+  }
+  .research-coordinates {
+    display: block;
+    break-inside: avoid;
+  }
+  .research-coordinates dl {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: 1rem;
   }
   .preparation-card {
     color: black;
@@ -3164,6 +3200,10 @@ h2 {
   .approach-grid,
   .preparation-card {
     display: block;
+  }
+  .comparison-view {
+    overflow: visible;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .query-row {
     display: block;

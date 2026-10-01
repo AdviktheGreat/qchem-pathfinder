@@ -799,16 +799,16 @@ export function ResultsScreen({
           </div>
           <p>{explainRecommendationContext(recommendations)}</p>
         </div>
+        {alternativesCopy && (
+          <div className="comparison-intro">
+            <h3>{alternativesCopy.comparisonHeading}</h3>
+            <p>{alternativesCopy.comparisonDescription}</p>
+          </div>
+        )}
         <div
           className="comparison-view"
           aria-label="Compare your three directions"
         >
-          {alternativesCopy && (
-            <div className="comparison-intro">
-              <h3>{alternativesCopy.comparisonHeading}</h3>
-              <p>{alternativesCopy.comparisonDescription}</p>
-            </div>
-          )}
           {recommendations.map((result, index) => (
             <article key={result.niche.id}>
               <header>
