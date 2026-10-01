@@ -444,4 +444,115 @@ export const computationalBiologyQuestions: SurveyQuestion[] = [
       },
     ],
   },
+  {
+    id: "biology-evidence",
+    stage: "style",
+    kicker: "Evidence you want to inspect",
+    title:
+      "Which kinds of biological information would you most enjoy working with?",
+    prompt:
+      "Choose up to two. You do not need prior experience with a data type for it to be interesting.",
+    type: "multi",
+    maxSelections: 2,
+    options: [
+      {
+        id: "sequences",
+        label: "DNA, RNA, or protein sequences",
+        description:
+          "Compare letters, motifs, variation, similarity, ancestry, and possible function.",
+        signals: { "evidence:sequence": 3 },
+      },
+      {
+        id: "structures-images",
+        label: "Molecular structures or biological images",
+        description:
+          "Reason from shapes, spatial organization, interactions, microscopy, or three-dimensional models.",
+        signals: { "evidence:structure": 3, "style:visual": 1 },
+      },
+      {
+        id: "measurements",
+        label: "Tables of gene activity or other measurements",
+        description:
+          "Compare many features across samples, conditions, cells, or time points.",
+        signals: { "evidence:measurements": 3, "style:data": 1 },
+      },
+      {
+        id: "networks-pathways",
+        label: "Networks and biological pathways",
+        description:
+          "Trace how genes, proteins, reactions, cells, or species may influence one another.",
+        signals: { "evidence:networks": 3 },
+      },
+      {
+        id: "trees-time",
+        label: "Evolutionary trees or changing systems",
+        description:
+          "Follow ancestry, transmission, populations, molecules, or cellular processes through time.",
+        signals: { "evidence:temporal": 3 },
+      },
+      {
+        id: "mixed-sources",
+        label: "Several connected sources of evidence",
+        description:
+          "Integrate different measurements to build a fuller view of one biological question.",
+        signals: { "evidence:integrated": 3, "mode:integrate": 1 },
+      },
+      unsureOption,
+    ],
+  },
+  {
+    id: "biology-workflow",
+    stage: "style",
+    kicker: "How you like to investigate",
+    title: "Which research activities sound most satisfying?",
+    prompt:
+      "Choose up to three. This helps distinguish nearby directions that study similar biology in different ways.",
+    type: "multi",
+    maxSelections: 3,
+    options: [
+      {
+        id: "visualize",
+        label: "Build or interpret clear visualizations",
+        description:
+          "Use plots, maps, networks, trees, or structures to make a biological pattern understandable.",
+        signals: { "style:visual": 3, "style:interpretation": 1 },
+      },
+      {
+        id: "statistics",
+        label: "Separate meaningful patterns from variation",
+        description:
+          "Use careful comparisons, uncertainty, and statistical evidence to judge a claim.",
+        signals: { "style:statistics": 3 },
+      },
+      {
+        id: "code",
+        label: "Write or adapt code for an analysis",
+        description:
+          "Automate repeated work, transform data, test ideas, or create a reproducible workflow.",
+        signals: { "style:coding": 3 },
+      },
+      {
+        id: "simulate",
+        label: "Simulate how a biological system behaves",
+        description:
+          "Create a model, vary its assumptions, and examine how the predicted system changes.",
+        signals: { "style:simulation": 3, "style:modeling": 1 },
+      },
+      {
+        id: "compare-methods",
+        label: "Compare methods and test their reliability",
+        description:
+          "Ask when an algorithm or model works, where it fails, and what evidence supports it.",
+        signals: { "style:benchmarking": 3, "interest:methods": 1 },
+      },
+      {
+        id: "interpret-literature",
+        label: "Connect computational results to biological meaning",
+        description:
+          "Read across studies, inspect assumptions, and explain what an analysis does and does not show.",
+        signals: { "style:interpretation": 3 },
+      },
+      unsureOption,
+    ],
+  },
 ];
