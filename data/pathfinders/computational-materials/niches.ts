@@ -222,4 +222,217 @@ export const computationalMaterialsNiches: Niche[] = [
     comparisonLens:
       "Compared with phase-stability modeling, this direction starts from imperfections, disorder, or atomic movement within and between structures.",
   },
+  {
+    ...materialsNicheDefaults,
+    id: "battery-electrodes",
+    area: "Energy storage",
+    name: "Battery electrode materials",
+    shortDescription:
+      "Model how electrode structures store charge, transform during cycling, and retain performance.",
+    explanation:
+      "An electrode repeatedly accepts and releases ions and electrons. Its atomic arrangement, composition, defects, and interfaces can all change during that process. Computational work helps connect those changes to voltage, capacity, rate capability, degradation, and safety without assuming that one material property tells the whole story.",
+    questions: [
+      "Where can ions be stored in an electrode structure, and at what voltage?",
+      "Which structural or chemical changes occur as the electrode is cycled?",
+      "How could composition or defects improve capacity without sacrificing stability?",
+    ],
+    systems: [
+      "Lithium-ion cathodes",
+      "Sodium-ion electrode materials",
+      "Silicon and alloy anodes",
+      "Intercalation and conversion compounds",
+    ],
+    approaches: [
+      {
+        name: "First-principles voltage calculations",
+        explanation:
+          "DFT energies for different ion contents estimate insertion preferences, phase stability, and average voltage.",
+      },
+      {
+        name: "Ion-migration pathways",
+        explanation:
+          "Barrier calculations identify likely routes and bottlenecks for ions moving through an electrode.",
+      },
+      {
+        name: "Configurational and atomistic modeling",
+        explanation:
+          "Sampling methods and molecular dynamics explore disorder, temperature, interfaces, and structural evolution beyond one ideal unit cell.",
+      },
+    ],
+    concepts: [
+      "Redox and charge balance",
+      "Crystal structure and insertion sites",
+      "Energy, voltage, and phase stability",
+      "Diffusion and kinetic barriers",
+    ],
+    preparation:
+      "Start with one well-studied electrode family and connect its structure to ion sites and voltage. Electrochemistry vocabulary is useful, but it can be learned alongside a small set of calculated structures.",
+    keywords: [
+      "battery electrode",
+      "intercalation",
+      "voltage profile",
+      "ion diffusion",
+      "cycling stability",
+      "cathode materials",
+      "first-principles battery modeling",
+    ],
+    synonyms: [
+      "computational battery materials",
+      "electrode materials modeling",
+      "ion-insertion materials",
+    ],
+    searches: {
+      orientation:
+        "computational battery electrode materials modeling overview",
+      focused: "DFT ion insertion voltage phase stability electrode material",
+      review:
+        "recent review first principles modeling battery electrode materials",
+    },
+    affinities: {
+      "interest:energy-storage": 3,
+      "application:energy": 3,
+      "mode:predict": 2,
+      "mode:design": 3,
+      "mode:optimize": 3,
+      "mode:dynamics": 2,
+      "family:crystalline": 2,
+      "phenomenon:ions": 3,
+      "phenomenon:electrons": 2,
+      "purpose:applied": 3,
+      "scale:atomic": 2,
+      "scale:device": 2,
+      "change:dynamic": 3,
+      "connection:predict": 2,
+    },
+    reasons: [
+      {
+        signal: "interest:energy-storage",
+        category: "interest",
+        text: "You chose energy storage as the materials challenge that most held your attention.",
+      },
+      {
+        signal: "mode:optimize",
+        category: "interest",
+        text: "Battery electrodes involve balancing capacity, rate, stability, safety, and cost rather than maximizing one number.",
+      },
+      {
+        signal: "phenomenon:ions",
+        category: "style",
+        text: "You wanted to understand how ions move through and occupy a material.",
+      },
+      {
+        signal: "change:dynamic",
+        category: "style",
+        text: "Electrode structures can evolve during cycling, matching your interest in changing systems.",
+      },
+    ],
+    comparisonLens:
+      "Compared with solid electrolytes, this direction emphasizes charge-storing electrode phases, voltage, capacity, and structural change during cycling.",
+  },
+  {
+    ...materialsNicheDefaults,
+    id: "solid-electrolytes-ion-transport",
+    area: "Energy storage and transport",
+    name: "Solid electrolytes & ion transport",
+    shortDescription:
+      "Investigate atomic pathways that let ions move rapidly and safely through solid materials.",
+    explanation:
+      "A solid electrolyte must let particular ions travel while blocking electrons and remaining stable beside electrode materials. Researchers model available sites, migration barriers, defects, disorder, grain boundaries, and interfaces to understand why some structures conduct ions well and where resistance or degradation begins.",
+    questions: [
+      "Which connected pathway allows an ion to cross the structure?",
+      "How do defects, disorder, or grain boundaries change ionic conductivity?",
+      "Is the electrolyte stable against the neighboring electrode materials?",
+    ],
+    systems: [
+      "Lithium and sodium solid electrolytes",
+      "Ceramic ion conductors",
+      "Polymer and composite electrolytes",
+      "Electrode–electrolyte interfaces",
+    ],
+    approaches: [
+      {
+        name: "Migration-barrier calculations",
+        explanation:
+          "A sequence of atomic images estimates the energetic bottleneck between neighboring ion sites.",
+      },
+      {
+        name: "Molecular dynamics",
+        explanation:
+          "Time-dependent atomistic simulations reveal collective motion and estimate diffusion as temperature changes.",
+      },
+      {
+        name: "Interface and defect modeling",
+        explanation:
+          "Models of vacancies, grain boundaries, and electrode contacts test how realistic imperfections help or hinder transport.",
+      },
+    ],
+    concepts: [
+      "Ionic conductivity and diffusion",
+      "Defects and charge neutrality",
+      "Energy barriers",
+      "Interfaces and electrochemical stability",
+    ],
+    preparation:
+      "Begin by visualizing the ion sites and one migration pathway in a crystalline conductor. Diffusion statistics and interface chemistry can follow once the physical picture is secure.",
+    keywords: [
+      "solid electrolyte",
+      "ionic conductivity",
+      "ion transport",
+      "migration barrier",
+      "molecular dynamics",
+      "grain boundary",
+      "electrochemical stability",
+    ],
+    synonyms: [
+      "solid-state ionics",
+      "superionic conductor modeling",
+      "solid electrolyte simulation",
+    ],
+    searches: {
+      orientation: "computational solid electrolytes ion transport overview",
+      focused:
+        "ion migration barriers molecular dynamics solid electrolyte conductivity",
+      review:
+        "recent review computational modeling solid electrolytes ion transport",
+    },
+    affinities: {
+      "interest:energy-storage": 3,
+      "application:energy": 3,
+      "mode:explain": 2,
+      "mode:predict": 3,
+      "mode:dynamics": 3,
+      "family:crystalline": 2,
+      "family:composite": 2,
+      "phenomenon:ions": 3,
+      "purpose:applied": 3,
+      "scale:atomic": 3,
+      "scale:microstructure": 2,
+      "change:dynamic": 3,
+      "medium:visual": 2,
+    },
+    reasons: [
+      {
+        signal: "interest:energy-storage",
+        category: "interest",
+        text: "You were drawn to the materials that make energy storage work safely and repeatedly.",
+      },
+      {
+        signal: "mode:dynamics",
+        category: "interest",
+        text: "This direction follows ion motion and changing local environments over time.",
+      },
+      {
+        signal: "phenomenon:ions",
+        category: "style",
+        text: "Ion transport was one of the material behaviors you most wanted to investigate.",
+      },
+      {
+        signal: "scale:microstructure",
+        category: "style",
+        text: "Grain boundaries and connected pathways link atomic motion to microstructure in this field.",
+      },
+    ],
+    comparisonLens:
+      "Compared with battery-electrode modeling, this direction focuses on transporting ions through an electronically insulating medium and across its interfaces.",
+  },
 ];

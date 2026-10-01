@@ -12,10 +12,12 @@ const context = {
 
 describe("computational materials taxonomy", () => {
   it("starts with complete crystal stability and defect directions", () => {
-    expect(niches.map((niche) => niche.id)).toEqual([
-      "crystal-phase-stability",
-      "defects-disorder-diffusion",
-    ]);
+    expect(niches.map((niche) => niche.id)).toEqual(
+      expect.arrayContaining([
+        "crystal-phase-stability",
+        "defects-disorder-diffusion",
+      ]),
+    );
     for (const niche of niches) {
       expect(niche.shortDescription.length, niche.id).toBeGreaterThan(50);
       expect(niche.questions.length, niche.id).toBeGreaterThanOrEqual(3);
@@ -30,21 +32,43 @@ describe("computational materials taxonomy", () => {
   });
 
   it.each([
-    ["energy-storage", "cycling-stability", "defects-disorder-diffusion"],
+    ["open", "motion-defects", "defects-disorder-diffusion"],
     ["open", "energy-landscape", "crystal-phase-stability"],
   ])("ranks a targeted %s path toward %s", (motivation, choice, expected) => {
-    const questionId =
-      motivation === "open"
-        ? "materials-computation-evidence"
-        : "materials-energy-process";
     const recommendations = getRecommendations(
       {
         "materials-motivation": [motivation],
-        [questionId]: [choice],
+        "materials-computation-evidence": [choice],
       },
       undefined,
       context,
     );
     expect(recommendations[0].niche.id).toBe(expected);
+  });
+
+  it("separates electrode storage from solid-state ion transport", () => {
+    const energyIds = niches
+      .filter((niche) => niche.area.startsWith("Energy storage"))
+      .map((niche) => niche.id);
+    expect(energyIds).toEqual([
+      "battery-electrodes",
+      "solid-electrolytes-ion-transport",
+    ]);
+
+    for (const [choice, expected] of [
+      ["battery-electrodes", "battery-electrodes"],
+      ["solid-electrolytes", "solid-electrolytes-ion-transport"],
+    ]) {
+      expect(
+        getRecommendations(
+          {
+            "materials-motivation": ["energy-storage"],
+            "materials-energy-direction": [choice],
+          },
+          undefined,
+          context,
+        )[0].niche.id,
+      ).toBe(expected);
+    }
   });
 });
