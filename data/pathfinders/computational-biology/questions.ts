@@ -322,4 +322,65 @@ export const computationalBiologyQuestions: SurveyQuestion[] = [
       },
     ],
   },
+  {
+    id: "biology-question-kind",
+    stage: "question",
+    kicker: "The question behind the project",
+    title: "Which kind of research question sounds most satisfying?",
+    prompt:
+      "Choose the question you would be happiest spending time untangling, even if several appeal to you.",
+    type: "single",
+    options: [
+      {
+        id: "explain",
+        label: "Explain why a biological pattern happens",
+        description:
+          "Connect observed differences to genes, molecules, pathways, evolution, or environmental context.",
+        signals: { "mode:explain": 3, "style:interpretation": 2 },
+      },
+      {
+        id: "predict",
+        label: "Predict a biological property or outcome",
+        description:
+          "Use existing observations to estimate function, structure, classification, response, or future behavior.",
+        signals: { "mode:predict": 3, "style:modeling": 2 },
+      },
+      {
+        id: "compare",
+        label: "Compare organisms, samples, conditions, or methods",
+        description:
+          "Look for meaningful similarities and differences while accounting for biological variation.",
+        signals: { "mode:compare": 3, "style:comparative": 2 },
+      },
+      {
+        id: "discover",
+        label: "Find groups, features, or relationships in data",
+        description:
+          "Identify cell types, sequence families, communities, network connections, or previously hidden patterns.",
+        signals: { "mode:discover": 3, "style:data": 2 },
+      },
+      {
+        id: "dynamics",
+        label: "Model how a biological system changes",
+        description:
+          "Study evolution, molecular motion, population change, signaling, metabolism, or another process over time.",
+        signals: { "mode:dynamics": 3, "style:modeling": 2 },
+      },
+      {
+        id: "design",
+        label: "Design or improve a computational method",
+        description:
+          "Develop, adapt, or evaluate an algorithm, model, representation, or analysis workflow.",
+        signals: { "mode:methods": 3, "interest:methods": 2 },
+      },
+      {
+        id: "integrate",
+        label: "Combine several kinds of biological evidence",
+        description:
+          "Connect sequences, expression, structures, phenotypes, images, or environmental measurements.",
+        signals: { "mode:integrate": 3, "style:data": 2 },
+      },
+      unsureOption,
+    ],
+  },
 ];
