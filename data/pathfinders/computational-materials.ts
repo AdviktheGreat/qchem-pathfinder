@@ -213,6 +213,14 @@ export const computationalMaterialsPathfinder = {
       copyLabel: "Copy materials profile",
       downloadLabel: "Download materials profile",
     },
+    actionsCopy: {
+      eyebrow: "Your materials map can evolve",
+      title: "Compare, revise, or begin again",
+      nearbyLabel: "Explore a nearby materials path",
+      reviewLabel: "Review my materials answers",
+      restartLabel: "Restart materials pathfinder",
+      returnOriginalLabel: "Return to my original materials suggestion",
+    },
   },
   profile: {
     researchStyleLabels: {

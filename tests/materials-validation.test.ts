@@ -160,6 +160,8 @@ describe("computational materials preparation", () => {
       "Phonon",
       "Phase-field modeling",
       "Interatomic potential",
+      "Finite-element method",
+      "Machine learning",
     ]);
     for (const entry of definition.results.glossary)
       expect(entry.text.length, entry.term).toBeGreaterThan(80);

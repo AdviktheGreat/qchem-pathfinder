@@ -310,4 +310,21 @@ describe("computational materials results", () => {
       ).toBeDefined();
     }
   });
+
+  it("labels the final results actions for the materials pathfinder", () => {
+    renderMaterialsResults();
+
+    expect(
+      screen.getByRole("heading", { name: "Compare, revise, or begin again" }),
+    ).toBeDefined();
+    expect(
+      screen.getByRole("button", { name: "Explore a nearby materials path" }),
+    ).toBeDefined();
+    expect(
+      screen.getByRole("button", { name: "Review my materials answers" }),
+    ).toBeDefined();
+    expect(
+      screen.getByRole("button", { name: "Restart materials pathfinder" }),
+    ).toBeDefined();
+  });
 });

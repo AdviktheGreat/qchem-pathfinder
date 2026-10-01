@@ -169,6 +169,14 @@ export interface PathfinderResultsConfig {
     copyLabel: string;
     downloadLabel: string;
   };
+  actionsCopy?: {
+    eyebrow: string;
+    title: string;
+    nearbyLabel: string;
+    reviewLabel: string;
+    restartLabel: string;
+    returnOriginalLabel: string;
+  };
 }
 
 export interface PathfinderProfileConfig {

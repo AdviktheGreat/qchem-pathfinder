@@ -647,7 +647,8 @@ export function ResultsScreen({
               className="text-button"
               onClick={() => chooseDirection()}
             >
-              Return to my original suggestion
+              {definition.results.actionsCopy?.returnOriginalLabel ??
+                "Return to my original suggestion"}
             </button>
           </div>
         )}
@@ -906,7 +907,7 @@ export function ResultsScreen({
                 </div>
                 <div
                   id={panelId}
-                  aria-hidden={!open}
+                  hidden={!open}
                   className={
                     open
                       ? "alternative-details"
@@ -961,8 +962,13 @@ export function ResultsScreen({
 
       <section className="next-actions no-print">
         <div>
-          <p className="section-kicker">This map can move</p>
-          <h2>Want to look from another angle?</h2>
+          <p className="section-kicker">
+            {definition.results.actionsCopy?.eyebrow ?? "This map can move"}
+          </p>
+          <h2>
+            {definition.results.actionsCopy?.title ??
+              "Want to look from another angle?"}
+          </h2>
         </div>
         <div className="next-action-buttons">
           <button
@@ -972,13 +978,16 @@ export function ResultsScreen({
               alternativesHeadingRef.current?.focus();
             }}
           >
-            Explore a nearby path <ArrowRight size={17} />
+            {definition.results.actionsCopy?.nearbyLabel ??
+              "Explore a nearby path"}{" "}
+            <ArrowRight size={17} />
           </button>
           <button className="secondary-button" type="button" onClick={onReview}>
-            Review my answers
+            {definition.results.actionsCopy?.reviewLabel ?? "Review my answers"}
           </button>
           <button className="text-button" type="button" onClick={onRestart}>
-            <RotateCcw size={15} /> Restart
+            <RotateCcw size={15} />{" "}
+            {definition.results.actionsCopy?.restartLabel ?? "Restart"}
           </button>
         </div>
       </section>

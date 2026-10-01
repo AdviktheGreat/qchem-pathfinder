@@ -3182,6 +3182,9 @@ h2 {
   .print-only {
     display: block !important;
   }
+  .alternative-details[hidden] {
+    display: block !important;
+  }
   .alternative-card {
     break-before: page;
   }
