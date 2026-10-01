@@ -435,6 +435,7 @@ export function ResultsScreen({
   const primaryCopy = definition.results.primaryCopy;
   const fitEvidenceCopy = definition.results.fitEvidenceCopy;
   const preparationCopy = definition.results.preparationCopy;
+  const alternativesCopy = definition.results.alternativesCopy;
   const overviewDimensions = overview?.dimensions.map((dimension) => {
     const question = definition.survey.questions.find(
       (candidate) => candidate.id === dimension.questionId,
@@ -747,14 +748,15 @@ export function ResultsScreen({
         <div className="section-heading">
           <div>
             <p className="section-kicker">
-              <FlaskConical size={14} /> Keep two doors open
+              <FlaskConical size={14} />{" "}
+              {alternativesCopy?.eyebrow ?? "Keep two doors open"}
             </p>
             <h2
               id="alternatives-title"
               ref={alternativesHeadingRef}
               tabIndex={-1}
             >
-              Nearby directions worth exploring.
+              {alternativesCopy?.title ?? "Nearby directions worth exploring."}
             </h2>
           </div>
           <p>{explainRecommendationContext(recommendations)}</p>
@@ -813,8 +815,10 @@ export function ResultsScreen({
                     <span>{result.niche.shortDescription}</span>
                     <small className="alternative-reason">
                       {result.preferenceEvidenceCount === 0
-                        ? "Why sample it"
-                        : "Why it may fit"}
+                        ? (alternativesCopy?.sampleReasonLabel ??
+                          "Why sample it")
+                        : (alternativesCopy?.matchedReasonLabel ??
+                          "Why it may fit")}
                       : {result.interestReasons[0]}
                     </small>
                     <p className="difference-note">
@@ -829,7 +833,9 @@ export function ResultsScreen({
                         chooseDirection(result.niche.id);
                       }}
                     >
-                      Make this my exploration path <ArrowRight size={15} />
+                      {alternativesCopy?.chooseActionLabel ??
+                        "Make this my exploration path"}{" "}
+                      <ArrowRight size={15} />
                     </button>
                   </div>
                   <button

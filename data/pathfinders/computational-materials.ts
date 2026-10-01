@@ -171,6 +171,13 @@ export const computationalMaterialsPathfinder = {
       conceptsHeading: "Materials concepts worth revisiting",
       firstStepHeading: "A realistic first modeling step",
     },
+    alternativesCopy: {
+      eyebrow: "Keep adjacent materials questions visible",
+      title: "Two nearby directions worth comparing",
+      matchedReasonLabel: "Why it also fits",
+      sampleReasonLabel: "Why it is worth sampling",
+      chooseActionLabel: "Explore this materials direction",
+    },
   },
   profile: {
     researchStyleLabels: {

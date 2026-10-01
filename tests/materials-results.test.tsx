@@ -145,4 +145,27 @@ describe("computational materials results", () => {
     ).toBeDefined();
     expect(screen.getByText("A realistic first modeling step")).toBeDefined();
   });
+
+  it("presents two concise nearby materials directions", () => {
+    renderMaterialsResults();
+
+    expect(
+      screen.getByRole("heading", {
+        name: "Two nearby directions worth comparing",
+      }),
+    ).toBeDefined();
+    expect(
+      screen.getAllByText((_, element) =>
+        Boolean(
+          element?.classList.contains("alternative-reason") &&
+          element.textContent?.startsWith("Why it also fits:"),
+        ),
+      ),
+    ).toHaveLength(2);
+    expect(
+      screen.getAllByRole("button", {
+        name: /explore .* as my primary direction/i,
+      }),
+    ).toHaveLength(2);
+  });
 });

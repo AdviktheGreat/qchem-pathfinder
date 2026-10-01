@@ -134,6 +134,13 @@ export interface PathfinderResultsConfig {
     conceptsHeading: string;
     firstStepHeading: string;
   };
+  alternativesCopy?: {
+    eyebrow: string;
+    title: string;
+    matchedReasonLabel: string;
+    sampleReasonLabel: string;
+    chooseActionLabel: string;
+  };
 }
 
 export interface PathfinderProfileConfig {
