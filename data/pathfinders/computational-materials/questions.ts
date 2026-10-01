@@ -425,4 +425,64 @@ export const computationalMaterialsQuestions: SurveyQuestion[] = [
       },
     ],
   },
+  {
+    id: "materials-family",
+    stage: "style",
+    kicker: "Choose a material world",
+    title: "Which family of materials would you most like to look at first?",
+    prompt:
+      "A material family describes a broad kind of structure. Choosing one helps narrow the examples without locking you into it.",
+    type: "single",
+    options: [
+      {
+        id: "crystalline",
+        label: "Crystals and ordered solids",
+        description:
+          "Materials with repeating atomic arrangements, such as semiconductors, salts, ceramics, and many metals.",
+        signals: { "family:crystalline": 3 },
+      },
+      {
+        id: "amorphous",
+        label: "Glasses and disordered solids",
+        description:
+          "Materials without long-range crystalline order, where local structure and disorder shape behavior.",
+        signals: { "family:amorphous": 3 },
+      },
+      {
+        id: "layered",
+        label: "Layered and two-dimensional materials",
+        description:
+          "Thin sheets and stacked structures whose surfaces, edges, and layer interactions create unusual properties.",
+        signals: { "family:layered": 3 },
+      },
+      {
+        id: "porous",
+        label: "Porous frameworks and surfaces",
+        description:
+          "Materials with cavities or accessible surfaces that can capture molecules, separate mixtures, or host reactions.",
+        signals: { "family:porous": 3 },
+      },
+      {
+        id: "soft",
+        label: "Polymers and soft materials",
+        description:
+          "Flexible, responsive, or self-organizing materials whose shape and surroundings strongly affect their behavior.",
+        signals: { "family:soft": 3 },
+      },
+      {
+        id: "composite",
+        label: "Composites and interfaces",
+        description:
+          "Combined materials where boundaries between components can control strength, transport, or electronic behavior.",
+        signals: { "family:composite": 3 },
+      },
+      {
+        id: "unsure",
+        label: "I’m open to several material families",
+        description:
+          "Keep examples from different structures in view and let the scientific question guide the next choice.",
+        uncertainty: true,
+      },
+    ],
+  },
 ];

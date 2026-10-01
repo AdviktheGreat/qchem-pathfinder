@@ -67,3 +67,40 @@ describe("computational materials research question preferences", () => {
     ).toEqual({});
   });
 });
+
+describe("computational materials family preferences", () => {
+  const materialFamily = question("materials-family");
+
+  it("offers distinct structural families without requiring prior expertise", () => {
+    expect(materialFamily).toMatchObject({ stage: "style", type: "single" });
+    expect(materialFamily.options.map((option) => option.id)).toEqual([
+      "crystalline",
+      "amorphous",
+      "layered",
+      "porous",
+      "soft",
+      "composite",
+      "unsure",
+    ]);
+    expect(
+      computationalMaterialsPathfinder.profile.researchStyleLabels[
+        "materials-family"
+      ],
+    ).toBe("Material family");
+  });
+
+  it("records a strong family signal while leaving an open choice neutral", () => {
+    expect(
+      aggregateSignals({ "materials-family": ["layered"] }, context),
+    ).toEqual({ "family:layered": 3 });
+
+    const unsure = materialFamily.options.find(
+      (option) => option.id === "unsure",
+    );
+    expect(unsure).toMatchObject({ uncertainty: true });
+    expect(unsure?.signals).toBeUndefined();
+    expect(
+      aggregateSignals({ "materials-family": ["unsure"] }, context),
+    ).toEqual({});
+  });
+});

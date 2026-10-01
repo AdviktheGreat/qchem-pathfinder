@@ -93,7 +93,9 @@ export const computationalMaterialsPathfinder = {
     paperNoteTemplate,
   },
   profile: {
-    researchStyleLabels: {},
+    researchStyleLabels: {
+      "materials-family": "Material family",
+    },
     exportTitle: "COMPUTATIONAL MATERIALS EXPLORATION PROFILE",
     filenamePrefix: "computational-materials-profile",
     motivationQuestionId: "materials-motivation",
