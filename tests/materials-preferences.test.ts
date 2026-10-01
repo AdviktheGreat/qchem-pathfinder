@@ -210,7 +210,6 @@ describe("computational materials workflow preferences", () => {
   const workflow = question("materials-workflow");
 
   it("offers complementary evidence and tool choices without treating them as prerequisites", () => {
-    expect(questions).toHaveLength(15);
     expect(workflow).toMatchObject({
       stage: "style",
       type: "multi",

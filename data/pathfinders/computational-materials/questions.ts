@@ -1,4 +1,5 @@
 import type { SurveyQuestion } from "@/lib/types";
+import { computationalMaterialsAdaptiveQuestions } from "@/data/pathfinders/computational-materials/adaptive-questions";
 
 const unsureOption = {
   id: "unsure",
@@ -785,4 +786,5 @@ export const computationalMaterialsQuestions: SurveyQuestion[] = [
       },
     ],
   },
+  ...computationalMaterialsAdaptiveQuestions,
 ];
