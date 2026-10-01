@@ -1,12 +1,8 @@
 import type { SurveyQuestion } from "@/lib/types";
-
-const unsureOption = {
-  id: "unsure",
-  label: "I’m not sure yet",
-  description:
-    "Keep the possibilities open; this will shape context and preparation guidance, not limit your directions.",
-  uncertainty: true,
-} as const;
+import {
+  biologyUnsureOption,
+  createBiologyOpenOption,
+} from "@/data/pathfinders/computational-biology/uncertainty-options";
 
 export const computationalBiologyQuestions: SurveyQuestion[] = [
   {
@@ -36,7 +32,7 @@ export const computationalBiologyQuestions: SurveyQuestion[] = [
         description:
           "I feel ready to build from concepts such as genes, proteins, cells, evolution, and biological data.",
       },
-      unsureOption,
+      biologyUnsureOption,
     ],
   },
   {
@@ -68,7 +64,7 @@ export const computationalBiologyQuestions: SurveyQuestion[] = [
         label: "Using datasets to compare biological patterns",
       },
       {
-        ...unsureOption,
+        ...biologyUnsureOption,
         label: "I’ve heard of these but couldn’t explain them",
       },
     ],
@@ -101,7 +97,7 @@ export const computationalBiologyQuestions: SurveyQuestion[] = [
         description:
           "I learn best from a concrete system, diagram, or trend before symbols and formulas.",
       },
-      unsureOption,
+      biologyUnsureOption,
     ],
   },
   {
@@ -131,7 +127,7 @@ export const computationalBiologyQuestions: SurveyQuestion[] = [
         description:
           "I would want visual explanations and a careful introduction to variation and uncertainty.",
       },
-      unsureOption,
+      biologyUnsureOption,
     ],
   },
   {
@@ -167,7 +163,7 @@ export const computationalBiologyQuestions: SurveyQuestion[] = [
         description:
           "I’m open to learning code, but I want the biological question to remain central.",
       },
-      unsureOption,
+      biologyUnsureOption,
     ],
   },
   {
@@ -203,7 +199,7 @@ export const computationalBiologyQuestions: SurveyQuestion[] = [
         description:
           "I would want an explanation of the data, inputs, outputs, and scientific choices.",
       },
-      unsureOption,
+      biologyUnsureOption,
     ],
   },
   {
@@ -245,7 +241,7 @@ export const computationalBiologyQuestions: SurveyQuestion[] = [
         description:
           "Build the biological picture, then connect it to evidence, computation, and uncertainty.",
       },
-      unsureOption,
+      biologyUnsureOption,
     ],
   },
   {
@@ -313,13 +309,10 @@ export const computationalBiologyQuestions: SurveyQuestion[] = [
           "Compare algorithms, create predictive models, integrate datasets, or make complex results easier to interpret.",
         signals: { "interest:methods": 3, "style:data": 2 },
       },
-      {
-        id: "open",
-        label: "Show me several kinds of computational biology",
-        description:
-          "Keep multiple biological scales and question types visible while I discover what stands out.",
-        uncertainty: true,
-      },
+      createBiologyOpenOption(
+        "Show me several kinds of computational biology",
+        "Keep multiple biological scales and question types visible while I discover what stands out.",
+      ),
     ],
   },
   {
@@ -380,7 +373,7 @@ export const computationalBiologyQuestions: SurveyQuestion[] = [
           "Connect sequences, expression, structures, phenotypes, images, or environmental measurements.",
         signals: { "mode:integrate": 3, "style:data": 2 },
       },
-      unsureOption,
+      biologyUnsureOption,
     ],
   },
   {
@@ -435,13 +428,10 @@ export const computationalBiologyQuestions: SurveyQuestion[] = [
           "Study interacting species, microbial communities, biodiversity, and environmental context.",
         signals: { "scale:ecosystem": 3 },
       },
-      {
-        id: "open",
-        label: "I’d like to compare several scales",
-        description:
-          "Keep directions open across molecules, cells, organisms, and communities.",
-        uncertainty: true,
-      },
+      createBiologyOpenOption(
+        "I’d like to compare several scales",
+        "Keep directions open across molecules, cells, organisms, and communities.",
+      ),
     ],
   },
   {
@@ -497,7 +487,7 @@ export const computationalBiologyQuestions: SurveyQuestion[] = [
           "Integrate different measurements to build a fuller view of one biological question.",
         signals: { "evidence:integrated": 3, "mode:integrate": 1 },
       },
-      unsureOption,
+      biologyUnsureOption,
     ],
   },
   {
@@ -552,7 +542,7 @@ export const computationalBiologyQuestions: SurveyQuestion[] = [
           "Read across studies, inspect assumptions, and explain what an analysis does and does not show.",
         signals: { "style:interpretation": 3 },
       },
-      unsureOption,
+      biologyUnsureOption,
     ],
   },
 ];

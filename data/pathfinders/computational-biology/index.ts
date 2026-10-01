@@ -6,3 +6,7 @@ export {
   COMPUTATIONAL_BIOLOGY_STORAGE_VERSION,
   computationalBiologyStorage,
 } from "@/data/pathfinders/computational-biology/storage";
+export {
+  biologyUnsureOption,
+  createBiologyOpenOption,
+} from "@/data/pathfinders/computational-biology/uncertainty-options";
