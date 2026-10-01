@@ -3,6 +3,7 @@ import type { SurveyQuestion } from "@/lib/types";
 const energyMotivations = ["energy-storage", "energy-conversion"];
 const electronicMotivations = ["electronics", "light-sensing"];
 const surfaceEnvironmentMotivations = ["catalysis", "climate-environment"];
+const structuralSoftMotivations = ["structural", "soft-health"];
 
 export const computationalMaterialsAdaptiveQuestions: SurveyQuestion[] = [
   {
@@ -368,6 +369,123 @@ export const computationalMaterialsAdaptiveQuestions: SurveyQuestion[] = [
         label: "I’m not sure which interaction yet",
         description:
           "Keep several interface processes in view and compare their molecular pictures first.",
+        uncertainty: true,
+      },
+    ],
+  },
+  {
+    id: "materials-structural-soft-direction",
+    stage: "narrowing",
+    kicker: "Narrow the material family",
+    title: "Which structural or soft-material system would you explore first?",
+    prompt:
+      "Choose the kind of material whose response you would most like to connect back to its structure.",
+    type: "single",
+    visibleWhen: {
+      questionId: "materials-motivation",
+      anyOf: structuralSoftMotivations,
+    },
+    options: [
+      {
+        id: "alloys-ceramics",
+        label: "Alloys and ceramics",
+        description:
+          "How composition, grains, phases, and defects influence strength, toughness, and performance at high temperature.",
+        nicheBoosts: { "structural-alloys-ceramics": 6 },
+      },
+      {
+        id: "polymers-soft",
+        label: "Polymers and responsive soft materials",
+        description:
+          "How flexible chains and weak interactions create elasticity, self-assembly, swelling, or response to the environment.",
+        nicheBoosts: { "polymers-soft-materials": 6 },
+      },
+      {
+        id: "biomaterials",
+        label: "Materials that interact with biology",
+        description:
+          "How a surface, scaffold, membrane, or soft material behaves near cells, proteins, or biological fluids.",
+        nicheBoosts: { "computational-biomaterials": 6 },
+      },
+      {
+        id: "corrosion",
+        label: "Corrosion and protective coatings",
+        description:
+          "How chemical environments begin degradation and how an interface or coating can slow it.",
+        nicheBoosts: { "corrosion-protective-interfaces": 6 },
+      },
+      {
+        id: "composites",
+        label: "Composites and connected interfaces",
+        description:
+          "How different components share load or transport through a material with structure at several scales.",
+        nicheBoosts: {
+          "multiscale-materials-modeling": 5,
+          "structural-alloys-ceramics": 2,
+        },
+      },
+      {
+        id: "unsure",
+        label: "Show me several structural and soft materials",
+        description:
+          "Keep several material families open until their characteristic motions and properties feel more distinct.",
+        uncertainty: true,
+      },
+    ],
+  },
+  {
+    id: "materials-structural-soft-behavior",
+    stage: "narrowing",
+    kicker: "Choose the response",
+    title: "Which kind of material response would you most like to model?",
+    prompt:
+      "Think about the change or evidence you would want to watch in a simulation, plot, or structural model.",
+    type: "single",
+    visibleWhen: {
+      questionId: "materials-motivation",
+      anyOf: structuralSoftMotivations,
+    },
+    options: [
+      {
+        id: "deformation-fracture",
+        label: "Deformation, strength, and fracture",
+        description:
+          "Connect defects and microstructure to where a rigid material bends, yields, cracks, or fails.",
+        nicheBoosts: { "structural-alloys-ceramics": 5 },
+      },
+      {
+        id: "assembly-response",
+        label: "Self-assembly and flexible response",
+        description:
+          "Follow how soft building blocks organize or change shape with temperature, solvent, force, or concentration.",
+        nicheBoosts: { "polymers-soft-materials": 5 },
+      },
+      {
+        id: "bio-interface",
+        label: "Behavior at a biological interface",
+        description:
+          "Explore how water, ions, proteins, or membranes respond to a material’s chemistry and shape.",
+        nicheBoosts: { "computational-biomaterials": 5 },
+      },
+      {
+        id: "environmental-damage",
+        label: "Environmental damage and protection",
+        description:
+          "Track the first chemical or structural steps in corrosion, oxidation, or coating failure.",
+        nicheBoosts: { "corrosion-protective-interfaces": 5 },
+      },
+      {
+        id: "cross-scale",
+        label: "How small features create large-scale behavior",
+        description:
+          "Link atom-level or microscopic structure to the response of a component, composite, or device.",
+        nicheBoosts: { "multiscale-materials-modeling": 5 },
+      },
+      {
+        id: "unsure",
+        label: "I’m not sure which response yet",
+        description:
+          "Leave the response open and compare static structures, motions, and mechanical evidence first.",
         uncertainty: true,
       },
     ],

@@ -105,4 +105,37 @@ describe("adaptive computational materials questions", () => {
       "unsure",
     ]);
   });
+
+  it.each(["structural", "soft-health"])(
+    "shows two structural and soft-material follow-ups for %s",
+    (motivation) => {
+      const visible = getVisibleQuestions(
+        { "materials-motivation": [motivation] },
+        questions,
+      );
+      expect(
+        visible
+          .filter((question) => question.stage === "narrowing")
+          .map((question) => question.id),
+      ).toEqual([
+        "materials-structural-soft-direction",
+        "materials-structural-soft-behavior",
+      ]);
+      expect(visible).toHaveLength(17);
+    },
+  );
+
+  it("distinguishes rigid, soft, biological, protective, and multiscale systems", () => {
+    const direction = questions.find(
+      (question) => question.id === "materials-structural-soft-direction",
+    )!;
+    expect(direction.options.map((option) => option.id)).toEqual([
+      "alloys-ceramics",
+      "polymers-soft",
+      "biomaterials",
+      "corrosion",
+      "composites",
+      "unsure",
+    ]);
+  });
 });
