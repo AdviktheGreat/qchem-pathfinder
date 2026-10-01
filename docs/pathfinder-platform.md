@@ -13,9 +13,9 @@ Catalog tests protect unique IDs and names, valid available routes, and non-inte
 
 ## Route and storage boundaries
 
-The hub lives at `/`. Each active module uses a stable route below `/pathfinders/`; quantum chemistry currently uses `/pathfinders/quantum-chemistry`.
+The hub lives at `/`. Each active module uses a stable route below `/pathfinders/`. Quantum chemistry uses `/pathfinders/quantum-chemistry`; computational materials uses `/pathfinders/computational-materials`.
 
-The hub stores only the most recently visited available pathfinder under `research-pathfinder:hub`. Quantum chemistry continues to own its established `quantum-pathfinder:progress` record. A future module must receive its own storage key and validation rules so restarting one pathfinder cannot erase another.
+The hub stores only the most recently visited available pathfinder under `research-pathfinder:hub`. Quantum chemistry owns `quantum-pathfinder:progress`; computational materials owns `computational-materials-pathfinder:progress`. Hub cards resolve the matching typed definition before reading progress, and the in-pathfinder switcher navigates without deleting either record. Every future module must receive its own versioned key and validation rules.
 
 ## Activating another pathfinder
 
@@ -27,7 +27,7 @@ Before changing a catalog entry from `coming-soon` to `available`:
 4. Add uncertainty, conflicting-preference, persistence, export, and reachability tests.
 5. Review scientific copy with an appropriate subject-matter reviewer.
 6. Verify desktop, tablet, phone, keyboard, reduced-motion, forced-color, refresh, print, and storage-failure behavior.
-7. Add a module-specific progress summary to the hub card.
+7. Register the definition so the shared hub progress summary and switcher can discover it.
 
 Do not compare raw recommendation scores across modules. The scores are meaningful only inside the taxonomy whose explicit affinities and weights produced them.
 

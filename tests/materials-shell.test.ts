@@ -46,6 +46,12 @@ describe("computational materials pathfinder shell", () => {
     expect(metadata).toMatchObject({
       title: "Computational Materials Pathfinder",
       description: expect.stringContaining("computational materials"),
+      alternates: {
+        canonical: "/pathfinders/computational-materials",
+      },
+      openGraph: {
+        url: "/pathfinders/computational-materials",
+      },
     });
     expect(ComputationalMaterialsPathfinderPage()).toBeDefined();
   });
