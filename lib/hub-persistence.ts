@@ -1,4 +1,4 @@
-import { getPathfinder } from "@/data/pathfinders";
+import { pathfinders, type PathfinderCatalogEntry } from "@/data/pathfinders";
 
 export const HUB_STORAGE_KEY = "research-pathfinder:hub";
 export const HUB_STORAGE_VERSION = 1;
@@ -20,7 +20,10 @@ export function createHubState(
   };
 }
 
-export function parseHubState(raw: string | null): HubState | null {
+export function parseHubState(
+  raw: string | null,
+  catalog: readonly PathfinderCatalogEntry[] = pathfinders,
+): HubState | null {
   if (!raw) return null;
   try {
     const parsed = JSON.parse(raw) as Record<string, unknown>;
@@ -31,10 +34,22 @@ export function parseHubState(raw: string | null): HubState | null {
       !Number.isFinite(Date.parse(parsed.lastVisitedAt))
     )
       return null;
-    const pathfinder = getPathfinder(parsed.lastPathfinderId);
+    const pathfinder = catalog.find(
+      (entry) => entry.id === parsed.lastPathfinderId,
+    );
     if (!pathfinder?.href || pathfinder.status !== "available") return null;
     return parsed as unknown as HubState;
   } catch {
     return null;
   }
+}
+
+export function getRecentPathfinder(
+  raw: string | null,
+  catalog: readonly PathfinderCatalogEntry[] = pathfinders,
+): PathfinderCatalogEntry | undefined {
+  const state = parseHubState(raw, catalog);
+  return state
+    ? catalog.find((pathfinder) => pathfinder.id === state.lastPathfinderId)
+    : undefined;
 }

@@ -3,27 +3,25 @@
 import Link from "next/link";
 import { ArrowRight, History } from "lucide-react";
 import { useEffect, useState } from "react";
-import { getPathfinder } from "@/data/pathfinders";
-import { HUB_STORAGE_KEY, parseHubState } from "@/lib/hub-persistence";
+import type { PathfinderCatalogEntry } from "@/data/pathfinders";
+import { getRecentPathfinder, HUB_STORAGE_KEY } from "@/lib/hub-persistence";
 
 export function RecentPathfinder() {
-  const [recentId, setRecentId] = useState<string>();
+  const [pathfinder, setPathfinder] = useState<PathfinderCatalogEntry>();
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
       try {
-        setRecentId(
-          parseHubState(window.localStorage.getItem(HUB_STORAGE_KEY))
-            ?.lastPathfinderId,
+        setPathfinder(
+          getRecentPathfinder(window.localStorage.getItem(HUB_STORAGE_KEY)),
         );
       } catch {
-        setRecentId(undefined);
+        setPathfinder(undefined);
       }
     }, 0);
     return () => window.clearTimeout(timer);
   }, []);
 
-  const pathfinder = recentId ? getPathfinder(recentId) : undefined;
   if (!pathfinder?.href) return null;
 
   return (
