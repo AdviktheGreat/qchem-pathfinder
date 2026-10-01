@@ -195,4 +195,21 @@ describe("computational materials results", () => {
       "Hide questions, methods, and searches",
     );
   });
+
+  it("introduces starter keywords and materials-specific related phrases", () => {
+    renderMaterialsResults();
+
+    expect(
+      screen.getAllByRole("heading", { name: "Starter materials keywords" })
+        .length,
+    ).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText(/combine a material family, a target property/i)
+        .length,
+    ).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText(/related phrases used in materials literature/i)
+        .length,
+    ).toBeGreaterThan(0);
+  });
 });

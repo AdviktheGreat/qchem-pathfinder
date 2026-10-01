@@ -1762,6 +1762,11 @@ h2 {
   font-size: 0.8rem;
   line-height: 1.5;
 }
+.keyword-block > .keyword-description {
+  max-width: 68ch;
+  margin: 0 0 0.8rem;
+  font-size: 0.74rem;
+}
 .query-list {
   margin: 0;
   display: grid;

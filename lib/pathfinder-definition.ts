@@ -145,6 +145,11 @@ export interface PathfinderResultsConfig {
     detailOpenLabel: string;
     detailCloseLabel: string;
   };
+  searchCopy?: {
+    keywordsHeading: string;
+    keywordsDescription: string;
+    synonymsLabel: string;
+  };
 }
 
 export interface PathfinderProfileConfig {

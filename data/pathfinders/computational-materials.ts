@@ -183,6 +183,12 @@ export const computationalMaterialsPathfinder = {
       detailOpenLabel: "See questions, methods, and searches",
       detailCloseLabel: "Hide questions, methods, and searches",
     },
+    searchCopy: {
+      keywordsHeading: "Starter materials keywords",
+      keywordsDescription:
+        "Combine a material family, a target property, and a modeling method to make these terms more specific.",
+      synonymsLabel: "Related phrases used in materials literature",
+    },
   },
   profile: {
     researchStyleLabels: {

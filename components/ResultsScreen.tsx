@@ -170,20 +170,26 @@ function SearchLaunchpad({
       </div>
       <div className="keyword-block">
         <div className="keyword-heading">
-          <h3>Starter keywords</h3>
+          <h3>{results.searchCopy?.keywordsHeading ?? "Starter keywords"}</h3>
           <CopyButton
             text={allKeywords}
             label="Copy keywords"
             context={niche.name}
           />
         </div>
+        {results.searchCopy?.keywordsDescription && (
+          <p className="keyword-description">
+            {results.searchCopy.keywordsDescription}
+          </p>
+        )}
         <div className="tag-list accent">
           {niche.keywords.map((keyword) => (
             <span key={keyword}>{keyword}</span>
           ))}
         </div>
         <p>
-          <strong>Also try:</strong> {niche.synonyms.join(" · ")}
+          <strong>{results.searchCopy?.synonymsLabel ?? "Also try"}:</strong>{" "}
+          {niche.synonyms.join(" · ")}
         </p>
       </div>
       <div className="query-heading">
