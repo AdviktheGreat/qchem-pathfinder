@@ -317,6 +317,27 @@ main h2[tabindex="-1"]:focus {
 .app-menu a:hover {
   background: var(--acid);
 }
+.pathfinder-switcher {
+  margin: 0.35rem 0;
+  padding: 0.35rem 0;
+  border-block: 1px solid var(--line);
+}
+.pathfinder-switcher p {
+  margin: 0;
+  padding: 0.35rem 0.75rem 0.2rem;
+  color: var(--muted);
+  font-size: 0.66rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.pathfinder-switcher small {
+  display: block;
+  padding: 0.2rem 0.75rem 0.4rem;
+  color: var(--muted);
+  font-size: 0.68rem;
+  line-height: 1.45;
+}
 .quiet-action {
   justify-self: end;
   display: inline-flex;

@@ -21,6 +21,7 @@ import { IntroScreen } from "@/components/IntroScreen";
 import { SurveyScreen } from "@/components/SurveyScreen";
 import { ResultsScreen } from "@/components/ResultsScreen";
 import { ReviewScreen } from "@/components/ReviewScreen";
+import { PathfinderSwitcher } from "@/components/PathfinderSwitcher";
 import { resolveAnswerConflicts } from "@/lib/answer-conflicts";
 import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
 import type { PathfinderDefinition } from "@/lib/pathfinder-definition";
@@ -346,6 +347,7 @@ export function PathfinderApp({
               <Link href="/">
                 <LayoutGrid size={15} /> All pathfinders
               </Link>
+              <PathfinderSwitcher currentId={definition.identity.id} />
               <button type="button" onClick={() => showScreen("intro")}>
                 <Home size={15} /> Pathfinder home
               </button>
