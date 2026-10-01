@@ -73,4 +73,65 @@ export const computationalBiologyQuestions: SurveyQuestion[] = [
       },
     ],
   },
+  {
+    id: "biology-quantitative-comfort",
+    stage: "calibration",
+    kicker: "Working language",
+    title:
+      "How do you feel when a biology explanation uses equations or quantitative models?",
+    prompt:
+      "Your answer changes the preparation advice and explanation style—not the directions you can explore.",
+    type: "single",
+    options: [
+      {
+        id: "comfortable",
+        label: "Comfortable",
+        description:
+          "Equations, rates, probabilities, or models often help me understand a biological pattern.",
+      },
+      {
+        id: "with-guidance",
+        label: "Good with some guidance",
+        description:
+          "I can follow the math when the variables and biological meaning are introduced clearly.",
+      },
+      {
+        id: "concept-first",
+        label: "Show me the biological picture first",
+        description:
+          "I learn best from a concrete system, diagram, or trend before symbols and formulas.",
+      },
+      unsureOption,
+    ],
+  },
+  {
+    id: "biology-statistics-comfort",
+    stage: "calibration",
+    kicker: "Patterns and uncertainty",
+    title: "What is your current relationship with statistics?",
+    prompt:
+      "Computational biologists use statistics to separate meaningful patterns from variation. Experience is helpful context, not a gate.",
+    type: "single",
+    options: [
+      {
+        id: "comfortable",
+        label: "I’m comfortable interpreting statistical evidence",
+        description:
+          "I can reason about distributions, variation, uncertainty, or comparisons between groups.",
+      },
+      {
+        id: "learning",
+        label: "I’m learning the main ideas",
+        description:
+          "I can follow examples and would like more practice interpreting what a result supports.",
+      },
+      {
+        id: "new",
+        label: "Statistics is mostly new to me",
+        description:
+          "I would want visual explanations and a careful introduction to variation and uncertainty.",
+      },
+      unsureOption,
+    ],
+  },
 ];
