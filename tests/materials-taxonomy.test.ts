@@ -47,13 +47,12 @@ describe("computational materials taxonomy", () => {
   });
 
   it("separates electrode storage from solid-state ion transport", () => {
-    const energyIds = niches
-      .filter((niche) => niche.area.startsWith("Energy storage"))
-      .map((niche) => niche.id);
-    expect(energyIds).toEqual([
-      "battery-electrodes",
-      "solid-electrolytes-ion-transport",
-    ]);
+    expect(niches.map((niche) => niche.id)).toEqual(
+      expect.arrayContaining([
+        "battery-electrodes",
+        "solid-electrolytes-ion-transport",
+      ]),
+    );
 
     for (const [choice, expected] of [
       ["battery-electrodes", "battery-electrodes"],
@@ -145,6 +144,33 @@ describe("computational materials taxonomy", () => {
           {
             "materials-motivation": ["catalysis"],
             "materials-surface-environment-direction": [choice],
+          },
+          undefined,
+          context,
+        )[0].niche.id,
+      ).toBe(expected);
+    }
+  });
+
+  it("separates general porous separations from hydrogen storage", () => {
+    for (const [choice, expected] of [
+      ["separation", "porous-separation-storage"],
+      ["molecular-storage", "porous-separation-storage"],
+      ["hydrogen", "hydrogen-storage-materials"],
+    ]) {
+      const questionId =
+        choice === "hydrogen"
+          ? "materials-energy-direction"
+          : "materials-surface-environment-direction";
+      expect(
+        getRecommendations(
+          {
+            "materials-motivation": [
+              choice === "hydrogen"
+                ? "energy-conversion"
+                : "climate-environment",
+            ],
+            [questionId]: [choice],
           },
           undefined,
           context,

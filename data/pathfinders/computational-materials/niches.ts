@@ -1,6 +1,7 @@
 import type { Niche } from "@/lib/types";
 import { materialsNicheDefaults } from "@/data/pathfinders/computational-materials/niche-defaults";
 import { catalysisDirections } from "@/data/pathfinders/computational-materials/niches-catalysis";
+import { porousStorageDirections } from "@/data/pathfinders/computational-materials/niches-porous-storage";
 
 export const computationalMaterialsNiches: Niche[] = [
   {
@@ -1080,4 +1081,5 @@ export const computationalMaterialsNiches: Niche[] = [
       "Compared with magnetic materials, this direction spans a wider set of low-dimensional and emergent quantum states; magnetism may be one ingredient rather than the central target.",
   },
   ...catalysisDirections,
+  ...porousStorageDirections,
 ];
