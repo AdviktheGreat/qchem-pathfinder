@@ -115,4 +115,24 @@ describe("computational materials taxonomy", () => {
       expect(recommendation.interestReasons[0]).toContain("directly points");
     }
   });
+
+  it("separates magnetic spin behavior from broader layered quantum states", () => {
+    expect(niches).toHaveLength(10);
+    for (const [choice, expected] of [
+      ["magnetism", "magnetic-spintronic-materials"],
+      ["two-dimensional", "two-dimensional-quantum-materials"],
+      ["quantum", "two-dimensional-quantum-materials"],
+    ]) {
+      expect(
+        getRecommendations(
+          {
+            "materials-motivation": ["electronics"],
+            "materials-electronic-direction": [choice],
+          },
+          undefined,
+          context,
+        )[0].niche.id,
+      ).toBe(expected);
+    }
+  });
 });

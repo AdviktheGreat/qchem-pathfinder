@@ -870,4 +870,222 @@ export const computationalMaterialsNiches: Niche[] = [
     comparisonLens:
       "Compared with photovoltaic materials, this direction includes light emission, sensing, and field control without requiring solar-energy conversion as the central goal.",
   },
+  {
+    ...materialsNicheDefaults,
+    id: "magnetic-spintronic-materials",
+    area: "Magnetism and information",
+    name: "Magnetic & spintronic materials",
+    shortDescription:
+      "Connect electron spin, magnetic order, and interfaces to information storage, sensing, and transport.",
+    explanation:
+      "Magnetic behavior emerges from electron spins and the interactions that make them align, oppose one another, or form more complex patterns. Spintronics uses spin as well as electrical charge. Computational studies examine magnetic ground states, anisotropy, temperature, defects, and interfaces to understand or design stable, switchable behavior.",
+    questions: [
+      "Which magnetic arrangement is most stable for a material or interface?",
+      "What controls the direction and energy cost of switching magnetization?",
+      "How do structure, defects, or composition change spin transport and magnetic temperature?",
+    ],
+    systems: [
+      "Ferromagnets and antiferromagnets",
+      "Heusler and magnetic alloy materials",
+      "Magnetic thin films and interfaces",
+      "Spintronic memory and sensor materials",
+    ],
+    approaches: [
+      {
+        name: "Spin-polarized electronic structure",
+        explanation:
+          "DFT calculations allow different spin populations and compare candidate magnetic arrangements and their electronic states.",
+      },
+      {
+        name: "Magnetic interaction models",
+        explanation:
+          "Calculated exchange interactions feed simplified spin models that explore collective order and temperature-dependent behavior.",
+      },
+      {
+        name: "Spin and interface transport modeling",
+        explanation:
+          "Electronic and atomistic models investigate how spin information moves, relaxes, or switches across layered structures.",
+      },
+    ],
+    concepts: [
+      "Electron spin and magnetic moments",
+      "Exchange interactions and magnetic order",
+      "Magnetic anisotropy",
+      "Electronic structure and interfaces",
+    ],
+    preparation:
+      "Begin by comparing simple spin arrangements and visualizing their energy differences. Quantum mechanics is central, but a qualitative picture of magnetic moments and ordering can support a useful first literature search.",
+    keywords: [
+      "magnetic materials",
+      "spintronics",
+      "magnetic anisotropy",
+      "exchange interaction",
+      "spin polarized DFT",
+      "antiferromagnetism",
+      "spin transport",
+    ],
+    synonyms: [
+      "computational magnetism",
+      "spin materials modeling",
+      "first-principles spintronics",
+    ],
+    searches: {
+      orientation:
+        "computational magnetic spintronic materials beginner overview",
+      focused:
+        "spin polarized DFT magnetic anisotropy exchange interaction material",
+      review:
+        "recent review first principles modeling magnetic spintronic materials",
+    },
+    affinities: {
+      "interest:electronics": 3,
+      "interest:fundamentals": 2,
+      "mode:explain": 3,
+      "mode:predict": 2,
+      "mode:design": 2,
+      "mode:theory": 3,
+      "family:crystalline": 2,
+      "family:layered": 2,
+      "phenomenon:magnetic": 3,
+      "phenomenon:electrons": 2,
+      "purpose:fundamental": 2,
+      "purpose:applied": 2,
+      "scale:atomic": 3,
+      "change:static": 2,
+      "change:dynamic": 2,
+      "medium:equations": 2,
+    },
+    reasons: [
+      {
+        signal: "interest:electronics",
+        category: "interest",
+        text: "You were interested in materials that store, sense, or transmit information.",
+      },
+      {
+        signal: "mode:theory",
+        category: "interest",
+        text: "Magnetic order offers a rich connection between quantum models and observable material behavior.",
+      },
+      {
+        signal: "phenomenon:magnetic",
+        category: "style",
+        text: "Magnetism and spin were among the material behaviors you most wanted to understand.",
+      },
+      {
+        signal: "scale:atomic",
+        category: "style",
+        text: "This direction builds explanations from local moments and atom-scale interactions.",
+      },
+    ],
+    comparisonLens:
+      "Compared with ordinary semiconductor-property modeling, this direction makes spin, magnetic order, and magnetic switching the central degrees of freedom.",
+  },
+  {
+    ...materialsNicheDefaults,
+    id: "two-dimensional-quantum-materials",
+    area: "Quantum and low-dimensional materials",
+    name: "Two-dimensional & quantum materials",
+    shortDescription:
+      "Explore how reduced dimensionality and collective quantum effects create unusual electronic states.",
+    explanation:
+      "When a material is only one or a few atomic layers thick—or when its electrons interact especially strongly—new states can emerge that are absent from a simple bulk picture. Researchers model confinement, stacking, symmetry, spin–orbit coupling, topology, and electron correlation to explain and predict these behaviors.",
+    questions: [
+      "How does thinning, stacking, or twisting layers change the electronic structure?",
+      "Which symmetry or interaction protects an unusual quantum state?",
+      "How do strain, defects, electric fields, or neighboring layers tune the behavior?",
+    ],
+    systems: [
+      "Graphene and related two-dimensional crystals",
+      "Transition-metal dichalcogenides",
+      "Van der Waals heterostructures and moiré systems",
+      "Topological and strongly correlated materials",
+    ],
+    approaches: [
+      {
+        name: "Relativistic electronic-structure calculations",
+        explanation:
+          "DFT with spin–orbit coupling maps bands, spin textures, and the effects of crystal symmetry.",
+      },
+      {
+        name: "Tight-binding and model Hamiltonians",
+        explanation:
+          "Simplified quantum models isolate the interactions and symmetries responsible for an emergent state.",
+      },
+      {
+        name: "Many-body and layered-system methods",
+        explanation:
+          "Beyond-standard-DFT approaches treat strong electron interactions, excitations, or large twisted structures when simpler models are insufficient.",
+      },
+    ],
+    concepts: [
+      "Quantum confinement and electronic bands",
+      "Crystal symmetry and spin–orbit coupling",
+      "Interlayer interactions",
+      "Collective and topological electronic states",
+    ],
+    preparation:
+      "Begin with band structures and a visual comparison between one layer and the bulk material. Advanced topology or many-body theory can be approached through one concrete system rather than as an abstract prerequisite.",
+    keywords: [
+      "two-dimensional materials",
+      "quantum materials",
+      "van der Waals heterostructure",
+      "moiré materials",
+      "spin orbit coupling",
+      "topological materials",
+      "electron correlation",
+    ],
+    synonyms: [
+      "low-dimensional quantum materials",
+      "layered quantum systems",
+      "computational condensed matter materials",
+    ],
+    searches: {
+      orientation: "computational two dimensional quantum materials overview",
+      focused:
+        "electronic structure spin orbit coupling layered quantum material DFT",
+      review:
+        "recent review computational modeling two dimensional quantum materials",
+    },
+    affinities: {
+      "interest:fundamentals": 3,
+      "interest:electronics": 2,
+      "mode:explain": 3,
+      "mode:predict": 2,
+      "mode:theory": 3,
+      "family:layered": 3,
+      "family:crystalline": 2,
+      "phenomenon:electrons": 3,
+      "phenomenon:magnetic": 2,
+      "phenomenon:optical": 2,
+      "purpose:fundamental": 3,
+      "scale:atomic": 3,
+      "change:static": 2,
+      "medium:visual": 2,
+      "medium:equations": 3,
+    },
+    reasons: [
+      {
+        signal: "interest:fundamentals",
+        category: "interest",
+        text: "You were drawn to surprising material behavior and the theory behind it.",
+      },
+      {
+        signal: "mode:theory",
+        category: "interest",
+        text: "This direction uses quantum models to identify which interactions create an emergent state.",
+      },
+      {
+        signal: "family:layered",
+        category: "style",
+        text: "Layered and two-dimensional structures were the material family that most caught your attention.",
+      },
+      {
+        signal: "medium:equations",
+        category: "style",
+        text: "Mathematical models and symmetry arguments are useful tools for organizing this field.",
+      },
+    ],
+    comparisonLens:
+      "Compared with magnetic materials, this direction spans a wider set of low-dimensional and emergent quantum states; magnetism may be one ingredient rather than the central target.",
+  },
 ];
