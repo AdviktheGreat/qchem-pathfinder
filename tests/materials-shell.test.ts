@@ -40,7 +40,6 @@ describe("computational materials pathfinder shell", () => {
         (question) => question.stage === "question",
       ),
     ).toHaveLength(1);
-    expect(computationalMaterialsPathfinder.recommendations.niches).toEqual([]);
   });
 
   it("publishes route metadata without exposing an incomplete experience", () => {

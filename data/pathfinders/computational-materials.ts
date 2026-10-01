@@ -13,6 +13,7 @@ import {
   materialsToolPreparation,
 } from "@/data/pathfinders/computational-materials/preparation";
 import { materialsOpenExplorationIds } from "@/data/pathfinders/computational-materials/scoring";
+import { computationalMaterialsNiches } from "@/data/pathfinders/computational-materials/niches";
 
 export const computationalMaterialsPathfinder = {
   identity: {
@@ -43,7 +44,7 @@ export const computationalMaterialsPathfinder = {
       .map((question) => question.id),
   },
   recommendations: {
-    niches: [],
+    niches: computationalMaterialsNiches,
     openExplorationIds: materialsOpenExplorationIds,
   },
   preparation: {
