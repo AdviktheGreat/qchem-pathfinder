@@ -25,7 +25,6 @@ describe("computational materials pathfinder shell", () => {
     const catalogEntry = getPathfinder("computational-materials");
     expect(catalogEntry?.status).toBe("coming-soon");
     expect(catalogEntry?.href).toBeUndefined();
-    expect(computationalMaterialsPathfinder.survey.questions).toHaveLength(7);
     expect(
       computationalMaterialsPathfinder.survey.questions.filter(
         (question) => question.stage === "calibration",
@@ -34,6 +33,11 @@ describe("computational materials pathfinder shell", () => {
     expect(
       computationalMaterialsPathfinder.survey.questions.filter(
         (question) => question.stage === "motivation",
+      ),
+    ).toHaveLength(1);
+    expect(
+      computationalMaterialsPathfinder.survey.questions.filter(
+        (question) => question.stage === "question",
       ),
     ).toHaveLength(1);
     expect(computationalMaterialsPathfinder.recommendations.niches).toEqual([]);

@@ -334,4 +334,95 @@ export const computationalMaterialsQuestions: SurveyQuestion[] = [
       },
     ],
   },
+  {
+    id: "materials-question-kind",
+    stage: "question",
+    kicker: "Choose the question shape",
+    title:
+      "What kind of materials question would you most like to investigate?",
+    prompt:
+      "Pick the research move that sounds most satisfying right now. You can still explore directions that use several of these moves together.",
+    type: "single",
+    options: [
+      {
+        id: "explain",
+        label: "Explain why a material behaves that way",
+        description:
+          "Connect atomic structure, bonding, or defects to a property that researchers observe.",
+        signals: { "mode:explain": 3 },
+      },
+      {
+        id: "predict",
+        label: "Predict a property or behavior",
+        description:
+          "Estimate how a material will conduct, absorb light, store ions, or remain stable before it is tested.",
+        signals: { "mode:predict": 3 },
+      },
+      {
+        id: "compare",
+        label: "Compare materials or computational methods",
+        description:
+          "Work out why alternatives give different results and which comparison is most informative.",
+        signals: { "mode:compare": 3 },
+      },
+      {
+        id: "design",
+        label: "Design a material with a useful property",
+        description:
+          "Use patterns in structure and composition to propose a promising material or modification.",
+        signals: { "mode:design": 3 },
+      },
+      {
+        id: "interpret",
+        label: "Interpret an experimental observation",
+        description:
+          "Use calculations to explain a spectrum, image, trend, or measurement that is difficult to read on its own.",
+        signals: {
+          "mode:interpret": 3,
+          "connection:experiment": 2,
+        },
+      },
+      {
+        id: "optimize",
+        label: "Optimize performance under constraints",
+        description:
+          "Balance competing goals such as activity, stability, cost, safety, or manufacturability.",
+        signals: { "mode:optimize": 3 },
+      },
+      {
+        id: "dynamics",
+        label: "Model how a material changes",
+        description:
+          "Follow atoms, charges, phases, or defects as they move or transform over time.",
+        signals: { "mode:dynamics": 3 },
+      },
+      {
+        id: "data-discovery",
+        label: "Discover patterns in a large dataset",
+        description:
+          "Use databases, screening, or machine learning to identify trends and promising candidates.",
+        signals: {
+          "mode:data-discovery": 3,
+          "style:data": 2,
+        },
+      },
+      {
+        id: "theory",
+        label: "Test a fundamental model or theory",
+        description:
+          "Examine the assumptions behind a computational description of matter and where it succeeds or fails.",
+        signals: {
+          "mode:theory": 3,
+          "purpose:fundamental": 2,
+        },
+      },
+      {
+        id: "unsure",
+        label: "I’d like to sample a few question types",
+        description:
+          "Keep several research approaches open until the examples make the differences clearer.",
+        uncertainty: true,
+      },
+    ],
+  },
 ];
