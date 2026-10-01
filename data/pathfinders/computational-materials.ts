@@ -163,6 +163,14 @@ export const computationalMaterialsPathfinder = {
         "Interest choices and research-style choices are scored separately. Familiarity only changes the preparation guidance below—it never lowers a direction’s value or blocks it.",
       openInitially: true,
     },
+    preparationCopy: {
+      eyebrow: "Preparation is a bridge, not a gate",
+      title: "Build the background while you explore",
+      description:
+        "Your starting familiarity changes which refreshers may help—not whether you belong in this direction. Use these as optional supports for your first papers.",
+      conceptsHeading: "Materials concepts worth revisiting",
+      firstStepHeading: "A realistic first modeling step",
+    },
   },
   profile: {
     researchStyleLabels: {

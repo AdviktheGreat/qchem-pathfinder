@@ -434,6 +434,7 @@ export function ResultsScreen({
   const overview = definition.results.overview;
   const primaryCopy = definition.results.primaryCopy;
   const fitEvidenceCopy = definition.results.fitEvidenceCopy;
+  const preparationCopy = definition.results.preparationCopy;
   const overviewDimensions = overview?.dimensions.map((dimension) => {
     const question = definition.survey.questions.find(
       (candidate) => candidate.id === dimension.questionId,
@@ -698,15 +699,19 @@ export function ResultsScreen({
       <section className="preparation-card">
         <div>
           <p className="section-kicker">
-            <Lightbulb size={14} /> Preparation, not permission
+            <Lightbulb size={14} />{" "}
+            {preparationCopy?.eyebrow ?? "Preparation, not permission"}
           </p>
           <h2 id="preparation-title" tabIndex={-1}>
-            What to revisit before you dive in
+            {preparationCopy?.title ?? "What to revisit before you dive in"}
           </h2>
+          {preparationCopy?.description && <p>{preparationCopy.description}</p>}
           <p>{preparation.startingPoint}</p>
         </div>
         <div>
-          <h3>Helpful Phase 1 concepts</h3>
+          <h3>
+            {preparationCopy?.conceptsHeading ?? "Helpful Phase 1 concepts"}
+          </h3>
           <ul>
             {preparation.concepts.map((concept) => (
               <li key={concept}>{concept}</li>
@@ -714,7 +719,9 @@ export function ResultsScreen({
           </ul>
         </div>
         <div className="prep-note">
-          <strong>A realistic first step</strong>
+          <strong>
+            {preparationCopy?.firstStepHeading ?? "A realistic first step"}
+          </strong>
           <p>{preparation.nicheNote}</p>
           <ul>
             {preparation.steps.map((step) => (

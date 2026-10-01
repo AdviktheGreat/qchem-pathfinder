@@ -127,6 +127,13 @@ export interface PathfinderResultsConfig {
     transparentNote: string;
     openInitially?: boolean;
   };
+  preparationCopy?: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    conceptsHeading: string;
+    firstStepHeading: string;
+  };
 }
 
 export interface PathfinderProfileConfig {

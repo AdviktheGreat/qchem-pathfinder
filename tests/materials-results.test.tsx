@@ -124,4 +124,25 @@ describe("computational materials results", () => {
       screen.getByText(/familiarity only changes the preparation guidance/i),
     ).toBeDefined();
   });
+
+  it("frames preparation as support rather than a gate", () => {
+    renderMaterialsResults();
+
+    expect(
+      screen.getByRole("heading", {
+        name: "Build the background while you explore",
+      }),
+    ).toBeDefined();
+    expect(
+      screen.getByText(
+        /starting familiarity changes which refreshers may help/i,
+      ),
+    ).toBeDefined();
+    expect(
+      screen.getByRole("heading", {
+        name: "Materials concepts worth revisiting",
+      }),
+    ).toBeDefined();
+    expect(screen.getByText("A realistic first modeling step")).toBeDefined();
+  });
 });
