@@ -196,4 +196,22 @@ describe("computational materials taxonomy", () => {
       ).toBe(expected);
     }
   });
+
+  it("separates mechanical performance from chemical degradation", () => {
+    for (const [choice, expected] of [
+      ["alloys-ceramics", "structural-alloys-ceramics"],
+      ["corrosion", "corrosion-protective-interfaces"],
+    ]) {
+      expect(
+        getRecommendations(
+          {
+            "materials-motivation": ["structural"],
+            "materials-structural-soft-direction": [choice],
+          },
+          undefined,
+          context,
+        )[0].niche.id,
+      ).toBe(expected);
+    }
+  });
 });
