@@ -152,6 +152,12 @@ export interface PathfinderResultsConfig {
     queriesHeading: string;
     queriesDescription: string;
   };
+  readingCopy?: {
+    heading: string;
+    description: string;
+    citationWarning: string;
+    checklist: readonly string[];
+  };
 }
 
 export interface PathfinderProfileConfig {

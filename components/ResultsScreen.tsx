@@ -298,26 +298,28 @@ function SearchLaunchpad({
         <div className="reading-note">
           <BookMarked size={20} />
           <div>
-            <strong>Begin with a recent review or perspective.</strong>
+            <strong>
+              {results.readingCopy?.heading ??
+                "Begin with a recent review or perspective."}
+            </strong>
             <p>
-              It can give you vocabulary, major debates, and a map of important
-              methods before you tackle narrower papers. Then follow its
-              references to the original work.
+              {results.readingCopy?.description ??
+                "It can give you vocabulary, major debates, and a map of important methods before you tackle narrower papers. Then follow its references to the original work."}
             </p>
             <p className="source-warning">
-              Search results and AI tools can contain incorrect citations.
-              Verify every citation and read the real source before relying on
-              it.
+              {results.readingCopy?.citationWarning ??
+                "Search results and AI tools can contain incorrect citations. Verify every citation and read the real source before relying on it."}
             </p>
             <ul className="reading-checklist">
-              <li>
-                Write down unfamiliar terms to look up after the first skim.
-              </li>
-              <li>
-                Scan headings, figures, and the conclusion before reading
-                deeply.
-              </li>
-              <li>Notice repeated methods, molecules, and open questions.</li>
+              {(
+                results.readingCopy?.checklist ?? [
+                  "Write down unfamiliar terms to look up after the first skim.",
+                  "Scan headings, figures, and the conclusion before reading deeply.",
+                  "Notice repeated methods, molecules, and open questions.",
+                ]
+              ).map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
           </div>
         </div>

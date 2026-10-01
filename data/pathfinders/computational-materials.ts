@@ -1,9 +1,4 @@
 import { fitLabelDescriptions } from "@/data/fit-labels";
-import {
-  paperNoteTemplate,
-  paperTypeGuide,
-  queryGuidance,
-} from "@/data/reading-guidance";
 import type { PathfinderDefinition } from "@/lib/pathfinder-definition";
 import { computationalMaterialsQuestions } from "@/data/pathfinders/computational-materials/questions";
 import {
@@ -21,6 +16,13 @@ import {
 import { computationalMaterialsNiches } from "@/data/pathfinders/computational-materials/niches";
 import { materialsConceptOverlaps } from "@/data/pathfinders/computational-materials/concept-overlaps";
 import { materialsGlossary } from "@/data/pathfinders/computational-materials/glossary";
+import {
+  materialsPaperNoteTemplate,
+  materialsPaperTypeGuide,
+  materialsQueryGuidance,
+  materialsReadingCopy,
+  materialsSearchRefinements,
+} from "@/data/pathfinders/computational-materials/reading-guidance";
 
 export const computationalMaterialsPathfinder = {
   identity: {
@@ -105,10 +107,10 @@ export const computationalMaterialsPathfinder = {
   results: {
     glossary: materialsGlossary,
     fitLabelDescriptions,
-    queryGuidance,
-    searchRefinements: [],
-    paperTypeGuide,
-    paperNoteTemplate,
+    queryGuidance: materialsQueryGuidance,
+    searchRefinements: materialsSearchRefinements,
+    paperTypeGuide: materialsPaperTypeGuide,
+    paperNoteTemplate: materialsPaperNoteTemplate,
     overview: {
       eyebrow: "Your materials research coordinates",
       title: "A clear map of what you want to investigate",
@@ -192,6 +194,7 @@ export const computationalMaterialsPathfinder = {
       queriesDescription:
         "Start broad enough to learn the field’s language, then move toward a material–property–method combination and a recent review.",
     },
+    readingCopy: materialsReadingCopy,
   },
   profile: {
     researchStyleLabels: {

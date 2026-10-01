@@ -234,4 +234,23 @@ describe("computational materials results", () => {
       screen.getAllByRole("tab", { name: "Review" }).length,
     ).toBeGreaterThan(0);
   });
+
+  it("provides a materials reading sequence and citation warning", () => {
+    renderMaterialsResults();
+
+    expect(
+      screen.getByText(/introduce the material families, property language/i),
+    ).toBeDefined();
+    expect(
+      screen.getByText(
+        /verify the title, authors, year, journal, and DOI or URL/i,
+      ),
+    ).toBeDefined();
+    expect(
+      screen.getByText(
+        /identify the material, target property, modeling scale/i,
+      ),
+    ).toBeDefined();
+    expect(screen.getByText("Benchmark or validation study")).toBeDefined();
+  });
 });
