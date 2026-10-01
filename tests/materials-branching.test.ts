@@ -44,4 +44,32 @@ describe("adaptive computational materials questions", () => {
       "unsure",
     ]);
   });
+
+  it.each(["electronics", "light-sensing"])(
+    "shows two targeted electronic follow-ups for %s",
+    (motivation) => {
+      const visible = getVisibleQuestions(
+        { "materials-motivation": [motivation] },
+        questions,
+      );
+      expect(
+        visible
+          .filter((question) => question.stage === "narrowing")
+          .map((question) => question.id),
+      ).toEqual([
+        "materials-electronic-direction",
+        "materials-electronic-phenomenon",
+      ]);
+      expect(visible).toHaveLength(17);
+    },
+  );
+
+  it("keeps electronic follow-ups out of the energy branch", () => {
+    const energyIds = getVisibleQuestions(
+      { "materials-motivation": ["energy-storage"] },
+      questions,
+    ).map((question) => question.id);
+    expect(energyIds).not.toContain("materials-electronic-direction");
+    expect(energyIds).not.toContain("materials-electronic-phenomenon");
+  });
 });
