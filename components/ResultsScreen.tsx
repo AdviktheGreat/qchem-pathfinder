@@ -100,7 +100,15 @@ function DirectionDetails({
         </section>
       </div>
       <section className="approach-section">
-        <h3>Computational approaches</h3>
+        <h3>
+          {results.directionDetailsCopy?.approachesHeading ??
+            "Computational approaches"}
+        </h3>
+        {results.directionDetailsCopy?.approachesDescription && (
+          <p className="detail-intro">
+            {results.directionDetailsCopy.approachesDescription}
+          </p>
+        )}
         <div className="approach-grid">
           {niche.approaches.map((approach) => (
             <article key={approach.name}>

@@ -115,6 +115,8 @@ export interface PathfinderResultsConfig {
     questionsHeading: string;
     systemsHeading: string;
     systemsDescription: string;
+    approachesHeading: string;
+    approachesDescription: string;
   };
 }
 

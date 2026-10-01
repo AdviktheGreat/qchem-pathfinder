@@ -29,4 +29,12 @@ export const materialsGlossary: GlossaryItem[] = [
     term: "Interatomic potential",
     text: "A mathematical model of atomic energy and forces used in atomistic simulation. It may be physically designed, fitted to data, or learned with machine learning.",
   },
+  {
+    term: "Finite-element method",
+    text: "A continuum method that divides a larger object or device into small connected regions, then solves equations for quantities such as stress, heat, or electric potential across them.",
+  },
+  {
+    term: "Machine learning",
+    text: "A family of data-driven methods that learns patterns from examples. In materials research it can predict properties, screen candidates, or approximate costly simulations, but its reliability depends on the training data and validation.",
+  },
 ];

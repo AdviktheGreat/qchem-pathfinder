@@ -97,4 +97,19 @@ describe("computational materials results", () => {
       ),
     ).toBeDefined();
   });
+
+  it("explains computational approaches without assuming mastery", () => {
+    renderMaterialsResults();
+
+    expect(
+      screen.getAllByRole("heading", {
+        name: "How researchers model this direction",
+      }).length,
+    ).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText(/do not need to master these tools/i).length,
+    ).toBeGreaterThan(0);
+    expect(screen.getByText("Finite-element method")).toBeDefined();
+    expect(screen.getByText("Machine learning")).toBeDefined();
+  });
 });

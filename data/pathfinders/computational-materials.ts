@@ -149,6 +149,9 @@ export const computationalMaterialsPathfinder = {
       systemsHeading: "Materials, applications, and contexts",
       systemsDescription:
         "These examples connect the direction to material families, devices, and real operating settings you may meet in the literature.",
+      approachesHeading: "How researchers model this direction",
+      approachesDescription:
+        "Each method answers a different kind of question or works at a different scale. You do not need to master these tools before you begin reading.",
     },
   },
   profile: {
