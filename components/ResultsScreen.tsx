@@ -413,6 +413,23 @@ export function ResultsScreen({
     URL.revokeObjectURL(href);
   }
 
+  const overview = definition.results.overview;
+  const overviewDimensions = overview?.dimensions.map((dimension) => {
+    const question = definition.survey.questions.find(
+      (candidate) => candidate.id === dimension.questionId,
+    );
+    const labels = (answers[dimension.questionId] ?? []).flatMap((optionId) => {
+      const label = question?.options.find(
+        (option) => option.id === optionId,
+      )?.label;
+      return label ? [label] : [];
+    });
+    return {
+      ...dimension,
+      value: labels.length > 0 ? labels.join(" · ") : dimension.fallback,
+    };
+  });
+
   return (
     <div className="results-shell">
       <section className="result-hero">
@@ -480,6 +497,27 @@ export function ResultsScreen({
           your potential in a field.
         </p>
       </details>
+
+      {overview && overviewDimensions && (
+        <section
+          className="research-coordinates"
+          aria-labelledby="research-coordinates-title"
+        >
+          <div>
+            <p className="section-kicker">{overview.eyebrow}</p>
+            <h2 id="research-coordinates-title">{overview.title}</h2>
+            <p>{overview.description}</p>
+          </div>
+          <dl>
+            {overviewDimensions.map((dimension) => (
+              <div key={dimension.questionId}>
+                <dt>{dimension.label}</dt>
+                <dd>{dimension.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      )}
 
       <aside
         className="directions-overview research-passport"

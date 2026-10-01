@@ -109,6 +109,34 @@ export const computationalMaterialsPathfinder = {
     searchRefinements: [],
     paperTypeGuide,
     paperNoteTemplate,
+    overview: {
+      eyebrow: "Your materials research coordinates",
+      title: "A clear map of what you want to investigate",
+      description:
+        "These coordinates summarize the choices shaping your directions. They describe today’s starting point, not a permanent label.",
+      dimensions: [
+        {
+          label: "Material family",
+          questionId: "materials-family",
+          fallback: "Open across material families",
+        },
+        {
+          label: "Research target",
+          questionId: "materials-question-kind",
+          fallback: "Several kinds of research question",
+        },
+        {
+          label: "Phenomenon",
+          questionId: "materials-phenomena",
+          fallback: "Several material behaviors",
+        },
+        {
+          label: "Modeling scale",
+          questionId: "materials-scale",
+          fallback: "Open across modeling scales",
+        },
+      ],
+    },
   },
   profile: {
     researchStyleLabels: {

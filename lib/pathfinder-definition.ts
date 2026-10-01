@@ -95,6 +95,16 @@ export interface PathfinderResultsConfig {
   searchRefinements: readonly SearchRefinement[];
   paperTypeGuide: readonly PaperTypeGuideEntry[];
   paperNoteTemplate: string;
+  overview?: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    dimensions: readonly {
+      label: string;
+      questionId: string;
+      fallback: string;
+    }[];
+  };
 }
 
 export interface PathfinderProfileConfig {
