@@ -42,7 +42,7 @@ describe("hub visit persistence", () => {
       parseHubState(
         JSON.stringify({
           version: 1,
-          lastPathfinderId: "computational-materials",
+          lastPathfinderId: "computational-biology",
           lastVisitedAt: "2026-09-29T18:00:00.000Z",
         }),
       ),

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { PathfinderApp } from "@/components/PathfinderApp";
+import { PathfinderVisitTracker } from "@/components/PathfinderVisitTracker";
+import { computationalMaterialsPathfinder } from "@/data/pathfinders/computational-materials";
 
 export const metadata: Metadata = {
   title: "Computational Materials Pathfinder",
@@ -8,7 +10,10 @@ export const metadata: Metadata = {
 };
 
 export default function ComputationalMaterialsPathfinderPage() {
-  // Keep the unfinished survey inaccessible until its questions, taxonomy,
-  // recommendations, and search guidance are complete.
-  notFound();
+  return (
+    <>
+      <PathfinderVisitTracker pathfinderId="computational-materials" />
+      <PathfinderApp definition={computationalMaterialsPathfinder} />
+    </>
+  );
 }

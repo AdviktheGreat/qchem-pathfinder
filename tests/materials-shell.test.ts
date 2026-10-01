@@ -21,10 +21,10 @@ describe("computational materials pathfinder shell", () => {
     );
   });
 
-  it("keeps the unfinished survey out of the interactive hub", () => {
+  it("publishes the finished survey in the interactive hub", () => {
     const catalogEntry = getPathfinder("computational-materials");
-    expect(catalogEntry?.status).toBe("coming-soon");
-    expect(catalogEntry?.href).toBeUndefined();
+    expect(catalogEntry?.status).toBe("available");
+    expect(catalogEntry?.href).toBe("/pathfinders/computational-materials");
     expect(
       computationalMaterialsPathfinder.survey.questions.filter(
         (question) => question.stage === "calibration",
@@ -42,13 +42,11 @@ describe("computational materials pathfinder shell", () => {
     ).toHaveLength(1);
   });
 
-  it("publishes route metadata without exposing an incomplete experience", () => {
+  it("publishes route metadata and the completed experience", () => {
     expect(metadata).toMatchObject({
       title: "Computational Materials Pathfinder",
       description: expect.stringContaining("computational materials"),
     });
-    expect(() => ComputationalMaterialsPathfinderPage()).toThrow(
-      "NEXT_HTTP_ERROR_FALLBACK;404",
-    );
+    expect(ComputationalMaterialsPathfinderPage()).toBeDefined();
   });
 });

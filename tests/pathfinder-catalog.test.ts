@@ -24,12 +24,19 @@ describe("pathfinder catalog", () => {
     });
   });
 
+  it("registers computational materials as an available pathfinder", () => {
+    expect(getPathfinder("computational-materials")).toMatchObject({
+      shortName: "Computational materials",
+      status: "available",
+      href: "/pathfinders/computational-materials",
+    });
+  });
+
   it("keeps roadmap previews non-interactive until they are complete", () => {
     const previews = pathfinders.filter(
       (pathfinder) => pathfinder.status === "coming-soon",
     );
     expect(previews.map((pathfinder) => pathfinder.id)).toEqual([
-      "computational-materials",
       "computational-biology",
     ]);
     expect(previews.every((pathfinder) => pathfinder.href === undefined)).toBe(

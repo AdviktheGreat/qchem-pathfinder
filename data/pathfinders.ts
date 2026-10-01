@@ -38,8 +38,9 @@ export const pathfinders: PathfinderCatalogEntry[] = [
     outcome:
       "Narrow toward a materials family, scientific question, and modeling scale worth investigating.",
     focusAreas: ["Materials", "Structure–property links", "Simulation"],
-    duration: "Planned next",
-    status: "coming-soon",
+    duration: "About 10 minutes",
+    status: "available",
+    href: "/pathfinders/computational-materials",
   },
   {
     id: "computational-biology",
