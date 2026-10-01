@@ -654,4 +654,220 @@ export const computationalMaterialsNiches: Niche[] = [
     comparisonLens:
       "Compared with photovoltaic materials, this direction begins with a temperature difference and the coupled movement of charge and heat rather than photon absorption.",
   },
+  {
+    ...materialsNicheDefaults,
+    id: "semiconductor-electronic-materials",
+    area: "Electronic materials",
+    name: "Semiconductor electronic properties",
+    shortDescription:
+      "Relate composition, structure, and defects to electronic bands, charge carriers, and device behavior.",
+    explanation:
+      "Semiconductors work because their electronic states can be controlled through composition, doping, defects, strain, and interfaces. Computational studies predict band structures and charge behavior, explain measured trends, and test whether a proposed material has the stability and electronic properties needed for a device.",
+    questions: [
+      "How do composition or strain change a semiconductor’s band gap and carrier behavior?",
+      "Which defects donate, trap, or remove mobile charge?",
+      "Do two materials form an interface with useful electronic alignment?",
+    ],
+    systems: [
+      "Silicon and compound semiconductors",
+      "Wide-band-gap electronic materials",
+      "Transparent conducting materials",
+      "Semiconductor junctions and interfaces",
+    ],
+    approaches: [
+      {
+        name: "Band-structure calculations",
+        explanation:
+          "Electronic-structure methods map allowed electron energies and show how readily charge carriers can move.",
+      },
+      {
+        name: "Charged-defect modeling",
+        explanation:
+          "Calculations compare defect charge states and formation conditions to identify dopants, traps, and compensation effects.",
+      },
+      {
+        name: "Interface and band-alignment analysis",
+        explanation:
+          "Models of joined materials estimate where electrons and holes prefer to reside across a junction.",
+      },
+    ],
+    concepts: [
+      "Electronic bands and band gaps",
+      "Electrons, holes, and doping",
+      "Defect formation and charge states",
+      "Interfaces and energy alignment",
+    ],
+    preparation:
+      "Begin with a band diagram and the idea of electrons and holes, then compare how one structural or chemical change shifts the picture. Advanced defect corrections can wait until the central electronic question is clear.",
+    keywords: [
+      "semiconductor electronic structure",
+      "band structure",
+      "band gap",
+      "charge carrier",
+      "defect levels",
+      "doping",
+      "band alignment",
+    ],
+    synonyms: [
+      "computational semiconductor physics",
+      "electronic materials modeling",
+      "first-principles semiconductor defects",
+    ],
+    searches: {
+      orientation: "computational semiconductor electronic properties overview",
+      focused:
+        "DFT band structure charged defects doping semiconductor material",
+      review:
+        "recent review first principles semiconductor electronic properties defects",
+    },
+    affinities: {
+      "interest:electronics": 3,
+      "mode:explain": 3,
+      "mode:predict": 3,
+      "mode:compare": 2,
+      "mode:design": 2,
+      "family:crystalline": 3,
+      "family:layered": 2,
+      "phenomenon:electrons": 3,
+      "purpose:fundamental": 2,
+      "purpose:applied": 2,
+      "scale:atomic": 3,
+      "scale:device": 2,
+      "change:static": 2,
+      "medium:equations": 2,
+    },
+    reasons: [
+      {
+        signal: "interest:electronics",
+        category: "interest",
+        text: "You chose materials that carry and control information electronically.",
+      },
+      {
+        signal: "mode:explain",
+        category: "interest",
+        text: "This direction explains device-relevant behavior through electronic structure and defects.",
+      },
+      {
+        signal: "phenomenon:electrons",
+        category: "style",
+        text: "Electronic states and moving charge were among the behaviors you most wanted to understand.",
+      },
+      {
+        signal: "family:crystalline",
+        category: "style",
+        text: "Ordered solid structures provide a natural starting point for band and defect analysis.",
+      },
+    ],
+    comparisonLens:
+      "Compared with optoelectronic and photonic materials, this direction emphasizes controlling electronic bands, carriers, defects, and junctions even when light is not the main input or output.",
+  },
+  {
+    ...materialsNicheDefaults,
+    id: "optoelectronic-photonic-materials",
+    area: "Light and information",
+    name: "Optoelectronic & photonic materials",
+    shortDescription:
+      "Study materials that emit, detect, guide, or actively control light and optical signals.",
+    explanation:
+      "Optoelectronic materials exchange information between light and electrical charge, while photonic materials shape how light propagates through a structure. Computation connects electronic transitions, excitations, defects, geometry, and interfaces to color, brightness, detection sensitivity, optical loss, and field confinement.",
+    questions: [
+      "Which electronic transitions absorb or emit light at the desired wavelength?",
+      "How do defects and interfaces help or quench an optical response?",
+      "How does a material’s structure guide, confine, or switch an electromagnetic field?",
+    ],
+    systems: [
+      "Light-emitting and display materials",
+      "Photodetectors and optical sensors",
+      "Nanophotonic and metasurface materials",
+      "Quantum dots and layered emitters",
+    ],
+    approaches: [
+      {
+        name: "Optical-property calculations",
+        explanation:
+          "Electronic-structure and excited-state methods predict absorption, emission, and the energies of optical transitions.",
+      },
+      {
+        name: "Exciton and carrier modeling",
+        explanation:
+          "Models follow bound electron–hole pairs and other excited charge states that shape light emission and detection.",
+      },
+      {
+        name: "Electromagnetic simulation",
+        explanation:
+          "Field-based calculations show how patterned materials guide, concentrate, scatter, or filter light across a device.",
+      },
+    ],
+    concepts: [
+      "Electronic transitions and excited states",
+      "Absorption, emission, and optical spectra",
+      "Excitons and charge recombination",
+      "Waves, fields, and optical confinement",
+    ],
+    preparation:
+      "Begin with an energy-level picture and one measured or calculated spectrum. Wave-based photonic models and advanced excited-state methods can be introduced depending on whether the question centers the material or the optical structure.",
+    keywords: [
+      "optoelectronic materials",
+      "photonic materials",
+      "optical absorption",
+      "light emission",
+      "exciton",
+      "photodetector",
+      "nanophotonics",
+    ],
+    synonyms: [
+      "light-emitting materials modeling",
+      "computational photonics materials",
+      "optical materials simulation",
+    ],
+    searches: {
+      orientation: "computational optoelectronic photonic materials overview",
+      focused:
+        "electronic structure exciton optical response light emitting material simulation",
+      review:
+        "recent review computational modeling optoelectronic photonic materials",
+    },
+    affinities: {
+      "interest:light": 3,
+      "interest:electronics": 2,
+      "mode:explain": 2,
+      "mode:predict": 3,
+      "mode:interpret": 3,
+      "mode:design": 3,
+      "family:layered": 2,
+      "family:crystalline": 2,
+      "phenomenon:optical": 3,
+      "phenomenon:electrons": 2,
+      "purpose:applied": 2,
+      "scale:atomic": 2,
+      "scale:device": 3,
+      "connection:interpret": 2,
+      "evidence:experiment": 3,
+      "medium:visual": 2,
+    },
+    reasons: [
+      {
+        signal: "interest:light",
+        category: "interest",
+        text: "You were drawn to materials that emit, detect, or manipulate light.",
+      },
+      {
+        signal: "mode:interpret",
+        category: "interest",
+        text: "Calculated optical behavior can help interpret spectra and device signals.",
+      },
+      {
+        signal: "phenomenon:optical",
+        category: "style",
+        text: "Optical response was one of the material behaviors you most wanted to investigate.",
+      },
+      {
+        signal: "evidence:experiment",
+        category: "style",
+        text: "This field often connects calculations directly to spectra, emission curves, and device measurements.",
+      },
+    ],
+    comparisonLens:
+      "Compared with photovoltaic materials, this direction includes light emission, sensing, and field control without requiring solar-energy conversion as the central goal.",
+  },
 ];

@@ -97,4 +97,22 @@ describe("computational materials taxonomy", () => {
       ).toBe(expected);
     }
   });
+
+  it("separates semiconductor charge control from optical signal behavior", () => {
+    for (const [choice, expected] of [
+      ["semiconductors", "semiconductor-electronic-materials"],
+      ["optoelectronics", "optoelectronic-photonic-materials"],
+    ]) {
+      const recommendation = getRecommendations(
+        {
+          "materials-motivation": ["electronics"],
+          "materials-electronic-direction": [choice],
+        },
+        undefined,
+        context,
+      )[0];
+      expect(recommendation.niche.id).toBe(expected);
+      expect(recommendation.interestReasons[0]).toContain("directly points");
+    }
+  });
 });
