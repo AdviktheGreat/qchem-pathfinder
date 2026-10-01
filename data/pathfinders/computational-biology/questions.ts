@@ -206,4 +206,46 @@ export const computationalBiologyQuestions: SurveyQuestion[] = [
       unsureOption,
     ],
   },
+  {
+    id: "biology-explanation-style",
+    stage: "calibration",
+    kicker: "How ideas click",
+    title: "Which explanation would you reach for first?",
+    prompt:
+      "Choose the doorway that would help you begin. Your results can still combine several explanation styles.",
+    type: "single",
+    options: [
+      {
+        id: "visual",
+        label: "A biological diagram or visualization",
+        description:
+          "Show me a structure, pathway, cell map, evolutionary tree, or pattern in a dataset.",
+      },
+      {
+        id: "conceptual",
+        label: "A biological story in plain language",
+        description:
+          "Explain what the system does, what changes, and why the question matters before introducing the method.",
+      },
+      {
+        id: "quantitative",
+        label: "A quantitative pattern",
+        description:
+          "Show me measurements, uncertainty, trends, or model predictions across biological samples.",
+      },
+      {
+        id: "workflow",
+        label: "A worked data or code example",
+        description:
+          "Walk me from raw biological information through analysis choices to an interpretable result.",
+      },
+      {
+        id: "mixed",
+        label: "A mix of biological intuition and data",
+        description:
+          "Build the biological picture, then connect it to evidence, computation, and uncertainty.",
+      },
+      unsureOption,
+    ],
+  },
 ];
