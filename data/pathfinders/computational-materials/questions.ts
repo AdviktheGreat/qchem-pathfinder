@@ -724,4 +724,65 @@ export const computationalMaterialsQuestions: SurveyQuestion[] = [
       unsureOption,
     ],
   },
+  {
+    id: "materials-workflow",
+    stage: "style",
+    kicker: "Picture the work",
+    title: "Which ways of working would keep you engaged?",
+    prompt:
+      "Choose up to three. These preferences help distinguish how you might explore a topic; they are not skills you must already have.",
+    type: "multi",
+    maxSelections: 3,
+    options: [
+      {
+        id: "visual-models",
+        label: "Build and inspect visual models",
+        description:
+          "Use atomic structures, orbitals, fields, animations, or maps to make a material easier to picture.",
+        signals: { "medium:visual": 3 },
+      },
+      {
+        id: "equations",
+        label: "Reason with equations and physical models",
+        description:
+          "Use mathematical relationships to explain a trend, test an assumption, or estimate a property.",
+        signals: { "medium:equations": 3 },
+      },
+      {
+        id: "datasets",
+        label: "Find patterns in datasets",
+        description:
+          "Organize many calculated or measured values and look for relationships that are difficult to see one case at a time.",
+        signals: { "medium:data": 3 },
+      },
+      {
+        id: "coding",
+        label: "Write or adapt code and notebooks",
+        description:
+          "Automate calculations, analyze results, or create a reproducible workflow with scripts and computational tools.",
+        signals: { "style:coding": 3 },
+      },
+      {
+        id: "comparisons",
+        label: "Make careful side-by-side comparisons",
+        description:
+          "Change one material, method, or condition at a time and explain which differences matter most.",
+        signals: { "style:compare": 3 },
+      },
+      {
+        id: "experimental-evidence",
+        label: "Connect to experimental plots and evidence",
+        description:
+          "Relate computational output to spectra, images, performance curves, or other measurements from the laboratory.",
+        signals: { "evidence:experiment": 3 },
+      },
+      {
+        id: "unsure",
+        label: "I’d like to try several workflows first",
+        description:
+          "Keep the working style open until you have seen concrete examples of what each approach involves.",
+        uncertainty: true,
+      },
+    ],
+  },
 ];

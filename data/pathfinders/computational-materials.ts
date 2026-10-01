@@ -100,6 +100,7 @@ export const computationalMaterialsPathfinder = {
       "materials-scale": "Modeling scale",
       "materials-change-style": "Static or changing systems",
       "materials-experiment-connection": "Connection to experiments",
+      "materials-workflow": "Preferred evidence and tools",
     },
     exportTitle: "COMPUTATIONAL MATERIALS EXPLORATION PROFILE",
     filenamePrefix: "computational-materials-profile",

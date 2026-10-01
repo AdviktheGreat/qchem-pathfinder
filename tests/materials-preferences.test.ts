@@ -163,7 +163,6 @@ describe("computational materials research style preferences", () => {
   ] as const;
 
   it("covers purpose, scale, change, and experimental connection", () => {
-    expect(questions).toHaveLength(14);
     for (const id of styleQuestionIds) {
       expect(question(id)).toMatchObject({ stage: "style", type: "single" });
       expect(
@@ -204,5 +203,62 @@ describe("computational materials research style preferences", () => {
         question(id).options.find((option) => option.id === "unsure"),
       ).toMatchObject({ uncertainty: true });
     }
+  });
+});
+
+describe("computational materials workflow preferences", () => {
+  const workflow = question("materials-workflow");
+
+  it("offers complementary evidence and tool choices without treating them as prerequisites", () => {
+    expect(questions).toHaveLength(15);
+    expect(workflow).toMatchObject({
+      stage: "style",
+      type: "multi",
+      maxSelections: 3,
+    });
+    expect(workflow.options.map((option) => option.id)).toEqual([
+      "visual-models",
+      "equations",
+      "datasets",
+      "coding",
+      "comparisons",
+      "experimental-evidence",
+      "unsure",
+    ]);
+    expect(workflow.prompt).toContain("not skills you must already have");
+    expect(
+      computationalMaterialsPathfinder.profile.researchStyleLabels[
+        "materials-workflow"
+      ],
+    ).toBe("Preferred evidence and tools");
+  });
+
+  it("combines up to three workflow signals without changing calibration", () => {
+    expect(
+      aggregateSignals(
+        {
+          "materials-coding-comfort": ["new"],
+          "materials-workflow": [
+            "visual-models",
+            "coding",
+            "experimental-evidence",
+          ],
+        },
+        context,
+      ),
+    ).toEqual({
+      "medium:visual": 3,
+      "style:coding": 3,
+      "evidence:experiment": 3,
+    });
+  });
+
+  it("leaves workflow evidence open when the student is unsure", () => {
+    expect(
+      workflow.options.find((option) => option.id === "unsure"),
+    ).toMatchObject({ uncertainty: true });
+    expect(
+      aggregateSignals({ "materials-workflow": ["unsure"] }, context),
+    ).toEqual({});
   });
 });
