@@ -2,6 +2,7 @@ export {
   computationalBiologyFoundation,
   computationalBiologySurvey,
 } from "@/data/pathfinders/computational-biology/foundation";
+export { biologyNicheAffinities } from "@/data/pathfinders/computational-biology/affinities";
 export { computationalBiologyIdentity } from "@/data/pathfinders/computational-biology/identity";
 export { computationalBiologyIntro } from "@/data/pathfinders/computational-biology/intro";
 export {

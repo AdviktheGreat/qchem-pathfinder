@@ -93,7 +93,10 @@ export function aggregateSignals(
 }
 
 export function signalCategory(signal: string): "interest" | "style" {
-  return signal.startsWith("interest:") || signal.startsWith("mode:")
+  return signal.startsWith("interest:") ||
+    signal.startsWith("mode:") ||
+    signal.startsWith("topic:") ||
+    signal.startsWith("context:")
     ? "interest"
     : "style";
 }

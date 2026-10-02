@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { biologyNicheAffinities } from "@/data/pathfinders/computational-biology/affinities";
 import { computationalBiologyNiches } from "@/data/pathfinders/computational-biology/niches";
 import { computationalBiologyQuestions } from "@/data/pathfinders/computational-biology/questions";
 import {
@@ -40,5 +41,24 @@ describe("computational biology scoring vocabulary", () => {
     expect(biologyOpenExplorationIds.every((id) => nicheIds.has(id))).toBe(
       true,
     );
+  });
+
+  it("gives every direction a complete, positive affinity profile", () => {
+    expect(Object.keys(biologyNicheAffinities).sort()).toEqual(
+      computationalBiologyNiches.map((niche) => niche.id).sort(),
+    );
+
+    for (const niche of computationalBiologyNiches) {
+      expect(
+        Object.keys(niche.affinities).length,
+        niche.id,
+      ).toBeGreaterThanOrEqual(7);
+      expect(
+        Object.values(niche.affinities).every(
+          (weight) => weight >= 1 && weight <= 3,
+        ),
+        niche.id,
+      ).toBe(true);
+    }
   });
 });
