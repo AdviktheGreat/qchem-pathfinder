@@ -2,6 +2,7 @@ import type { Niche } from "@/lib/types";
 import { biomolecularModelingDirections } from "@/data/pathfinders/computational-biology/niches-biomolecular-modeling";
 import { biomedicalGenomicsDirections } from "@/data/pathfinders/computational-biology/niches-biomedical-genomics";
 import { comparativeGenomicsDirections } from "@/data/pathfinders/computational-biology/niches-comparative-genomics";
+import { ecologyMicrobiomeDirections } from "@/data/pathfinders/computational-biology/niches-ecology-microbiome";
 import { geneExpressionDirections } from "@/data/pathfinders/computational-biology/niches-gene-expression";
 import { geneRegulationDirections } from "@/data/pathfinders/computational-biology/niches-gene-regulation";
 import { molecularEvolutionDirections } from "@/data/pathfinders/computational-biology/niches-molecular-evolution";
@@ -25,4 +26,5 @@ export const computationalBiologyNiches: Niche[] = [
   ...therapeuticDiscoveryDirections,
   ...biomedicalGenomicsDirections,
   ...systemsBiologyDirections,
+  ...ecologyMicrobiomeDirections,
 ];
