@@ -125,3 +125,18 @@ export const biologySearchCopy = {
   queriesDescription:
     "Start broad enough to learn the field’s language, then move toward a biological system–evidence–method combination and a recent review.",
 } satisfies NonNullable<PathfinderResultsConfig["searchCopy"]>;
+
+export const biologySearchProviders = [
+  {
+    label: "Google Scholar",
+    urlTemplate: "https://scholar.google.com/scholar?q={query}",
+  },
+  {
+    label: "PubMed",
+    urlTemplate: "https://pubmed.ncbi.nlm.nih.gov/?term={query}",
+  },
+  {
+    label: "Semantic Scholar",
+    urlTemplate: "https://www.semanticscholar.org/search?q={query}",
+  },
+] satisfies NonNullable<PathfinderResultsConfig["searchProviders"]>;

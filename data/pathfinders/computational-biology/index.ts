@@ -38,6 +38,7 @@ export {
   biologyResultsOverview,
   biologyQueryGuidance,
   biologySearchCopy,
+  biologySearchProviders,
   biologySearchRefinements,
 } from "@/data/pathfinders/computational-biology/results";
 export {

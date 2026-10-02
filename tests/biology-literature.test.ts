@@ -4,6 +4,7 @@ import {
   biologyKeywordCopy,
   biologyQueryGuidance,
   biologySearchCopy,
+  biologySearchProviders,
   biologySearchRefinements,
 } from "@/data/pathfinders/computational-biology/results";
 import {
@@ -70,6 +71,24 @@ describe("computational biology literature launchpads", () => {
       expect(niche.paperTypes.join(" "), niche.id).toMatch(
         /review|perspective/i,
       );
+    }
+  });
+
+  it("offers copy-ready searches through useful scholarly providers", () => {
+    expect(biologySearchProviders.map((provider) => provider.label)).toEqual([
+      "Google Scholar",
+      "PubMed",
+      "Semantic Scholar",
+    ]);
+
+    for (const provider of biologySearchProviders) {
+      expect(provider.urlTemplate).toMatch(/^https:\/\//);
+      expect(provider.urlTemplate).toContain("{query}");
+      const encoded = provider.urlTemplate.replace(
+        "{query}",
+        encodeURIComponent("single cell transcriptomics review"),
+      );
+      expect(encoded).toContain("single%20cell%20transcriptomics%20review");
     }
   });
 });
