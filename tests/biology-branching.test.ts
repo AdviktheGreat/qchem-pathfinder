@@ -58,4 +58,16 @@ describe("adaptive computational biology questions", () => {
       getVisibleQuestions({ "biology-motivation": ["evolution"] }, questions),
     ).toHaveLength(14);
   });
+
+  it("begins the cell and expression branch with a resolution choice", () => {
+    expect(narrowingIds("cells-systems")).toEqual([
+      "biology-cell-expression-focus",
+    ]);
+    expect(
+      getVisibleQuestions(
+        { "biology-motivation": ["cells-systems"] },
+        questions,
+      ),
+    ).toHaveLength(13);
+  });
 });

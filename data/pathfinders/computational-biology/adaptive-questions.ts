@@ -452,4 +452,70 @@ export const computationalBiologyAdaptiveQuestions: SurveyQuestion[] = [
       biologyUnsureOption,
     ],
   },
+  {
+    id: "biology-cell-expression-focus",
+    stage: "narrowing",
+    kicker: "Choose the cellular view",
+    title: "Which view of gene activity and cells would you investigate first?",
+    prompt:
+      "Choose the resolution that would make the biological system most interesting to you.",
+    type: "single",
+    visibleWhen: {
+      questionId: "biology-motivation",
+      anyOf: ["cells-systems"],
+    },
+    options: [
+      {
+        id: "condition-comparison",
+        label: "Compare average gene activity across conditions",
+        description:
+          "Look for reproducible expression differences and pathway themes in bulk samples.",
+        signals: {
+          "topic:gene-expression": 3,
+          "mode:compare": 2,
+        },
+      },
+      {
+        id: "time-course",
+        label: "Follow gene activity through a response or transition",
+        description:
+          "Distinguish early, late, temporary, and sustained expression patterns.",
+        signals: {
+          "topic:time-course-expression": 3,
+          "evidence:temporal": 2,
+        },
+      },
+      {
+        id: "single-cell",
+        label: "Resolve cell types, states, and transitions",
+        description:
+          "Study cell-level heterogeneity rather than averaging a mixed tissue.",
+        signals: {
+          "topic:single-cell": 3,
+          "scale:cellular": 2,
+        },
+      },
+      {
+        id: "spatial",
+        label: "Map molecular patterns inside a tissue",
+        description:
+          "Connect gene activity to physical locations, boundaries, and cellular neighborhoods.",
+        signals: {
+          "topic:spatial-omics": 3,
+          "style:visual": 2,
+        },
+      },
+      {
+        id: "regulation",
+        label: "Investigate how gene activity is controlled",
+        description:
+          "Connect regulatory regions, transcription factors, chromatin, and expression evidence.",
+        signals: {
+          "topic:regulatory-genomics": 3,
+          "mode:explain": 2,
+        },
+      },
+      biologyUnsureOption,
+    ],
+  },
 ];
