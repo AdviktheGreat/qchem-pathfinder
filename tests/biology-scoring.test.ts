@@ -5,10 +5,23 @@ import { computationalBiologyQuestions } from "@/data/pathfinders/computational-
 import { biologyNarrowingBoosts } from "@/data/pathfinders/computational-biology/narrowing-boosts";
 import {
   biologyOpenExplorationIds,
+  biologyRecommendationScoring,
   biologyScoringPrinciples,
   biologyScoringWeights,
   biologySignalGroups,
 } from "@/data/pathfinders/computational-biology/scoring";
+import {
+  aggregateSignals,
+  getRecommendations,
+  rankNiches,
+} from "@/lib/recommendation";
+
+const biologyContext = {
+  questions: computationalBiologyQuestions,
+  niches: computationalBiologyNiches,
+  openExplorationIds: biologyOpenExplorationIds,
+  scoring: biologyRecommendationScoring,
+};
 
 describe("computational biology scoring vocabulary", () => {
   it("registers every survey signal in one editable vocabulary", () => {
@@ -98,5 +111,77 @@ describe("computational biology scoring vocabulary", () => {
     expect([...targeted].sort()).toEqual(
       computationalBiologyNiches.map((niche) => niche.id).sort(),
     );
+  });
+
+  it("keeps every uncertainty answer free of scoring evidence", () => {
+    for (const question of computationalBiologyQuestions) {
+      for (const option of question.options.filter(
+        (candidate) => candidate.uncertainty,
+      )) {
+        expect(option.signals, `${question.id}:${option.id}`).toBeUndefined();
+        expect(
+          option.nicheBoosts,
+          `${question.id}:${option.id}`,
+        ).toBeUndefined();
+      }
+    }
+  });
+
+  it("excludes calibration answers from recommendation signals", () => {
+    const preferenceAnswers = {
+      "biology-motivation": ["genomes"],
+      "biology-question-type": ["compare"],
+    };
+    const withCalibration = {
+      ...preferenceAnswers,
+      "biology-starting-point": ["comfortable"],
+      "biology-quantitative-comfort": ["comfortable"],
+      "biology-coding-comfort": ["enjoy"],
+      "biology-explanation-style": ["quantitative"],
+    };
+
+    expect(aggregateSignals(withCalibration, biologyContext)).toEqual(
+      aggregateSignals(preferenceAnswers, biologyContext),
+    );
+    expect(
+      rankNiches(withCalibration, biologyContext).map(({ niche, score }) => [
+        niche.id,
+        score,
+      ]),
+    ).toEqual(
+      rankNiches(preferenceAnswers, biologyContext).map(({ niche, score }) => [
+        niche.id,
+        score,
+      ]),
+    );
+  });
+
+  it("returns varied open defaults when uncertainty provides no evidence", () => {
+    const uncertainAnswers = Object.fromEntries(
+      computationalBiologyQuestions
+        .filter((question) =>
+          question.options.some((option) => option.uncertainty),
+        )
+        .map((question) => [
+          question.id,
+          [
+            question.options.find((option) => option.uncertainty)?.id ??
+              "unsure",
+          ],
+        ]),
+    );
+    const recommendations = getRecommendations(
+      uncertainAnswers,
+      undefined,
+      biologyContext,
+    );
+
+    expect(recommendations.map((result) => result.niche.id)).toEqual(
+      biologyOpenExplorationIds,
+    );
+    expect(recommendations.every((result) => result.score >= 0)).toBe(true);
+    expect(
+      recommendations.every((result) => result.preferenceEvidenceCount === 0),
+    ).toBe(true);
   });
 });
