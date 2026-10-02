@@ -38,4 +38,14 @@ describe("adaptive computational biology questions", () => {
       ),
     ).toHaveLength(14);
   });
+
+  it("shows two genome-focused follow-ups", () => {
+    expect(narrowingIds("genomes")).toEqual([
+      "biology-genome-focus",
+      "biology-genome-evidence",
+    ]);
+    expect(
+      getVisibleQuestions({ "biology-motivation": ["genomes"] }, questions),
+    ).toHaveLength(14);
+  });
 });

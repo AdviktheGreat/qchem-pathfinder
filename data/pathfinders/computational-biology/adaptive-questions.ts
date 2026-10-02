@@ -228,4 +228,116 @@ export const computationalBiologyAdaptiveQuestions: SurveyQuestion[] = [
       biologyUnsureOption,
     ],
   },
+  {
+    id: "biology-genome-focus",
+    stage: "narrowing",
+    kicker: "Narrow the genome question",
+    title: "Which genome-scale comparison would you make first?",
+    prompt:
+      "Choose the comparison that would make you most curious to inspect the sequences and their biological context.",
+    type: "single",
+    visibleWhen: {
+      questionId: "biology-motivation",
+      anyOf: ["genomes"],
+    },
+    options: [
+      {
+        id: "across-species",
+        label: "Compare genomes across species",
+        description:
+          "Look for conserved regions, rearrangements, gene-family changes, and lineage-specific features.",
+        signals: {
+          "topic:comparative-genomics": 3,
+          "mode:compare": 2,
+        },
+      },
+      {
+        id: "within-populations",
+        label: "Compare variation among populations",
+        description:
+          "Study ancestry, migration, genetic diversity, and adaptation within a species.",
+        signals: {
+          "topic:population-genomics": 3,
+          "scale:population": 2,
+        },
+      },
+      {
+        id: "annotate-genome",
+        label: "Find genes and possible functions in a genome",
+        description:
+          "Combine sequence signals, known domains, expression, and database evidence.",
+        signals: {
+          "topic:genome-annotation": 3,
+          "mode:discover": 2,
+        },
+      },
+      {
+        id: "regulatory-regions",
+        label: "Find regions that may control gene activity",
+        description:
+          "Connect regulatory sequence, chromatin, and expression evidence without assuming correlation proves control.",
+        signals: {
+          "topic:regulatory-genomics": 3,
+          "evidence:sequence": 2,
+        },
+      },
+      biologyUnsureOption,
+    ],
+  },
+  {
+    id: "biology-genome-evidence",
+    stage: "narrowing",
+    kicker: "Choose the genomic evidence",
+    title: "Which pattern in genomic data would you most like to explain?",
+    prompt:
+      "Pick a pattern you would want to turn into a careful biological interpretation.",
+    type: "single",
+    visibleWhen: {
+      questionId: "biology-motivation",
+      anyOf: ["genomes"],
+    },
+    options: [
+      {
+        id: "conserved-changed-regions",
+        label: "Regions conserved or changed across species",
+        description:
+          "Use alignments and gene-family context to distinguish shared and lineage-specific biology.",
+        signals: {
+          "topic:comparative-genomics": 3,
+          "evidence:sequence": 2,
+        },
+      },
+      {
+        id: "variant-frequencies",
+        label: "Variant frequencies and shared ancestry",
+        description:
+          "Compare patterns across individuals while tracking sampling and population structure.",
+        signals: {
+          "topic:population-genomics": 3,
+          "evidence:variation": 2,
+        },
+      },
+      {
+        id: "unknown-genes",
+        label: "Uncharacterized genes and protein domains",
+        description:
+          "Rank possible functions from several evidence sources and preserve uncertain annotations.",
+        signals: {
+          "topic:genome-annotation": 3,
+          "mode:discover": 2,
+        },
+      },
+      {
+        id: "regulation-expression",
+        label: "Regulatory features connected to gene activity",
+        description:
+          "Integrate sequence, accessibility, transcription-factor, and expression measurements.",
+        signals: {
+          "topic:regulatory-genomics": 3,
+          "mode:integrate": 2,
+        },
+      },
+      biologyUnsureOption,
+    ],
+  },
 ];
