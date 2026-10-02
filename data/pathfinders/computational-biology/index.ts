@@ -24,6 +24,7 @@ export {
 export { biologyNicheReasons } from "@/data/pathfinders/computational-biology/reasons";
 export {
   biologyAlternativesCopy,
+  biologyComparisonPrinciples,
   biologyDirectionDetailsCopy,
   biologyFitEvidenceCopy,
   biologyPreparationCopy,

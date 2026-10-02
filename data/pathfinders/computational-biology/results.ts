@@ -79,3 +79,9 @@ export const biologyAlternativesCopy = {
   detailOpenLabel: "See questions, methods, and searches",
   detailCloseLabel: "Hide questions, methods, and searches",
 } satisfies NonNullable<PathfinderResultsConfig["alternativesCopy"]>;
+
+export const biologyComparisonPrinciples = [
+  "Compare the central biological question, scale, evidence, and computational approach.",
+  "Describe differences without ranking fields by difficulty, importance, or student readiness.",
+  "Keep neighboring directions open when the same evidence can support more than one interpretation.",
+] as const;

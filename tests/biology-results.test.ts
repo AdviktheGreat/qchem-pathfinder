@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { computationalBiologyQuestions } from "@/data/pathfinders/computational-biology/questions";
 import {
   biologyAlternativesCopy,
+  biologyComparisonPrinciples,
   biologyDirectionDetailsCopy,
   biologyFitEvidenceCopy,
   biologyPreparationCopy,
@@ -119,5 +120,21 @@ describe("computational biology results experience", () => {
     );
     expect(biologyAlternativesCopy.detailOpenLabel).toContain("questions");
     expect(biologyAlternativesCopy.detailOpenLabel).toContain("searches");
+  });
+
+  it("gives every neighboring direction a substantive comparison lens", () => {
+    expect(biologyComparisonPrinciples).toHaveLength(3);
+    expect(
+      new Set(computationalBiologyNiches.map((niche) => niche.comparisonLens))
+        .size,
+    ).toBe(computationalBiologyNiches.length);
+
+    for (const niche of computationalBiologyNiches) {
+      expect(niche.comparisonLens.length, niche.id).toBeGreaterThan(90);
+      expect(niche.comparisonLens, niche.id).toMatch(/^Compared with /);
+      expect(niche.comparisonLens.toLowerCase(), niche.id).not.toContain(
+        "better than",
+      );
+    }
   });
 });
