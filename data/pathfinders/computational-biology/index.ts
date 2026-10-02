@@ -14,6 +14,7 @@ export { computationalBiologyNiches } from "@/data/pathfinders/computational-bio
 export { computationalBiologyQuestions } from "@/data/pathfinders/computational-biology/questions";
 export { biologyNicheReasons } from "@/data/pathfinders/computational-biology/reasons";
 export {
+  biologyDirectionDetailsCopy,
   biologyPrimaryCopy,
   biologyResultsOverview,
 } from "@/data/pathfinders/computational-biology/results";

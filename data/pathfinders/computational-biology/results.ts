@@ -36,3 +36,13 @@ export const biologyPrimaryCopy = {
     "Use this as a well-supported starting point for reading and comparison—not as a final topic, a diagnosis, or a limit on what you can study.",
   contextSummary: "Beginner-friendly scientific orientation",
 } satisfies NonNullable<PathfinderResultsConfig["primaryCopy"]>;
+
+export const biologyDirectionDetailsCopy = {
+  questionsHeading: "Questions computational biologists ask",
+  systemsHeading: "Biological systems, datasets, and contexts",
+  systemsDescription:
+    "These examples connect the direction to organisms, molecules, cells, environments, and research datasets you may meet in the literature.",
+  approachesHeading: "How researchers investigate this direction",
+  approachesDescription:
+    "Each approach answers a different kind of biological question. You do not need to master the tools before you begin reading.",
+} satisfies NonNullable<PathfinderResultsConfig["directionDetailsCopy"]>;
