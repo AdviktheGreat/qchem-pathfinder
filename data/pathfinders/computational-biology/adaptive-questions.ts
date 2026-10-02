@@ -340,4 +340,116 @@ export const computationalBiologyAdaptiveQuestions: SurveyQuestion[] = [
       biologyUnsureOption,
     ],
   },
+  {
+    id: "biology-evolution-focus",
+    stage: "narrowing",
+    kicker: "Narrow the evolutionary question",
+    title: "Which evolutionary story would you most like to reconstruct?",
+    prompt:
+      "Choose the scale and kind of change that you would most enjoy turning into an evidence-based history.",
+    type: "single",
+    visibleWhen: {
+      questionId: "biology-motivation",
+      anyOf: ["evolution"],
+    },
+    options: [
+      {
+        id: "relationships",
+        label: "Relationships among genes, species, or samples",
+        description:
+          "Build and compare evolutionary trees while keeping uncertain branches visible.",
+        signals: {
+          "topic:phylogenetics": 3,
+          "mode:compare": 2,
+        },
+      },
+      {
+        id: "sequence-selection",
+        label: "How selection and constraint shaped a sequence",
+        description:
+          "Compare rates and kinds of change across positions, genes, or lineages.",
+        signals: {
+          "topic:molecular-evolution": 3,
+          "evidence:sequence": 2,
+        },
+      },
+      {
+        id: "population-history",
+        label: "How populations separated, mixed, or changed size",
+        description:
+          "Use shared genetic variation to compare possible demographic histories.",
+        signals: {
+          "topic:population-genomics": 3,
+          "scale:population": 2,
+        },
+      },
+      {
+        id: "pathogen-change",
+        label: "How a pathogen lineage changed during an outbreak",
+        description:
+          "Combine sequences with time and de-identified context while respecting sampling gaps.",
+        signals: {
+          "topic:pathogen-genomics": 3,
+          "evidence:temporal": 2,
+        },
+      },
+      biologyUnsureOption,
+    ],
+  },
+  {
+    id: "biology-evolution-evidence",
+    stage: "narrowing",
+    kicker: "Choose the evolutionary evidence",
+    title: "Which evidence pattern would you most like to test?",
+    prompt:
+      "Different patterns support different claims. Pick the one you would want to examine most carefully.",
+    type: "single",
+    visibleWhen: {
+      questionId: "biology-motivation",
+      anyOf: ["evolution"],
+    },
+    options: [
+      {
+        id: "tree-support",
+        label: "Competing trees and branch support",
+        description:
+          "Ask which relationships remain stable across alignments, models, and resampled data.",
+        signals: {
+          "topic:phylogenetics": 3,
+          "style:benchmarking": 2,
+        },
+      },
+      {
+        id: "rates-sites",
+        label: "Conserved positions and changing evolutionary rates",
+        description:
+          "Look for constraint or shifts while checking alternative models and recombination.",
+        signals: {
+          "topic:molecular-evolution": 3,
+          "evidence:sequence": 2,
+        },
+      },
+      {
+        id: "variation-geography",
+        label: "Genetic variation across places or populations",
+        description:
+          "Relate ancestry and migration patterns to a documented sampling design.",
+        signals: {
+          "topic:population-genomics": 3,
+          "evidence:variation": 2,
+        },
+      },
+      {
+        id: "dated-sequences",
+        label: "Sequences collected across an outbreak timeline",
+        description:
+          "Estimate lineage relationships and timing without claiming that genomes reveal every transmission event.",
+        signals: {
+          "topic:pathogen-genomics": 3,
+          "evidence:temporal": 2,
+        },
+      },
+      biologyUnsureOption,
+    ],
+  },
 ];
