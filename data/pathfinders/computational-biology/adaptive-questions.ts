@@ -1,7 +1,8 @@
 import { biologyUnsureOption } from "@/data/pathfinders/computational-biology/uncertainty-options";
+import { biologyNarrowingBoosts } from "@/data/pathfinders/computational-biology/narrowing-boosts";
 import type { SurveyQuestion } from "@/lib/types";
 
-export const computationalBiologyAdaptiveQuestions: SurveyQuestion[] = [
+const computationalBiologyAdaptiveQuestionContent: SurveyQuestion[] = [
   {
     id: "biology-health-focus",
     stage: "narrowing",
@@ -913,3 +914,12 @@ export const computationalBiologyAdaptiveQuestions: SurveyQuestion[] = [
     ],
   },
 ];
+
+export const computationalBiologyAdaptiveQuestions: SurveyQuestion[] =
+  computationalBiologyAdaptiveQuestionContent.map((question) => ({
+    ...question,
+    options: question.options.map((option) => ({
+      ...option,
+      nicheBoosts: biologyNarrowingBoosts[question.id]?.[option.id],
+    })),
+  }));

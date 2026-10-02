@@ -5,6 +5,7 @@ export {
 export { biologyNicheAffinities } from "@/data/pathfinders/computational-biology/affinities";
 export { computationalBiologyIdentity } from "@/data/pathfinders/computational-biology/identity";
 export { computationalBiologyIntro } from "@/data/pathfinders/computational-biology/intro";
+export { biologyNarrowingBoosts } from "@/data/pathfinders/computational-biology/narrowing-boosts";
 export {
   biologyStarterPaperTypes,
   defineBiologyNiche,
