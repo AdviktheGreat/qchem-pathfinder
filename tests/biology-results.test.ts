@@ -3,9 +3,12 @@ import { computationalBiologyQuestions } from "@/data/pathfinders/computational-
 import {
   biologyDirectionDetailsCopy,
   biologyFitEvidenceCopy,
+  biologyPreparationCopy,
   biologyPrimaryCopy,
   biologyResultsOverview,
 } from "@/data/pathfinders/computational-biology/results";
+import { biologyPreparationConfig } from "@/data/pathfinders/computational-biology/preparation";
+import { getPreparationProfile } from "@/lib/preparation";
 import { computationalBiologyNiches } from "@/data/pathfinders/computational-biology/niches";
 import { biologyGlossary } from "@/data/pathfinders/computational-biology/glossary";
 
@@ -81,5 +84,30 @@ describe("computational biology results experience", () => {
     );
     expect(biologyFitEvidenceCopy.transparentNote).toContain("never");
     expect(biologyFitEvidenceCopy.openInitially).toBe(true);
+  });
+
+  it("turns calibration into supportive, non-exclusionary preparation", () => {
+    const profile = getPreparationProfile(
+      {
+        "biology-starting-point": ["new"],
+        "biology-concept-familiarity": ["genes-genomes"],
+        "biology-quantitative-comfort": ["concept-first"],
+        "biology-statistics-comfort": ["new"],
+        "biology-coding-comfort": ["new"],
+        "biology-tools-comfort": ["new"],
+        "biology-explanation-style": ["visual"],
+      },
+      computationalBiologyNiches[0],
+      biologyPreparationConfig,
+      computationalBiologyQuestions,
+    );
+
+    expect(profile.steps).toHaveLength(4);
+    expect(profile.startingPoint).toContain("not a limit");
+    expect(profile.explanation.text).toContain("diagram");
+    expect(profile.concepts).toContain(
+      "Protein sequence, structure, and function",
+    );
+    expect(biologyPreparationCopy.description).toContain("not whether");
   });
 });

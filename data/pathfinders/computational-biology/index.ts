@@ -13,10 +13,19 @@ export {
 } from "@/data/pathfinders/computational-biology/niche-defaults";
 export { computationalBiologyNiches } from "@/data/pathfinders/computational-biology/niches";
 export { computationalBiologyQuestions } from "@/data/pathfinders/computational-biology/questions";
+export {
+  biologyCodingPreparation,
+  biologyExplanationGuides,
+  biologyPreparationConfig,
+  biologyQuantitativePreparation,
+  biologyStatisticsPreparation,
+  biologyToolPreparation,
+} from "@/data/pathfinders/computational-biology/preparation";
 export { biologyNicheReasons } from "@/data/pathfinders/computational-biology/reasons";
 export {
   biologyDirectionDetailsCopy,
   biologyFitEvidenceCopy,
+  biologyPreparationCopy,
   biologyPrimaryCopy,
   biologyResultsOverview,
 } from "@/data/pathfinders/computational-biology/results";

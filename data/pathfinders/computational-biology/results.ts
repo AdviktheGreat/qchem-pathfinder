@@ -57,3 +57,12 @@ export const biologyFitEvidenceCopy = {
     "Interest and research-style choices are scored separately. Familiarity, coding experience, and statistical comfort only change preparation guidance—they never lower a direction’s value or block it.",
   openInitially: true,
 } satisfies NonNullable<PathfinderResultsConfig["fitEvidenceCopy"]>;
+
+export const biologyPreparationCopy = {
+  eyebrow: "Preparation is a bridge, not a gate",
+  title: "Build the background while you explore",
+  description:
+    "Your familiarity, statistics, and coding experience change which supports may help—not whether you belong in a direction. Use these as optional companions to your first papers.",
+  conceptsHeading: "Biology and data concepts worth revisiting",
+  firstStepHeading: "A realistic first computational step",
+} satisfies NonNullable<PathfinderResultsConfig["preparationCopy"]>;
