@@ -6,6 +6,7 @@ import {
   biologyResultsOverview,
 } from "@/data/pathfinders/computational-biology/results";
 import { computationalBiologyNiches } from "@/data/pathfinders/computational-biology/niches";
+import { biologyGlossary } from "@/data/pathfinders/computational-biology/glossary";
 
 describe("computational biology results experience", () => {
   it("summarizes four useful research coordinates", () => {
@@ -47,6 +48,27 @@ describe("computational biology results experience", () => {
     );
     expect(biologyDirectionDetailsCopy.systemsDescription).toContain(
       "research datasets",
+    );
+  });
+
+  it("explains methods without assuming prior mastery", () => {
+    for (const niche of computationalBiologyNiches) {
+      expect(niche.approaches.length, niche.id).toBeGreaterThanOrEqual(3);
+      expect(
+        niche.approaches.every(
+          (approach) =>
+            approach.name.length > 3 && approach.explanation.length > 60,
+        ),
+        niche.id,
+      ).toBe(true);
+    }
+
+    expect(biologyGlossary.length).toBeGreaterThanOrEqual(10);
+    expect(new Set(biologyGlossary.map((item) => item.term)).size).toBe(
+      biologyGlossary.length,
+    );
+    expect(biologyDirectionDetailsCopy.approachesDescription).toContain(
+      "do not need to master",
     );
   });
 });
