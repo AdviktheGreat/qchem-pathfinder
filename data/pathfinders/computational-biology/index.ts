@@ -23,6 +23,7 @@ export {
 } from "@/data/pathfinders/computational-biology/preparation";
 export { biologyNicheReasons } from "@/data/pathfinders/computational-biology/reasons";
 export {
+  biologyAlternativesCopy,
   biologyDirectionDetailsCopy,
   biologyFitEvidenceCopy,
   biologyPreparationCopy,

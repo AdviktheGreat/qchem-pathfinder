@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { computationalBiologyQuestions } from "@/data/pathfinders/computational-biology/questions";
 import {
+  biologyAlternativesCopy,
   biologyDirectionDetailsCopy,
   biologyFitEvidenceCopy,
   biologyPreparationCopy,
@@ -109,5 +110,14 @@ describe("computational biology results experience", () => {
       "Protein sequence, structure, and function",
     );
     expect(biologyPreparationCopy.description).toContain("not whether");
+  });
+
+  it("keeps two nearby directions open for active comparison", () => {
+    expect(biologyAlternativesCopy.title).toContain("Two nearby directions");
+    expect(biologyAlternativesCopy.chooseActionLabel).toContain(
+      "biology direction",
+    );
+    expect(biologyAlternativesCopy.detailOpenLabel).toContain("questions");
+    expect(biologyAlternativesCopy.detailOpenLabel).toContain("searches");
   });
 });

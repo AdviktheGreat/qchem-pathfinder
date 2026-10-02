@@ -66,3 +66,16 @@ export const biologyPreparationCopy = {
   conceptsHeading: "Biology and data concepts worth revisiting",
   firstStepHeading: "A realistic first computational step",
 } satisfies NonNullable<PathfinderResultsConfig["preparationCopy"]>;
+
+export const biologyAlternativesCopy = {
+  eyebrow: "Keep adjacent biological questions visible",
+  title: "Two nearby directions worth comparing",
+  matchedReasonLabel: "Why it also fits",
+  sampleReasonLabel: "Why it is worth sampling",
+  chooseActionLabel: "Explore this biology direction",
+  comparisonHeading: "Compare the biological emphasis",
+  comparisonDescription:
+    "Each comparison describes a different scientific focus—not the difficulty, importance, or quality of either direction.",
+  detailOpenLabel: "See questions, methods, and searches",
+  detailCloseLabel: "Hide questions, methods, and searches",
+} satisfies NonNullable<PathfinderResultsConfig["alternativesCopy"]>;
