@@ -10,6 +10,7 @@ import {
   biologyReadingCopy,
 } from "@/data/pathfinders/computational-biology/reading-guidance";
 import {
+  biologyActionsCopy,
   biologyAlternativesCopy,
   biologyDirectionDetailsCopy,
   biologyFitEvidenceCopy,
@@ -53,6 +54,7 @@ export const computationalBiologyPathfinder = {
     readingCopy: biologyReadingCopy,
     searchProviders: biologySearchProviders,
     exportCopy: biologyExportCopy,
+    actionsCopy: biologyActionsCopy,
   },
   profile: computationalBiologyProfile,
   contextLabels: {

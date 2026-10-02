@@ -149,3 +149,12 @@ export const biologyExportCopy = {
   copyLabel: "Copy biology profile",
   downloadLabel: "Download biology profile",
 } satisfies NonNullable<PathfinderResultsConfig["exportCopy"]>;
+
+export const biologyActionsCopy = {
+  eyebrow: "Your biology map can evolve",
+  title: "Compare, revise, or begin again",
+  nearbyLabel: "Explore a nearby biology path",
+  reviewLabel: "Review my biology answers",
+  restartLabel: "Restart biology pathfinder",
+  returnOriginalLabel: "Return to my original biology suggestion",
+} satisfies NonNullable<PathfinderResultsConfig["actionsCopy"]>;

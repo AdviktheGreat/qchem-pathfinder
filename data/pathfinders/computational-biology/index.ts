@@ -30,6 +30,7 @@ export {
   biologyReadingCopy,
 } from "@/data/pathfinders/computational-biology/reading-guidance";
 export {
+  biologyActionsCopy,
   biologyAlternativesCopy,
   biologyComparisonPrinciples,
   biologyDirectionDetailsCopy,

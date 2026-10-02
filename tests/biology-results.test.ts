@@ -11,6 +11,7 @@ import {
 } from "@/data/pathfinders/computational-biology/results";
 import { biologyPreparationConfig } from "@/data/pathfinders/computational-biology/preparation";
 import { getPreparationProfile } from "@/lib/preparation";
+import { computationalBiologyPathfinder } from "@/data/pathfinders/computational-biology/pathfinder";
 import { computationalBiologyNiches } from "@/data/pathfinders/computational-biology/niches";
 import { biologyGlossary } from "@/data/pathfinders/computational-biology/glossary";
 
@@ -136,5 +137,26 @@ describe("computational biology results experience", () => {
         "better than",
       );
     }
+  });
+
+  it("assembles a complete but still unregistered results definition", () => {
+    const { results } = computationalBiologyPathfinder;
+
+    expect(results.glossary.length).toBeGreaterThanOrEqual(10);
+    expect(results.fitLabelDescriptions.length).toBeGreaterThan(0);
+    expect(results.overview?.dimensions).toHaveLength(4);
+    expect(results.primaryCopy).toBeDefined();
+    expect(results.directionDetailsCopy).toBeDefined();
+    expect(results.fitEvidenceCopy).toBeDefined();
+    expect(results.preparationCopy).toBeDefined();
+    expect(results.alternativesCopy).toBeDefined();
+    expect(results.searchCopy).toBeDefined();
+    expect(results.readingCopy).toBeDefined();
+    expect(results.searchProviders).toHaveLength(3);
+    expect(results.exportCopy).toBeDefined();
+    expect(results.actionsCopy).toBeDefined();
+    expect(computationalBiologyPathfinder.recommendations.niches).toHaveLength(
+      24,
+    );
   });
 });

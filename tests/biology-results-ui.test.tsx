@@ -1,11 +1,14 @@
 // @vitest-environment jsdom
 
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ResultsScreen } from "@/components/ResultsScreen";
 import { computationalBiologyPathfinder } from "@/data/pathfinders/computational-biology/pathfinder";
 
-afterEach(() => cleanup());
+afterEach(() => {
+  cleanup();
+  vi.restoreAllMocks();
+});
 
 function renderBiologyResults() {
   return render(
@@ -60,5 +63,51 @@ describe("computational biology results presentation", () => {
     expect(
       screen.getByRole("button", { name: "Download biology profile" }),
     ).toBeDefined();
+  });
+
+  it("supports nearby exploration, answer review, and restart", () => {
+    const onExploreNearby = vi.fn();
+    const onReview = vi.fn();
+    const onRestart = vi.fn();
+    vi.spyOn(window, "scrollTo").mockImplementation(() => {});
+
+    render(
+      <ResultsScreen
+        definition={computationalBiologyPathfinder}
+        answers={{
+          "biology-motivation": ["proteins"],
+          "biology-protein-focus": ["predict-structure"],
+          "biology-protein-evidence": ["structure-confidence"],
+        }}
+        onExploreNearby={onExploreNearby}
+        onReview={onReview}
+        onRestart={onRestart}
+      />,
+    );
+
+    fireEvent.click(
+      screen.getByRole("button", { name: "Explore a nearby biology path" }),
+    );
+    expect(
+      screen.getByRole("heading", {
+        name: "Two nearby directions worth comparing",
+      }),
+    ).toBe(document.activeElement);
+
+    fireEvent.click(
+      screen.getByRole("button", { name: "Review my biology answers" }),
+    );
+    fireEvent.click(
+      screen.getByRole("button", { name: "Restart biology pathfinder" }),
+    );
+    fireEvent.click(
+      screen.getAllByRole("button", {
+        name: /explore .* as my primary direction/i,
+      })[0],
+    );
+
+    expect(onReview).toHaveBeenCalledOnce();
+    expect(onRestart).toHaveBeenCalledOnce();
+    expect(onExploreNearby).toHaveBeenCalledWith(expect.any(String));
   });
 });
