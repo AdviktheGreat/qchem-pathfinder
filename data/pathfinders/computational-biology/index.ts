@@ -13,6 +13,7 @@ export {
 export { computationalBiologyNiches } from "@/data/pathfinders/computational-biology/niches";
 export { computationalBiologyQuestions } from "@/data/pathfinders/computational-biology/questions";
 export { biologyNicheReasons } from "@/data/pathfinders/computational-biology/reasons";
+export { biologyResultsOverview } from "@/data/pathfinders/computational-biology/results";
 export {
   biologyOpenExplorationIds,
   biologyRecommendationScoring,
