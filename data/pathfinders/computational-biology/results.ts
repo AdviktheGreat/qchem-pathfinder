@@ -140,3 +140,12 @@ export const biologySearchProviders = [
     urlTemplate: "https://www.semanticscholar.org/search?q={query}",
   },
 ] satisfies NonNullable<PathfinderResultsConfig["searchProviders"]>;
+
+export const biologyExportCopy = {
+  eyebrow: "Take your biology map with you",
+  title: "Computational biology exploration profile",
+  description:
+    "Copy or download this consistent plain-text profile for workshop notes and a later literature-search prompt kit. It contains no personal or health information.",
+  copyLabel: "Copy biology profile",
+  downloadLabel: "Download biology profile",
+} satisfies NonNullable<PathfinderResultsConfig["exportCopy"]>;

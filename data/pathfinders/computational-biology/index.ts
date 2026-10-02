@@ -12,6 +12,7 @@ export {
   defineBiologyNiche,
 } from "@/data/pathfinders/computational-biology/niche-defaults";
 export { computationalBiologyNiches } from "@/data/pathfinders/computational-biology/niches";
+export { computationalBiologyPathfinder } from "@/data/pathfinders/computational-biology/pathfinder";
 export { computationalBiologyQuestions } from "@/data/pathfinders/computational-biology/questions";
 export {
   biologyCodingPreparation,
@@ -22,6 +23,7 @@ export {
   biologyToolPreparation,
 } from "@/data/pathfinders/computational-biology/preparation";
 export { biologyNicheReasons } from "@/data/pathfinders/computational-biology/reasons";
+export { computationalBiologyProfile } from "@/data/pathfinders/computational-biology/profile";
 export {
   biologyPaperNoteTemplate,
   biologyPaperTypeGuide,
@@ -31,6 +33,7 @@ export {
   biologyAlternativesCopy,
   biologyComparisonPrinciples,
   biologyDirectionDetailsCopy,
+  biologyExportCopy,
   biologyFitEvidenceCopy,
   biologyKeywordCopy,
   biologyPreparationCopy,
