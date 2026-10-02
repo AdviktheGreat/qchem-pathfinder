@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { computationalBiologyQuestions as questions } from "@/data/pathfinders/computational-biology";
-import { getVisibleQuestions } from "@/lib/branching";
+import {
+  getPlannedQuestionCount,
+  getVisibleQuestions,
+  pruneHiddenAnswers,
+} from "@/lib/branching";
 
 function narrowingIds(motivation: string): string[] {
   return getVisibleQuestions({ "biology-motivation": [motivation] }, questions)
@@ -94,5 +98,64 @@ describe("adaptive computational biology questions", () => {
         questions,
       ),
     ).toHaveLength(14);
+  });
+
+  it.each(["data-methods", "open"])(
+    "shows two data-method follow-ups for %s",
+    (motivation) => {
+      expect(narrowingIds(motivation)).toEqual([
+        "biology-data-method-focus",
+        "biology-data-method-evidence",
+      ]);
+      expect(
+        getVisibleQuestions({ "biology-motivation": [motivation] }, questions),
+      ).toHaveLength(14);
+    },
+  );
+
+  it("provides a complete fourteen-question path for every motivation", () => {
+    const motivation = questions.find(
+      (question) => question.id === "biology-motivation",
+    )!;
+    for (const option of motivation.options) {
+      const visible = getVisibleQuestions(
+        { "biology-motivation": [option.id] },
+        questions,
+      );
+      expect(visible, option.id).toHaveLength(14);
+      expect(
+        visible.filter((question) => question.stage === "narrowing"),
+        option.id,
+      ).toHaveLength(2);
+    }
+    expect(getPlannedQuestionCount({}, questions, "biology-motivation")).toBe(
+      14,
+    );
+  });
+
+  it("removes answers from a previous biology branch", () => {
+    const changed = pruneHiddenAnswers(
+      {
+        "biology-motivation": ["proteins"],
+        "biology-health-focus": ["variant-effects"],
+        "biology-protein-focus": ["predict-structure"],
+      },
+      questions,
+    );
+    expect(changed["biology-health-focus"]).toBeUndefined();
+    expect(changed["biology-protein-focus"]).toEqual(["predict-structure"]);
+  });
+
+  it("keeps every narrowing uncertainty answer neutral", () => {
+    const narrowing = questions.filter(
+      (question) => question.stage === "narrowing",
+    );
+    expect(narrowing).toHaveLength(16);
+    for (const question of narrowing) {
+      const unsure = question.options.find((option) => option.uncertainty);
+      expect(unsure, question.id).toBeDefined();
+      expect(unsure?.signals, question.id).toBeUndefined();
+      expect(unsure?.nicheBoosts, question.id).toBeUndefined();
+    }
   });
 });

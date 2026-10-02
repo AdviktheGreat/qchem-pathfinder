@@ -800,4 +800,116 @@ export const computationalBiologyAdaptiveQuestions: SurveyQuestion[] = [
       biologyUnsureOption,
     ],
   },
+  {
+    id: "biology-data-method-focus",
+    stage: "narrowing",
+    kicker: "Narrow the computational contribution",
+    title: "Which data or methods challenge would you take on first?",
+    prompt:
+      "Choose the computational contribution you would most like to understand. The biology remains part of every option.",
+    type: "single",
+    visibleWhen: {
+      questionId: "biology-motivation",
+      anyOf: ["data-methods", "open"],
+    },
+    options: [
+      {
+        id: "build-predictor",
+        label: "Build a model that predicts a biological property",
+        description:
+          "Choose representations, compare baselines, and test whether predictions generalize.",
+        signals: {
+          "topic:biological-ml": 3,
+          "mode:predict": 2,
+        },
+      },
+      {
+        id: "benchmark-tools",
+        label: "Compare computational methods fairly",
+        description:
+          "Design datasets and metrics that reveal accuracy, robustness, runtime, and failure modes.",
+        signals: {
+          "topic:method-benchmarking": 3,
+          "style:benchmarking": 2,
+        },
+      },
+      {
+        id: "integrate-evidence",
+        label: "Connect several kinds of biological evidence",
+        description:
+          "Combine sequence, expression, structure, networks, or environmental context with traceable assumptions.",
+        signals: {
+          "mode:integrate": 3,
+          "evidence:integrated": 2,
+        },
+      },
+      {
+        id: "make-pattern-visible",
+        label: "Make a complex biological pattern understandable",
+        description:
+          "Use careful visualizations, maps, trees, structures, or networks to support interpretation.",
+        signals: {
+          "style:visual": 3,
+          "style:interpretation": 2,
+        },
+      },
+      biologyUnsureOption,
+    ],
+  },
+  {
+    id: "biology-data-method-evidence",
+    stage: "narrowing",
+    kicker: "Choose the standard of evidence",
+    title: "What would make a computational biology method trustworthy to you?",
+    prompt:
+      "Pick the test you would most want to see before relying on a model or workflow.",
+    type: "single",
+    visibleWhen: {
+      questionId: "biology-motivation",
+      anyOf: ["data-methods", "open"],
+    },
+    options: [
+      {
+        id: "generalization",
+        label: "It works on genuinely new biological data",
+        description:
+          "Use independent groups or contexts to expose leakage, shortcuts, and dataset shift.",
+        signals: {
+          "topic:biological-ml": 3,
+          "style:statistics": 2,
+        },
+      },
+      {
+        id: "fair-comparison",
+        label: "It wins a fair, reproducible comparison",
+        description:
+          "Hold inputs and tuning rules consistent while examining several relevant metrics.",
+        signals: {
+          "topic:method-benchmarking": 3,
+          "style:benchmarking": 2,
+        },
+      },
+      {
+        id: "independent-evidence",
+        label: "Its result agrees with independent biological evidence",
+        description:
+          "Compare the computational claim with experiments, curated knowledge, or another measurement type.",
+        signals: {
+          "mode:integrate": 3,
+          "style:interpretation": 2,
+        },
+      },
+      {
+        id: "transparent-failures",
+        label: "Its uncertainty and failure cases are visible",
+        description:
+          "Inspect errors, calibration, missing data, and contexts where the method should not be trusted.",
+        signals: {
+          "topic:method-benchmarking": 3,
+          "style:statistics": 2,
+        },
+      },
+      biologyUnsureOption,
+    ],
+  },
 ];
