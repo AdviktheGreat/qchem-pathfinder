@@ -131,7 +131,7 @@ describe("computational biology scoring vocabulary", () => {
   it("excludes calibration answers from recommendation signals", () => {
     const preferenceAnswers = {
       "biology-motivation": ["genomes"],
-      "biology-question-type": ["compare"],
+      "biology-question-kind": ["compare"],
     };
     const withCalibration = {
       ...preferenceAnswers,
@@ -207,5 +207,100 @@ describe("computational biology scoring vocabulary", () => {
         niche.id,
       ).toBe(true);
     }
+  });
+
+  it("lets every direction lead a ranking through a reasonable narrowing path", () => {
+    const reached = new Set<string>();
+    const narrowingQuestions = computationalBiologyQuestions.filter(
+      (question) => question.stage === "narrowing",
+    );
+
+    for (const question of narrowingQuestions) {
+      for (const option of question.options.filter(
+        (candidate) => !candidate.uncertainty && candidate.nicheBoosts,
+      )) {
+        const maximumBoost = Math.max(
+          ...Object.values(option.nicheBoosts ?? {}),
+        );
+        const primaryTargets = Object.entries(option.nicheBoosts ?? {})
+          .filter(([, boost]) => boost === maximumBoost)
+          .map(([id]) => id);
+        const answers = {
+          "biology-motivation": [question.visibleWhen?.anyOf[0] ?? "open"],
+          [question.id]: [option.id],
+        };
+        const topId = rankNiches(answers, biologyContext)[0]?.niche.id;
+
+        if (topId && primaryTargets.includes(topId)) reached.add(topId);
+      }
+    }
+
+    expect([...reached].sort()).toEqual(
+      computationalBiologyNiches.map((niche) => niche.id).sort(),
+    );
+  });
+
+  it("keeps a targeted choice above weaker incidental preferences", () => {
+    const results = rankNiches(
+      {
+        "biology-motivation": ["therapeutics"],
+        "biology-question-kind": ["compare"],
+        "biology-scale": ["populations-species"],
+        "biology-evidence": ["trees-time"],
+        "biology-workflow": ["statistics"],
+        "biology-therapeutic-focus": ["target-structure"],
+      },
+      biologyContext,
+    );
+
+    expect(results[0].niche.id).toBe("protein-structure-prediction");
+    expect(results[0].directScore).toBe(6);
+  });
+
+  it("preserves both sides of conflicting evidence without invalid scores", () => {
+    const results = rankNiches(
+      {
+        "biology-motivation": ["health-disease"],
+        "biology-health-focus": ["variant-effects"],
+        "biology-protein-focus": ["predict-structure"],
+        "biology-workflow": ["interpret-literature"],
+      },
+      biologyContext,
+    ).slice(0, 3);
+    const topIds = results.map((result) => result.niche.id);
+
+    expect(topIds).toContain("variant-effect-prediction");
+    expect(topIds).toContain("protein-structure-prediction");
+    expect(new Set(topIds).size).toBe(3);
+    expect(results.every((result) => Number.isFinite(result.score))).toBe(true);
+  });
+
+  it("keeps tied rankings deterministic", () => {
+    const first = rankNiches({}, biologyContext).map(
+      (result) => result.niche.id,
+    );
+    const second = rankNiches({}, biologyContext).map(
+      (result) => result.niche.id,
+    );
+
+    expect(first).toEqual(second);
+    expect(first).toEqual(computationalBiologyNiches.map((niche) => niche.id));
+  });
+
+  it("generates explanations from the selected evidence", () => {
+    const result = rankNiches(
+      {
+        "biology-motivation": ["proteins"],
+        "biology-workflow": ["visualize"],
+        "biology-protein-focus": ["predict-structure"],
+      },
+      biologyContext,
+    )[0];
+
+    expect(result.niche.id).toBe("protein-structure-prediction");
+    expect(result.interestReasons.join(" ")).toContain("directly points");
+    expect(result.styleReasons).toContain(
+      "Interactive molecular shapes match your preference for visual scientific models.",
+    );
   });
 });
