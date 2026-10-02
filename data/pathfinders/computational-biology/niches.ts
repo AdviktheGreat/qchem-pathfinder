@@ -1,5 +1,6 @@
 import type { Niche } from "@/lib/types";
 import { biologyNicheAffinities } from "@/data/pathfinders/computational-biology/affinities";
+import { biologyNicheReasons } from "@/data/pathfinders/computational-biology/reasons";
 import { biomolecularModelingDirections } from "@/data/pathfinders/computational-biology/niches-biomolecular-modeling";
 import { biomedicalGenomicsDirections } from "@/data/pathfinders/computational-biology/niches-biomedical-genomics";
 import { comparativeGenomicsDirections } from "@/data/pathfinders/computational-biology/niches-comparative-genomics";
@@ -36,4 +37,5 @@ export const computationalBiologyNiches: Niche[] =
   computationalBiologyNicheContent.map((niche) => ({
     ...niche,
     affinities: biologyNicheAffinities[niche.id] ?? {},
+    reasons: biologyNicheReasons[niche.id] ?? [],
   }));

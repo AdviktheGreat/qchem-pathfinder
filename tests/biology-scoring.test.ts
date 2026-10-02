@@ -3,6 +3,7 @@ import { biologyNicheAffinities } from "@/data/pathfinders/computational-biology
 import { computationalBiologyNiches } from "@/data/pathfinders/computational-biology/niches";
 import { computationalBiologyQuestions } from "@/data/pathfinders/computational-biology/questions";
 import { biologyNarrowingBoosts } from "@/data/pathfinders/computational-biology/narrowing-boosts";
+import { biologyNicheReasons } from "@/data/pathfinders/computational-biology/reasons";
 import {
   biologyOpenExplorationIds,
   biologyRecommendationScoring,
@@ -183,5 +184,28 @@ describe("computational biology scoring vocabulary", () => {
     expect(
       recommendations.every((result) => result.preferenceEvidenceCount === 0),
     ).toBe(true);
+  });
+
+  it("gives every direction answer-grounded interest and style reasons", () => {
+    expect(Object.keys(biologyNicheReasons).sort()).toEqual(
+      computationalBiologyNiches.map((niche) => niche.id).sort(),
+    );
+
+    for (const niche of computationalBiologyNiches) {
+      expect(
+        niche.reasons.some((reason) => reason.category === "interest"),
+        niche.id,
+      ).toBe(true);
+      expect(
+        niche.reasons.some((reason) => reason.category === "style"),
+        niche.id,
+      ).toBe(true);
+      expect(
+        niche.reasons.every(
+          (reason) => (niche.affinities[reason.signal] ?? 0) > 0,
+        ),
+        niche.id,
+      ).toBe(true);
+    }
   });
 });
