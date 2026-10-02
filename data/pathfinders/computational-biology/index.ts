@@ -31,6 +31,9 @@ export {
   biologyPreparationCopy,
   biologyPrimaryCopy,
   biologyResultsOverview,
+  biologyQueryGuidance,
+  biologySearchCopy,
+  biologySearchRefinements,
 } from "@/data/pathfinders/computational-biology/results";
 export {
   biologyOpenExplorationIds,

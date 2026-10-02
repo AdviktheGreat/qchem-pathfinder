@@ -92,3 +92,36 @@ export const biologyKeywordCopy = {
     "Combine a biological system or dataset, the relationship you want to study, and a computational method to make these terms more specific.",
   synonymsLabel: "Related phrases used in computational biology literature",
 } as const;
+
+export const biologyQueryGuidance = {
+  orientation:
+    "Use this first to learn the field’s vocabulary, common datasets, and central biological questions.",
+  focused:
+    "Use this after orientation to connect a narrower biological system, evidence type, and computational approach.",
+  review:
+    "Prioritize recent reviews or perspectives, then follow their references to original methods and application studies.",
+} as const;
+
+export const biologySearchRefinements = [
+  {
+    title: "Too many results?",
+    text: "Add an organism, cell type, dataset, biological process, method, or date range.",
+  },
+  {
+    title: "Too few results?",
+    text: "Remove the narrowest method term, try a listed synonym, or search the broader area name.",
+  },
+  {
+    title: "Results feel disconnected?",
+    text: "Keep one biological term and one computational term, then inspect the vocabulary used by a recent review.",
+  },
+] as const;
+
+export const biologySearchCopy = {
+  keywordsHeading: biologyKeywordCopy.heading,
+  keywordsDescription: biologyKeywordCopy.description,
+  synonymsLabel: biologyKeywordCopy.synonymsLabel,
+  queriesHeading: "Three searches at different depths",
+  queriesDescription:
+    "Start broad enough to learn the field’s language, then move toward a biological system–evidence–method combination and a recent review.",
+} satisfies NonNullable<PathfinderResultsConfig["searchCopy"]>;
