@@ -60,16 +60,17 @@ describe("adaptive computational biology questions", () => {
     ).toHaveLength(14);
   });
 
-  it("begins the cell and expression branch with a resolution choice", () => {
+  it("shows expression and systems follow-ups for the cell branch", () => {
     expect(narrowingIds("cells-systems")).toEqual([
       "biology-cell-expression-focus",
+      "biology-cell-systems-focus",
     ]);
     expect(
       getVisibleQuestions(
         { "biology-motivation": ["cells-systems"] },
         questions,
       ),
-    ).toHaveLength(13);
+    ).toHaveLength(14);
   });
 
   it("shows two protein-focused follow-ups", () => {

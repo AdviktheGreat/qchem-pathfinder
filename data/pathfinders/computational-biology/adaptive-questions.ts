@@ -630,4 +630,61 @@ export const computationalBiologyAdaptiveQuestions: SurveyQuestion[] = [
       biologyUnsureOption,
     ],
   },
+  {
+    id: "biology-cell-systems-focus",
+    stage: "narrowing",
+    kicker: "Choose the system behavior",
+    title:
+      "Which relationship inside a living system would you most like to model?",
+    prompt:
+      "Pick the kind of connection or change that you would want to turn into a testable computational model.",
+    type: "single",
+    visibleWhen: {
+      questionId: "biology-motivation",
+      anyOf: ["cells-systems"],
+    },
+    options: [
+      {
+        id: "interaction-networks",
+        label: "Interactions among genes, proteins, or cells",
+        description:
+          "Build a network while recording what each edge means and how strongly it is supported.",
+        signals: {
+          "topic:networks": 3,
+          "evidence:networks": 2,
+        },
+      },
+      {
+        id: "metabolic-flows",
+        label: "How resources flow through metabolic reactions",
+        description:
+          "Use biochemical constraints to compare feasible pathways, growth, or production tradeoffs.",
+        signals: {
+          "topic:metabolic-modeling": 3,
+          "style:modeling": 2,
+        },
+      },
+      {
+        id: "regulatory-control",
+        label: "How regulatory elements and factors control genes",
+        description:
+          "Integrate sequence, chromatin, and expression evidence into testable control relationships.",
+        signals: {
+          "topic:regulatory-genomics": 3,
+          "mode:explain": 2,
+        },
+      },
+      {
+        id: "dynamic-response",
+        label: "How a cellular response unfolds over time",
+        description:
+          "Compare early, late, temporary, and sustained activity across a perturbation or transition.",
+        signals: {
+          "topic:time-course-expression": 3,
+          "mode:dynamics": 2,
+        },
+      },
+      biologyUnsureOption,
+    ],
+  },
 ];
