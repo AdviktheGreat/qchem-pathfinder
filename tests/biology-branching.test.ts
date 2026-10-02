@@ -82,4 +82,17 @@ describe("adaptive computational biology questions", () => {
       getVisibleQuestions({ "biology-motivation": ["proteins"] }, questions),
     ).toHaveLength(14);
   });
+
+  it("shows two ecology and microbiome follow-ups", () => {
+    expect(narrowingIds("microbes-ecosystems")).toEqual([
+      "biology-ecology-focus",
+      "biology-ecology-evidence",
+    ]);
+    expect(
+      getVisibleQuestions(
+        { "biology-motivation": ["microbes-ecosystems"] },
+        questions,
+      ),
+    ).toHaveLength(14);
+  });
 });

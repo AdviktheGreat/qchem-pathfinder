@@ -687,4 +687,117 @@ export const computationalBiologyAdaptiveQuestions: SurveyQuestion[] = [
       biologyUnsureOption,
     ],
   },
+  {
+    id: "biology-ecology-focus",
+    stage: "narrowing",
+    kicker: "Narrow the living community",
+    title: "Which ecological scale would you explore first?",
+    prompt:
+      "Choose the system whose patterns you would most like to connect to environmental evidence.",
+    type: "single",
+    visibleWhen: {
+      questionId: "biology-motivation",
+      anyOf: ["microbes-ecosystems"],
+    },
+    options: [
+      {
+        id: "microbial-composition",
+        label: "Which microbes make up a community",
+        description:
+          "Compare community membership and relative composition while checking sampling and contamination.",
+        signals: {
+          "topic:microbiome": 3,
+          "scale:ecosystem": 2,
+        },
+      },
+      {
+        id: "metagenome-function",
+        label: "Which genes and functions occur in mixed-community DNA",
+        description:
+          "Assemble or profile environmental sequences to investigate possible community capabilities.",
+        signals: {
+          "topic:microbiome": 3,
+          "evidence:sequence": 2,
+        },
+      },
+      {
+        id: "species-distribution",
+        label: "Where species occur and which environments they track",
+        description:
+          "Relate occurrence records to geography and environment while mapping sampling bias.",
+        signals: {
+          "topic:computational-ecology": 3,
+          "evidence:spatial": 2,
+        },
+      },
+      {
+        id: "biodiversity-change",
+        label: "How biodiversity changes across places or time",
+        description:
+          "Compare communities, occupancy, connectivity, or ecological scenarios with explicit uncertainty.",
+        signals: {
+          "topic:computational-ecology": 3,
+          "evidence:temporal": 2,
+        },
+      },
+      biologyUnsureOption,
+    ],
+  },
+  {
+    id: "biology-ecology-evidence",
+    stage: "narrowing",
+    kicker: "Choose the ecological evidence",
+    title:
+      "Which dataset would you most like to turn into an ecological explanation?",
+    prompt:
+      "Pick the evidence type you would want to inspect before choosing a particular organism or environment.",
+    type: "single",
+    visibleWhen: {
+      questionId: "biology-motivation",
+      anyOf: ["microbes-ecosystems"],
+    },
+    options: [
+      {
+        id: "community-sequences",
+        label: "DNA sequences from a microbial community",
+        description:
+          "Profile taxa or genes while tracking reference bias and compositional measurements.",
+        signals: {
+          "topic:microbiome": 3,
+          "evidence:sequence": 2,
+        },
+      },
+      {
+        id: "species-maps",
+        label: "Species observations and environmental maps",
+        description:
+          "Model distributions while making uneven sampling and geographic coverage visible.",
+        signals: {
+          "topic:computational-ecology": 3,
+          "evidence:spatial": 2,
+        },
+      },
+      {
+        id: "community-table",
+        label: "A table of communities across sites or conditions",
+        description:
+          "Compare diversity and composition while respecting sparse, relative-abundance data.",
+        signals: {
+          "topic:microbiome": 3,
+          "evidence:measurements": 2,
+        },
+      },
+      {
+        id: "ecological-time-series",
+        label: "Repeated observations of ecological change",
+        description:
+          "Study seasonal, disturbance, migration, or long-term patterns without overstating a projection.",
+        signals: {
+          "topic:computational-ecology": 3,
+          "evidence:temporal": 2,
+        },
+      },
+      biologyUnsureOption,
+    ],
+  },
 ];
