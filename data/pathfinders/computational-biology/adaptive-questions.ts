@@ -518,4 +518,116 @@ export const computationalBiologyAdaptiveQuestions: SurveyQuestion[] = [
       biologyUnsureOption,
     ],
   },
+  {
+    id: "biology-protein-focus",
+    stage: "narrowing",
+    kicker: "Narrow the biomolecular question",
+    title: "Which protein or biomolecular question would you explore first?",
+    prompt:
+      "Choose the scientific move that most catches your attention. Nearby sequence, structure, and dynamics directions will remain visible.",
+    type: "single",
+    visibleWhen: {
+      questionId: "biology-motivation",
+      anyOf: ["proteins"],
+    },
+    options: [
+      {
+        id: "sequence-function",
+        label: "Infer function from sequence families and conserved regions",
+        description:
+          "Compare domains, motifs, and evolutionary patterns while preserving uncertain annotations.",
+        signals: {
+          "topic:protein-sequence": 3,
+          "evidence:sequence": 2,
+        },
+      },
+      {
+        id: "predict-structure",
+        label: "Predict and assess a three-dimensional structure",
+        description:
+          "Inspect model confidence, domains, possible sites, and agreement with independent evidence.",
+        signals: {
+          "topic:protein-structure": 3,
+          "evidence:structure": 2,
+        },
+      },
+      {
+        id: "simulate-motion",
+        label: "Simulate molecular motion and changing conformations",
+        description:
+          "Study how proteins, RNA, membranes, or complexes move under modeled conditions.",
+        signals: {
+          "topic:biomolecular-dynamics": 3,
+          "style:simulation": 2,
+        },
+      },
+      {
+        id: "binding-interactions",
+        label: "Investigate molecular binding and interaction interfaces",
+        description:
+          "Compare plausible partners or poses while treating scores as hypotheses rather than measured affinity.",
+        signals: {
+          "topic:virtual-screening": 3,
+          "scale:molecular": 2,
+        },
+      },
+      biologyUnsureOption,
+    ],
+  },
+  {
+    id: "biology-protein-evidence",
+    stage: "narrowing",
+    kicker: "Choose the molecular evidence",
+    title: "Which evidence would you most enjoy interpreting?",
+    prompt:
+      "Pick the evidence you would want to connect to a molecular explanation before choosing a specific system.",
+    type: "single",
+    visibleWhen: {
+      questionId: "biology-motivation",
+      anyOf: ["proteins"],
+    },
+    options: [
+      {
+        id: "family-alignment",
+        label: "A protein-family alignment and domain annotations",
+        description:
+          "Use conservation and subfamily differences to form function hypotheses.",
+        signals: {
+          "topic:protein-sequence": 3,
+          "mode:compare": 2,
+        },
+      },
+      {
+        id: "structure-confidence",
+        label: "A predicted structure with confidence information",
+        description:
+          "Distinguish reliable regions from uncertain loops, domains, interfaces, or alternative states.",
+        signals: {
+          "topic:protein-structure": 3,
+          "style:visual": 2,
+        },
+      },
+      {
+        id: "trajectory",
+        label: "A molecular-simulation trajectory",
+        description:
+          "Summarize conformations and contacts while checking replicas, sampling, and model assumptions.",
+        signals: {
+          "topic:biomolecular-dynamics": 3,
+          "evidence:temporal": 2,
+        },
+      },
+      {
+        id: "screening-controls",
+        label: "Candidate poses compared with known controls",
+        description:
+          "Evaluate whether a docking or screening workflow recovers known evidence before ranking new molecules.",
+        signals: {
+          "topic:virtual-screening": 3,
+          "style:benchmarking": 2,
+        },
+      },
+      biologyUnsureOption,
+    ],
+  },
 ];

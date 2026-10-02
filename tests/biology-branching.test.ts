@@ -23,7 +23,8 @@ describe("adaptive computational biology questions", () => {
   });
 
   it("keeps health follow-ups hidden from unrelated motivations", () => {
-    expect(narrowingIds("proteins")).toEqual([]);
+    expect(narrowingIds("proteins")).not.toContain("biology-health-focus");
+    expect(narrowingIds("proteins")).not.toContain("biology-health-evidence");
   });
 
   it("shows two therapeutic-discovery follow-ups", () => {
@@ -69,5 +70,15 @@ describe("adaptive computational biology questions", () => {
         questions,
       ),
     ).toHaveLength(13);
+  });
+
+  it("shows two protein-focused follow-ups", () => {
+    expect(narrowingIds("proteins")).toEqual([
+      "biology-protein-focus",
+      "biology-protein-evidence",
+    ]);
+    expect(
+      getVisibleQuestions({ "biology-motivation": ["proteins"] }, questions),
+    ).toHaveLength(14);
   });
 });
