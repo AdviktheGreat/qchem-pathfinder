@@ -9,6 +9,7 @@ import { pathogenGenomicsDirections } from "@/data/pathfinders/computational-bio
 import { populationGenomicsDirections } from "@/data/pathfinders/computational-biology/niches-population-genomics";
 import { proteinSequenceStructureDirections } from "@/data/pathfinders/computational-biology/niches-protein-sequence-structure";
 import { singleCellSpatialDirections } from "@/data/pathfinders/computational-biology/niches-single-cell-spatial";
+import { systemsBiologyDirections } from "@/data/pathfinders/computational-biology/niches-systems-biology";
 import { therapeuticDiscoveryDirections } from "@/data/pathfinders/computational-biology/niches-therapeutic-discovery";
 
 export const computationalBiologyNiches: Niche[] = [
@@ -23,4 +24,5 @@ export const computationalBiologyNiches: Niche[] = [
   ...biomolecularModelingDirections,
   ...therapeuticDiscoveryDirections,
   ...biomedicalGenomicsDirections,
+  ...systemsBiologyDirections,
 ];
