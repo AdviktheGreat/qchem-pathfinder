@@ -85,3 +85,10 @@ export const biologyComparisonPrinciples = [
   "Describe differences without ranking fields by difficulty, importance, or student readiness.",
   "Keep neighboring directions open when the same evidence can support more than one interpretation.",
 ] as const;
+
+export const biologyKeywordCopy = {
+  heading: "Starter computational biology keywords",
+  description:
+    "Combine a biological system or dataset, the relationship you want to study, and a computational method to make these terms more specific.",
+  synonymsLabel: "Related phrases used in computational biology literature",
+} as const;

@@ -27,6 +27,7 @@ export {
   biologyComparisonPrinciples,
   biologyDirectionDetailsCopy,
   biologyFitEvidenceCopy,
+  biologyKeywordCopy,
   biologyPreparationCopy,
   biologyPrimaryCopy,
   biologyResultsOverview,
