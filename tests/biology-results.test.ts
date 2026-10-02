@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { computationalBiologyQuestions } from "@/data/pathfinders/computational-biology/questions";
 import {
   biologyDirectionDetailsCopy,
+  biologyFitEvidenceCopy,
   biologyPrimaryCopy,
   biologyResultsOverview,
 } from "@/data/pathfinders/computational-biology/results";
@@ -70,5 +71,15 @@ describe("computational biology results experience", () => {
     expect(biologyDirectionDetailsCopy.approachesDescription).toContain(
       "do not need to master",
     );
+  });
+
+  it("separates interest fit, research style, and preparation", () => {
+    expect(biologyFitEvidenceCopy.interestHeading).toContain("interest");
+    expect(biologyFitEvidenceCopy.styleHeading).toContain("Research-style");
+    expect(biologyFitEvidenceCopy.transparentNote).toContain(
+      "only change preparation guidance",
+    );
+    expect(biologyFitEvidenceCopy.transparentNote).toContain("never");
+    expect(biologyFitEvidenceCopy.openInitially).toBe(true);
   });
 });

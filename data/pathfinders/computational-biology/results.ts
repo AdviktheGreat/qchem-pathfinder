@@ -46,3 +46,14 @@ export const biologyDirectionDetailsCopy = {
   approachesDescription:
     "Each approach answers a different kind of biological question. You do not need to master the tools before you begin reading.",
 } satisfies NonNullable<PathfinderResultsConfig["directionDetailsCopy"]>;
+
+export const biologyFitEvidenceCopy = {
+  matchedHeading: "Why this biology direction matched",
+  startingHeading: "Why this is a useful direction to sample",
+  explanationSummary: "Trace the recommendation to your answers",
+  interestHeading: "Biological interest fit",
+  styleHeading: "Research-style fit",
+  transparentNote:
+    "Interest and research-style choices are scored separately. Familiarity, coding experience, and statistical comfort only change preparation guidance—they never lower a direction’s value or block it.",
+  openInitially: true,
+} satisfies NonNullable<PathfinderResultsConfig["fitEvidenceCopy"]>;
