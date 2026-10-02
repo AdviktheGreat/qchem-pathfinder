@@ -25,4 +25,17 @@ describe("adaptive computational biology questions", () => {
   it("keeps health follow-ups hidden from unrelated motivations", () => {
     expect(narrowingIds("proteins")).toEqual([]);
   });
+
+  it("shows two therapeutic-discovery follow-ups", () => {
+    expect(narrowingIds("therapeutics")).toEqual([
+      "biology-therapeutic-focus",
+      "biology-therapeutic-evidence",
+    ]);
+    expect(
+      getVisibleQuestions(
+        { "biology-motivation": ["therapeutics"] },
+        questions,
+      ),
+    ).toHaveLength(14);
+  });
 });
