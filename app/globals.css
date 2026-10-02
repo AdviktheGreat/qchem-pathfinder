@@ -1334,6 +1334,18 @@ h2 {
   --area-accent: #32705d;
   --area-soft: #e8f2ed;
 }
+.primary-result.theme-genomics {
+  --area-accent: #5f55b8;
+  --area-soft: #efedff;
+}
+.primary-result.theme-cellular {
+  --area-accent: #187a75;
+  --area-soft: #e4f4f1;
+}
+.primary-result.theme-ecology {
+  --area-accent: #47733f;
+  --area-soft: #eaf3e7;
+}
 .primary-result::after {
   content: "";
   position: absolute;
@@ -3194,6 +3206,9 @@ h2 {
   .results-shell {
     width: 100%;
     padding: 0;
+  }
+  .results-shell[data-pathfinder="computational-biology"] .area-label {
+    color: black;
   }
   .result-hero {
     padding: 0 0 1rem;

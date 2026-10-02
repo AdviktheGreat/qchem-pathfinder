@@ -62,6 +62,9 @@ function buildSearchUrl(template: string, query: string): string {
 
 function areaTheme(area: string): string {
   const value = area.toLowerCase();
+  if (/genom|evolution|population|pathogen/.test(value)) return "genomics";
+  if (/cell|expression|regulat|system/.test(value)) return "cellular";
+  if (/ecolog|microbiome/.test(value)) return "ecology";
   if (/reaction|catal|selectiv/.test(value)) return "reaction";
   if (/light|spectro|excited|charge/.test(value)) return "light";
   if (/material|energy|electronic/.test(value)) return "materials";
@@ -491,7 +494,7 @@ export function ResultsScreen({
   });
 
   return (
-    <div className="results-shell">
+    <div className="results-shell" data-pathfinder={definition.identity.id}>
       <section className="result-hero">
         <div>
           <p className="eyebrow">
