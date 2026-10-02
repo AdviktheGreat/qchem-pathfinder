@@ -4,6 +4,7 @@ import { geneExpressionDirections } from "@/data/pathfinders/computational-biolo
 import { molecularEvolutionDirections } from "@/data/pathfinders/computational-biology/niches-molecular-evolution";
 import { pathogenGenomicsDirections } from "@/data/pathfinders/computational-biology/niches-pathogen-genomics";
 import { populationGenomicsDirections } from "@/data/pathfinders/computational-biology/niches-population-genomics";
+import { singleCellSpatialDirections } from "@/data/pathfinders/computational-biology/niches-single-cell-spatial";
 
 export const computationalBiologyNiches: Niche[] = [
   ...comparativeGenomicsDirections,
@@ -11,4 +12,5 @@ export const computationalBiologyNiches: Niche[] = [
   ...molecularEvolutionDirections,
   ...pathogenGenomicsDirections,
   ...geneExpressionDirections,
+  ...singleCellSpatialDirections,
 ];
