@@ -3,6 +3,7 @@ import {
   biologyUnsureOption,
   createBiologyOpenOption,
 } from "@/data/pathfinders/computational-biology/uncertainty-options";
+import { computationalBiologyAdaptiveQuestions } from "@/data/pathfinders/computational-biology/adaptive-questions";
 
 export const computationalBiologyQuestions: SurveyQuestion[] = [
   {
@@ -545,4 +546,5 @@ export const computationalBiologyQuestions: SurveyQuestion[] = [
       biologyUnsureOption,
     ],
   },
+  ...computationalBiologyAdaptiveQuestions,
 ];

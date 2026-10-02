@@ -35,14 +35,17 @@ describe("computational biology Phase 1 foundation", () => {
     expect(storage.key).not.toBe(computationalMaterialsPathfinder.storage.key);
   });
 
-  it("provides twelve unique common questions for a fourteen-question adaptive path", () => {
-    expect(survey.questions).toHaveLength(12);
+  it("keeps twelve common questions ahead of targeted adaptive follow-ups", () => {
+    const commonQuestions = survey.questions.filter(
+      (question) => !question.visibleWhen,
+    );
+    expect(commonQuestions).toHaveLength(12);
     expect(new Set(survey.questions.map((question) => question.id)).size).toBe(
-      12,
+      survey.questions.length,
     );
     expect(survey.branchQuestionId).toBe("biology-motivation");
     expect(survey.questions.some((question) => question.visibleWhen)).toBe(
-      false,
+      true,
     );
 
     for (const question of survey.questions) {
