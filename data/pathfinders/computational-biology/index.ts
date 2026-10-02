@@ -4,6 +4,11 @@ export {
 } from "@/data/pathfinders/computational-biology/foundation";
 export { computationalBiologyIdentity } from "@/data/pathfinders/computational-biology/identity";
 export { computationalBiologyIntro } from "@/data/pathfinders/computational-biology/intro";
+export {
+  biologyStarterPaperTypes,
+  defineBiologyNiche,
+} from "@/data/pathfinders/computational-biology/niche-defaults";
+export { computationalBiologyNiches } from "@/data/pathfinders/computational-biology/niches";
 export { computationalBiologyQuestions } from "@/data/pathfinders/computational-biology/questions";
 export {
   COMPUTATIONAL_BIOLOGY_STORAGE_KEY,
