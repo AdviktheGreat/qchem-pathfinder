@@ -6,6 +6,11 @@ import {
   biologySearchCopy,
   biologySearchRefinements,
 } from "@/data/pathfinders/computational-biology/results";
+import {
+  biologyPaperNoteTemplate,
+  biologyPaperTypeGuide,
+  biologyReadingCopy,
+} from "@/data/pathfinders/computational-biology/reading-guidance";
 
 describe("computational biology literature launchpads", () => {
   it("provides a focused, non-duplicated keyword set for every direction", () => {
@@ -43,5 +48,28 @@ describe("computational biology literature launchpads", () => {
     ]);
     expect(biologySearchRefinements).toHaveLength(3);
     expect(biologySearchCopy.queriesDescription).toContain("recent review");
+  });
+
+  it("teaches a source-first reading workflow without inventing citations", () => {
+    expect(biologyPaperTypeGuide.map((entry) => entry.term)).toEqual([
+      "Review",
+      "Perspective",
+      "Methods or benchmark paper",
+      "Original application study",
+    ]);
+    expect(biologyReadingCopy.description).toContain("original evidence");
+    expect(biologyReadingCopy.citationWarning).toContain("invented citations");
+    expect(biologyReadingCopy.checklist).toHaveLength(3);
+    expect(biologyPaperNoteTemplate).toContain("Source checked");
+    expect(biologyPaperNoteTemplate).toContain(
+      "possible alternative explanation",
+    );
+
+    for (const niche of computationalBiologyNiches) {
+      expect(niche.paperTypes.length, niche.id).toBeGreaterThanOrEqual(3);
+      expect(niche.paperTypes.join(" "), niche.id).toMatch(
+        /review|perspective/i,
+      );
+    }
   });
 });

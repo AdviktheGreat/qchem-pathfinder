@@ -23,6 +23,11 @@ export {
 } from "@/data/pathfinders/computational-biology/preparation";
 export { biologyNicheReasons } from "@/data/pathfinders/computational-biology/reasons";
 export {
+  biologyPaperNoteTemplate,
+  biologyPaperTypeGuide,
+  biologyReadingCopy,
+} from "@/data/pathfinders/computational-biology/reading-guidance";
+export {
   biologyAlternativesCopy,
   biologyComparisonPrinciples,
   biologyDirectionDetailsCopy,
