@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { computationalBiologyQuestions } from "@/data/pathfinders/computational-biology/questions";
-import { biologyResultsOverview } from "@/data/pathfinders/computational-biology/results";
+import {
+  biologyPrimaryCopy,
+  biologyResultsOverview,
+} from "@/data/pathfinders/computational-biology/results";
 
 describe("computational biology results experience", () => {
   it("summarizes four useful research coordinates", () => {
@@ -19,5 +22,12 @@ describe("computational biology results experience", () => {
         (dimension) => dimension.fallback.length > 20,
       ),
     ).toBe(true);
+  });
+
+  it("frames the primary direction as an exploratory starting point", () => {
+    expect(biologyPrimaryCopy.title).toContain("promising");
+    expect(biologyPrimaryCopy.description).toContain("not as a final topic");
+    expect(biologyPrimaryCopy.description).toContain("not as");
+    expect(biologyPrimaryCopy.contextSummary).toContain("Beginner-friendly");
   });
 });

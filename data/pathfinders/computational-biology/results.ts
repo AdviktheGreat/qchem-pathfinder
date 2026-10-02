@@ -28,3 +28,11 @@ export const biologyResultsOverview = {
     },
   ],
 } satisfies NonNullable<PathfinderResultsConfig["overview"]>;
+
+export const biologyPrimaryCopy = {
+  eyebrow: "Your computational biology map",
+  title: "A promising biological direction to investigate",
+  description:
+    "Use this as a well-supported starting point for reading and comparison—not as a final topic, a diagnosis, or a limit on what you can study.",
+  contextSummary: "Beginner-friendly scientific orientation",
+} satisfies NonNullable<PathfinderResultsConfig["primaryCopy"]>;
