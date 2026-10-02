@@ -11,6 +11,13 @@ export {
 export { computationalBiologyNiches } from "@/data/pathfinders/computational-biology/niches";
 export { computationalBiologyQuestions } from "@/data/pathfinders/computational-biology/questions";
 export {
+  biologyOpenExplorationIds,
+  biologyRecommendationScoring,
+  biologyScoringPrinciples,
+  biologyScoringWeights,
+  biologySignalGroups,
+} from "@/data/pathfinders/computational-biology/scoring";
+export {
   COMPUTATIONAL_BIOLOGY_STORAGE_KEY,
   COMPUTATIONAL_BIOLOGY_STORAGE_VERSION,
   computationalBiologyStorage,
