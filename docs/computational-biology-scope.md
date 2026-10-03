@@ -42,6 +42,6 @@ Results should clearly separate:
 
 The result is a reading direction, not a permanent label. Students should be able to review answers, resolve contradictions, explore a nearby direction, export a consistent research profile, restart safely, and return after refreshing the browser.
 
-## Phase 1 boundary
+## Release status
 
-Phase 1 defines the identity, introduction, calibration, broad motivations, common research preferences, persistence namespace, and validation rules. It does not add the final taxonomy, recommendation affinities, adaptive narrowing branches, public route, or hub launch. The catalog remains marked as coming soon until the complete experience is ready.
+The complete module is available at `/pathfinders/computational-biology`. It includes 24 directions, conditional narrowing for every motivation family, deterministic scoring, preparation guidance, three literature-search launchpads, plain-text export, isolated local persistence, answer review, and nearby-direction selection. See `computational-biology-maintenance.md` for editing and release guidance.

@@ -16,6 +16,12 @@ Electronic, vibrational, and rotational excitation should remain distinct.
 These terminology references are for content maintenance. They are not invented
 research-paper citations in students' literature-search launchpads.
 
+## Computational biology copy
+
+Biology definitions live in `data/pathfinders/computational-biology/glossary.ts`, with direction-specific method explanations in the niche modules. Copy distinguishes an observed association, a prediction, and a causal or clinical claim. Biomedical examples must stay at the level of research questions and appropriately governed datasets; they must not interpret personal health data, diagnose a condition, or imply that a computational result establishes treatment safety or effectiveness.
+
+Sequence, expression, structure, imaging, network, ecological, and clinical-context data have different biases and validation needs. Search guidance therefore emphasizes independent evidence, held-out evaluation, uncertainty, data provenance, and reading the real source. Automated tests protect the presence and internal consistency of this guidance, but an appropriate subject-matter reviewer should still inspect edited scientific claims before a workshop release.
+
 ## Computational materials copy
 
 The materials module distinguishes method, scale, and evidence instead of treating “simulation” as one interchangeable activity. DFT is described as an electronic-structure approach; molecular dynamics follows atomic motion; phase-field and finite-element approaches address larger-scale evolution or response; machine learning learns patterns from data. Copy must not imply that one method directly answers every scale.

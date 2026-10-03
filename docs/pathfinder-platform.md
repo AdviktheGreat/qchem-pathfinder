@@ -13,9 +13,9 @@ Catalog tests protect unique IDs and names, valid available routes, and non-inte
 
 ## Route and storage boundaries
 
-The hub lives at `/`. Each active module uses a stable route below `/pathfinders/`. Quantum chemistry uses `/pathfinders/quantum-chemistry`; computational materials uses `/pathfinders/computational-materials`.
+The hub lives at `/`. Each active module uses a stable route below `/pathfinders/`. Quantum chemistry uses `/pathfinders/quantum-chemistry`; computational materials uses `/pathfinders/computational-materials`; computational biology uses `/pathfinders/computational-biology`.
 
-The hub stores only the most recently visited available pathfinder under `research-pathfinder:hub`. Quantum chemistry owns `quantum-pathfinder:progress`; computational materials owns `computational-materials-pathfinder:progress`. Hub cards resolve the matching typed definition before reading progress, and the in-pathfinder switcher navigates without deleting either record. Every future module must receive its own versioned key and validation rules.
+The hub stores only the most recently visited available pathfinder under `research-pathfinder:hub`. Quantum chemistry owns `quantum-pathfinder:progress`; computational materials owns `computational-materials-pathfinder:progress`; computational biology owns `computational-biology-pathfinder:progress`. Hub cards resolve the matching typed definition before reading progress, and the in-pathfinder switcher navigates without deleting any record. Every future module must receive its own versioned key and validation rules.
 
 ## Activating another pathfinder
 

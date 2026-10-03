@@ -1,8 +1,8 @@
 # Research Pathfinder
 
-Research Pathfinder is a privacy-minded hub for focused, peer-guided research-orientation tools. Its two complete modules—Quantum Chemistry and Computational Materials—help motivated high-school students move from broad curiosity to one promising sub-niche, two nearby alternatives, and practical language for beginning a literature review in roughly 8–12 minutes.
+Research Pathfinder is a privacy-minded hub for focused, peer-guided research-orientation tools. Its three complete modules—Quantum Chemistry, Computational Materials, and Computational Biology—help motivated high-school students move from broad curiosity to one promising sub-niche, two nearby alternatives, and practical language for beginning a literature review in roughly 8–12 minutes.
 
-The hub does **not** choose a final research question, grade prior knowledge, or send student answers anywhere. Each pathfinder keeps an independent progress record in the browser on the current device. Computational biology remains an honest, non-interactive roadmap preview.
+The hub does **not** choose a final research question, grade prior knowledge, diagnose health, or send student answers anywhere. Each pathfinder keeps an independent progress record in the browser on the current device.
 
 ## Local development and checks
 
@@ -45,14 +45,14 @@ lib/preparation.ts      Shared preparation model for results and exports
 lib/profile-export.ts   Plain-text research-profile formatter
 lib/persistence.ts      Versioned local-storage serialization and validation
 lib/hub-persistence.ts  Validated recently visited pathfinder state
-tests/fixtures/         Complete, validated qchem and materials student paths
+tests/fixtures/         Complete, validated student paths for all three modules
 tests/                  Unit and rendered-component journey tests
 docs/                   Export format contract and scientific-copy sources
 ```
 
 ## Hub and pathfinder routes
 
-The central hub lives at `/`. The complete experiences live at `/pathfinders/quantum-chemistry` and `/pathfinders/computational-materials`. The hub and in-pathfinder switcher connect them without clearing either survey.
+The central hub lives at `/`. The complete experiences live at `/pathfinders/quantum-chemistry`, `/pathfinders/computational-materials`, and `/pathfinders/computational-biology`. The hub and in-pathfinder switcher connect them without clearing any survey.
 
 The hub resolves each card to its typed pathfinder definition, reads only that definition’s storage key, and shows whether the student should start, continue, or review it. A small separate hub record remembers the most recently visited available pathfinder. All records remain local to the browser.
 
@@ -65,9 +65,9 @@ See [the pathfinder platform contract](docs/pathfinder-platform.md) before addin
 
 ## How adaptation works
 
-Each definition declares its calibration, motivation, common-preference, and conditional narrowing questions. A broad-motivation answer reveals only the relevant follow-ups; other branches are not rendered or counted in progress. Quantum chemistry usually shows 16 questions, while computational materials usually shows 17.
+Each definition declares its calibration, motivation, common-preference, and conditional narrowing questions. A broad-motivation answer reveals only the relevant follow-ups; other branches are not rendered or counted in progress. Quantum chemistry usually shows 16 questions, computational materials usually shows 17, and computational biology usually shows 14.
 
-Questions are typed objects in `data/questions.ts` for quantum chemistry and `data/pathfinders/computational-materials/questions.ts` plus `adaptive-questions.ts` for materials. A conditional question has a small `visibleWhen` rule:
+Questions are typed objects in `data/questions.ts` for quantum chemistry. Materials and biology each use `questions.ts` plus `adaptive-questions.ts` inside their subject folder under `data/pathfinders/`. A conditional question has a small `visibleWhen` rule:
 
 ```ts
 visibleWhen: { questionId: "motivation", anyOf: ["light"] }
@@ -87,9 +87,9 @@ The engine is deterministic and intentionally inspectable:
 6. Uncertain answers add no negative score. Exploration bonuses are tracked separately from preference evidence. With no positive preference evidence, three curated, varied starting directions replace a misleading ranked match. Other ties use stable taxonomy order.
 7. Results expose separate interest-fit and research-style reasons generated from actual answers. “Strong fit” requires a highest score, positive interest support, and evidence from at least two non-calibration questions. Open-ended results are labeled “Starting point,” never a match percentage.
 
-The numeric score sums weighted signal affinities, direct narrowing boosts multiplied by the active definition’s explicit multiplier, and an exploration bonus. Quantum chemistry content lives in the top-level `data/` files. Materials signals, boosts, weights, and affinities live under `data/pathfinders/computational-materials/`. Shared ranking and label rules live in `lib/recommendation.ts`. Keep preference evidence separate from exploration bonuses.
+The numeric score sums weighted signal affinities, direct narrowing boosts multiplied by the active definition’s explicit multiplier, and an exploration bonus. Quantum chemistry content lives in the top-level `data/` files. Materials and biology signals, boosts, weights, and affinities live in their respective folders under `data/pathfinders/`. Shared ranking and label rules live in `lib/recommendation.ts`. Keep preference evidence separate from exploration bonuses.
 
-Tests confirm that all 18 quantum chemistry and all 22 computational materials directions can become the primary result through a valid visible path. They also cover deterministic conflicts and ties, uncertainty, representative complete profiles, and calibration independence.
+Tests confirm that all 18 quantum chemistry, all 22 computational materials, and all 24 computational biology directions can become the primary result through a complete visible path. They also cover deterministic conflicts and ties, uncertainty, representative complete profiles, and calibration independence.
 
 ## Small usability refinements
 
@@ -117,15 +117,15 @@ Results include section navigation, a three-direction overview, explained fit la
 
 Instructor-editable supporting copy lives in `data/fit-labels.ts`, `data/reading-guidance.ts`, and `data/concept-overlaps.ts`. Concept overlap rules only remove a narrower label when its explicitly listed umbrella topic is present; they do not infer equivalence from word similarity.
 
-`npm test` runs unit and jsdom component tests. Quantum chemistry fixtures cover medicine, energy/materials, spectroscopy, reactions, machine learning, and extensive uncertainty. Materials fixtures cover energy storage, electronics, light and sensing, catalysis, soft materials, machine learning, and extensive uncertainty. Rendered journeys exercise introduction, answer controls, adaptive questions, results, export preview, review, refresh restoration, branch edits, and manually selected alternatives.
+`npm test` runs unit and jsdom component tests. Quantum chemistry fixtures cover medicine, energy/materials, spectroscopy, reactions, machine learning, and extensive uncertainty. Materials fixtures cover energy storage, electronics, light and sensing, catalysis, soft materials, machine learning, and extensive uncertainty. Biology fixtures cover health and variants, therapeutic protein structure, comparative genomics, spatial biology, microbiomes, machine learning, and extensive uncertainty. Rendered journeys exercise introduction, answer controls, adaptive questions, results, export preview, review, refresh restoration, branch edits, and manually selected alternatives.
 
-Coverage also checks all 18 qchem and all 22 materials niches can become the **primary** result through complete visible paths; calibration independence; ties and conflicting interests; honest uncertainty labels; shared preparation/export content; saved-data repair; chosen-direction refresh recovery; keyboard navigation; focus; and shortcut settings. These are not substitutes for browser, assistive-technology, or scientific review. After UI changes, review introduction, survey, and results at desktop, tablet, and phone widths, including refresh and alternative selection.
+Coverage also checks all 18 qchem, all 22 materials, and all 24 biology niches can become the **primary** result through complete visible paths; calibration independence; ties and conflicting interests; honest uncertainty labels; shared preparation/export content; saved-data repair; chosen-direction refresh recovery; keyboard navigation; focus; and shortcut settings. These are not substitutes for browser, assistive-technology, or scientific review. After UI changes, review introduction, survey, and results at desktop, tablet, and phone widths, including refresh and alternative selection.
 
 `tests/taxonomy.test.ts` also protects the instructor-edited content: direction IDs and names must stay unique, every literature launchpad must remain complete, starter keyword counts stay manageable, and explanation rules must refer to signals the niche actually scores.
 
 ## Edit the survey or taxonomy
 
-To edit quantum chemistry, use the established top-level `data/` modules. To edit computational materials, start with [`docs/computational-materials-maintenance.md`](docs/computational-materials-maintenance.md). Reuse an existing signal when it represents the same preference, or add a clearly named signal and matching niche affinities. Add `visibleWhen` only when the question belongs to a branch.
+To edit quantum chemistry, use the established top-level `data/` modules. For the newer modules, start with the [computational materials](docs/computational-materials-maintenance.md) or [computational biology](docs/computational-biology-maintenance.md) maintenance guide. Reuse an existing signal when it represents the same preference, or add a clearly named signal and matching niche affinities. Add `visibleWhen` only when the question belongs to a branch.
 
 Each `Niche` owns its descriptions, typical questions, example systems, approaches, preparation, concepts, keywords, synonyms, searches, paper guidance, affinities, and explanation rules. New niches should also receive at least one meaningful `nicheBoosts` route from a visible narrowing answer; the reachability tests fail if it is missing or cannot become primary.
 
@@ -145,7 +145,7 @@ No environment variables, database, authentication, API routes, or external serv
 1. Push this repository to GitHub.
 2. In Vercel, choose **Add New → Project** and import the repository.
 3. Keep the detected framework as **Next.js**, the root directory as the repository root, and the default install/build settings (`npm ci` and `npm run build`).
-4. No environment variables are required. Deploy the preview and test `/`, both available pathfinder routes, refresh restoration, and one completed export.
+4. No environment variables are required. Deploy the preview and test `/`, all three pathfinder routes, refresh restoration, and one completed export.
 5. Promote the verified preview to production. Vercel installs the locked dependencies and statically prerenders the App Router routes.
 
 For a CLI preview after signing in to Vercel:
@@ -158,11 +158,11 @@ Use `npx vercel --prod` only after the preview is approved.
 
 ## Known limitations
 
-- Quantum chemistry and computational materials are complete. Computational biology is still a roadmap preview, not a usable module.
+- The three curated taxonomies offer approachable starting points, not exhaustive maps of their disciplines.
 - Recommendations reflect a curated taxonomy and declared weights; they are conversation starters, not objective measurements.
 - Progress is browser- and device-specific. Clearing site storage removes it.
 - Search launchpads provide vocabulary and query strings, not live literature results or verified citations.
-- Both taxonomies are intentionally scoped to approachable computational research directions and are not exhaustive.
+- Computational biology is an educational orientation tool, not a source of personal, clinical, or medical advice.
 
 ## Later literature-kit integration
 
