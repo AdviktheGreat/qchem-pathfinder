@@ -55,7 +55,11 @@ export function PathfinderCard({
         : Atom;
 
   return (
-    <article className="pathfinder-card" aria-labelledby={titleId}>
+    <article
+      className="pathfinder-card"
+      data-pathfinder={pathfinder.id}
+      aria-labelledby={titleId}
+    >
       <div className="pathfinder-card-topline">
         <div className="pathfinder-card-icon" aria-hidden="true">
           <PathfinderIcon size={24} />

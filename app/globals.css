@@ -2333,6 +2333,8 @@ h2 {
   gap: 1.25rem;
 }
 .pathfinder-card {
+  --card-accent: var(--teal);
+  --card-soft: var(--stage-soft);
   grid-column: span 8;
   position: relative;
   padding: clamp(1.5rem, 4vw, 2.5rem);
@@ -2348,7 +2350,7 @@ h2 {
   right: -90px;
   width: 300px;
   height: 300px;
-  border: 1px solid rgba(49, 87, 213, 0.13);
+  border: 1px solid color-mix(in srgb, var(--card-accent) 18%, transparent);
   border-radius: 50%;
   content: "";
 }
@@ -2359,8 +2361,8 @@ h2 {
   height: 52px;
   margin-bottom: 1.5rem;
   border-radius: 16px;
-  background: var(--stage-soft);
-  color: var(--teal);
+  background: var(--card-soft);
+  color: var(--card-accent);
 }
 .pathfinder-card-topline {
   display: flex;
@@ -2421,14 +2423,26 @@ h2 {
 .pathfinder-focus-list li {
   padding: 0.45rem 0.65rem;
   border-radius: 999px;
-  background: var(--stage-soft);
-  color: var(--teal-dark);
+  background: var(--card-soft);
+  color: var(--card-accent);
   font-size: 0.72rem;
   font-weight: 750;
 }
 .pathfinder-outcome {
   padding-left: 1rem;
-  border-left: 2px solid var(--violet);
+  border-left: 2px solid var(--card-accent);
+}
+.pathfinder-card[data-pathfinder="quantum-chemistry"] {
+  --card-accent: #7556d8;
+  --card-soft: #f0ebff;
+}
+.pathfinder-card[data-pathfinder="computational-materials"] {
+  --card-accent: #3157d5;
+  --card-soft: #eaf0ff;
+}
+.pathfinder-card[data-pathfinder="computational-biology"] {
+  --card-accent: #187a75;
+  --card-soft: #e4f4f1;
 }
 .pathfinder-card-meta {
   display: flex;
@@ -2521,6 +2535,28 @@ h2 {
   padding-top: 1rem;
   border-top: 1px solid var(--line);
   font-size: 0.75rem;
+}
+@media (min-width: 1100px) {
+  .pathfinder-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+  }
+  .pathfinder-card {
+    grid-column: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 1.75rem;
+  }
+  .pathfinder-card-topline {
+    min-height: 104px;
+  }
+  .pathfinder-card h3 {
+    font-size: clamp(2.05rem, 2.7vw, 2.75rem);
+  }
+  .pathfinder-card .primary-button {
+    align-self: flex-start;
+    margin-top: auto;
+  }
 }
 @media (max-width: 900px) {
   .app-header {
