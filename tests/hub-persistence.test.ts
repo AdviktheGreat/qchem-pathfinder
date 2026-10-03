@@ -15,29 +15,26 @@ describe("hub visit persistence", () => {
     expect(parseHubState(JSON.stringify(state))).toEqual(state);
   });
 
-  it("restores either available pathfinder without path-specific logic", () => {
-    const catalog = pathfinders.map((pathfinder) =>
-      pathfinder.id === "computational-materials"
-        ? {
-            ...pathfinder,
-            status: "available" as const,
-            href: "/pathfinders/computational-materials",
-          }
-        : pathfinder,
-    );
-    const state = createHubState(
-      "computational-materials",
-      new Date("2026-10-01T18:00:00.000Z"),
-    );
+  it.each([
+    ["quantum-chemistry", "/pathfinders/quantum-chemistry"],
+    ["computational-materials", "/pathfinders/computational-materials"],
+    ["computational-biology", "/pathfinders/computational-biology"],
+  ])("restores the available %s pathfinder", (id, href) => {
+    const state = createHubState(id, new Date("2026-10-03T18:00:00.000Z"));
 
-    expect(getRecentPathfinder(JSON.stringify(state), catalog)).toMatchObject({
-      id: "computational-materials",
-      href: "/pathfinders/computational-materials",
+    expect(getRecentPathfinder(JSON.stringify(state))).toMatchObject({
+      id,
+      href,
     });
   });
 
   it("ignores malformed, unavailable, or unknown destinations", () => {
     expect(parseHubState("not json")).toBeNull();
+    const unavailableCatalog = pathfinders.map((pathfinder) =>
+      pathfinder.id === "computational-biology"
+        ? { ...pathfinder, status: "coming-soon" as const, href: undefined }
+        : pathfinder,
+    );
     expect(
       parseHubState(
         JSON.stringify({
@@ -45,6 +42,7 @@ describe("hub visit persistence", () => {
           lastPathfinderId: "computational-biology",
           lastVisitedAt: "2026-09-29T18:00:00.000Z",
         }),
+        unavailableCatalog,
       ),
     ).toBeNull();
     expect(
