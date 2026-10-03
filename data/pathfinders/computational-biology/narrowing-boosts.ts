@@ -42,7 +42,10 @@ export const biologyNarrowingBoosts: Record<string, OptionBoosts> = {
   "biology-evolution-focus": {
     relationships: { "phylogenetic-inference": 6 },
     "sequence-selection": { "molecular-evolution-selection": 6 },
-    "population-history": { "population-genomics-history": 6 },
+    "population-history": {
+      "population-genomics-history": 6,
+      "adaptation-conservation-genomics": 5,
+    },
     "pathogen-change": { "pathogen-genomics-surveillance": 6 },
   },
   "biology-evolution-evidence": {
