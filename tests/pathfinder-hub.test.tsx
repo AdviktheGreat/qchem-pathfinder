@@ -7,7 +7,7 @@ import { PathfinderHub } from "@/components/PathfinderHub";
 afterEach(cleanup);
 
 describe("PathfinderHub", () => {
-  it("introduces the collection and links to both available pathfinders", () => {
+  it("introduces the collection and links to all available pathfinders", () => {
     render(<PathfinderHub />);
 
     expect(
@@ -25,6 +25,12 @@ describe("PathfinderHub", () => {
         .getByRole("link", { name: /Open computational materials/i })
         .getAttribute("href"),
     ).toBe("/pathfinders/computational-materials");
-    expect(screen.getAllByText("Coming later")).toHaveLength(1);
+    expect(
+      screen
+        .getByRole("link", { name: /Open computational biology/i })
+        .getAttribute("href"),
+    ).toBe("/pathfinders/computational-biology");
+    expect(screen.queryByText("Coming later")).toBeNull();
+    expect(screen.queryByText("Collection roadmap")).toBeNull();
   });
 });

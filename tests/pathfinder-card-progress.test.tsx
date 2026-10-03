@@ -5,6 +5,7 @@ import { afterEach, expect, it, vi } from "vitest";
 import { PathfinderCard } from "@/components/PathfinderCard";
 import { pathfinders } from "@/data/pathfinders";
 import { computationalMaterialsPathfinder } from "@/data/pathfinders/computational-materials";
+import { computationalBiologyPathfinder } from "@/data/pathfinders/computational-biology";
 import { getVisibleQuestions } from "@/lib/branching";
 import type { AnswerMap } from "@/lib/types";
 
@@ -36,6 +37,11 @@ it("shows saved quantum chemistry progress on the hub card", async () => {
 const materialsCatalogEntry = {
   ...pathfinders[1],
   href: computationalMaterialsPathfinder.identity.route,
+};
+
+const biologyCatalogEntry = {
+  ...pathfinders[2],
+  href: computationalBiologyPathfinder.identity.route,
 };
 
 function completeMaterialsAnswers(): AnswerMap {
@@ -107,5 +113,26 @@ it("shows a review state for a completed computational materials map", async () 
     screen.getByRole("link", {
       name: /Review my computational materials map/,
     }),
+  ).toBeDefined();
+});
+
+it("shows resumable computational biology progress", async () => {
+  vi.spyOn(Storage.prototype, "getItem").mockImplementation((key) =>
+    key === computationalBiologyPathfinder.storage.key
+      ? JSON.stringify({
+          version: computationalBiologyPathfinder.storage.version,
+          savedAt: "2026-10-03T18:00:00.000Z",
+          screen: "survey",
+          currentQuestionId: "biology-concept-familiarity",
+          answers: { "biology-starting-point": ["recognize"] },
+        })
+      : null,
+  );
+
+  render(<PathfinderCard pathfinder={biologyCatalogEntry} />);
+
+  expect(await screen.findByText("Exploration in progress")).toBeDefined();
+  expect(
+    screen.getByRole("link", { name: /Continue computational biology/ }),
   ).toBeDefined();
 });

@@ -32,13 +32,19 @@ describe("pathfinder catalog", () => {
     });
   });
 
+  it("registers computational biology as an available pathfinder", () => {
+    expect(getPathfinder("computational-biology")).toMatchObject({
+      shortName: "Computational biology",
+      status: "available",
+      href: "/pathfinders/computational-biology",
+    });
+  });
+
   it("keeps roadmap previews non-interactive until they are complete", () => {
     const previews = pathfinders.filter(
       (pathfinder) => pathfinder.status === "coming-soon",
     );
-    expect(previews.map((pathfinder) => pathfinder.id)).toEqual([
-      "computational-biology",
-    ]);
+    expect(previews.map((pathfinder) => pathfinder.id)).toEqual([]);
     expect(previews.every((pathfinder) => pathfinder.href === undefined)).toBe(
       true,
     );

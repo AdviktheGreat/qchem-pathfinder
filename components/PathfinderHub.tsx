@@ -33,10 +33,14 @@ export function PathfinderHub() {
         <main id="hub-main" className="hub-main" tabIndex={-1}>
           <nav className="hub-section-nav" aria-label="Hub sections">
             <a href="#directory-title">Available pathfinders</a>
-            <a href="#roadmap-title">Collection roadmap</a>
+            {upcomingPathfinders.length > 0 ? (
+              <a href="#roadmap-title">Collection roadmap</a>
+            ) : null}
             <span>
-              {availablePathfinders.length} available ·{" "}
-              {upcomingPathfinders.length} in development
+              {availablePathfinders.length} available
+              {upcomingPathfinders.length > 0
+                ? ` · ${upcomingPathfinders.length} in development`
+                : null}
             </span>
           </nav>
           <section className="hub-intro" aria-labelledby="hub-title">
@@ -104,30 +108,32 @@ export function PathfinderHub() {
             </div>
           </section>
 
-          <section
-            className="pathfinder-roadmap"
-            aria-labelledby="roadmap-title"
-          >
-            <div className="section-heading">
-              <div>
-                <p className="section-kicker">On the horizon</p>
-                <h2 id="roadmap-title">More scientific neighborhoods.</h2>
+          {upcomingPathfinders.length > 0 ? (
+            <section
+              className="pathfinder-roadmap"
+              aria-labelledby="roadmap-title"
+            >
+              <div className="section-heading">
+                <div>
+                  <p className="section-kicker">On the horizon</p>
+                  <h2 id="roadmap-title">More scientific neighborhoods.</h2>
+                </div>
+                <p>
+                  These previews show where the collection can grow. They will
+                  open only after their questions, recommendations, and search
+                  guidance are complete.
+                </p>
               </div>
-              <p>
-                These previews show where the collection can grow. They will
-                open only after their questions, recommendations, and search
-                guidance are complete.
-              </p>
-            </div>
-            <div className="pathfinder-preview-grid">
-              {upcomingPathfinders.map((pathfinder) => (
-                <PathfinderPreviewCard
-                  pathfinder={pathfinder}
-                  key={pathfinder.id}
-                />
-              ))}
-            </div>
-          </section>
+              <div className="pathfinder-preview-grid">
+                {upcomingPathfinders.map((pathfinder) => (
+                  <PathfinderPreviewCard
+                    pathfinder={pathfinder}
+                    key={pathfinder.id}
+                  />
+                ))}
+              </div>
+            </section>
+          ) : null}
         </main>
       </div>
     </>

@@ -52,8 +52,9 @@ export const pathfinders: PathfinderCatalogEntry[] = [
     outcome:
       "Narrow toward a biological scale, question type, and computational approach that fits your curiosity.",
     focusAreas: ["Biomolecules", "Health", "Biological data"],
-    duration: "On the roadmap",
-    status: "coming-soon",
+    duration: "About 10 minutes",
+    status: "available",
+    href: "/pathfinders/computational-biology",
   },
 ];
 

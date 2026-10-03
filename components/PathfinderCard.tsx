@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ArrowRight, Atom, Blocks, Check, Clock3 } from "lucide-react";
+import { ArrowRight, Atom, Blocks, Check, Clock3, Dna } from "lucide-react";
 import { getPathfinderDefinition } from "@/data/pathfinder-definitions";
 import type { PathfinderCatalogEntry } from "@/data/pathfinders";
 import {
@@ -48,7 +48,11 @@ export function PathfinderCard({
   const outcomeId = `${pathfinder.id}-outcome`;
   const progressId = `${pathfinder.id}-progress`;
   const PathfinderIcon =
-    pathfinder.id === "computational-materials" ? Blocks : Atom;
+    pathfinder.id === "computational-materials"
+      ? Blocks
+      : pathfinder.id === "computational-biology"
+        ? Dna
+        : Atom;
 
   return (
     <article className="pathfinder-card" aria-labelledby={titleId}>
