@@ -1,23 +1,23 @@
-# Computational materials release verification
+# Research Pathfinder release verification
 
-Verified October 1, 2026 against the local production build.
+Verified October 3, 2026 against the local production build after launching the Computational Biology module.
 
 ## Automated release gate
 
 - Prettier passed for the application, components, data, libraries, tests, documentation, and README.
 - ESLint and TypeScript checks passed.
-- Vitest passed all 308 tests across 54 files.
-- The Next.js production build passed and statically prerendered the hub, not-found page, quantum chemistry pathfinder, and computational materials pathfinder.
-- Automated coverage includes complete student journeys, all 22 computational materials directions, balanced and uncertain profiles, ties, answer editing, manual alternative selection, isolated persistence, and corrupted-storage recovery.
+- Vitest passed all 420 tests across 72 files.
+- The Next.js production build passed and statically prerendered the hub, not-found page, and all three pathfinder routes.
+- Automated biology coverage includes complete student journeys, all 24 directions, seven representative profiles, balanced and uncertain rankings, ties, calibration neutrality, branch editing, manual alternative selection, isolated persistence, corrupted-storage recovery, and keyboard interaction.
+- The full gate also retains the existing quantum chemistry and computational materials coverage.
 
 ## Production browser review
 
-- Reviewed the computational materials introduction, adaptive survey, and results experience at desktop, tablet, and phone sizes.
-- Checked 1280 × 900, 768 × 1024, and 390 × 844 viewports. At each size, the document width matched the viewport with no horizontal overflow.
-- Confirmed the materials page title, primary heading, canonical URL, visible launch action, responsive navigation, and cross-pathfinder controls.
-- Verified touch-target sizing and keyboard-visible focus treatment through the accessibility test suite and responsive browser review.
+- Reviewed the three-card hub and Computational Biology introduction and adaptive survey at 1440 × 1000 and 390 × 844. Cards form an even three-column directory on wide screens and a readable single-column flow on phones.
+- Confirmed the Biology page title, primary heading, visible launch action, fixed phone controls, progress semantics, and cross-pathfinder destinations.
+- Verified result actions, literature tabs, nearby-direction controls, and research-profile export through rendered component journeys at the shared responsive breakpoints.
 - Confirmed no captured browser warnings or errors during the production smoke test.
-- Confirmed HTTP 200 responses for the hub, computational materials pathfinder, and quantum chemistry pathfinder from the production server.
+- Confirmed HTTP 200 responses for the hub and all three pathfinder routes from the production server.
 
 ## Remaining manual checks
 

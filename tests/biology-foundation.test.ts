@@ -24,8 +24,8 @@ describe("computational biology Phase 1 foundation", () => {
     const catalogEntry = getPathfinder(identity.id);
     expect(catalogEntry?.name).toBe(identity.name);
     expect(catalogEntry?.shortName).toBe(identity.shortName);
-    expect(catalogEntry?.status).toBe("coming-soon");
-    expect(catalogEntry?.href).toBeUndefined();
+    expect(catalogEntry?.status).toBe("available");
+    expect(catalogEntry?.href).toBe(identity.route);
   });
 
   it("keeps biology progress isolated from the existing pathfinders", () => {
