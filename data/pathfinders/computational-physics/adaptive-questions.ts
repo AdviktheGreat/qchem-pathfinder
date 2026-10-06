@@ -446,4 +446,92 @@ export const computationalPhysicsAdaptiveQuestions: SurveyQuestion[] = [
       physicsUnsureOption,
     ],
   },
+  {
+    id: "physics-particle-nuclear-focus",
+    stage: "narrowing",
+    kicker: "Narrow the subatomic question",
+    title: "Which subatomic problem would you investigate first?",
+    prompt:
+      "Choose the link in the chain that interests you most—from fundamental theory to a measurable instrument signal.",
+    type: "single",
+    visibleWhen: {
+      questionId: "physics-motivation",
+      anyOf: ["particles-nuclei"],
+    },
+    options: [
+      {
+        id: "collision-events",
+        label: "What particles and patterns a high-energy collision produces",
+        description:
+          "Generate event ensembles and compare signal distributions with physical backgrounds.",
+        signals: { "topic:particle-events": 3, "mode:predict": 2 },
+      },
+      {
+        id: "detector-signals",
+        label: "How a detector signal reveals the original event",
+        description:
+          "Model particle transport, instrument response, reconstruction, efficiency, and bias.",
+        signals: { "topic:detector-physics": 3, "mode:infer": 2 },
+      },
+      {
+        id: "nuclear-structure",
+        label: "How protons and neutrons form nuclear states and reactions",
+        description:
+          "Connect quantum many-body approximations with energy levels, decays, and reaction probabilities.",
+        signals: { "topic:nuclear-physics": 3, "scale:subatomic": 2 },
+      },
+      {
+        id: "fields-on-lattice",
+        label: "How strongly interacting quantum fields behave on a lattice",
+        description:
+          "Sample field configurations and approach continuum predictions through controlled limits.",
+        signals: { "topic:lattice-field": 3, "mode:theory": 2 },
+      },
+      physicsUnsureOption,
+    ],
+  },
+  {
+    id: "physics-particle-nuclear-evidence",
+    stage: "narrowing",
+    kicker: "Choose the subatomic evidence",
+    title: "Which evidence would you most like to turn into a physical claim?",
+    prompt:
+      "Pick the evidence type whose assumptions, uncertainty, and interpretation you would want to understand.",
+    type: "single",
+    visibleWhen: {
+      questionId: "physics-motivation",
+      anyOf: ["particles-nuclei"],
+    },
+    options: [
+      {
+        id: "event-distributions",
+        label: "Distributions across many simulated collision events",
+        description:
+          "Separate rare signal patterns from expected background and sampling variation.",
+        signals: { "topic:particle-events": 3, "evidence:distributions": 2 },
+      },
+      {
+        id: "response-resolution",
+        label: "Detector efficiency, resolution, and reconstruction error",
+        description:
+          "Trace a known simulated event through instrument response to a recovered estimate.",
+        signals: { "topic:detector-physics": 3, "style:benchmarking": 2 },
+      },
+      {
+        id: "levels-cross-sections",
+        label: "Nuclear energy levels, decay rates, or reaction probabilities",
+        description:
+          "Compare many-body and reaction calculations with measured nuclear observables.",
+        signals: { "topic:nuclear-physics": 3, "evidence:spectra": 2 },
+      },
+      {
+        id: "correlation-continuum",
+        label: "Field correlations extrapolated toward physical limits",
+        description:
+          "Test sampling, lattice spacing, and finite-volume effects before interpreting an observable.",
+        signals: { "topic:lattice-field": 3, "mode:compare": 2 },
+      },
+      physicsUnsureOption,
+    ],
+  },
 ];
