@@ -385,4 +385,62 @@ export const computationalPhysicsQuestions: SurveyQuestion[] = [
       physicsUnsureOption,
     ],
   },
+  {
+    id: "physics-scale",
+    stage: "style",
+    kicker: "Choose a scale",
+    title: "Which physical scales would you enjoy thinking about?",
+    prompt:
+      "Choose up to two. A computational method can often connect neighboring scales, so this is a preference rather than a boundary.",
+    type: "multi",
+    maxSelections: 2,
+    options: [
+      {
+        id: "subatomic",
+        label: "Particles and nuclei",
+        description:
+          "Fundamental particles, nuclear structure, collisions, decays, and detector-scale events.",
+        signals: { "scale:subatomic": 3 },
+      },
+      {
+        id: "quantum-atomic",
+        label: "Quantum, atomic, and few-body systems",
+        description:
+          "Quantum states, atoms, photons, small interacting systems, and precisely controlled experiments.",
+        signals: { "scale:quantum": 3 },
+      },
+      {
+        id: "many-body",
+        label: "Many-particle and collective matter",
+        description:
+          "Large groups of interacting particles whose shared behavior creates phases, order, and emergence.",
+        signals: { "scale:many-body": 3 },
+      },
+      {
+        id: "continuum",
+        label: "Fluids, plasmas, fields, and everyday scales",
+        description:
+          "Systems described through density, flow, temperature, pressure, or fields that vary through space.",
+        signals: { "scale:continuum": 3 },
+      },
+      {
+        id: "planetary-stellar",
+        label: "Planets and stars",
+        description:
+          "Atmospheres, interiors, orbits, magnetic activity, stellar evolution, and compact objects.",
+        signals: { "scale:stellar": 3 },
+      },
+      {
+        id: "galactic-cosmic",
+        label: "Galaxies and the universe",
+        description:
+          "Structure formation, gravity across enormous distances, cosmic signals, and the history of the universe.",
+        signals: { "scale:cosmic": 3 },
+      },
+      createPhysicsOpenOption(
+        "I’m open to several scales",
+        "Let the kind of question and research workflow matter more than the system’s size.",
+      ),
+    ],
+  },
 ];
