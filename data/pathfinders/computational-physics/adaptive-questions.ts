@@ -622,4 +622,92 @@ export const computationalPhysicsAdaptiveQuestions: SurveyQuestion[] = [
       physicsUnsureOption,
     ],
   },
+  {
+    id: "physics-methods-focus",
+    stage: "narrowing",
+    kicker: "Narrow the computational challenge",
+    title: "Which methods problem would you investigate first?",
+    prompt:
+      "Choose the computational problem that sounds meaningful even before settling on one physical application.",
+    type: "single",
+    visibleWhen: {
+      questionId: "physics-motivation",
+      anyOf: ["methods-computing"],
+    },
+    options: [
+      {
+        id: "solver-accuracy",
+        label: "Make a numerical solver more accurate or stable",
+        description:
+          "Compare discretizations, time steps, convergence, and known limiting cases.",
+        signals: { "topic:numerical-methods": 3, "style:benchmarking": 2 },
+      },
+      {
+        id: "parallel-scale",
+        label: "Make a large simulation use computing resources effectively",
+        description:
+          "Study parallel work, data movement, bottlenecks, and performance scaling without losing correctness.",
+        signals: { "topic:numerical-methods": 3, "style:coding": 2 },
+      },
+      {
+        id: "infer-hidden",
+        label: "Infer hidden physical quantities from noisy observations",
+        description:
+          "Work backward from data while reporting ambiguity and uncertainty.",
+        signals: { "topic:physics-ml-inverse": 3, "mode:infer": 2 },
+      },
+      {
+        id: "fast-surrogate",
+        label: "Build a fast surrogate for an expensive simulation",
+        description:
+          "Use data-driven approximations while testing physical constraints and behavior beyond training examples.",
+        signals: { "topic:physics-ml-inverse": 3, "style:data": 2 },
+      },
+      physicsUnsureOption,
+    ],
+  },
+  {
+    id: "physics-methods-evidence",
+    stage: "narrowing",
+    kicker: "Choose the reliability test",
+    title: "What would make a computational physics method trustworthy to you?",
+    prompt:
+      "Pick the check you would most want to see before relying on a new solver, inference, or learned approximation.",
+    type: "single",
+    visibleWhen: {
+      questionId: "physics-motivation",
+      anyOf: ["methods-computing"],
+    },
+    options: [
+      {
+        id: "convergence-known-case",
+        label: "It converges and reproduces a known physical case",
+        description:
+          "Vary resolution and compare with analytic, benchmark, or conservation expectations.",
+        signals: { "topic:numerical-methods": 3, "mode:compare": 2 },
+      },
+      {
+        id: "scaling-reproducible",
+        label: "Its speedup is measured without changing the scientific answer",
+        description:
+          "Report hardware, workload, scaling, bottlenecks, and numerical agreement transparently.",
+        signals: { "topic:numerical-methods": 3, "style:computational": 2 },
+      },
+      {
+        id: "calibrated-uncertainty",
+        label: "Its inferred values include calibrated uncertainty",
+        description:
+          "Test recovery on known cases and show when observations do not determine one answer.",
+        signals: { "topic:physics-ml-inverse": 3, "evidence:distributions": 2 },
+      },
+      {
+        id: "outside-training",
+        label: "It respects physics on conditions outside its training data",
+        description:
+          "Compare with a conventional baseline, withheld regimes, and conservation checks.",
+        signals: { "topic:physics-ml-inverse": 3, "style:benchmarking": 2 },
+      },
+      physicsUnsureOption,
+    ],
+  },
 ];
