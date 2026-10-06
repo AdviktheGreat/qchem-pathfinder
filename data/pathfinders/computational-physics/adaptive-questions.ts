@@ -1,7 +1,8 @@
 import { physicsUnsureOption } from "@/data/pathfinders/computational-physics/uncertainty-options";
+import { physicsNarrowingBoosts } from "@/data/pathfinders/computational-physics/narrowing-boosts";
 import type { SurveyQuestion } from "@/lib/types";
 
-export const computationalPhysicsAdaptiveQuestions: SurveyQuestion[] = [
+const computationalPhysicsAdaptiveQuestionContent: SurveyQuestion[] = [
   {
     id: "physics-astrophysics-focus",
     stage: "narrowing",
@@ -799,3 +800,12 @@ export const computationalPhysicsAdaptiveQuestions: SurveyQuestion[] = [
     ],
   },
 ];
+
+export const computationalPhysicsAdaptiveQuestions: SurveyQuestion[] =
+  computationalPhysicsAdaptiveQuestionContent.map((question) => ({
+    ...question,
+    options: question.options.map((option) => ({
+      ...option,
+      nicheBoosts: physicsNarrowingBoosts[question.id]?.[option.id],
+    })),
+  }));
