@@ -266,4 +266,93 @@ export const computationalPhysicsAdaptiveQuestions: SurveyQuestion[] = [
       physicsUnsureOption,
     ],
   },
+  {
+    id: "physics-condensed-focus",
+    stage: "narrowing",
+    kicker: "Narrow the collective behavior",
+    title: "Which many-particle phenomenon would you investigate first?",
+    prompt:
+      "Choose the behavior you want to explain; the model can begin simple even when the collective physics is rich.",
+    type: "single",
+    visibleWhen: {
+      questionId: "physics-motivation",
+      anyOf: ["matter-collective"],
+    },
+    options: [
+      {
+        id: "magnetic-order",
+        label: "Magnetic order, frustration, and spin patterns",
+        description:
+          "Use lattice interactions to see how local choices create or prevent collective order.",
+        signals: { "topic:lattice-spin": 3, "mode:explain": 2 },
+      },
+      {
+        id: "quantum-phases",
+        label: "Correlated quantum phases and entanglement",
+        description:
+          "Investigate phases that require a combined many-particle quantum description.",
+        signals: { "topic:quantum-many-body": 3, "scale:many-body": 2 },
+      },
+      {
+        id: "critical-change",
+        label: "Phase transitions and critical behavior",
+        description:
+          "Study how fluctuations and correlations grow as a system changes phase.",
+        signals: { "topic:critical-phenomena": 3, "style:statistical": 2 },
+      },
+      {
+        id: "driven-collective",
+        label: "Driven, relaxing, or self-organizing matter",
+        description:
+          "Follow systems that transport, dissipate, or reorganize away from equilibrium.",
+        signals: { "topic:nonequilibrium": 3, "mode:dynamics": 2 },
+      },
+      physicsUnsureOption,
+    ],
+  },
+  {
+    id: "physics-condensed-evidence",
+    stage: "narrowing",
+    kicker: "Choose the collective evidence",
+    title:
+      "Which pattern would most convince you that a collective state is present?",
+    prompt:
+      "Pick the diagnostic you would want to understand and test across model choices or system sizes.",
+    type: "single",
+    visibleWhen: {
+      questionId: "physics-motivation",
+      anyOf: ["matter-collective"],
+    },
+    options: [
+      {
+        id: "spin-configurations",
+        label: "Spin configurations and magnetic correlations",
+        description:
+          "Relate local patterns and correlation lengths to ordered or frustrated behavior.",
+        signals: { "topic:lattice-spin": 3, "evidence:fields": 2 },
+      },
+      {
+        id: "entanglement-gap",
+        label: "Entanglement, energy gaps, and quantum correlations",
+        description:
+          "Use several quantum diagnostics to distinguish candidate many-body phases.",
+        signals: { "topic:quantum-many-body": 3, "style:mathematical": 2 },
+      },
+      {
+        id: "size-collapse",
+        label: "Data collapse and trends across system size",
+        description:
+          "Infer large-system critical behavior from multiple finite simulations.",
+        signals: { "topic:critical-phenomena": 3, "mode:compare": 2 },
+      },
+      {
+        id: "relaxation-current",
+        label: "Relaxation times, currents, and rare fluctuations",
+        description:
+          "Interpret trajectories and distributions in a driven or changing system.",
+        signals: { "topic:nonequilibrium": 3, "evidence:trajectories": 2 },
+      },
+      physicsUnsureOption,
+    ],
+  },
 ];
