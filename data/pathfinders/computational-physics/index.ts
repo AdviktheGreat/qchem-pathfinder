@@ -1,4 +1,5 @@
 export { computationalPhysicsIdentity } from "@/data/pathfinders/computational-physics/identity";
+export { physicsGlossary } from "@/data/pathfinders/computational-physics/glossary";
 export { computationalPhysicsQuestions } from "@/data/pathfinders/computational-physics/questions";
 export {
   COMPUTATIONAL_PHYSICS_STORAGE_KEY,
