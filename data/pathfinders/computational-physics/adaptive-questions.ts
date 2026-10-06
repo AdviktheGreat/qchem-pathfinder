@@ -710,4 +710,92 @@ export const computationalPhysicsAdaptiveQuestions: SurveyQuestion[] = [
       physicsUnsureOption,
     ],
   },
+  {
+    id: "physics-open-system",
+    stage: "narrowing",
+    kicker: "Browse across physics",
+    title: "Which cluster of systems feels most worth sampling first?",
+    prompt:
+      "This keeps your path broad while giving the results enough direction to offer meaningfully different starting points.",
+    type: "single",
+    visibleWhen: {
+      questionId: "physics-motivation",
+      anyOf: ["open"],
+    },
+    options: [
+      {
+        id: "cosmic-motion",
+        label: "Motion and structure across space",
+        description:
+          "Sample orbital, stellar, galactic, or universe-scale questions connected by gravity.",
+        signals: { "interest:astrophysics": 3, "scale:cosmic": 2 },
+      },
+      {
+        id: "flowing-fields",
+        label: "Flowing matter and fields",
+        description:
+          "Sample fluids, weather, climate, plasma, and transport through space or matter.",
+        signals: { "interest:fluids": 2, "interest:plasma": 2 },
+      },
+      {
+        id: "quantum-collective",
+        label: "Quantum and collective behavior",
+        description:
+          "Sample quantum states, many-body matter, phase transitions, and emergence.",
+        signals: { "interest:quantum": 2, "interest:condensed": 2 },
+      },
+      {
+        id: "subatomic-signals",
+        label: "Subatomic systems and the signals they produce",
+        description:
+          "Sample particle events, detectors, nuclei, and field-theory calculations.",
+        signals: { "interest:particle-nuclear": 3, "scale:subatomic": 2 },
+      },
+      physicsUnsureOption,
+    ],
+  },
+  {
+    id: "physics-open-method",
+    stage: "narrowing",
+    kicker: "Browse by research move",
+    title: "Which first computational move sounds most engaging?",
+    prompt:
+      "Choose an activity that could stay interesting across several physical systems.",
+    type: "single",
+    visibleWhen: {
+      questionId: "physics-motivation",
+      anyOf: ["open"],
+    },
+    options: [
+      {
+        id: "evolve-system",
+        label: "Simulate how a system evolves",
+        description:
+          "Choose initial conditions, follow change through time, and explain an emerging trajectory or pattern.",
+        signals: { "mode:dynamics": 3, "style:simulation": 2 },
+      },
+      {
+        id: "infer-cause",
+        label: "Infer a hidden cause from measurements",
+        description:
+          "Work backward from noisy signals while keeping uncertainty and alternative explanations visible.",
+        signals: { "mode:infer": 3, "style:data": 2 },
+      },
+      {
+        id: "compare-reliability",
+        label: "Compare methods and test reliability",
+        description:
+          "Use convergence, benchmarks, and controlled comparisons to learn when a calculation deserves trust.",
+        signals: { "mode:compare": 3, "style:benchmarking": 2 },
+      },
+      {
+        id: "visualize-mechanism",
+        label: "Make a difficult physical mechanism visible",
+        description:
+          "Turn fields, trajectories, distributions, or networks into an explanation rather than decoration.",
+        signals: { "mode:explain": 3, "style:visual": 2 },
+      },
+      physicsUnsureOption,
+    ],
+  },
 ];
