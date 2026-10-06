@@ -7,3 +7,7 @@ export {
   COMPUTATIONAL_PHYSICS_STORAGE_VERSION,
   computationalPhysicsStorage,
 } from "@/data/pathfinders/computational-physics/storage";
+export {
+  createPhysicsOpenOption,
+  physicsUnsureOption,
+} from "@/data/pathfinders/computational-physics/uncertainty-options";
