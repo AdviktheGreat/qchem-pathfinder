@@ -178,4 +178,92 @@ export const computationalPhysicsAdaptiveQuestions: SurveyQuestion[] = [
       physicsUnsureOption,
     ],
   },
+  {
+    id: "physics-quantum-focus",
+    stage: "narrowing",
+    kicker: "Narrow the quantum system",
+    title: "Which quantum behavior would you investigate first?",
+    prompt:
+      "Choose a physical question, not a test of prior quantum knowledge. Each can be approached from a small, teachable model.",
+    type: "single",
+    visibleWhen: {
+      questionId: "physics-motivation",
+      anyOf: ["quantum-atoms"],
+    },
+    options: [
+      {
+        id: "driven-control",
+        label: "Steer a quantum state with a changing field",
+        description:
+          "Follow coherent time evolution and design pulses that prepare or move a state.",
+        signals: { "topic:quantum-control": 3, "mode:design": 2 },
+      },
+      {
+        id: "noise-decoherence",
+        label: "Understand noise, decoherence, and environmental coupling",
+        description:
+          "Model how an imperfectly isolated quantum system relaxes or loses coherence.",
+        signals: { "topic:open-quantum": 3, "mode:explain": 2 },
+      },
+      {
+        id: "interacting-quantum",
+        label: "Explore collective phases of interacting quantum particles",
+        description:
+          "Ask how correlation and entanglement produce behavior absent from one particle alone.",
+        signals: { "topic:quantum-many-body": 3, "scale:many-body": 2 },
+      },
+      {
+        id: "quantum-magnetism",
+        label: "Use lattice and spin models to study quantum magnetism",
+        description:
+          "Connect local interactions and geometry with ordering, frustration, and fluctuations.",
+        signals: { "topic:lattice-spin": 3, "mode:theory": 2 },
+      },
+      physicsUnsureOption,
+    ],
+  },
+  {
+    id: "physics-quantum-evidence",
+    stage: "narrowing",
+    kicker: "Choose the quantum evidence",
+    title: "Which quantum output would you most like to interpret?",
+    prompt:
+      "Pick the evidence that would help you decide whether a model explains the behavior you care about.",
+    type: "single",
+    visibleWhen: {
+      questionId: "physics-motivation",
+      anyOf: ["quantum-atoms"],
+    },
+    options: [
+      {
+        id: "state-populations",
+        label: "State populations and fidelity changing over time",
+        description:
+          "Judge whether a driven protocol reaches its target and remains robust to imperfect settings.",
+        signals: { "topic:quantum-control": 3, "evidence:trajectories": 2 },
+      },
+      {
+        id: "coherence-decay",
+        label: "Coherence, relaxation, and noisy quantum trajectories",
+        description:
+          "Compare ideal evolution with environmental models and stochastic histories.",
+        signals: { "topic:open-quantum": 3, "evidence:distributions": 2 },
+      },
+      {
+        id: "correlations-entanglement",
+        label: "Correlations and entanglement across a quantum system",
+        description:
+          "Use collective diagnostics to distinguish phases and many-body behavior.",
+        signals: { "topic:quantum-many-body": 3, "style:mathematical": 2 },
+      },
+      {
+        id: "magnetization-fluctuations",
+        label: "Magnetization, fluctuations, and finite-size patterns",
+        description:
+          "Compare lattice sizes and sampling behavior to interpret collective order.",
+        signals: { "topic:lattice-spin": 3, "style:statistical": 2 },
+      },
+      physicsUnsureOption,
+    ],
+  },
 ];
