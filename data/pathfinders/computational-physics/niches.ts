@@ -1,4 +1,5 @@
 import type { Niche } from "@/lib/types";
+import { physicsNicheAffinities } from "@/data/pathfinders/computational-physics/affinities";
 import { condensedMatterDirections } from "@/data/pathfinders/computational-physics/niches-condensed-matter";
 import { complexSystemsDirections } from "@/data/pathfinders/computational-physics/niches-complex-systems";
 import { computationalMethodDirections } from "@/data/pathfinders/computational-physics/niches-computational-methods";
@@ -14,7 +15,7 @@ import { spacePlasmaDirections } from "@/data/pathfinders/computational-physics/
 import { stellarAstrophysicsDirections } from "@/data/pathfinders/computational-physics/niches-stellar-astrophysics";
 import { statisticalMechanicsDirections } from "@/data/pathfinders/computational-physics/niches-statistical-mechanics";
 
-export const computationalPhysicsNiches: Niche[] = [
+const computationalPhysicsNicheContent: Niche[] = [
   ...orbitalDynamicsDirections,
   ...stellarAstrophysicsDirections,
   ...cosmologyDirections,
@@ -30,3 +31,9 @@ export const computationalPhysicsNiches: Niche[] = [
   ...nuclearFieldTheoryDirections,
   ...computationalMethodDirections,
 ];
+
+export const computationalPhysicsNiches: Niche[] =
+  computationalPhysicsNicheContent.map((niche) => ({
+    ...niche,
+    affinities: physicsNicheAffinities[niche.id] ?? {},
+  }));

@@ -57,7 +57,16 @@ describe("computational physics Phase 2 taxonomy", () => {
       expect(niche.searches.review.length, niche.id).toBeGreaterThan(20);
       expect(niche.comparisonLens.length, niche.id).toBeGreaterThan(60);
       expect(niche.paperTypes, niche.id).toEqual([...physicsStarterPaperTypes]);
-      expect(niche.affinities, niche.id).toEqual({});
+      expect(
+        Object.keys(niche.affinities).length,
+        niche.id,
+      ).toBeGreaterThanOrEqual(7);
+      expect(
+        Object.values(niche.affinities).every(
+          (weight) => weight >= 1 && weight <= 3,
+        ),
+        niche.id,
+      ).toBe(true);
       expect(niche.reasons, niche.id).toEqual([]);
     }
   });

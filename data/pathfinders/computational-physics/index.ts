@@ -1,5 +1,6 @@
 export { computationalPhysicsIdentity } from "@/data/pathfinders/computational-physics/identity";
 export { computationalPhysicsAdaptiveQuestions } from "@/data/pathfinders/computational-physics/adaptive-questions";
+export { physicsNicheAffinities } from "@/data/pathfinders/computational-physics/affinities";
 export {
   computationalPhysicsFoundation,
   computationalPhysicsSurvey,
