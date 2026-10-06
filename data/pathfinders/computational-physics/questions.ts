@@ -1,5 +1,8 @@
 import type { SurveyQuestion } from "@/lib/types";
-import { physicsUnsureOption } from "@/data/pathfinders/computational-physics/uncertainty-options";
+import {
+  createPhysicsOpenOption,
+  physicsUnsureOption,
+} from "@/data/pathfinders/computational-physics/uncertainty-options";
 
 export const computationalPhysicsQuestions: SurveyQuestion[] = [
   {
@@ -245,6 +248,80 @@ export const computationalPhysicsQuestions: SurveyQuestion[] = [
           "Combine physical intuition, visuals, mathematics, and computation without assuming one must come first.",
       },
       physicsUnsureOption,
+    ],
+  },
+  {
+    id: "physics-motivation",
+    stage: "motivation",
+    kicker: "Follow your curiosity",
+    title: "Which physical world would you most like to investigate?",
+    prompt:
+      "Choose the scenario that pulls you in today. This opens a route through the survey; it does not lock you into a field.",
+    type: "single",
+    options: [
+      {
+        id: "space-universe",
+        label: "Stars, planets, galaxies, and gravity",
+        description:
+          "Model how structures form, objects move, signals travel, or extreme environments behave across space.",
+        signals: { "interest:astrophysics": 3, "scale:cosmic": 2 },
+      },
+      {
+        id: "fluids-weather",
+        label: "Air, water, weather, and turbulent flow",
+        description:
+          "Explore how fluids move, mix, transport energy, and produce patterns from vortices to climate-scale circulation.",
+        signals: { "interest:fluids": 3, "scale:continuum": 2 },
+      },
+      {
+        id: "quantum-atoms",
+        label: "Quantum behavior, atoms, and light",
+        description:
+          "Investigate states, measurement, wave-like behavior, information, or the interaction between matter and radiation.",
+        signals: { "interest:quantum": 3, "scale:quantum": 2 },
+      },
+      {
+        id: "matter-collective",
+        label: "Materials, phases, and collective behavior",
+        description:
+          "Study how many interacting particles produce magnetism, superconductivity, unusual phases, or emergent patterns.",
+        signals: { "interest:condensed": 3, "scale:many-body": 2 },
+      },
+      {
+        id: "plasma-fusion",
+        label: "Plasmas, fusion, and space weather",
+        description:
+          "Model charged matter, magnetic confinement, energetic particles, or the dynamics of the Sun and near-Earth space.",
+        signals: { "interest:plasma": 3, "scale:continuum": 2 },
+      },
+      {
+        id: "particles-nuclei",
+        label: "Particles, nuclei, and detectors",
+        description:
+          "Examine fundamental interactions, nuclear structure, collisions, decays, or how detector signals reveal hidden events.",
+        signals: {
+          "interest:particle-nuclear": 3,
+          "scale:subatomic": 2,
+        },
+      },
+      {
+        id: "complex-patterns",
+        label: "Chaos, networks, and complex patterns",
+        description:
+          "Ask how simple rules create unpredictable motion, phase changes, collective behavior, or structure across many systems.",
+        signals: { "interest:complex-systems": 3, "style:statistical": 2 },
+      },
+      {
+        id: "methods-computing",
+        label: "Algorithms, data, and better simulations",
+        description:
+          "Focus on how numerical methods, inverse problems, or scientific machine learning help physicists make reliable claims.",
+        signals: { "interest:methods": 3, "style:computational": 2 },
+      },
+      createPhysicsOpenOption(
+        "Show me several possibilities",
+        "Keep multiple physical systems in play and use my later research-style answers to distinguish them.",
+      ),
     ],
   },
 ];
