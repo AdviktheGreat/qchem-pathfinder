@@ -324,4 +324,65 @@ export const computationalPhysicsQuestions: SurveyQuestion[] = [
       ),
     ],
   },
+  {
+    id: "physics-question-kind",
+    stage: "question",
+    kicker: "The question behind the computation",
+    title: "Which kind of research question sounds most satisfying?",
+    prompt:
+      "Imagine spending a few weeks on one project. Which goal would make the work feel worthwhile?",
+    type: "single",
+    options: [
+      {
+        id: "explain",
+        label: "Explain why a physical pattern happens",
+        description:
+          "Use a model to uncover a mechanism, cause, or organizing principle behind an observation.",
+        signals: { "mode:explain": 3, "style:interpretation": 2 },
+      },
+      {
+        id: "predict",
+        label: "Predict what a system will do",
+        description:
+          "Estimate an outcome, observable, stability limit, or response under new conditions.",
+        signals: { "mode:predict": 3, "style:modeling": 2 },
+      },
+      {
+        id: "dynamics",
+        label: "Follow how a system changes over time",
+        description:
+          "Simulate motion, evolution, transport, relaxation, growth, or the onset of instability.",
+        signals: { "mode:dynamics": 3, "style:simulation": 2 },
+      },
+      {
+        id: "compare",
+        label: "Compare models, algorithms, or approximations",
+        description:
+          "Test which computational choices are accurate, efficient, stable, or appropriate in different regimes.",
+        signals: { "mode:compare": 3, "style:benchmarking": 2 },
+      },
+      {
+        id: "infer",
+        label: "Infer hidden physics from measurements or data",
+        description:
+          "Work backward from signals, images, observations, or noisy datasets to constrain a physical explanation.",
+        signals: { "mode:infer": 3, "style:data": 2 },
+      },
+      {
+        id: "design",
+        label: "Design or optimize a physical system",
+        description:
+          "Search for shapes, settings, controls, or material behavior that achieve a useful outcome.",
+        signals: { "mode:design": 3, "context:applied": 2 },
+      },
+      {
+        id: "theory",
+        label: "Probe a fundamental model or theoretical limit",
+        description:
+          "Explore the consequences of physical assumptions, symmetries, idealized systems, or extreme regimes.",
+        signals: { "mode:theory": 3, "context:fundamental": 2 },
+      },
+      physicsUnsureOption,
+    ],
+  },
 ];
