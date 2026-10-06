@@ -13,6 +13,13 @@ export {
 export { computationalPhysicsNiches } from "@/data/pathfinders/computational-physics/niches";
 export { computationalPhysicsQuestions } from "@/data/pathfinders/computational-physics/questions";
 export {
+  physicsOpenExplorationIds,
+  physicsRecommendationScoring,
+  physicsScoringPrinciples,
+  physicsScoringWeights,
+  physicsSignalGroups,
+} from "@/data/pathfinders/computational-physics/scoring";
+export {
   COMPUTATIONAL_PHYSICS_STORAGE_KEY,
   COMPUTATIONAL_PHYSICS_STORAGE_VERSION,
   computationalPhysicsStorage,
