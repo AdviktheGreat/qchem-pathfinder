@@ -1,4 +1,5 @@
 import type { Niche } from "@/lib/types";
+import { condensedMatterDirections } from "@/data/pathfinders/computational-physics/niches-condensed-matter";
 import { cosmologyDirections } from "@/data/pathfinders/computational-physics/niches-cosmology";
 import { fluidDynamicsDirections } from "@/data/pathfinders/computational-physics/niches-fluid-dynamics";
 import { geophysicalFlowDirections } from "@/data/pathfinders/computational-physics/niches-geophysical-flows";
@@ -15,4 +16,5 @@ export const computationalPhysicsNiches: Niche[] = [
   ...geophysicalFlowDirections,
   ...plasmaFusionDirections,
   ...spacePlasmaDirections,
+  ...condensedMatterDirections,
 ];
