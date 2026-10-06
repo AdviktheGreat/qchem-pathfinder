@@ -443,4 +443,123 @@ export const computationalPhysicsQuestions: SurveyQuestion[] = [
       ),
     ],
   },
+  {
+    id: "physics-evidence",
+    stage: "style",
+    kicker: "What you want to inspect",
+    title: "Which kinds of evidence would you most enjoy interpreting?",
+    prompt:
+      "Choose up to two. These are different windows into a model, not competing definitions of good research.",
+    type: "multi",
+    maxSelections: 2,
+    options: [
+      {
+        id: "trajectories-time",
+        label: "Trajectories and change over time",
+        description:
+          "Track motion, evolution, oscillation, transport, growth, or a system settling into a new state.",
+        signals: { "evidence:trajectories": 3, "style:simulation": 2 },
+      },
+      {
+        id: "fields-images",
+        label: "Fields, maps, and spatial images",
+        description:
+          "Interpret how density, velocity, temperature, probability, or another quantity varies through space.",
+        signals: { "evidence:fields": 3, "style:visual": 2 },
+      },
+      {
+        id: "spectra-signals",
+        label: "Spectra, signals, and observations",
+        description:
+          "Connect peaks, time series, detector output, or telescope measurements to a physical source.",
+        signals: { "evidence:spectra": 3, "style:data": 2 },
+      },
+      {
+        id: "distributions",
+        label: "Distributions, fluctuations, and ensembles",
+        description:
+          "Use statistical patterns across many particles, events, initial conditions, or repeated simulations.",
+        signals: { "evidence:distributions": 3, "style:statistical": 2 },
+      },
+      {
+        id: "experimental",
+        label: "Experimental measurements compared with models",
+        description:
+          "Ask whether a simulation explains real observations and what a mismatch could teach us.",
+        signals: {
+          "evidence:experimental": 3,
+          "style:interpretation": 2,
+        },
+      },
+      {
+        id: "mixed",
+        label: "Several evidence types side by side",
+        description:
+          "Build confidence by checking whether different outputs and observations tell a consistent story.",
+        signals: { "evidence:integrated": 3, "mode:compare": 2 },
+      },
+      createPhysicsOpenOption(
+        "I’m not sure which evidence type yet",
+        "Keep trajectories, images, signals, statistics, and experimental comparisons available.",
+      ),
+    ],
+  },
+  {
+    id: "physics-workflow",
+    stage: "style",
+    kicker: "A research day you might enjoy",
+    title: "Which activities sound most appealing in a physics project?",
+    prompt:
+      "Choose up to three. This helps distinguish nearby directions that study similar systems in different ways.",
+    type: "multi",
+    maxSelections: 3,
+    options: [
+      {
+        id: "derive-scale",
+        label: "Derive relationships and test limiting cases",
+        description:
+          "Use equations, units, estimates, and simplified models to reveal what controls the result.",
+        signals: { "style:mathematical": 3, "mode:theory": 2 },
+      },
+      {
+        id: "simulate",
+        label: "Build or run a numerical simulation",
+        description:
+          "Translate a physical model into a calculation and explore how the system responds.",
+        signals: { "style:simulation": 3, "style:modeling": 2 },
+      },
+      {
+        id: "visualize",
+        label: "Create visualizations and explain patterns",
+        description:
+          "Turn complex output into maps, animations, or plots that clarify the physical story.",
+        signals: { "style:visual": 3, "style:interpretation": 2 },
+      },
+      {
+        id: "code",
+        label: "Improve code, algorithms, or computational efficiency",
+        description:
+          "Think carefully about implementation, numerical stability, performance, and reusable tools.",
+        signals: { "style:coding": 3, "style:computational": 2 },
+      },
+      {
+        id: "statistics",
+        label: "Analyze uncertainty or large datasets",
+        description:
+          "Work with distributions, noise, inference, repeated samples, or data-driven models.",
+        signals: { "style:statistical": 3, "style:data": 2 },
+      },
+      {
+        id: "compare-methods",
+        label: "Compare methods and check reliability",
+        description:
+          "Benchmark approximations, convergence, accuracy, or computational cost before trusting a conclusion.",
+        signals: { "style:benchmarking": 3, "interest:methods": 2 },
+      },
+      createPhysicsOpenOption(
+        "I’d like to try a balanced workflow",
+        "Keep mathematical, simulation, visualization, coding, statistical, and comparison activities open.",
+      ),
+    ],
+  },
 ];
