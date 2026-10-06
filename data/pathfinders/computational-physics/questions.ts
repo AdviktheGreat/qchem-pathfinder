@@ -133,4 +133,40 @@ export const computationalPhysicsQuestions: SurveyQuestion[] = [
       physicsUnsureOption,
     ],
   },
+  {
+    id: "physics-coding-comfort",
+    stage: "calibration",
+    kicker: "Coding check-in",
+    title: "What is your current relationship with coding?",
+    prompt:
+      "Coding experience changes the support suggested in your results; it does not decide which physical questions belong to you.",
+    type: "single",
+    options: [
+      {
+        id: "enjoy",
+        label: "I enjoy writing or adapting code",
+        description:
+          "I would be happy working with scripts, notebooks, numerical libraries, or visualization tools.",
+      },
+      {
+        id: "learning",
+        label: "I’m learning",
+        description:
+          "I can work through examples and would like more practice changing, testing, or explaining code.",
+      },
+      {
+        id: "new",
+        label: "Mostly new to me",
+        description:
+          "I would want a guided notebook or a small, well-explained simulation as a starting point.",
+      },
+      {
+        id: "tools-first",
+        label: "I’d rather begin with established tools",
+        description:
+          "I’m open to learning code, but I want the physical question to remain central.",
+      },
+      physicsUnsureOption,
+    ],
+  },
 ];
