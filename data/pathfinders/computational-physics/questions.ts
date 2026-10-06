@@ -72,4 +72,65 @@ export const computationalPhysicsQuestions: SurveyQuestion[] = [
       },
     ],
   },
+  {
+    id: "physics-math-comfort",
+    stage: "calibration",
+    kicker: "Mathematical language",
+    title:
+      "How do you feel when a physics explanation uses equations or changing quantities?",
+    prompt:
+      "Your answer changes the preparation advice and explanation style—not the directions you can explore.",
+    type: "single",
+    options: [
+      {
+        id: "comfortable",
+        label: "Comfortable",
+        description:
+          "Equations, functions, rates of change, or vectors often help me understand a physical system.",
+      },
+      {
+        id: "with-guidance",
+        label: "Good with some guidance",
+        description:
+          "I can follow the mathematics when the variables, units, and physical meaning are introduced clearly.",
+      },
+      {
+        id: "concept-first",
+        label: "Show me the physical picture first",
+        description:
+          "I learn best from a concrete system, diagram, or graph before symbols and equations.",
+      },
+      physicsUnsureOption,
+    ],
+  },
+  {
+    id: "physics-statistics-comfort",
+    stage: "calibration",
+    kicker: "Probability and uncertainty",
+    title: "What is your current relationship with statistical reasoning?",
+    prompt:
+      "Computational physicists use probability, distributions, and uncertainty in many different ways. Experience is helpful context, not a gate.",
+    type: "single",
+    options: [
+      {
+        id: "comfortable",
+        label: "I’m comfortable interpreting statistical evidence",
+        description:
+          "I can reason about distributions, averages, fluctuations, uncertainty, or repeated samples.",
+      },
+      {
+        id: "learning",
+        label: "I’m learning the main ideas",
+        description:
+          "I can follow examples and would like more practice connecting statistical patterns to physical claims.",
+      },
+      {
+        id: "new",
+        label: "Statistical reasoning is mostly new to me",
+        description:
+          "I would want visual explanations and a careful introduction to probability, variation, and uncertainty.",
+      },
+      physicsUnsureOption,
+    ],
+  },
 ];
