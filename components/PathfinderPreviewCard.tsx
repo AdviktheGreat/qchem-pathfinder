@@ -1,9 +1,10 @@
-import { Blocks, Dna } from "lucide-react";
+import { Blocks, Dna, Orbit } from "lucide-react";
 import type { PathfinderCatalogEntry } from "@/data/pathfinders";
 
 const previewIcons = {
   "computational-materials": Blocks,
   "computational-biology": Dna,
+  "computational-physics": Orbit,
 };
 
 export function PathfinderPreviewCard({

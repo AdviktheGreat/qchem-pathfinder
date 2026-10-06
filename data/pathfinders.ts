@@ -56,6 +56,19 @@ export const pathfinders: PathfinderCatalogEntry[] = [
     status: "available",
     href: "/pathfinders/computational-biology",
   },
+  {
+    id: "computational-physics",
+    name: "Computational Physics Pathfinder",
+    shortName: "Computational physics",
+    eyebrow: "Physical laws, dynamic systems, and simulation",
+    description:
+      "Explore how computation helps physicists investigate motion, fields, matter, particles, fluids, and the universe.",
+    outcome:
+      "Narrow toward a physical system, research question, and computational approach worth investigating.",
+    focusAreas: ["Physical systems", "Dynamics", "Numerical modeling"],
+    duration: "On the roadmap",
+    status: "coming-soon",
+  },
 ];
 
 export function getPathfinder(id: string): PathfinderCatalogEntry | undefined {

@@ -11,6 +11,7 @@ import {
   Home,
   LayoutGrid,
   LockKeyhole,
+  Orbit,
   RotateCcw,
   Save,
   ScanLine,
@@ -36,6 +37,7 @@ type Screen = PersistedSurveyState["screen"];
 function BrandIcon({ icon }: { icon: PathfinderIcon }) {
   if (icon === "material") return <Boxes size={18} aria-hidden="true" />;
   if (icon === "biology") return <Dna size={18} aria-hidden="true" />;
+  if (icon === "physics") return <Orbit size={18} aria-hidden="true" />;
   return <Atom size={18} aria-hidden="true" />;
 }
 

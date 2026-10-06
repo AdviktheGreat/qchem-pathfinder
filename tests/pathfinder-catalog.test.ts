@@ -44,7 +44,9 @@ describe("pathfinder catalog", () => {
     const previews = pathfinders.filter(
       (pathfinder) => pathfinder.status === "coming-soon",
     );
-    expect(previews.map((pathfinder) => pathfinder.id)).toEqual([]);
+    expect(previews.map((pathfinder) => pathfinder.id)).toEqual([
+      "computational-physics",
+    ]);
     expect(previews.every((pathfinder) => pathfinder.href === undefined)).toBe(
       true,
     );
