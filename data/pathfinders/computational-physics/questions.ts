@@ -205,4 +205,46 @@ export const computationalPhysicsQuestions: SurveyQuestion[] = [
       physicsUnsureOption,
     ],
   },
+  {
+    id: "physics-explanation-style",
+    stage: "calibration",
+    kicker: "How ideas click",
+    title: "What kind of explanation helps a new physics idea make sense?",
+    prompt:
+      "Choose the starting point you would find most inviting. Strong projects often combine several of these later.",
+    type: "single",
+    options: [
+      {
+        id: "visual",
+        label: "A diagram, animation, or field map",
+        description:
+          "Let me see motion, spatial structure, or a changing pattern before we formalize it.",
+      },
+      {
+        id: "conceptual",
+        label: "A plain-language physical story",
+        description:
+          "Start with the mechanism, cause, or intuition and connect it to familiar situations.",
+      },
+      {
+        id: "quantitative",
+        label: "Equations, scaling, and numerical patterns",
+        description:
+          "Show how quantities relate, which limits matter, and what the mathematics predicts.",
+      },
+      {
+        id: "workflow",
+        label: "A worked simulation or code example",
+        description:
+          "Let me change an input, inspect the output, and learn what each computational step represents.",
+      },
+      {
+        id: "mixed",
+        label: "A balanced mix",
+        description:
+          "Combine physical intuition, visuals, mathematics, and computation without assuming one must come first.",
+      },
+      physicsUnsureOption,
+    ],
+  },
 ];
