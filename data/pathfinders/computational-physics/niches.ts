@@ -5,6 +5,7 @@ import { fluidDynamicsDirections } from "@/data/pathfinders/computational-physic
 import { geophysicalFlowDirections } from "@/data/pathfinders/computational-physics/niches-geophysical-flows";
 import { orbitalDynamicsDirections } from "@/data/pathfinders/computational-physics/niches-orbital-dynamics";
 import { plasmaFusionDirections } from "@/data/pathfinders/computational-physics/niches-plasma-fusion";
+import { quantumDynamicsDirections } from "@/data/pathfinders/computational-physics/niches-quantum-dynamics";
 import { spacePlasmaDirections } from "@/data/pathfinders/computational-physics/niches-space-plasma";
 import { stellarAstrophysicsDirections } from "@/data/pathfinders/computational-physics/niches-stellar-astrophysics";
 
@@ -17,4 +18,5 @@ export const computationalPhysicsNiches: Niche[] = [
   ...plasmaFusionDirections,
   ...spacePlasmaDirections,
   ...condensedMatterDirections,
+  ...quantumDynamicsDirections,
 ];
