@@ -5,6 +5,11 @@ export {
 } from "@/data/pathfinders/computational-physics/foundation";
 export { physicsGlossary } from "@/data/pathfinders/computational-physics/glossary";
 export { computationalPhysicsIntro } from "@/data/pathfinders/computational-physics/intro";
+export {
+  definePhysicsNiche,
+  physicsStarterPaperTypes,
+} from "@/data/pathfinders/computational-physics/niche-defaults";
+export { computationalPhysicsNiches } from "@/data/pathfinders/computational-physics/niches";
 export { computationalPhysicsQuestions } from "@/data/pathfinders/computational-physics/questions";
 export {
   COMPUTATIONAL_PHYSICS_STORAGE_KEY,
