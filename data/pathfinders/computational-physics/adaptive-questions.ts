@@ -90,4 +90,92 @@ export const computationalPhysicsAdaptiveQuestions: SurveyQuestion[] = [
       physicsUnsureOption,
     ],
   },
+  {
+    id: "physics-fluids-focus",
+    stage: "narrowing",
+    kicker: "Narrow the flow",
+    title: "Which moving-fluid problem would you investigate first?",
+    prompt:
+      "Choose the system where you would most enjoy connecting visible patterns to governing physics.",
+    type: "single",
+    visibleWhen: {
+      questionId: "physics-motivation",
+      anyOf: ["fluids-weather"],
+    },
+    options: [
+      {
+        id: "turbulent-structures",
+        label: "Vortices, jets, wakes, and turbulent structures",
+        description:
+          "Ask how irregular motion organizes and transfers energy across scales.",
+        signals: { "topic:turbulence": 3, "evidence:fields": 2 },
+      },
+      {
+        id: "transport-interfaces",
+        label: "Heat, material, bubbles, droplets, or particles in flow",
+        description:
+          "Study what a fluid carries and how interfaces or additional phases change transport.",
+        signals: { "topic:multiphase-transport": 3, "mode:predict": 2 },
+      },
+      {
+        id: "weather-ocean",
+        label: "Weather systems, ocean currents, and rotating flows",
+        description:
+          "Connect rotation, stratification, waves, and instability to large-scale circulation.",
+        signals: { "topic:geophysical-flows": 3, "scale:continuum": 2 },
+      },
+      {
+        id: "climate-coupling",
+        label: "Long-term interactions across the climate system",
+        description:
+          "Explore feedbacks among atmosphere, ocean, land, ice, and radiation with ensembles.",
+        signals: { "topic:climate-modeling": 3, "evidence:integrated": 2 },
+      },
+      physicsUnsureOption,
+    ],
+  },
+  {
+    id: "physics-fluids-evidence",
+    stage: "narrowing",
+    kicker: "Choose the flow evidence",
+    title: "What would you most want to inspect in a fluid simulation?",
+    prompt:
+      "Different outputs reveal different mechanisms. Choose the evidence you would want to learn to interpret first.",
+    type: "single",
+    visibleWhen: {
+      questionId: "physics-motivation",
+      anyOf: ["fluids-weather"],
+    },
+    options: [
+      {
+        id: "vorticity-spectrum",
+        label: "Vorticity maps and energy across scales",
+        description:
+          "Use spatial structures and spectra to understand turbulent organization and transfer.",
+        signals: { "topic:turbulence": 3, "style:statistical": 2 },
+      },
+      {
+        id: "conservation-transport",
+        label: "Heat or material budgets through a system",
+        description:
+          "Track conservation, fluxes, and the balance between advection and diffusion.",
+        signals: { "topic:multiphase-transport": 3, "mode:explain": 2 },
+      },
+      {
+        id: "circulation-tracers",
+        label: "Circulation patterns and moving tracers",
+        description:
+          "Follow currents, waves, and transported quantities in a rotating or stratified fluid.",
+        signals: { "topic:geophysical-flows": 3, "evidence:trajectories": 2 },
+      },
+      {
+        id: "ensemble-feedbacks",
+        label: "Ensemble spread and physical feedbacks",
+        description:
+          "Separate robust response, internal variability, and assumptions across climate-model runs.",
+        signals: { "topic:climate-modeling": 3, "style:statistical": 2 },
+      },
+      physicsUnsureOption,
+    ],
+  },
 ];
