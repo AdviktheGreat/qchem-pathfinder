@@ -1,4 +1,5 @@
 import type { SurveyQuestion } from "@/lib/types";
+import { computationalPhysicsAdaptiveQuestions } from "@/data/pathfinders/computational-physics/adaptive-questions";
 import {
   createPhysicsOpenOption,
   physicsUnsureOption,
@@ -562,4 +563,5 @@ export const computationalPhysicsQuestions: SurveyQuestion[] = [
       ),
     ],
   },
+  ...computationalPhysicsAdaptiveQuestions,
 ];

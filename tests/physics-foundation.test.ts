@@ -40,8 +40,11 @@ describe("computational physics Phase 1 foundation", () => {
   });
 
   it("provides a complete twelve-question common path", () => {
-    expect(survey.questions).toHaveLength(12);
-    expect(survey.questions.every((question) => !question.visibleWhen)).toBe(
+    const commonQuestions = survey.questions.filter(
+      (question) => !question.visibleWhen,
+    );
+    expect(commonQuestions).toHaveLength(12);
+    expect(survey.questions.some((question) => question.visibleWhen)).toBe(
       true,
     );
     expect(new Set(survey.questions.map((question) => question.id)).size).toBe(
@@ -51,7 +54,7 @@ describe("computational physics Phase 1 foundation", () => {
     expect(getVisibleQuestions({}, survey.questions)).toHaveLength(12);
     expect(
       getPlannedQuestionCount({}, survey.questions, survey.branchQuestionId),
-    ).toBe(12);
+    ).toBe(14);
 
     for (const question of survey.questions) {
       expect(question.options.length, question.id).toBeGreaterThanOrEqual(4);
