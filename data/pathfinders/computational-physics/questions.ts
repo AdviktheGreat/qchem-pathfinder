@@ -169,4 +169,40 @@ export const computationalPhysicsQuestions: SurveyQuestion[] = [
       physicsUnsureOption,
     ],
   },
+  {
+    id: "physics-tools-comfort",
+    stage: "calibration",
+    kicker: "Simulation-tool check-in",
+    title: "Which computational workflow feels closest to your experience?",
+    prompt:
+      "A workflow might use a spreadsheet, notebook, plotting tool, simulation package, command line, or numerical library.",
+    type: "single",
+    options: [
+      {
+        id: "independent",
+        label: "I’ve built or modified a simulation or analysis myself",
+        description:
+          "I have made choices about equations, settings, code, data, or visualizations and checked the output.",
+      },
+      {
+        id: "guided",
+        label: "I’ve followed a guided notebook or simulation",
+        description:
+          "I can navigate a worked computational activity even if I still need support making changes.",
+      },
+      {
+        id: "basic-tools",
+        label: "I’ve mainly used tables, graphs, or interactive tools",
+        description:
+          "I can organize values and inspect results, but more technical simulation workflows are new to me.",
+      },
+      {
+        id: "new",
+        label: "These tools are new to me",
+        description:
+          "I would want an explanation of the model, inputs, outputs, settings, and physical assumptions.",
+      },
+      physicsUnsureOption,
+    ],
+  },
 ];
