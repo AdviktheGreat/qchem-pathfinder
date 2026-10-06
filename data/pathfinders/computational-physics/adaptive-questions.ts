@@ -534,4 +534,92 @@ export const computationalPhysicsAdaptiveQuestions: SurveyQuestion[] = [
       physicsUnsureOption,
     ],
   },
+  {
+    id: "physics-complex-focus",
+    stage: "narrowing",
+    kicker: "Narrow the complex behavior",
+    title: "Which kind of complex pattern would you investigate first?",
+    prompt:
+      "Choose the mechanism you want to uncover rather than the application area where it happens.",
+    type: "single",
+    visibleWhen: {
+      questionId: "physics-motivation",
+      anyOf: ["complex-patterns"],
+    },
+    options: [
+      {
+        id: "chaotic-transition",
+        label: "A simple system becoming oscillatory or chaotic",
+        description:
+          "Map bifurcations, attractors, and sensitivity as a control parameter changes.",
+        signals: { "topic:nonlinear-chaos": 3, "mode:dynamics": 2 },
+      },
+      {
+        id: "network-collective",
+        label: "A network producing synchronization, spreading, or cascades",
+        description:
+          "Separate the effect of interaction structure from the local dynamical rule.",
+        signals: { "topic:network-dynamics": 3, "mode:explain": 2 },
+      },
+      {
+        id: "critical-emergence",
+        label: "Many parts collectively changing phase",
+        description:
+          "Use fluctuations, correlations, and finite-size trends to identify critical behavior.",
+        signals: { "topic:critical-phenomena": 3, "scale:many-body": 2 },
+      },
+      {
+        id: "driven-fluctuations",
+        label: "A driven system relaxing, transporting, or switching",
+        description:
+          "Study stochastic trajectories, currents, steady states, and rare events away from equilibrium.",
+        signals: { "topic:nonequilibrium": 3, "style:statistical": 2 },
+      },
+      physicsUnsureOption,
+    ],
+  },
+  {
+    id: "physics-complex-evidence",
+    stage: "narrowing",
+    kicker: "Choose the complex-systems evidence",
+    title: "Which result would you most enjoy learning to interpret?",
+    prompt:
+      "Pick an output that could distinguish a physical pattern from noise, finite size, or numerical error.",
+    type: "single",
+    visibleWhen: {
+      questionId: "physics-motivation",
+      anyOf: ["complex-patterns"],
+    },
+    options: [
+      {
+        id: "phase-attractor",
+        label: "A phase portrait, attractor, or bifurcation diagram",
+        description:
+          "Use geometry and long-time trajectories to classify nonlinear behavior.",
+        signals: { "topic:nonlinear-chaos": 3, "style:visual": 2 },
+      },
+      {
+        id: "topology-outcome",
+        label: "Outcomes compared across different network structures",
+        description:
+          "Test whether topology changes spreading, synchronization, robustness, or cascades.",
+        signals: { "topic:network-dynamics": 3, "mode:compare": 2 },
+      },
+      {
+        id: "critical-scaling",
+        label: "Scaling across system sizes near a transition",
+        description:
+          "Infer large-system behavior without mistaking one finite simulation for a proof.",
+        signals: { "topic:critical-phenomena": 3, "style:mathematical": 2 },
+      },
+      {
+        id: "trajectory-ensemble",
+        label: "An ensemble of noisy trajectories and rare transitions",
+        description:
+          "Compare individual histories with distributions, averages, and event probabilities.",
+        signals: { "topic:nonequilibrium": 3, "evidence:distributions": 2 },
+      },
+      physicsUnsureOption,
+    ],
+  },
 ];
