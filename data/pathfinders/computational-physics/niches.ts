@@ -11,6 +11,7 @@ import { orbitalDynamicsDirections } from "@/data/pathfinders/computational-phys
 import { particleDetectorDirections } from "@/data/pathfinders/computational-physics/niches-particle-detectors";
 import { plasmaFusionDirections } from "@/data/pathfinders/computational-physics/niches-plasma-fusion";
 import { quantumDynamicsDirections } from "@/data/pathfinders/computational-physics/niches-quantum-dynamics";
+import { physicsNicheReasons } from "@/data/pathfinders/computational-physics/reasons";
 import { spacePlasmaDirections } from "@/data/pathfinders/computational-physics/niches-space-plasma";
 import { stellarAstrophysicsDirections } from "@/data/pathfinders/computational-physics/niches-stellar-astrophysics";
 import { statisticalMechanicsDirections } from "@/data/pathfinders/computational-physics/niches-statistical-mechanics";
@@ -36,4 +37,5 @@ export const computationalPhysicsNiches: Niche[] =
   computationalPhysicsNicheContent.map((niche) => ({
     ...niche,
     affinities: physicsNicheAffinities[niche.id] ?? {},
+    reasons: physicsNicheReasons[niche.id] ?? [],
   }));

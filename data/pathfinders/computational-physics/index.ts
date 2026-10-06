@@ -14,6 +14,7 @@ export {
 export { computationalPhysicsNiches } from "@/data/pathfinders/computational-physics/niches";
 export { physicsNarrowingBoosts } from "@/data/pathfinders/computational-physics/narrowing-boosts";
 export { computationalPhysicsQuestions } from "@/data/pathfinders/computational-physics/questions";
+export { physicsNicheReasons } from "@/data/pathfinders/computational-physics/reasons";
 export {
   physicsOpenExplorationIds,
   physicsRecommendationScoring,

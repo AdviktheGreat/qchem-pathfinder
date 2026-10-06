@@ -67,7 +67,20 @@ describe("computational physics Phase 2 taxonomy", () => {
         ),
         niche.id,
       ).toBe(true);
-      expect(niche.reasons, niche.id).toEqual([]);
+      expect(
+        niche.reasons.some((reason) => reason.category === "interest"),
+        niche.id,
+      ).toBe(true);
+      expect(
+        niche.reasons.some((reason) => reason.category === "style"),
+        niche.id,
+      ).toBe(true);
+      expect(
+        niche.reasons.every(
+          (reason) => (niche.affinities[reason.signal] ?? 0) > 0,
+        ),
+        niche.id,
+      ).toBe(true);
     }
   });
 
