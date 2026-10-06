@@ -4,6 +4,7 @@ import { complexSystemsDirections } from "@/data/pathfinders/computational-physi
 import { cosmologyDirections } from "@/data/pathfinders/computational-physics/niches-cosmology";
 import { fluidDynamicsDirections } from "@/data/pathfinders/computational-physics/niches-fluid-dynamics";
 import { geophysicalFlowDirections } from "@/data/pathfinders/computational-physics/niches-geophysical-flows";
+import { nuclearFieldTheoryDirections } from "@/data/pathfinders/computational-physics/niches-nuclear-field-theory";
 import { orbitalDynamicsDirections } from "@/data/pathfinders/computational-physics/niches-orbital-dynamics";
 import { particleDetectorDirections } from "@/data/pathfinders/computational-physics/niches-particle-detectors";
 import { plasmaFusionDirections } from "@/data/pathfinders/computational-physics/niches-plasma-fusion";
@@ -25,4 +26,5 @@ export const computationalPhysicsNiches: Niche[] = [
   ...statisticalMechanicsDirections,
   ...complexSystemsDirections,
   ...particleDetectorDirections,
+  ...nuclearFieldTheoryDirections,
 ];
