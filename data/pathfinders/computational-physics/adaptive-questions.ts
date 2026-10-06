@@ -355,4 +355,95 @@ export const computationalPhysicsAdaptiveQuestions: SurveyQuestion[] = [
       physicsUnsureOption,
     ],
   },
+  {
+    id: "physics-plasma-focus",
+    stage: "narrowing",
+    kicker: "Narrow the plasma system",
+    title: "Which plasma environment would you investigate first?",
+    prompt:
+      "Choose where you would most like to connect charged-particle behavior with fields, flows, and observations.",
+    type: "single",
+    visibleWhen: {
+      questionId: "physics-motivation",
+      anyOf: ["plasma-fusion"],
+    },
+    options: [
+      {
+        id: "magnetic-fusion",
+        label: "A hot plasma confined by magnetic fields",
+        description:
+          "Study stability, turbulence, and transport in tokamak or stellarator-like systems.",
+        signals: { "topic:magnetic-fusion": 3, "mode:predict": 2 },
+      },
+      {
+        id: "laser-plasma",
+        label: "A rapidly compressed or laser-driven plasma",
+        description:
+          "Follow shocks, radiation, instabilities, and extreme energy deposition over short times.",
+        signals: { "topic:high-energy-density": 3, "mode:dynamics": 2 },
+      },
+      {
+        id: "sun-earth",
+        label: "Solar eruptions traveling through space toward planets",
+        description:
+          "Connect Sun-scale magnetic activity with the solar wind and planetary environments.",
+        signals: { "topic:space-weather": 3, "scale:stellar": 2 },
+      },
+      {
+        id: "reconnection-region",
+        label: "A thin region where magnetic energy reaches particles",
+        description:
+          "Zoom into kinetic plasma behavior, reconnection, acceleration, and heating.",
+        signals: { "topic:kinetic-reconnection": 3, "scale:many-body": 2 },
+      },
+      physicsUnsureOption,
+    ],
+  },
+  {
+    id: "physics-plasma-evidence",
+    stage: "narrowing",
+    kicker: "Choose the plasma evidence",
+    title: "Which plasma evidence would you most like to interpret?",
+    prompt:
+      "Pick the diagnostic that would make you want to compare a model with a physical system.",
+    type: "single",
+    visibleWhen: {
+      questionId: "physics-motivation",
+      anyOf: ["plasma-fusion"],
+    },
+    options: [
+      {
+        id: "confinement-profiles",
+        label: "Temperature, density, and confinement profiles",
+        description:
+          "Compare transport and instability predictions with diagnostics from a magnetic device.",
+        signals: { "topic:magnetic-fusion": 3, "evidence:experimental": 2 },
+      },
+      {
+        id: "shock-compression",
+        label: "Shock position, compression, and energy flow",
+        description:
+          "Track conservation and instability growth in an extreme laser-driven target.",
+        signals: { "topic:high-energy-density": 3, "evidence:fields": 2 },
+      },
+      {
+        id: "spacecraft-series",
+        label: "Spacecraft time series and global field maps",
+        description:
+          "Relate sparse local measurements to a system-scale space-weather model.",
+        signals: { "topic:space-weather": 3, "evidence:integrated": 2 },
+      },
+      {
+        id: "particle-distributions",
+        label: "Particle energy and velocity distributions",
+        description:
+          "Use non-fluid evidence to identify acceleration and heating near reconnection.",
+        signals: {
+          "topic:kinetic-reconnection": 3,
+          "evidence:distributions": 2,
+        },
+      },
+      physicsUnsureOption,
+    ],
+  },
 ];
