@@ -22,6 +22,11 @@ export {
   physicsStatisticsPreparation,
   physicsToolPreparation,
 } from "@/data/pathfinders/computational-physics/preparation";
+export {
+  physicsPaperNoteTemplate,
+  physicsPaperTypeGuide,
+  physicsReadingCopy,
+} from "@/data/pathfinders/computational-physics/reading-guidance";
 export { physicsNicheReasons } from "@/data/pathfinders/computational-physics/reasons";
 export {
   physicsAlternativesCopy,
