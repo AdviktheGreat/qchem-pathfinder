@@ -22,6 +22,7 @@ export {
   physicsStatisticsPreparation,
   physicsToolPreparation,
 } from "@/data/pathfinders/computational-physics/preparation";
+export { computationalPhysicsProfile } from "@/data/pathfinders/computational-physics/profile";
 export {
   physicsPaperNoteTemplate,
   physicsPaperTypeGuide,
@@ -29,9 +30,11 @@ export {
 } from "@/data/pathfinders/computational-physics/reading-guidance";
 export { physicsNicheReasons } from "@/data/pathfinders/computational-physics/reasons";
 export {
+  physicsActionsCopy,
   physicsAlternativesCopy,
   physicsComparisonPrinciples,
   physicsDirectionDetailsCopy,
+  physicsExportCopy,
   physicsFitEvidenceCopy,
   physicsKeywordCopy,
   physicsPreparationCopy,

@@ -140,3 +140,21 @@ export const physicsSearchProviders = [
     urlTemplate: "https://www.semanticscholar.org/search?q={query}",
   },
 ] satisfies NonNullable<PathfinderResultsConfig["searchProviders"]>;
+
+export const physicsExportCopy = {
+  eyebrow: "Take your physics map with you",
+  title: "Computational physics exploration profile",
+  description:
+    "Copy or download this consistent plain-text profile for workshop notes and a later literature-search prompt kit. It contains no personal information.",
+  copyLabel: "Copy physics profile",
+  downloadLabel: "Download physics profile",
+} satisfies NonNullable<PathfinderResultsConfig["exportCopy"]>;
+
+export const physicsActionsCopy = {
+  eyebrow: "Your physics map can evolve",
+  title: "Compare, revise, or begin again",
+  nearbyLabel: "Explore a nearby physics path",
+  reviewLabel: "Review my physics answers",
+  restartLabel: "Restart physics pathfinder",
+  returnOriginalLabel: "Return to my original physics suggestion",
+} satisfies NonNullable<PathfinderResultsConfig["actionsCopy"]>;
