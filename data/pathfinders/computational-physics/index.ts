@@ -14,6 +14,14 @@ export {
 export { computationalPhysicsNiches } from "@/data/pathfinders/computational-physics/niches";
 export { physicsNarrowingBoosts } from "@/data/pathfinders/computational-physics/narrowing-boosts";
 export { computationalPhysicsQuestions } from "@/data/pathfinders/computational-physics/questions";
+export {
+  physicsCodingPreparation,
+  physicsExplanationGuides,
+  physicsMathPreparation,
+  physicsPreparationConfig,
+  physicsStatisticsPreparation,
+  physicsToolPreparation,
+} from "@/data/pathfinders/computational-physics/preparation";
 export { physicsNicheReasons } from "@/data/pathfinders/computational-physics/reasons";
 export {
   physicsOpenExplorationIds,
