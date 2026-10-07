@@ -20,6 +20,8 @@ research-paper citations in students' literature-search launchpads.
 
 Biology definitions live in `data/pathfinders/computational-biology/glossary.ts`, with direction-specific method explanations in the niche modules. Copy distinguishes an observed association, a prediction, and a causal or clinical claim. Biomedical examples must stay at the level of research questions and appropriately governed datasets; they must not interpret personal health data, diagnose a condition, or imply that a computational result establishes treatment safety or effectiveness.
 
+Computational physics definitions live in `data/pathfinders/computational-physics/glossary.ts`, with direction-specific methods and examples in the niche modules. Copy should name the modeled system, important assumptions, numerical or statistical evidence, and the scale where the model applies. Avoid presenting a simulation as a direct observation or implying that numerical agreement removes model uncertainty.
+
 Sequence, expression, structure, imaging, network, ecological, and clinical-context data have different biases and validation needs. Search guidance therefore emphasizes independent evidence, held-out evaluation, uncertainty, data provenance, and reading the real source. Automated tests protect the presence and internal consistency of this guidance, but an appropriate subject-matter reviewer should still inspect edited scientific claims before a workshop release.
 
 ## Computational materials copy
