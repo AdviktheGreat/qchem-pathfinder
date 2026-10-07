@@ -30,7 +30,12 @@ describe("PathfinderHub", () => {
         .getByRole("link", { name: /Open computational biology/i })
         .getAttribute("href"),
     ).toBe("/pathfinders/computational-biology");
-    expect(screen.getAllByText("Coming later")).toHaveLength(1);
-    expect(screen.getByText("Collection roadmap")).toBeDefined();
+    expect(
+      screen
+        .getByRole("link", { name: /Open computational physics/i })
+        .getAttribute("href"),
+    ).toBe("/pathfinders/computational-physics");
+    expect(screen.queryByText("Coming later")).toBeNull();
+    expect(screen.queryByText("Collection roadmap")).toBeNull();
   });
 });

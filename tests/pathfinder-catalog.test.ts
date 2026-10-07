@@ -40,13 +40,19 @@ describe("pathfinder catalog", () => {
     });
   });
 
-  it("keeps roadmap previews non-interactive until they are complete", () => {
+  it("registers computational physics as an available pathfinder", () => {
+    expect(getPathfinder("computational-physics")).toMatchObject({
+      shortName: "Computational physics",
+      status: "available",
+      href: "/pathfinders/computational-physics",
+    });
+  });
+
+  it("keeps any future roadmap previews non-interactive", () => {
     const previews = pathfinders.filter(
       (pathfinder) => pathfinder.status === "coming-soon",
     );
-    expect(previews.map((pathfinder) => pathfinder.id)).toEqual([
-      "computational-physics",
-    ]);
+    expect(previews).toEqual([]);
     expect(previews.every((pathfinder) => pathfinder.href === undefined)).toBe(
       true,
     );

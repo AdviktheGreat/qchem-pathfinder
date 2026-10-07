@@ -2,7 +2,15 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ArrowRight, Atom, Blocks, Check, Clock3, Dna } from "lucide-react";
+import {
+  ArrowRight,
+  Atom,
+  Blocks,
+  Check,
+  Clock3,
+  Dna,
+  Orbit,
+} from "lucide-react";
 import { getPathfinderDefinition } from "@/data/pathfinder-definitions";
 import type { PathfinderCatalogEntry } from "@/data/pathfinders";
 import {
@@ -52,7 +60,9 @@ export function PathfinderCard({
       ? Blocks
       : pathfinder.id === "computational-biology"
         ? Dna
-        : Atom;
+        : pathfinder.id === "computational-physics"
+          ? Orbit
+          : Atom;
 
   return (
     <article

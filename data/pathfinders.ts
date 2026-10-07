@@ -66,8 +66,9 @@ export const pathfinders: PathfinderCatalogEntry[] = [
     outcome:
       "Narrow toward a physical system, research question, and computational approach worth investigating.",
     focusAreas: ["Physical systems", "Dynamics", "Numerical modeling"],
-    duration: "On the roadmap",
-    status: "coming-soon",
+    duration: "About 10 minutes",
+    status: "available",
+    href: "/pathfinders/computational-physics",
   },
 ];
 

@@ -13,7 +13,7 @@ import { getPlannedQuestionCount, getVisibleQuestions } from "@/lib/branching";
 const { identity, intro, storage, survey } = computationalPhysicsFoundation;
 
 describe("computational physics Phase 1 foundation", () => {
-  it("defines a distinct identity without releasing an unfinished route", () => {
+  it("defines a distinct identity with a released catalog route", () => {
     expect(identity).toEqual({
       id: "computational-physics",
       name: "Computational Physics Pathfinder",
@@ -27,8 +27,8 @@ describe("computational physics Phase 1 foundation", () => {
     const catalogEntry = getPathfinder(identity.id);
     expect(catalogEntry?.name).toBe(identity.name);
     expect(catalogEntry?.shortName).toBe(identity.shortName);
-    expect(catalogEntry?.status).toBe("coming-soon");
-    expect(catalogEntry?.href).toBeUndefined();
+    expect(catalogEntry?.status).toBe("available");
+    expect(catalogEntry?.href).toBe(identity.route);
   });
 
   it("keeps physics progress isolated from every released pathfinder", () => {
