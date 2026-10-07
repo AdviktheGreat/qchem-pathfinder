@@ -1346,6 +1346,30 @@ h2 {
   --area-accent: #47733f;
   --area-soft: #eaf3e7;
 }
+.primary-result.theme-cosmic {
+  --area-accent: #4e52a8;
+  --area-soft: #eceeff;
+}
+.primary-result.theme-flow {
+  --area-accent: #20748d;
+  --area-soft: #e5f3f7;
+}
+.primary-result.theme-plasma {
+  --area-accent: #b14e38;
+  --area-soft: #faece7;
+}
+.primary-result.theme-quantum {
+  --area-accent: #6c4eb5;
+  --area-soft: #f0ebfb;
+}
+.primary-result.theme-subatomic {
+  --area-accent: #9a5a18;
+  --area-soft: #fff0dc;
+}
+.primary-result.theme-complex {
+  --area-accent: #2e7167;
+  --area-soft: #e5f3ef;
+}
 .primary-result::after {
   content: "";
   position: absolute;
@@ -2444,6 +2468,10 @@ h2 {
   --card-accent: #187a75;
   --card-soft: #e4f4f1;
 }
+.pathfinder-card[data-pathfinder="computational-physics"] {
+  --card-accent: #4e52a8;
+  --card-soft: #eceeff;
+}
 .pathfinder-card-meta {
   display: flex;
   flex-wrap: wrap;
@@ -3244,6 +3272,9 @@ h2 {
     padding: 0;
   }
   .results-shell[data-pathfinder="computational-biology"] .area-label {
+    color: black;
+  }
+  .results-shell[data-pathfinder="computational-physics"] .area-label {
     color: black;
   }
   .result-hero {

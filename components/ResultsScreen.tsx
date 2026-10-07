@@ -62,6 +62,12 @@ function buildSearchUrl(template: string, query: string): string {
 
 function areaTheme(area: string): string {
   const value = area.toLowerCase();
+  if (/gravity|star|cosmo|galax/.test(value)) return "cosmic";
+  if (/fluid|earth|planetary flow/.test(value)) return "flow";
+  if (/plasma/.test(value)) return "plasma";
+  if (/quantum|condensed/.test(value)) return "quantum";
+  if (/particle|nuclear|field computation/.test(value)) return "subatomic";
+  if (/statistical|nonlinear|complex/.test(value)) return "complex";
   if (/genom|evolution|population|pathogen/.test(value)) return "genomics";
   if (/cell|expression|regulat|system/.test(value)) return "cellular";
   if (/ecolog|microbiome/.test(value)) return "ecology";
