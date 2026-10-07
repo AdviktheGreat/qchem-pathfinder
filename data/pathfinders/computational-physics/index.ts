@@ -24,6 +24,13 @@ export {
 } from "@/data/pathfinders/computational-physics/preparation";
 export { physicsNicheReasons } from "@/data/pathfinders/computational-physics/reasons";
 export {
+  physicsDirectionDetailsCopy,
+  physicsFitEvidenceCopy,
+  physicsPreparationCopy,
+  physicsPrimaryCopy,
+  physicsResultsOverview,
+} from "@/data/pathfinders/computational-physics/results";
+export {
   physicsOpenExplorationIds,
   physicsRecommendationScoring,
   physicsScoringPrinciples,
