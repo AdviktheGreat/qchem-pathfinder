@@ -5,6 +5,7 @@ import { afterEach, expect, it, vi } from "vitest";
 import { PathfinderApp } from "@/components/PathfinderApp";
 import { computationalBiologyPathfinder } from "@/data/pathfinders/computational-biology";
 import { computationalMaterialsPathfinder } from "@/data/pathfinders/computational-materials";
+import { computationalPhysicsPathfinder } from "@/data/pathfinders/computational-physics";
 
 afterEach(() => {
   cleanup();
@@ -45,6 +46,11 @@ it("switches between available pathfinders without clearing progress", async () 
       .getByRole("link", { name: "Computational biology" })
       .getAttribute("href"),
   ).toBe("/pathfinders/computational-biology");
+  expect(
+    screen
+      .getByRole("link", { name: "Computational physics" })
+      .getAttribute("href"),
+  ).toBe("/pathfinders/computational-physics");
   expect(removeItem).not.toHaveBeenCalled();
 
   unmount();
@@ -78,5 +84,20 @@ it("switches between available pathfinders without clearing progress", async () 
   expect(
     screen.getByRole("navigation", { name: "Switch pathfinder" }),
   ).toBeDefined();
+  expect(removeItem).not.toHaveBeenCalled();
+
+  cleanup();
+  render(<PathfinderApp definition={computationalPhysicsPathfinder} />);
+
+  expect(
+    (
+      await screen.findByRole("link", { name: "Quantum chemistry" })
+    ).getAttribute("href"),
+  ).toBe("/pathfinders/quantum-chemistry");
+  expect(
+    screen
+      .getByRole("link", { name: "Computational biology" })
+      .getAttribute("href"),
+  ).toBe("/pathfinders/computational-biology");
   expect(removeItem).not.toHaveBeenCalled();
 });
