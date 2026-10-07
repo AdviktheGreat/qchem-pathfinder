@@ -24,11 +24,18 @@ export {
 } from "@/data/pathfinders/computational-physics/preparation";
 export { physicsNicheReasons } from "@/data/pathfinders/computational-physics/reasons";
 export {
+  physicsAlternativesCopy,
+  physicsComparisonPrinciples,
   physicsDirectionDetailsCopy,
   physicsFitEvidenceCopy,
+  physicsKeywordCopy,
   physicsPreparationCopy,
   physicsPrimaryCopy,
+  physicsQueryGuidance,
   physicsResultsOverview,
+  physicsSearchCopy,
+  physicsSearchProviders,
+  physicsSearchRefinements,
 } from "@/data/pathfinders/computational-physics/results";
 export {
   physicsOpenExplorationIds,
