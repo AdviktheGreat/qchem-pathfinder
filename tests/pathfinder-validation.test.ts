@@ -148,4 +148,22 @@ describe("pathfinder definition validation", () => {
     expect(codes).toContain("taxonomy.incomplete-copy");
     expect(codes).toContain("taxonomy.incomplete-details");
   });
+
+  it("validates actionable literature-search launchpads", () => {
+    const definition = copyDefinition();
+    const niche = definition.recommendations.niches[0];
+    niche.keywords = ["duplicate", "duplicate"];
+    niche.synonyms = [];
+    niche.paperTypes = [];
+    niche.searches.focused = niche.searches.orientation;
+
+    const codes = validatePathfinderDefinition(definition).issues.map(
+      (entry) => entry.code,
+    );
+    expect(codes).toContain("literature.invalid-keyword-count");
+    expect(codes).toContain("literature.invalid-keywords");
+    expect(codes).toContain("literature.too-few-synonyms");
+    expect(codes).toContain("literature.too-few-paper-types");
+    expect(codes).toContain("literature.duplicate-search-query");
+  });
 });

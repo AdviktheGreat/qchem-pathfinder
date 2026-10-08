@@ -494,6 +494,75 @@ function validateTaxonomyRecords(
   return issues;
 }
 
+function validateLiteratureLaunchpads(
+  definition: PathfinderDefinition,
+): PathfinderValidationIssue[] {
+  const issues: PathfinderValidationIssue[] = [];
+
+  definition.recommendations.niches.forEach((niche, nicheIndex) => {
+    const path = `recommendations.niches[${nicheIndex}]`;
+    if (niche.keywords.length < 5 || niche.keywords.length > 8)
+      issues.push(
+        issue(
+          "literature.invalid-keyword-count",
+          `${path}.keywords`,
+          "Each direction needs five to eight focused starter keywords.",
+        ),
+      );
+    if (niche.synonyms.length < 2)
+      issues.push(
+        issue(
+          "literature.too-few-synonyms",
+          `${path}.synonyms`,
+          "Each direction needs at least two related phrases for broader searching.",
+        ),
+      );
+    if (niche.paperTypes.length < 2)
+      issues.push(
+        issue(
+          "literature.too-few-paper-types",
+          `${path}.paperTypes`,
+          "Each direction needs at least two useful paper types for a beginner.",
+        ),
+      );
+
+    const keywordKeys = niche.keywords.map((keyword) =>
+      keyword.trim().toLocaleLowerCase(),
+    );
+    if (
+      keywordKeys.some((keyword) => !keyword) ||
+      new Set(keywordKeys).size !== keywordKeys.length
+    )
+      issues.push(
+        issue(
+          "literature.invalid-keywords",
+          `${path}.keywords`,
+          "Starter keywords must be non-empty and unique within a direction.",
+        ),
+      );
+
+    const queries = Object.values(niche.searches).map((query) => query.trim());
+    if (queries.some((query) => !query))
+      issues.push(
+        issue(
+          "literature.missing-search-query",
+          `${path}.searches`,
+          "Orientation, focused, and review searches must all be present.",
+        ),
+      );
+    if (new Set(queries).size !== queries.length)
+      issues.push(
+        issue(
+          "literature.duplicate-search-query",
+          `${path}.searches`,
+          "The three search queries should narrow the topic in distinct ways.",
+        ),
+      );
+  });
+
+  return issues;
+}
+
 function validateSerializableDefinition(
   definition: PathfinderDefinition,
 ): PathfinderValidationIssue[] {
@@ -522,6 +591,7 @@ const definitionRules: readonly DefinitionRule[] = [
   validateCalibrationAndUncertainty,
   validateScoringWeights,
   validateTaxonomyRecords,
+  validateLiteratureLaunchpads,
 ];
 
 export function validatePathfinderDefinition(
