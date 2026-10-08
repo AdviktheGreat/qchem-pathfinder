@@ -46,6 +46,8 @@ Build every honest uncertainty choice with `uncertainty-options.ts`. An uncertai
 
 Define the controlled preference vocabulary in `scoring.ts` before attaching signals to answer options. Use strong weights for declared interests and question types, meaningful weights for working-style preferences, and small supporting weights only for secondary evidence. Calibration options never receive signals.
 
+Use `narrowing-boosts.ts` only when an answer explicitly distinguishes nearby directions. Refer to stable niche IDs, use the named weight scale, and let the engine multiplier make a direct choice stronger than incidental style overlap. Do not add boosts to uncertainty options.
+
 ## Non-negotiable boundaries
 
 - Calibration changes preparation guidance, never eligibility or fit.
