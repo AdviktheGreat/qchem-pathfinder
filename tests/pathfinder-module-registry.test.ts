@@ -1,4 +1,8 @@
 import { describe, expect, it } from "vitest";
+import {
+  getPathfinderDefinition,
+  pathfinderDefinitions,
+} from "@/data/pathfinder-definitions";
 import { pathfinderModules } from "@/data/pathfinder-modules";
 
 describe("pathfinder module registry", () => {
@@ -31,5 +35,16 @@ describe("pathfinder module registry", () => {
       pathfinderModules.length,
     );
     expect(new Set(storageKeys).size).toBe(pathfinderModules.length);
+  });
+
+  it("derives definition lookup from the canonical registry", () => {
+    expect(pathfinderDefinitions).toEqual(
+      pathfinderModules.map((module) => module.definition),
+    );
+    for (const module of pathfinderModules) {
+      expect(getPathfinderDefinition(module.definition.identity.id)).toBe(
+        module.definition,
+      );
+    }
   });
 });

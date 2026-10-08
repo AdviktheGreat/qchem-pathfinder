@@ -1,15 +1,8 @@
-import { computationalMaterialsPathfinder } from "@/data/pathfinders/computational-materials";
-import { computationalBiologyPathfinder } from "@/data/pathfinders/computational-biology/pathfinder";
-import { computationalPhysicsPathfinder } from "@/data/pathfinders/computational-physics/pathfinder";
-import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
+import { pathfinderModules } from "@/data/pathfinder-modules";
 import type { PathfinderDefinition } from "@/lib/pathfinder-definition";
 
-export const pathfinderDefinitions = [
-  quantumChemistryPathfinder,
-  computationalMaterialsPathfinder,
-  computationalBiologyPathfinder,
-  computationalPhysicsPathfinder,
-] satisfies readonly PathfinderDefinition[];
+export const pathfinderDefinitions: readonly PathfinderDefinition[] =
+  pathfinderModules.map((module) => module.definition);
 
 export function getPathfinderDefinition(
   id: string,
