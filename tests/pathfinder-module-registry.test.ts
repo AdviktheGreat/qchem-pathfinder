@@ -4,7 +4,11 @@ import {
   pathfinderDefinitions,
 } from "@/data/pathfinder-definitions";
 import { pathfinderModules } from "@/data/pathfinder-modules";
-import { pathfinders } from "@/data/pathfinders";
+import {
+  availablePathfinders,
+  pathfinders,
+  upcomingPathfinders,
+} from "@/data/pathfinders";
 
 describe("pathfinder module registry", () => {
   it("registers every released module in stable hub order", () => {
@@ -66,5 +70,7 @@ describe("pathfinder module registry", () => {
         eyebrow: moduleEntry.catalog.eyebrow,
       });
     });
+    expect(availablePathfinders).toEqual(pathfinders);
+    expect(upcomingPathfinders).toEqual([]);
   });
 });

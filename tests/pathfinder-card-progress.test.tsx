@@ -3,7 +3,7 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, expect, it, vi } from "vitest";
 import { PathfinderCard } from "@/components/PathfinderCard";
-import { pathfinders } from "@/data/pathfinders";
+import { availablePathfinders } from "@/data/pathfinders";
 import { computationalMaterialsPathfinder } from "@/data/pathfinders/computational-materials";
 import { computationalBiologyPathfinder } from "@/data/pathfinders/computational-biology";
 import { getVisibleQuestions } from "@/lib/branching";
@@ -25,7 +25,7 @@ it("shows saved quantum chemistry progress on the hub card", async () => {
     }),
   );
 
-  render(<PathfinderCard pathfinder={pathfinders[0]} />);
+  render(<PathfinderCard pathfinder={availablePathfinders[0]} />);
 
   expect(await screen.findByText("Exploration in progress")).toBeDefined();
   expect(screen.getByText("1 of 16 questions answered")).toBeDefined();
@@ -35,12 +35,12 @@ it("shows saved quantum chemistry progress on the hub card", async () => {
 });
 
 const materialsCatalogEntry = {
-  ...pathfinders[1],
+  ...availablePathfinders[1],
   href: computationalMaterialsPathfinder.identity.route,
 };
 
 const biologyCatalogEntry = {
-  ...pathfinders[2],
+  ...availablePathfinders[2],
   href: computationalBiologyPathfinder.identity.route,
 };
 

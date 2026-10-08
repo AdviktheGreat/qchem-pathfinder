@@ -4,7 +4,7 @@ import type { PathfinderModuleManifest } from "@/lib/pathfinder-manifest";
 
 export type PathfinderStatus = PathfinderCatalogStatus;
 
-export interface PathfinderCatalogEntry {
+interface PathfinderCatalogBase {
   id: string;
   name: string;
   shortName: string;
@@ -13,9 +13,20 @@ export interface PathfinderCatalogEntry {
   outcome: string;
   focusAreas: readonly string[];
   duration: string;
-  status: PathfinderStatus;
-  href?: string;
 }
+
+export interface AvailablePathfinderCatalogEntry extends PathfinderCatalogBase {
+  status: "available";
+  href: string;
+}
+
+export interface ComingSoonPathfinderCatalogEntry extends PathfinderCatalogBase {
+  status: "coming-soon";
+  href?: never;
+}
+
+export type PathfinderCatalogEntry =
+  AvailablePathfinderCatalogEntry | ComingSoonPathfinderCatalogEntry;
 
 export function createPathfinderCatalogEntry(
   moduleEntry: PathfinderModuleManifest,
@@ -25,20 +36,38 @@ export function createPathfinderCatalogEntry(
       ? moduleEntry.definition.identity
       : moduleEntry.identity;
 
-  return {
+  const catalogIdentity = {
     id: identity.id,
     name: identity.name,
     shortName: identity.shortName,
     ...moduleEntry.catalog,
-    status: moduleEntry.lifecycle,
-    ...(moduleEntry.lifecycle === "available"
-      ? { href: moduleEntry.definition.identity.route }
-      : {}),
   };
+
+  if (moduleEntry.lifecycle === "available") {
+    return {
+      ...catalogIdentity,
+      status: "available",
+      href: moduleEntry.definition.identity.route,
+    };
+  }
+
+  return { ...catalogIdentity, status: "coming-soon" };
 }
 
 export const pathfinders: readonly PathfinderCatalogEntry[] =
   pathfinderModules.map(createPathfinderCatalogEntry);
+
+export function isAvailablePathfinder(
+  pathfinder: PathfinderCatalogEntry,
+): pathfinder is AvailablePathfinderCatalogEntry {
+  return pathfinder.status === "available";
+}
+
+export const availablePathfinders = pathfinders.filter(isAvailablePathfinder);
+export const upcomingPathfinders = pathfinders.filter(
+  (pathfinder): pathfinder is ComingSoonPathfinderCatalogEntry =>
+    pathfinder.status === "coming-soon",
+);
 
 export function getPathfinder(id: string): PathfinderCatalogEntry | undefined {
   return pathfinders.find((pathfinder) => pathfinder.id === id);

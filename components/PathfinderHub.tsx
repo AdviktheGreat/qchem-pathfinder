@@ -1,19 +1,12 @@
 import Link from "next/link";
 import { Compass } from "lucide-react";
-import { pathfinders } from "@/data/pathfinders";
+import { availablePathfinders, upcomingPathfinders } from "@/data/pathfinders";
 import { HubField } from "@/components/HubField";
 import { PathfinderCard } from "@/components/PathfinderCard";
 import { PathfinderPreviewCard } from "@/components/PathfinderPreviewCard";
 import { RecentPathfinder } from "@/components/RecentPathfinder";
 
 export function PathfinderHub() {
-  const availablePathfinders = pathfinders.filter(
-    (pathfinder) => pathfinder.status === "available" && pathfinder.href,
-  );
-  const upcomingPathfinders = pathfinders.filter(
-    (pathfinder) => pathfinder.status === "coming-soon",
-  );
-
   return (
     <>
       <a className="skip-link" href="#hub-main">

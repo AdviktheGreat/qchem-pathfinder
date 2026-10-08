@@ -12,7 +12,7 @@ import {
   Orbit,
 } from "lucide-react";
 import { getPathfinderDefinition } from "@/data/pathfinder-definitions";
-import type { PathfinderCatalogEntry } from "@/data/pathfinders";
+import type { AvailablePathfinderCatalogEntry } from "@/data/pathfinders";
 import {
   getNewPathfinderProgress,
   readPathfinderProgress,
@@ -21,7 +21,7 @@ import {
 export function PathfinderCard({
   pathfinder,
 }: {
-  pathfinder: PathfinderCatalogEntry;
+  pathfinder: AvailablePathfinderCatalogEntry;
 }) {
   const definition = getPathfinderDefinition(pathfinder.id);
   const [progress, setProgress] = useState(() =>
@@ -49,8 +49,6 @@ export function PathfinderCard({
     );
     return () => window.clearTimeout(timer);
   }, [definition]);
-
-  if (!pathfinder.href) return null;
 
   const titleId = `${pathfinder.id}-title`;
   const outcomeId = `${pathfinder.id}-outcome`;
