@@ -186,4 +186,22 @@ describe("pathfinder definition validation", () => {
     expect(codes).toContain("reason.category-mismatch");
     expect(codes).toContain("reason.missing-copy");
   });
+
+  it("validates direct boosts and open-exploration references", () => {
+    const definition = copyDefinition();
+    definition.survey.questions[5].options[0].nicheBoosts = {
+      "missing-direction": 2,
+    };
+    definition.recommendations.openExplorationIds = [
+      "missing-direction",
+      "missing-direction",
+    ];
+
+    const codes = validatePathfinderDefinition(definition).issues.map(
+      (entry) => entry.code,
+    );
+    expect(codes).toContain("reference.unknown-boost-direction");
+    expect(codes).toContain("reference.invalid-open-directions");
+    expect(codes).toContain("reference.unknown-open-direction");
+  });
 });

@@ -635,6 +635,76 @@ function validateAffinitiesAndReasons(
   return issues;
 }
 
+function validateDirectionReferences(
+  definition: PathfinderDefinition,
+): PathfinderValidationIssue[] {
+  const issues: PathfinderValidationIssue[] = [];
+  const nicheIds = new Set(
+    definition.recommendations.niches.map((niche) => niche.id),
+  );
+  const boostedIds = new Set<string>();
+
+  definition.survey.questions.forEach((question, questionIndex) => {
+    question.options.forEach((option, optionIndex) => {
+      for (const nicheId of Object.keys(option.nicheBoosts ?? {})) {
+        boostedIds.add(nicheId);
+        if (!nicheIds.has(nicheId))
+          issues.push(
+            issue(
+              "reference.unknown-boost-direction",
+              `survey.questions[${questionIndex}].options[${optionIndex}].nicheBoosts.${nicheId}`,
+              `Direct boost refers to unknown direction “${nicheId}”.`,
+            ),
+          );
+      }
+    });
+  });
+
+  for (const nicheId of nicheIds) {
+    if (!boostedIds.has(nicheId))
+      issues.push(
+        issue(
+          "reference.unboosted-direction",
+          `recommendations.niches.${nicheId}`,
+          `Direction “${nicheId}” needs at least one targeted survey choice.`,
+        ),
+      );
+  }
+
+  const openIds = definition.recommendations.openExplorationIds;
+  if (openIds.length !== 3 || new Set(openIds).size !== openIds.length)
+    issues.push(
+      issue(
+        "reference.invalid-open-directions",
+        "recommendations.openExplorationIds",
+        "Open exploration must provide three distinct starting directions.",
+      ),
+    );
+  for (const nicheId of openIds) {
+    const niche = definition.recommendations.niches.find(
+      (candidate) => candidate.id === nicheId,
+    );
+    if (!niche)
+      issues.push(
+        issue(
+          "reference.unknown-open-direction",
+          "recommendations.openExplorationIds",
+          `Open exploration refers to unknown direction “${nicheId}”.`,
+        ),
+      );
+    else if (!niche.explorationFriendly)
+      issues.push(
+        issue(
+          "reference.closed-open-direction",
+          `recommendations.niches.${nicheId}.explorationFriendly`,
+          "Open-exploration defaults must be marked exploration-friendly.",
+        ),
+      );
+  }
+
+  return issues;
+}
+
 function validateSerializableDefinition(
   definition: PathfinderDefinition,
 ): PathfinderValidationIssue[] {
@@ -665,6 +735,7 @@ const definitionRules: readonly DefinitionRule[] = [
   validateTaxonomyRecords,
   validateLiteratureLaunchpads,
   validateAffinitiesAndReasons,
+  validateDirectionReferences,
 ];
 
 export function validatePathfinderDefinition(

@@ -962,6 +962,7 @@ export const niches: Niche[] = [
     ],
     comparisonLens:
       "It treats spectra as the main evidence, whereas photochemistry centers what the excited molecule does after absorption.",
+    explorationFriendly: true,
   },
   {
     ...defaults,
