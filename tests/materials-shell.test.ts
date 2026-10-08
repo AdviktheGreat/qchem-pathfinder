@@ -2,9 +2,11 @@ import { describe, expect, it } from "vitest";
 import ComputationalMaterialsPathfinderPage, {
   metadata,
 } from "@/app/pathfinders/computational-materials/page";
+import { computationalMaterialsModule } from "@/data/pathfinder-modules";
 import { computationalMaterialsPathfinder } from "@/data/pathfinders/computational-materials";
 import { getPathfinder } from "@/data/pathfinders";
 import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
+import { createPathfinderMetadata } from "@/lib/pathfinder-metadata";
 
 describe("computational materials pathfinder shell", () => {
   it("defines a distinct pathfinder identity and storage namespace", () => {
@@ -43,6 +45,9 @@ describe("computational materials pathfinder shell", () => {
   });
 
   it("publishes route metadata and the completed experience", () => {
+    expect(metadata).toEqual(
+      createPathfinderMetadata(computationalMaterialsModule),
+    );
     expect(metadata).toMatchObject({
       title: "Computational Materials Pathfinder",
       description: expect.stringContaining("computational materials"),
