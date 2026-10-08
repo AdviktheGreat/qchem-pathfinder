@@ -1,4 +1,8 @@
-export type PathfinderStatus = "available" | "coming-soon";
+import { pathfinderModules } from "@/data/pathfinder-modules";
+import type { PathfinderCatalogStatus } from "@/lib/pathfinder-lifecycle";
+import type { PathfinderModuleManifest } from "@/lib/pathfinder-manifest";
+
+export type PathfinderStatus = PathfinderCatalogStatus;
 
 export interface PathfinderCatalogEntry {
   id: string;
@@ -7,70 +11,34 @@ export interface PathfinderCatalogEntry {
   eyebrow: string;
   description: string;
   outcome: string;
-  focusAreas: string[];
+  focusAreas: readonly string[];
   duration: string;
   status: PathfinderStatus;
   href?: string;
 }
 
-export const pathfinders: PathfinderCatalogEntry[] = [
-  {
-    id: "quantum-chemistry",
-    name: "Quantum Chemistry Pathfinder",
-    shortName: "Quantum chemistry",
-    eyebrow: "Molecules, electrons, and computation",
-    description:
-      "Trace your interests from broad molecular questions toward a focused computational quantum chemistry direction.",
-    outcome:
-      "Leave with one promising sub-niche, two nearby alternatives, and a practical literature-search launchpad.",
-    focusAreas: ["Molecules", "Electronic structure", "Computational methods"],
-    duration: "About 10 minutes",
-    status: "available",
-    href: "/pathfinders/quantum-chemistry",
-  },
-  {
-    id: "computational-materials",
-    name: "Computational Materials Pathfinder",
-    shortName: "Computational materials",
-    eyebrow: "Structure, properties, and useful materials",
-    description:
-      "Explore how modeling connects atoms and structures to batteries, catalysts, electronic materials, polymers, and other technologies.",
-    outcome:
-      "Narrow toward a materials family, scientific question, and modeling scale worth investigating.",
-    focusAreas: ["Materials", "Structure–property links", "Simulation"],
-    duration: "About 10 minutes",
-    status: "available",
-    href: "/pathfinders/computational-materials",
-  },
-  {
-    id: "computational-biology",
-    name: "Computational Biology Pathfinder",
-    shortName: "Computational biology",
-    eyebrow: "Molecules, living systems, and data",
-    description:
-      "Explore directions spanning molecular interactions, protein structure, drug discovery, biological data, and simulation.",
-    outcome:
-      "Narrow toward a biological scale, question type, and computational approach that fits your curiosity.",
-    focusAreas: ["Biomolecules", "Health", "Biological data"],
-    duration: "About 10 minutes",
-    status: "available",
-    href: "/pathfinders/computational-biology",
-  },
-  {
-    id: "computational-physics",
-    name: "Computational Physics Pathfinder",
-    shortName: "Computational physics",
-    eyebrow: "Physical laws, dynamic systems, and simulation",
-    description:
-      "Explore how computation helps physicists investigate motion, fields, matter, particles, fluids, and the universe.",
-    outcome:
-      "Narrow toward a physical system, research question, and computational approach worth investigating.",
-    focusAreas: ["Physical systems", "Dynamics", "Numerical modeling"],
-    duration: "About 10 minutes",
-    status: "available",
-    href: "/pathfinders/computational-physics",
-  },
-];
+export function createPathfinderCatalogEntry(
+  moduleEntry: PathfinderModuleManifest,
+): PathfinderCatalogEntry {
+  const identity =
+    moduleEntry.lifecycle === "available"
+      ? moduleEntry.definition.identity
+      : moduleEntry.identity;
+
+  return {
+    id: identity.id,
+    name: identity.name,
+    shortName: identity.shortName,
+    ...moduleEntry.catalog,
+    status: moduleEntry.lifecycle,
+    ...(moduleEntry.lifecycle === "available"
+      ? { href: moduleEntry.definition.identity.route }
+      : {}),
+  };
+}
+
+export const pathfinders: readonly PathfinderCatalogEntry[] =
+  pathfinderModules.map(createPathfinderCatalogEntry);
 
 export function getPathfinder(id: string): PathfinderCatalogEntry | undefined {
   return pathfinders.find((pathfinder) => pathfinder.id === id);
