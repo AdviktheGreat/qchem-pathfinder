@@ -1,14 +1,15 @@
 # Research Pathfinder release verification
 
-Verified October 7, 2026 against the local production build after completing Platform Consolidation Phase 1.
+Verified October 7, 2026 against the local production build after completing Platform Consolidation Phase 2.
 
 ## Automated release gate
 
 - Prettier passed for the application, components, data, libraries, tests, documentation, and README.
 - ESLint and TypeScript checks passed.
-- Vitest passed all 511 tests across 90 files.
+- Vitest passed all 519 tests across 91 files.
 - The Next.js production build passed and statically prerendered the hub, not-found page, and all four pathfinder routes.
 - Manifest coverage confirms that the registry, definition lookup, hub catalog, switcher destinations, lifecycle boundaries, route metadata, IDs, routes, and storage namespaces remain aligned.
+- The type-checked authoring template assembles into a complete module, supports adaptive journeys and stable profile export, and remains deliberately absent from the live registry and production routes.
 - Automated physics coverage includes four complete rendered journeys, all 28 directions, eight representative profiles, balanced and uncertain rankings, ties, calibration neutrality, conflict-free branch editing, isolated persistence, profile export, search-tab keyboard interaction, and release-contract checks.
 - The full gate also retains the existing quantum chemistry, computational materials, and computational biology coverage.
 

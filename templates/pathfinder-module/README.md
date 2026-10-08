@@ -60,6 +60,8 @@ Follow `route-and-activation.md` only after the local definition and its tests a
 
 Use `testing.md` as the minimum release matrix. Subject-specific scientific review and assistive-technology testing remain necessary even when every automated check passes.
 
+`pathfinder.ts` and `manifest.ts` prove that the reference pieces assemble into the same contracts used by released modules. The example is covered by `tests/pathfinder-template.test.ts` but deliberately omitted from the canonical registry, so it cannot appear in the live application.
+
 ## Non-negotiable boundaries
 
 - Calibration changes preparation guidance, never eligibility or fit.
