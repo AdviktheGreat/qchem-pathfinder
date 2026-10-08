@@ -54,6 +54,8 @@ Put reusable beginner definitions in `glossary.ts` and ability-neutral support i
 
 Keep source-reading habits and the paper-note format in `reading-guidance.ts`; keep presentation labels and search-provider templates in `results.ts`. Results should explain actual evidence, distinguish primary and nearby directions, warn students to verify citations, and preserve complete copy and print actions.
 
+`profile.ts` maps real survey IDs to stable plain-text export labels. Give the profile a subject-specific uppercase title and filesystem-safe filename prefix. Preserve the shared export headings so profiles remain useful to instructors and later literature-search tools.
+
 ## Non-negotiable boundaries
 
 - Calibration changes preparation guidance, never eligibility or fit.
