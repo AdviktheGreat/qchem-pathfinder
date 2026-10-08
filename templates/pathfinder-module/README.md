@@ -56,6 +56,8 @@ Keep source-reading habits and the paper-note format in `reading-guidance.ts`; k
 
 `profile.ts` maps real survey IDs to stable plain-text export labels. Give the profile a subject-specific uppercase title and filesystem-safe filename prefix. Preserve the shared export headings so profiles remain useful to instructors and later literature-search tools.
 
+Follow `route-and-activation.md` only after the local definition and its tests are complete. The page remains a Server Component, static metadata comes from the manifest, and registration happens exactly once in the canonical module registry.
+
 ## Non-negotiable boundaries
 
 - Calibration changes preparation guidance, never eligibility or fit.
