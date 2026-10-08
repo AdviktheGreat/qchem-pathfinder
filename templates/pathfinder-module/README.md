@@ -38,6 +38,8 @@ Start in `identity.ts`. Keep the ID lowercase and hyphenated, use `/pathfinders/
 
 Then rewrite `intro.ts` for the audience and discipline. Preserve its four promises: exploration rather than evaluation, no final-question selection, browser-local privacy, and preparation that supports rather than excludes.
 
+`questions.ts` demonstrates five calibration questions followed by motivation, research-question, and working-style choices. Add enough common and adaptive questions for an 8–12 minute journey, but keep one focused decision per screen. IDs should carry a subject prefix so saved answers and diagnostics remain unambiguous.
+
 ## Non-negotiable boundaries
 
 - Calibration changes preparation guidance, never eligibility or fit.
