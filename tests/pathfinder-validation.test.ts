@@ -32,4 +32,23 @@ describe("pathfinder definition validation", () => {
       ],
     });
   });
+
+  it("validates stable identity, route, and storage fields", () => {
+    const definition = copyDefinition();
+    definition.identity.id = "Invalid ID";
+    definition.identity.route = "/another-route";
+    definition.identity.brandLabel = " ";
+    definition.storage.key = "shared-progress";
+    definition.storage.version = 0;
+
+    const result = validatePathfinderDefinition(definition);
+    expect(result.valid).toBe(false);
+    expect(result.issues.map((entry) => entry.code)).toEqual([
+      "identity.invalid-id",
+      "identity.route-mismatch",
+      "identity.missing-label",
+      "storage.invalid-key",
+      "storage.invalid-version",
+    ]);
+  });
 });
