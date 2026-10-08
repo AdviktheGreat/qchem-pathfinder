@@ -51,4 +51,23 @@ describe("pathfinder definition validation", () => {
       "storage.invalid-version",
     ]);
   });
+
+  it("validates question, option, and selection structure", () => {
+    const definition = copyDefinition();
+    const firstQuestion = definition.survey.questions[0];
+    definition.survey.questions = [
+      ...definition.survey.questions,
+      structuredClone(firstQuestion),
+    ];
+    firstQuestion.options[1].id = firstQuestion.options[0].id;
+    firstQuestion.type = "multi";
+    firstQuestion.maxSelections = firstQuestion.options.length + 1;
+
+    const codes = validatePathfinderDefinition(definition).issues.map(
+      (entry) => entry.code,
+    );
+    expect(codes).toContain("survey.duplicate-question-id");
+    expect(codes).toContain("survey.duplicate-option-id");
+    expect(codes).toContain("survey.invalid-selection-limit");
+  });
 });
