@@ -1,4 +1,5 @@
 import type { PathfinderDefinition } from "@/lib/pathfinder-definition";
+import type { PathfinderModuleManifest } from "@/lib/pathfinder-manifest";
 
 export interface PathfinderValidationIssue {
   code: string;
@@ -1003,5 +1004,75 @@ export function validatePathfinderDefinition(
   definition: PathfinderDefinition,
 ): PathfinderValidationResult {
   const issues = definitionRules.flatMap((rule) => rule(definition));
+  return { valid: issues.length === 0, issues };
+}
+
+export function validatePathfinderModuleManifest(
+  manifest: PathfinderModuleManifest,
+): PathfinderValidationResult {
+  const issues: PathfinderValidationIssue[] = [];
+  const { catalog } = manifest;
+
+  if (
+    !catalog.eyebrow.trim() ||
+    !catalog.description.trim() ||
+    !catalog.outcome.trim() ||
+    !catalog.duration.trim()
+  )
+    issues.push(
+      issue(
+        "manifest.incomplete-catalog-copy",
+        "catalog",
+        "Catalog eyebrow, description, outcome, and duration cannot be empty.",
+      ),
+    );
+  const focusAreas = catalog.focusAreas.map((area) =>
+    area.trim().toLocaleLowerCase(),
+  );
+  if (
+    focusAreas.length < 3 ||
+    focusAreas.some((area) => !area) ||
+    new Set(focusAreas).size !== focusAreas.length
+  )
+    issues.push(
+      issue(
+        "manifest.invalid-focus-areas",
+        "catalog.focusAreas",
+        "Catalog cards need at least three distinct, non-empty focus areas.",
+      ),
+    );
+
+  if (manifest.lifecycle === "available") {
+    issues.push(
+      ...validatePathfinderDefinition(manifest.definition).issues.map(
+        (entry) => ({ ...entry, path: `definition.${entry.path}` }),
+      ),
+    );
+    if (
+      !manifest.metadata.description.trim() ||
+      !manifest.metadata.openGraphDescription.trim()
+    )
+      issues.push(
+        issue(
+          "manifest.incomplete-metadata",
+          "metadata",
+          "Available modules need complete route and Open Graph descriptions.",
+        ),
+      );
+  } else {
+    if (
+      !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(manifest.identity.id) ||
+      !manifest.identity.name.trim() ||
+      !manifest.identity.shortName.trim()
+    )
+      issues.push(
+        issue(
+          "manifest.invalid-coming-soon-identity",
+          "identity",
+          "Coming-soon modules need a stable ID, name, and short name.",
+        ),
+      );
+  }
+
   return { valid: issues.length === 0, issues };
 }

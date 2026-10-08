@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
-import { validatePathfinderDefinition } from "@/lib/pathfinder-validation";
+import { quantumChemistryModule } from "@/data/pathfinder-modules";
+import type { AvailablePathfinderModuleManifest } from "@/lib/pathfinder-manifest";
+import {
+  validatePathfinderDefinition,
+  validatePathfinderModuleManifest,
+} from "@/lib/pathfinder-validation";
 import type { PathfinderDefinition } from "@/lib/pathfinder-definition";
 
 function copyDefinition(): PathfinderDefinition {
@@ -243,5 +248,30 @@ describe("pathfinder definition validation", () => {
     expect(codes).toContain("profile.invalid-filename-prefix");
     expect(codes).toContain("results.invalid-glossary");
     expect(codes).toContain("results.missing-query-guidance");
+  });
+});
+
+describe("pathfinder module manifest validation", () => {
+  it("accepts a complete available module", () => {
+    expect(validatePathfinderModuleManifest(quantumChemistryModule)).toEqual({
+      valid: true,
+      issues: [],
+    });
+  });
+
+  it("validates catalog and route-metadata copy", () => {
+    const manifest: AvailablePathfinderModuleManifest = structuredClone(
+      quantumChemistryModule,
+    );
+    manifest.catalog.description = " ";
+    manifest.catalog.focusAreas = ["Molecules", "molecules"];
+    manifest.metadata.openGraphDescription = " ";
+
+    const codes = validatePathfinderModuleManifest(manifest).issues.map(
+      (entry) => entry.code,
+    );
+    expect(codes).toContain("manifest.incomplete-catalog-copy");
+    expect(codes).toContain("manifest.invalid-focus-areas");
+    expect(codes).toContain("manifest.incomplete-metadata");
   });
 });
