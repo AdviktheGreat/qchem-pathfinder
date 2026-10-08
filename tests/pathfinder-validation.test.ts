@@ -166,4 +166,24 @@ describe("pathfinder definition validation", () => {
     expect(codes).toContain("literature.too-few-paper-types");
     expect(codes).toContain("literature.duplicate-search-query");
   });
+
+  it("connects affinities and explanations to registered signals", () => {
+    const definition = copyDefinition();
+    const niche = definition.recommendations.niches[0];
+    niche.affinities["topic:unregistered"] = 2;
+    niche.reasons = [
+      {
+        signal: "topic:unregistered",
+        category: "style",
+        text: " ",
+      },
+    ];
+
+    const codes = validatePathfinderDefinition(definition).issues.map(
+      (entry) => entry.code,
+    );
+    expect(codes).toContain("affinity.unknown-signal");
+    expect(codes).toContain("reason.category-mismatch");
+    expect(codes).toContain("reason.missing-copy");
+  });
 });

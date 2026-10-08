@@ -563,6 +563,78 @@ function validateLiteratureLaunchpads(
   return issues;
 }
 
+function expectedReasonCategory(signal: string): "interest" | "style" {
+  return signal.startsWith("interest:") ||
+    signal.startsWith("mode:") ||
+    signal.startsWith("topic:") ||
+    signal.startsWith("context:")
+    ? "interest"
+    : "style";
+}
+
+function validateAffinitiesAndReasons(
+  definition: PathfinderDefinition,
+): PathfinderValidationIssue[] {
+  const issues: PathfinderValidationIssue[] = [];
+  const registeredSignals = new Set(
+    definition.survey.questions.flatMap((question) =>
+      question.options.flatMap((option) => Object.keys(option.signals ?? {})),
+    ),
+  );
+
+  definition.recommendations.niches.forEach((niche, nicheIndex) => {
+    const path = `recommendations.niches[${nicheIndex}]`;
+    for (const [signal, weight] of Object.entries(niche.affinities)) {
+      if (!registeredSignals.has(signal))
+        issues.push(
+          issue(
+            "affinity.unknown-signal",
+            `${path}.affinities.${signal}`,
+            `Affinity signal “${signal}” is not produced by any survey option.`,
+          ),
+        );
+      if (!Number.isFinite(weight) || weight <= 0)
+        issues.push(
+          issue(
+            "affinity.invalid-weight",
+            `${path}.affinities.${signal}`,
+            "Affinity weights must be finite positive numbers.",
+          ),
+        );
+    }
+
+    niche.reasons.forEach((reason, reasonIndex) => {
+      const reasonPath = `${path}.reasons[${reasonIndex}]`;
+      if ((niche.affinities[reason.signal] ?? 0) <= 0)
+        issues.push(
+          issue(
+            "reason.unscored-signal",
+            `${reasonPath}.signal`,
+            `Reason signal “${reason.signal}” must have a positive affinity on this direction.`,
+          ),
+        );
+      if (reason.category !== expectedReasonCategory(reason.signal))
+        issues.push(
+          issue(
+            "reason.category-mismatch",
+            `${reasonPath}.category`,
+            `Reason category does not match the scoring category for “${reason.signal}”.`,
+          ),
+        );
+      if (!reason.text.trim())
+        issues.push(
+          issue(
+            "reason.missing-copy",
+            `${reasonPath}.text`,
+            "Recommendation reasons need clear student-facing copy.",
+          ),
+        );
+    });
+  });
+
+  return issues;
+}
+
 function validateSerializableDefinition(
   definition: PathfinderDefinition,
 ): PathfinderValidationIssue[] {
@@ -592,6 +664,7 @@ const definitionRules: readonly DefinitionRule[] = [
   validateScoringWeights,
   validateTaxonomyRecords,
   validateLiteratureLaunchpads,
+  validateAffinitiesAndReasons,
 ];
 
 export function validatePathfinderDefinition(
