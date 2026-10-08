@@ -125,14 +125,17 @@ export const templatePathfinderQuestions: SurveyQuestion[] = [
       {
         id: "systems",
         label: "How interacting parts create system behavior",
+        signals: { "interest:systems": 3 },
       },
       {
         id: "data",
         label: "How evidence can reveal a hidden pattern",
+        signals: { "interest:data": 3 },
       },
       {
         id: "methods",
         label: "How models and computational methods can be improved",
+        signals: { "interest:methods": 3 },
       },
       {
         ...createTemplateUncertaintyOption("Show me several possibilities"),
@@ -148,9 +151,21 @@ export const templatePathfinderQuestions: SurveyQuestion[] = [
     title: "What kind of research question would you most like to ask?",
     type: "single",
     options: [
-      { id: "explain", label: "Explain why a behavior occurs" },
-      { id: "predict", label: "Predict an outcome or property" },
-      { id: "compare", label: "Compare models, systems, or methods" },
+      {
+        id: "explain",
+        label: "Explain why a behavior occurs",
+        signals: { "mode:explain": 3 },
+      },
+      {
+        id: "predict",
+        label: "Predict an outcome or property",
+        signals: { "mode:predict": 3 },
+      },
+      {
+        id: "compare",
+        label: "Compare models, systems, or methods",
+        signals: { "mode:compare": 3 },
+      },
       templateUnsureOption,
     ],
   },
@@ -161,9 +176,21 @@ export const templatePathfinderQuestions: SurveyQuestion[] = [
     title: "Which research material would you most enjoy working with?",
     type: "single",
     options: [
-      { id: "visual", label: "Visual models and diagrams" },
-      { id: "equations", label: "Equations and mathematical patterns" },
-      { id: "code-data", label: "Code, simulations, and datasets" },
+      {
+        id: "visual",
+        label: "Visual models and diagrams",
+        signals: { "style:visual": 2 },
+      },
+      {
+        id: "equations",
+        label: "Equations and mathematical patterns",
+        signals: { "style:mathematical": 2 },
+      },
+      {
+        id: "code-data",
+        label: "Code, simulations, and datasets",
+        signals: { "style:computational": 2 },
+      },
       templateUnsureOption,
     ],
   },

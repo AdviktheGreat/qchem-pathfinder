@@ -44,6 +44,8 @@ Keep branch-only questions in `adaptive-questions.ts`. Every `visibleWhen.questi
 
 Build every honest uncertainty choice with `uncertainty-options.ts`. An uncertainty option must not carry `signals` or `nicheBoosts`, and it must remain mutually exclusive with specific answers in a multi-select question. Customize its label when useful, but keep its meaning neutral.
 
+Define the controlled preference vocabulary in `scoring.ts` before attaching signals to answer options. Use strong weights for declared interests and question types, meaningful weights for working-style preferences, and small supporting weights only for secondary evidence. Calibration options never receive signals.
+
 ## Non-negotiable boundaries
 
 - Calibration changes preparation guidance, never eligibility or fit.
