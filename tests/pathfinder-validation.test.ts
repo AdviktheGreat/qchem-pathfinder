@@ -1,10 +1,14 @@
 import { describe, expect, it } from "vitest";
 import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
-import { quantumChemistryModule } from "@/data/pathfinder-modules";
+import {
+  pathfinderModules,
+  quantumChemistryModule,
+} from "@/data/pathfinder-modules";
 import type { AvailablePathfinderModuleManifest } from "@/lib/pathfinder-manifest";
 import {
   validatePathfinderDefinition,
   validatePathfinderModuleManifest,
+  validatePathfinderRegistry,
 } from "@/lib/pathfinder-validation";
 import type { PathfinderDefinition } from "@/lib/pathfinder-definition";
 
@@ -273,5 +277,27 @@ describe("pathfinder module manifest validation", () => {
     expect(codes).toContain("manifest.incomplete-catalog-copy");
     expect(codes).toContain("manifest.invalid-focus-areas");
     expect(codes).toContain("manifest.incomplete-metadata");
+  });
+});
+
+describe("pathfinder registry validation", () => {
+  it("accepts the complete canonical registry", () => {
+    expect(validatePathfinderRegistry(pathfinderModules)).toEqual({
+      valid: true,
+      issues: [],
+    });
+  });
+
+  it("reports cross-module identity, route, and storage collisions", () => {
+    const result = validatePathfinderRegistry([
+      quantumChemistryModule,
+      structuredClone(quantumChemistryModule),
+    ]);
+    const codes = result.issues.map((entry) => entry.code);
+
+    expect(codes).toContain("registry.duplicate-id");
+    expect(codes).toContain("registry.duplicate-name");
+    expect(codes).toContain("registry.duplicate-route");
+    expect(codes).toContain("registry.duplicate-storage-key");
   });
 });

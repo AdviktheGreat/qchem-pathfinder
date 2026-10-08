@@ -1076,3 +1076,68 @@ export function validatePathfinderModuleManifest(
 
   return { valid: issues.length === 0, issues };
 }
+
+export function validatePathfinderRegistry(
+  manifests: readonly PathfinderModuleManifest[],
+): PathfinderValidationResult {
+  const issues: PathfinderValidationIssue[] = [];
+  const ids = new Set<string>();
+  const names = new Set<string>();
+  const routes = new Set<string>();
+  const storageKeys = new Set<string>();
+
+  manifests.forEach((manifest, manifestIndex) => {
+    const result = validatePathfinderModuleManifest(manifest);
+    issues.push(
+      ...result.issues.map((entry) => ({
+        ...entry,
+        path: `modules[${manifestIndex}].${entry.path}`,
+      })),
+    );
+
+    const identity =
+      manifest.lifecycle === "available"
+        ? manifest.definition.identity
+        : manifest.identity;
+    const duplicateFields = [
+      [ids, identity.id, "id"],
+      [names, identity.name.toLocaleLowerCase(), "name"],
+    ] as const;
+    for (const [seen, value, field] of duplicateFields) {
+      if (seen.has(value))
+        issues.push(
+          issue(
+            `registry.duplicate-${field}`,
+            `modules[${manifestIndex}].identity.${field}`,
+            `Pathfinder ${field} “${value}” is already registered.`,
+          ),
+        );
+      seen.add(value);
+    }
+
+    if (manifest.lifecycle === "available") {
+      const { route } = manifest.definition.identity;
+      const { key } = manifest.definition.storage;
+      if (routes.has(route))
+        issues.push(
+          issue(
+            "registry.duplicate-route",
+            `modules[${manifestIndex}].definition.identity.route`,
+            `Route “${route}” is already registered.`,
+          ),
+        );
+      if (storageKeys.has(key))
+        issues.push(
+          issue(
+            "registry.duplicate-storage-key",
+            `modules[${manifestIndex}].definition.storage.key`,
+            `Storage namespace “${key}” is already registered.`,
+          ),
+        );
+      routes.add(route);
+      storageKeys.add(key);
+    }
+  });
+
+  return { valid: issues.length === 0, issues };
+}
