@@ -48,6 +48,8 @@ Define the controlled preference vocabulary in `scoring.ts` before attaching sig
 
 Use `narrowing-boosts.ts` only when an answer explicitly distinguishes nearby directions. Refer to stable niche IDs, use the named weight scale, and let the engine multiplier make a direct choice stronger than incidental style overlap. Do not add boosts to uncertainty options.
 
+Each entry in `niches.ts` is a complete beginner-explorable research direction, not a final project question. It owns its scientific explanation, representative systems, methods, preparation note, affinities, answer-grounded reasons, comparison lens, keywords, synonyms, searches, and paper types. Keep open-exploration IDs varied across the taxonomy.
+
 ## Non-negotiable boundaries
 
 - Calibration changes preparation guidance, never eligibility or fit.
