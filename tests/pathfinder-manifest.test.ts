@@ -1,8 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
-import type { AvailablePathfinderModuleManifest } from "@/lib/pathfinder-manifest";
+import {
+  definePathfinderModule,
+  type AvailablePathfinderModuleManifest,
+} from "@/lib/pathfinder-manifest";
 
-const exampleManifest = {
+const exampleManifest = definePathfinderModule({
   lifecycle: "available",
   definition: quantumChemistryPathfinder,
   catalog: {
@@ -16,7 +19,7 @@ const exampleManifest = {
     description: "A route description.",
     openGraphDescription: "A sharing description.",
   },
-} satisfies AvailablePathfinderModuleManifest;
+} satisfies AvailablePathfinderModuleManifest);
 
 describe("pathfinder module manifest", () => {
   it("keeps definition, catalog, and route metadata together", () => {
@@ -24,5 +27,10 @@ describe("pathfinder module manifest", () => {
     expect(exampleManifest.definition.identity.id).toBe("quantum-chemistry");
     expect(exampleManifest.catalog.focusAreas).toEqual(["Molecules"]);
     expect(exampleManifest.metadata.openGraphDescription).toContain("sharing");
+  });
+
+  it("preserves literal identity for registry lookups", () => {
+    expect(exampleManifest.definition.identity.id).toBe("quantum-chemistry");
+    expect(exampleManifest.lifecycle).toBe("available");
   });
 });

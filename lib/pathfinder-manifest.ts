@@ -36,3 +36,9 @@ export interface ComingSoonPathfinderModuleManifest {
 
 export type PathfinderModuleManifest =
   AvailablePathfinderModuleManifest | ComingSoonPathfinderModuleManifest;
+
+export function definePathfinderModule<
+  const Manifest extends PathfinderModuleManifest,
+>(manifest: Manifest): Manifest {
+  return manifest;
+}
