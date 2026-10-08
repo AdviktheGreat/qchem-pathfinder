@@ -87,4 +87,26 @@ describe("pathfinder definition validation", () => {
     expect(codes).toContain("branching.forward-reference");
     expect(codes).toContain("branching.unknown-trigger-option");
   });
+
+  it("keeps calibration and uncertainty choices out of scoring", () => {
+    const definition = copyDefinition();
+    const calibrationQuestion = definition.survey.questions.find(
+      (question) => question.stage === "calibration",
+    )!;
+    const uncertaintyOption = calibrationQuestion.options.find(
+      (option) => option.uncertainty,
+    )!;
+    uncertaintyOption.signals = { "interest:invalid": 1 };
+    calibrationQuestion.options[0].nicheBoosts = {
+      "reaction-mechanisms": 1,
+    };
+    definition.survey.calibrationQuestionIds = [];
+
+    const codes = validatePathfinderDefinition(definition).issues.map(
+      (entry) => entry.code,
+    );
+    expect(codes).toContain("calibration.missing-question-id");
+    expect(codes).toContain("calibration.scoring-evidence");
+    expect(codes).toContain("uncertainty.scoring-evidence");
+  });
 });

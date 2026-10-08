@@ -251,6 +251,90 @@ function validateBranching(
   return issues;
 }
 
+function validateCalibrationAndUncertainty(
+  definition: PathfinderDefinition,
+): PathfinderValidationIssue[] {
+  const issues: PathfinderValidationIssue[] = [];
+  const configuredCalibrationIds = new Set(
+    definition.survey.calibrationQuestionIds,
+  );
+
+  definition.survey.questions.forEach((question, questionIndex) => {
+    const path = `survey.questions[${questionIndex}]`;
+    const isCalibration = question.stage === "calibration";
+    if (isCalibration && !configuredCalibrationIds.has(question.id))
+      issues.push(
+        issue(
+          "calibration.missing-question-id",
+          "survey.calibrationQuestionIds",
+          `Calibration question “${question.id}” is not registered as calibration.`,
+        ),
+      );
+    if (!isCalibration && configuredCalibrationIds.has(question.id))
+      issues.push(
+        issue(
+          "calibration.non-calibration-question",
+          "survey.calibrationQuestionIds",
+          `Question “${question.id}” is registered as calibration but belongs to stage “${question.stage}”.`,
+        ),
+      );
+
+    const uncertaintyOptions = question.options.filter(
+      (option) => option.uncertainty,
+    );
+    if (
+      (isCalibration && uncertaintyOptions.length !== 1) ||
+      uncertaintyOptions.length > 1
+    )
+      issues.push(
+        issue(
+          "uncertainty.invalid-count",
+          `${path}.options`,
+          "Calibration questions need one honest uncertainty option, and no question may define more than one.",
+        ),
+      );
+
+    question.options.forEach((option, optionIndex) => {
+      const hasScoringEvidence =
+        Object.keys(option.signals ?? {}).length > 0 ||
+        Object.keys(option.nicheBoosts ?? {}).length > 0;
+      if (option.uncertainty && hasScoringEvidence)
+        issues.push(
+          issue(
+            "uncertainty.scoring-evidence",
+            `${path}.options[${optionIndex}]`,
+            "Uncertainty choices must keep possibilities open and cannot contribute scoring evidence.",
+          ),
+        );
+      if (isCalibration && Object.keys(option.nicheBoosts ?? {}).length > 0)
+        issues.push(
+          issue(
+            "calibration.scoring-evidence",
+            `${path}.options[${optionIndex}]`,
+            "Starting-point calibration cannot directly boost a recommendation.",
+          ),
+        );
+    });
+  });
+
+  for (const questionId of configuredCalibrationIds) {
+    if (
+      !definition.survey.questions.some(
+        (question) => question.id === questionId,
+      )
+    )
+      issues.push(
+        issue(
+          "calibration.unknown-question-id",
+          "survey.calibrationQuestionIds",
+          `Calibration refers to unknown question “${questionId}”.`,
+        ),
+      );
+  }
+
+  return issues;
+}
+
 function validateSerializableDefinition(
   definition: PathfinderDefinition,
 ): PathfinderValidationIssue[] {
@@ -276,6 +360,7 @@ const definitionRules: readonly DefinitionRule[] = [
   validateIdentityAndStorage,
   validateSurveyStructure,
   validateBranching,
+  validateCalibrationAndUncertainty,
 ];
 
 export function validatePathfinderDefinition(
