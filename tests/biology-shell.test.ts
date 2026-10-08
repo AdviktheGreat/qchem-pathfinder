@@ -2,7 +2,9 @@ import { describe, expect, it } from "vitest";
 import ComputationalBiologyPathfinderPage, {
   metadata,
 } from "@/app/pathfinders/computational-biology/page";
+import { computationalBiologyModule } from "@/data/pathfinder-modules";
 import { computationalBiologyPathfinder } from "@/data/pathfinders/computational-biology/pathfinder";
+import { createPathfinderMetadata } from "@/lib/pathfinder-metadata";
 
 describe("computational biology route shell", () => {
   it("uses the complete biology definition at its stable route", () => {
@@ -13,6 +15,9 @@ describe("computational biology route shell", () => {
   });
 
   it("publishes subject-specific static metadata", () => {
+    expect(metadata).toEqual(
+      createPathfinderMetadata(computationalBiologyModule),
+    );
     expect(metadata).toMatchObject({
       title: "Computational Biology Pathfinder",
       alternates: { canonical: "/pathfinders/computational-biology" },
