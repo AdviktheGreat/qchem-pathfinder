@@ -130,4 +130,22 @@ describe("pathfinder definition validation", () => {
     expect(codes).toContain("scoring.invalid-config-weight");
     expect(codes).toContain("scoring.disabled-direct-boosts");
   });
+
+  it("validates unique and complete taxonomy records", () => {
+    const definition = copyDefinition();
+    const firstNiche = definition.recommendations.niches[0];
+    const secondNiche = definition.recommendations.niches[1];
+    secondNiche.id = firstNiche.id;
+    secondNiche.name = firstNiche.name;
+    secondNiche.explanation = " ";
+    secondNiche.systems = [];
+
+    const codes = validatePathfinderDefinition(definition).issues.map(
+      (entry) => entry.code,
+    );
+    expect(codes).toContain("taxonomy.duplicate-id");
+    expect(codes).toContain("taxonomy.duplicate-name");
+    expect(codes).toContain("taxonomy.incomplete-copy");
+    expect(codes).toContain("taxonomy.incomplete-details");
+  });
 });

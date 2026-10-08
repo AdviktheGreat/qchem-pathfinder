@@ -403,6 +403,97 @@ function validateScoringWeights(
   return issues;
 }
 
+function validateTaxonomyRecords(
+  definition: PathfinderDefinition,
+): PathfinderValidationIssue[] {
+  const issues: PathfinderValidationIssue[] = [];
+  const ids = new Set<string>();
+  const names = new Set<string>();
+
+  if (definition.recommendations.niches.length < 3)
+    issues.push(
+      issue(
+        "taxonomy.too-few-directions",
+        "recommendations.niches",
+        "A result experience needs a primary direction and at least two nearby alternatives.",
+      ),
+    );
+
+  definition.recommendations.niches.forEach((niche, nicheIndex) => {
+    const path = `recommendations.niches[${nicheIndex}]`;
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(niche.id))
+      issues.push(
+        issue(
+          "taxonomy.invalid-id",
+          `${path}.id`,
+          "Direction IDs must be lowercase and hyphen-separated.",
+        ),
+      );
+    if (ids.has(niche.id))
+      issues.push(
+        issue(
+          "taxonomy.duplicate-id",
+          `${path}.id`,
+          `Direction ID “${niche.id}” is repeated.`,
+        ),
+      );
+    if (names.has(niche.name))
+      issues.push(
+        issue(
+          "taxonomy.duplicate-name",
+          `${path}.name`,
+          `Direction name “${niche.name}” is repeated.`,
+        ),
+      );
+    ids.add(niche.id);
+    names.add(niche.name);
+
+    const requiredText = [
+      niche.area,
+      niche.name,
+      niche.shortDescription,
+      niche.explanation,
+      niche.preparation,
+      niche.comparisonLens,
+    ];
+    if (requiredText.some((value) => !value.trim()))
+      issues.push(
+        issue(
+          "taxonomy.incomplete-copy",
+          path,
+          "Every direction needs complete names, explanations, preparation, and comparison copy.",
+        ),
+      );
+    if (
+      niche.questions.length === 0 ||
+      niche.systems.length === 0 ||
+      niche.approaches.length === 0 ||
+      niche.concepts.length === 0
+    )
+      issues.push(
+        issue(
+          "taxonomy.incomplete-details",
+          path,
+          "Every direction needs research questions, systems, approaches, and concepts to revisit.",
+        ),
+      );
+    if (
+      niche.approaches.some(
+        (approach) => !approach.name.trim() || !approach.explanation.trim(),
+      )
+    )
+      issues.push(
+        issue(
+          "taxonomy.incomplete-approach",
+          `${path}.approaches`,
+          "Each computational approach needs a name and beginner-friendly explanation.",
+        ),
+      );
+  });
+
+  return issues;
+}
+
 function validateSerializableDefinition(
   definition: PathfinderDefinition,
 ): PathfinderValidationIssue[] {
@@ -430,6 +521,7 @@ const definitionRules: readonly DefinitionRule[] = [
   validateBranching,
   validateCalibrationAndUncertainty,
   validateScoringWeights,
+  validateTaxonomyRecords,
 ];
 
 export function validatePathfinderDefinition(
