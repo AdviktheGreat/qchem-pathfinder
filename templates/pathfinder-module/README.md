@@ -52,6 +52,8 @@ Each entry in `niches.ts` is a complete beginner-explorable research direction, 
 
 Put reusable beginner definitions in `glossary.ts` and ability-neutral support in `preparation.ts`. Every referenced question and option ID must exist. Advice should suggest a realistic next step without implying that limited mathematics, coding, or prior knowledge makes a direction less worthy.
 
+Keep source-reading habits and the paper-note format in `reading-guidance.ts`; keep presentation labels and search-provider templates in `results.ts`. Results should explain actual evidence, distinguish primary and nearby directions, warn students to verify citations, and preserve complete copy and print actions.
+
 ## Non-negotiable boundaries
 
 - Calibration changes preparation guidance, never eligibility or fit.
