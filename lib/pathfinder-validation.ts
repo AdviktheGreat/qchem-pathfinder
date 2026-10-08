@@ -838,6 +838,132 @@ function validatePreparationReferences(
   return issues;
 }
 
+function validateResultsAndProfile(
+  definition: PathfinderDefinition,
+): PathfinderValidationIssue[] {
+  const issues: PathfinderValidationIssue[] = [];
+  const questionIds = new Set(
+    definition.survey.questions.map((question) => question.id),
+  );
+  const { results, profile } = definition;
+
+  const profileQuestionReferences = [
+    ["motivationQuestionId", profile.motivationQuestionId],
+    ["questionTypeQuestionId", profile.questionTypeQuestionId],
+    ...Object.keys(profile.researchStyleLabels).map(
+      (questionId) =>
+        [`researchStyleLabels.${questionId}`, questionId] as const,
+    ),
+  ] as const;
+  for (const [path, questionId] of profileQuestionReferences) {
+    if (!questionIds.has(questionId))
+      issues.push(
+        issue(
+          "profile.unknown-question",
+          `profile.${path}`,
+          `Profile formatting refers to unknown question “${questionId}”.`,
+        ),
+      );
+  }
+  if (!profile.exportTitle.trim())
+    issues.push(
+      issue(
+        "profile.missing-export-title",
+        "profile.exportTitle",
+        "The plain-text profile needs a stable title.",
+      ),
+    );
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(profile.filenamePrefix))
+    issues.push(
+      issue(
+        "profile.invalid-filename-prefix",
+        "profile.filenamePrefix",
+        "Profile filenames need a lowercase, hyphen-separated prefix.",
+      ),
+    );
+
+  const glossaryTerms = results.glossary.map((entry) =>
+    entry.term.trim().toLocaleLowerCase(),
+  );
+  if (
+    results.glossary.length === 0 ||
+    results.glossary.some(
+      (entry) => !entry.term.trim() || !entry.text.trim(),
+    ) ||
+    new Set(glossaryTerms).size !== glossaryTerms.length
+  )
+    issues.push(
+      issue(
+        "results.invalid-glossary",
+        "results.glossary",
+        "Glossary entries must have unique terms and complete explanations.",
+      ),
+    );
+
+  if (Object.values(results.queryGuidance).some((guidance) => !guidance.trim()))
+    issues.push(
+      issue(
+        "results.missing-query-guidance",
+        "results.queryGuidance",
+        "Each search-query level needs a short explanation.",
+      ),
+    );
+  if (
+    results.searchRefinements.length === 0 ||
+    results.searchRefinements.some(
+      (entry) => !entry.title.trim() || !entry.text.trim(),
+    )
+  )
+    issues.push(
+      issue(
+        "results.invalid-search-refinements",
+        "results.searchRefinements",
+        "Search refinement guidance cannot be empty.",
+      ),
+    );
+  if (
+    results.paperTypeGuide.length === 0 ||
+    results.paperTypeGuide.some(
+      (entry) => !entry.term.trim() || !entry.text.trim(),
+    ) ||
+    !results.paperNoteTemplate.trim()
+  )
+    issues.push(
+      issue(
+        "results.invalid-reading-guidance",
+        "results.paperTypeGuide",
+        "Paper-type guidance and the reading-note template must be complete.",
+      ),
+    );
+
+  results.overview?.dimensions.forEach((dimension, dimensionIndex) => {
+    if (!questionIds.has(dimension.questionId))
+      issues.push(
+        issue(
+          "results.unknown-overview-question",
+          `results.overview.dimensions[${dimensionIndex}].questionId`,
+          `Results overview refers to unknown question “${dimension.questionId}”.`,
+        ),
+      );
+  });
+  results.searchProviders?.forEach((provider, providerIndex) => {
+    if (
+      !provider.label.trim() ||
+      !provider.urlTemplate.startsWith("https://") ||
+      !provider.urlTemplate.includes("{query}")
+    )
+      issues.push(
+        issue(
+          "results.invalid-search-provider",
+          `results.searchProviders[${providerIndex}]`,
+          "Search providers need a label and an HTTPS URL template containing {query}.",
+        ),
+      );
+  });
+
+  return issues;
+}
+
 function validateSerializableDefinition(
   definition: PathfinderDefinition,
 ): PathfinderValidationIssue[] {
@@ -870,6 +996,7 @@ const definitionRules: readonly DefinitionRule[] = [
   validateAffinitiesAndReasons,
   validateDirectionReferences,
   validatePreparationReferences,
+  validateResultsAndProfile,
 ];
 
 export function validatePathfinderDefinition(

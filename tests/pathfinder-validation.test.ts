@@ -225,4 +225,23 @@ describe("pathfinder definition validation", () => {
     expect(codes).toContain("preparation.unknown-context-ready-option");
     expect(codes).toContain("preparation.unknown-supplement-question");
   });
+
+  it("validates profile references and results resources", () => {
+    const definition = copyDefinition();
+    definition.profile.motivationQuestionId = "missing-question";
+    definition.profile.filenamePrefix = "Invalid Filename";
+    definition.results.glossary = [];
+    definition.results.queryGuidance = {
+      ...definition.results.queryGuidance,
+      orientation: " ",
+    };
+
+    const codes = validatePathfinderDefinition(definition).issues.map(
+      (entry) => entry.code,
+    );
+    expect(codes).toContain("profile.unknown-question");
+    expect(codes).toContain("profile.invalid-filename-prefix");
+    expect(codes).toContain("results.invalid-glossary");
+    expect(codes).toContain("results.missing-query-guidance");
+  });
 });
