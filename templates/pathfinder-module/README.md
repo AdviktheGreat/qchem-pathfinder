@@ -50,6 +50,8 @@ Use `narrowing-boosts.ts` only when an answer explicitly distinguishes nearby di
 
 Each entry in `niches.ts` is a complete beginner-explorable research direction, not a final project question. It owns its scientific explanation, representative systems, methods, preparation note, affinities, answer-grounded reasons, comparison lens, keywords, synonyms, searches, and paper types. Keep open-exploration IDs varied across the taxonomy.
 
+Put reusable beginner definitions in `glossary.ts` and ability-neutral support in `preparation.ts`. Every referenced question and option ID must exist. Advice should suggest a realistic next step without implying that limited mathematics, coding, or prior knowledge makes a direction less worthy.
+
 ## Non-negotiable boundaries
 
 - Calibration changes preparation guidance, never eligibility or fit.
