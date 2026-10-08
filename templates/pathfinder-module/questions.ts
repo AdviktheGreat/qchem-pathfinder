@@ -1,6 +1,10 @@
 import type { StageLabels } from "@/lib/pathfinder-definition";
 import type { SurveyQuestion } from "@/lib/types";
 import { templateAdaptiveQuestions } from "@/templates/pathfinder-module/adaptive-questions";
+import {
+  createTemplateUncertaintyOption,
+  templateUnsureOption,
+} from "@/templates/pathfinder-module/uncertainty-options";
 
 export const templateStageLabels = {
   calibration: "Starting point",
@@ -46,11 +50,7 @@ export const templatePathfinderQuestions: SurveyQuestion[] = [
         label: "I could explain several core ideas",
         description: "I feel ready to build from introductory concepts.",
       },
-      {
-        id: "unsure",
-        label: "I’m not sure yet",
-        uncertainty: true,
-      },
+      templateUnsureOption,
     ],
   },
   {
@@ -65,11 +65,9 @@ export const templatePathfinderQuestions: SurveyQuestion[] = [
       { id: "systems", label: "Systems, structures, and interactions" },
       { id: "models", label: "Models, assumptions, and approximations" },
       { id: "evidence", label: "Data, evidence, and uncertainty" },
-      {
-        id: "unsure",
-        label: "I’ve heard of these but couldn’t explain them",
-        uncertainty: true,
-      },
+      createTemplateUncertaintyOption(
+        "I’ve heard of these but couldn’t explain them",
+      ),
     ],
   },
   {
@@ -84,7 +82,7 @@ export const templatePathfinderQuestions: SurveyQuestion[] = [
       { id: "comfortable", label: "Equations often help me understand" },
       { id: "guided", label: "I’m comfortable with some guidance" },
       { id: "concept-first", label: "Show me the physical picture first" },
-      { id: "unsure", label: "I’m not sure yet", uncertainty: true },
+      templateUnsureOption,
     ],
   },
   {
@@ -99,7 +97,7 @@ export const templatePathfinderQuestions: SurveyQuestion[] = [
       { id: "enjoy", label: "I enjoy writing or adapting code" },
       { id: "learning", label: "I’m learning through examples" },
       { id: "new", label: "Coding is mostly new to me" },
-      { id: "unsure", label: "I’m not sure yet", uncertainty: true },
+      templateUnsureOption,
     ],
   },
   {
@@ -112,7 +110,7 @@ export const templatePathfinderQuestions: SurveyQuestion[] = [
       { id: "conceptual", label: "A conceptual story and concrete example" },
       { id: "quantitative", label: "A quantitative pattern or equation" },
       { id: "mixed", label: "A mix of concepts, visuals, and equations" },
-      { id: "unsure", label: "I’m not sure yet", uncertainty: true },
+      templateUnsureOption,
     ],
   },
   {
@@ -137,9 +135,8 @@ export const templatePathfinderQuestions: SurveyQuestion[] = [
         label: "How models and computational methods can be improved",
       },
       {
+        ...createTemplateUncertaintyOption("Show me several possibilities"),
         id: "open",
-        label: "Show me several possibilities",
-        uncertainty: true,
       },
     ],
   },
@@ -154,7 +151,7 @@ export const templatePathfinderQuestions: SurveyQuestion[] = [
       { id: "explain", label: "Explain why a behavior occurs" },
       { id: "predict", label: "Predict an outcome or property" },
       { id: "compare", label: "Compare models, systems, or methods" },
-      { id: "unsure", label: "I’m not sure yet", uncertainty: true },
+      templateUnsureOption,
     ],
   },
   {
@@ -167,7 +164,7 @@ export const templatePathfinderQuestions: SurveyQuestion[] = [
       { id: "visual", label: "Visual models and diagrams" },
       { id: "equations", label: "Equations and mathematical patterns" },
       { id: "code-data", label: "Code, simulations, and datasets" },
-      { id: "unsure", label: "I’m not sure yet", uncertainty: true },
+      templateUnsureOption,
     ],
   },
 ];

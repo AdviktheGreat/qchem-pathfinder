@@ -42,6 +42,8 @@ Then rewrite `intro.ts` for the audience and discipline. Preserve its four promi
 
 Keep branch-only questions in `adaptive-questions.ts`. Every `visibleWhen.questionId` should name the broad motivation question, and every `anyOf` value should be a real motivation option. Provide a useful open branch instead of showing every specialized follow-up to an uncertain student.
 
+Build every honest uncertainty choice with `uncertainty-options.ts`. An uncertainty option must not carry `signals` or `nicheBoosts`, and it must remain mutually exclusive with specific answers in a multi-select question. Customize its label when useful, but keep its meaning neutral.
+
 ## Non-negotiable boundaries
 
 - Calibration changes preparation guidance, never eligibility or fit.

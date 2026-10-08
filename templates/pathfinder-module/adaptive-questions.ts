@@ -1,4 +1,8 @@
 import type { SurveyQuestion } from "@/lib/types";
+import {
+  createTemplateUncertaintyOption,
+  templateUnsureOption,
+} from "@/templates/pathfinder-module/uncertainty-options";
 
 export const templateAdaptiveQuestions: SurveyQuestion[] = [
   {
@@ -12,7 +16,7 @@ export const templateAdaptiveQuestions: SurveyQuestion[] = [
       { id: "small", label: "A few interacting parts" },
       { id: "collective", label: "Many parts acting collectively" },
       { id: "multi-scale", label: "Connections across several scales" },
-      { id: "unsure", label: "I’m not sure yet", uncertainty: true },
+      templateUnsureOption,
     ],
   },
   {
@@ -26,7 +30,7 @@ export const templateAdaptiveQuestions: SurveyQuestion[] = [
       { id: "stability", label: "Stability and change over time" },
       { id: "emergence", label: "Unexpected collective behavior" },
       { id: "response", label: "Response to a controlled change" },
-      { id: "unsure", label: "I’m not sure yet", uncertainty: true },
+      templateUnsureOption,
     ],
   },
   {
@@ -40,7 +44,7 @@ export const templateAdaptiveQuestions: SurveyQuestion[] = [
       { id: "measurements", label: "Measurements collected over time" },
       { id: "images", label: "Images, maps, or spatial patterns" },
       { id: "distributions", label: "Distributions and repeated samples" },
-      { id: "unsure", label: "I’m not sure yet", uncertainty: true },
+      templateUnsureOption,
     ],
   },
   {
@@ -57,7 +61,7 @@ export const templateAdaptiveQuestions: SurveyQuestion[] = [
       },
       { id: "classify", label: "Recognize meaningful categories or states" },
       { id: "forecast", label: "Forecast what may happen next" },
-      { id: "unsure", label: "I’m not sure yet", uncertainty: true },
+      templateUnsureOption,
     ],
   },
   {
@@ -77,7 +81,7 @@ export const templateAdaptiveQuestions: SurveyQuestion[] = [
         id: "interpretability",
         label: "How can the result become easier to interpret?",
       },
-      { id: "unsure", label: "I’m not sure yet", uncertainty: true },
+      templateUnsureOption,
     ],
   },
   {
@@ -91,7 +95,7 @@ export const templateAdaptiveQuestions: SurveyQuestion[] = [
       { id: "algorithms", label: "Two algorithms on the same problem" },
       { id: "resolution", label: "Different resolutions or approximations" },
       { id: "validation", label: "Model output and independent evidence" },
-      { id: "unsure", label: "I’m not sure yet", uncertainty: true },
+      templateUnsureOption,
     ],
   },
   {
@@ -108,11 +112,7 @@ export const templateAdaptiveQuestions: SurveyQuestion[] = [
         label: "A surprising or counterintuitive phenomenon",
       },
       { id: "methods", label: "A comparison of computational methods" },
-      {
-        id: "unsure",
-        label: "I would like to keep all three open",
-        uncertainty: true,
-      },
+      createTemplateUncertaintyOption("I would like to keep all three open"),
     ],
   },
   {
@@ -126,7 +126,7 @@ export const templateAdaptiveQuestions: SurveyQuestion[] = [
       { id: "visual", label: "Clear figures and visual explanations" },
       { id: "question", label: "One concrete scientific question" },
       { id: "workflow", label: "A step-by-step computational workflow" },
-      { id: "unsure", label: "I’m not sure yet", uncertainty: true },
+      templateUnsureOption,
     ],
   },
 ];
