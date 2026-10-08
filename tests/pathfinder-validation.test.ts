@@ -109,4 +109,25 @@ describe("pathfinder definition validation", () => {
     expect(codes).toContain("calibration.scoring-evidence");
     expect(codes).toContain("uncertainty.scoring-evidence");
   });
+
+  it("validates signal names and finite positive weights", () => {
+    const definition = copyDefinition();
+    const option = definition.survey.questions[5].options[0];
+    option.signals = { "Invalid signal": -2 };
+    option.nicheBoosts = { "reaction-mechanisms": Number.NaN };
+    definition.recommendations.scoring = {
+      directBoostMultiplier: 0,
+      openInterestMultiplier: -1,
+      uncertaintyBonus: 0.35,
+    };
+
+    const codes = validatePathfinderDefinition(definition).issues.map(
+      (entry) => entry.code,
+    );
+    expect(codes).toContain("scoring.invalid-signal-name");
+    expect(codes).toContain("scoring.invalid-signal-weight");
+    expect(codes).toContain("scoring.invalid-boost-weight");
+    expect(codes).toContain("scoring.invalid-config-weight");
+    expect(codes).toContain("scoring.disabled-direct-boosts");
+  });
 });

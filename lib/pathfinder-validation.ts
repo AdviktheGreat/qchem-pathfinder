@@ -335,6 +335,74 @@ function validateCalibrationAndUncertainty(
   return issues;
 }
 
+function validateScoringWeights(
+  definition: PathfinderDefinition,
+): PathfinderValidationIssue[] {
+  const issues: PathfinderValidationIssue[] = [];
+  const signalPattern = /^[a-z][a-z0-9-]*:[a-z0-9][a-z0-9-]*$/;
+
+  definition.survey.questions.forEach((question, questionIndex) => {
+    question.options.forEach((option, optionIndex) => {
+      const optionPath = `survey.questions[${questionIndex}].options[${optionIndex}]`;
+      for (const [signal, weight] of Object.entries(option.signals ?? {})) {
+        if (!signalPattern.test(signal))
+          issues.push(
+            issue(
+              "scoring.invalid-signal-name",
+              `${optionPath}.signals.${signal}`,
+              "Signal names must use a lowercase namespace:value format.",
+            ),
+          );
+        if (!Number.isFinite(weight) || weight <= 0)
+          issues.push(
+            issue(
+              "scoring.invalid-signal-weight",
+              `${optionPath}.signals.${signal}`,
+              "Signal weights must be finite positive numbers.",
+            ),
+          );
+      }
+      for (const [nicheId, weight] of Object.entries(
+        option.nicheBoosts ?? {},
+      )) {
+        if (!Number.isFinite(weight) || weight <= 0)
+          issues.push(
+            issue(
+              "scoring.invalid-boost-weight",
+              `${optionPath}.nicheBoosts.${nicheId}`,
+              "Direct recommendation boosts must be finite positive numbers.",
+            ),
+          );
+      }
+    });
+  });
+
+  if (definition.recommendations.scoring) {
+    for (const [name, value] of Object.entries(
+      definition.recommendations.scoring,
+    )) {
+      if (!Number.isFinite(value) || value < 0)
+        issues.push(
+          issue(
+            "scoring.invalid-config-weight",
+            `recommendations.scoring.${name}`,
+            "Scoring configuration weights must be finite, non-negative numbers.",
+          ),
+        );
+    }
+    if (definition.recommendations.scoring.directBoostMultiplier === 0)
+      issues.push(
+        issue(
+          "scoring.disabled-direct-boosts",
+          "recommendations.scoring.directBoostMultiplier",
+          "Direct narrowing choices need a positive multiplier.",
+        ),
+      );
+  }
+
+  return issues;
+}
+
 function validateSerializableDefinition(
   definition: PathfinderDefinition,
 ): PathfinderValidationIssue[] {
@@ -361,6 +429,7 @@ const definitionRules: readonly DefinitionRule[] = [
   validateSurveyStructure,
   validateBranching,
   validateCalibrationAndUncertainty,
+  validateScoringWeights,
 ];
 
 export function validatePathfinderDefinition(
