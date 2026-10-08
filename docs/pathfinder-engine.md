@@ -36,6 +36,12 @@ single typed definition is the entry point consumed by the engine. Content
 objects must remain serializable because the App Router page passes the
 definition into an interactive client component.
 
+## Module manifests and registry
+
+`data/pathfinder-modules.ts` is the canonical release registry. Each manifest keeps a completed definition together with hub-specific catalog copy, route metadata copy, and its lifecycle state. Definition lookup, the hub catalog, available navigation, and standardized route metadata are projections from this registry; they must not maintain separate identity lists.
+
+Use `definePathfinderModule()` so TypeScript preserves the manifest's literal identity while checking the complete contract. App Router pages remain Server Components: they select their registered manifest, generate static `Metadata` with `createPathfinderMetadata()`, and pass only the serializable definition into `PathfinderApp`.
+
 ## Dependency direction
 
 Dependencies flow in one direction:
@@ -61,8 +67,8 @@ coexist on the same device.
 Adding a pathfinder should ultimately require four actions:
 
 1. Create and validate its typed content definition.
-2. Render `PathfinderApp` with that definition from its route.
-3. Add the route to the hub catalog only after the experience is complete.
+2. Create one module manifest containing its catalog and metadata copy.
+3. Render `PathfinderApp` with that registered definition from its route, then mark the manifest available only after the experience is complete.
 4. Add subject-specific fixtures, reachability checks, and full-journey tests.
 
 Numeric scores remain an internal ranking tool. User-facing results explain

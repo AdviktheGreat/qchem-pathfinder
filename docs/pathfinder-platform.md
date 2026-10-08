@@ -4,7 +4,7 @@ The root page is a catalog, not a combined multidisciplinary survey. Every avail
 
 ## Availability states
 
-Catalog entries live in `data/pathfinders.ts`.
+Module manifests live in `data/pathfinder-modules.ts`; public catalog entries are derived in `data/pathfinders.ts`.
 
 Modules move through `draft`, `testing`, `coming-soon`, and `available`. The first two are authoring states and stay out of the public catalog. `lib/pathfinder-lifecycle.ts` is the canonical vocabulary and documents the release boundary.
 
@@ -12,6 +12,8 @@ Modules move through `draft`, `testing`, `coming-soon`, and `available`. The fir
 - `coming-soon`: must not provide an `href` or an interactive control. Its card communicates roadmap intent without pretending that an unfinished survey exists.
 
 Catalog tests protect unique IDs and names, valid available routes, and non-interactive roadmap entries.
+
+The canonical registry also drives definition lookup and the in-pathfinder switcher. A released module's identity, route, or availability must never be repeated in a second hand-maintained registry. Route pages derive their static title, description, canonical URL, and Open Graph fields from the manifest while remaining Server Components.
 
 ## Route and storage boundaries
 

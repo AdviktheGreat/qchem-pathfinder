@@ -31,7 +31,8 @@ On a fresh checkout, run `npx next typegen` before type checking to generate rou
 app/                    Next.js App Router entry points and global styles
 app/pathfinders/        Individual pathfinder routes
 components/             Hub, survey, review, results, and shared controls
-data/pathfinders.ts     Typed hub catalog and availability states
+data/pathfinder-modules.ts Canonical module manifests and release order
+data/pathfinders.ts     Hub catalog derived from module manifests
 data/pathfinders/       Subject definitions, questions, taxonomies, and guidance
 data/questions.ts       Quantum chemistry questions (legacy stable module)
 data/niches.ts          Quantum chemistry taxonomy (legacy stable module)
@@ -45,6 +46,9 @@ lib/preparation.ts      Shared preparation model for results and exports
 lib/profile-export.ts   Plain-text research-profile formatter
 lib/persistence.ts      Versioned local-storage serialization and validation
 lib/hub-persistence.ts  Validated recently visited pathfinder state
+lib/pathfinder-manifest.ts Typed module and catalog authoring contract
+lib/pathfinder-metadata.ts Standard App Router metadata projection
+lib/pathfinder-lifecycle.ts Draft-to-release lifecycle vocabulary
 tests/fixtures/         Complete, validated student paths for all four modules
 tests/                  Unit and rendered-component journey tests
 docs/                   Export format contract and scientific-copy sources
@@ -56,7 +60,7 @@ The central hub lives at `/`. The complete experiences live at `/pathfinders/qua
 
 The hub resolves each card to its typed pathfinder definition, reads only that definition’s storage key, and shows whether the student should start, continue, or review it. A small separate hub record remembers the most recently visited available pathfinder. All records remain local to the browser.
 
-Pathfinder availability is controlled in `data/pathfinders.ts`:
+Pathfinder registration and availability are controlled in `data/pathfinder-modules.ts`. `data/pathfinders.ts` derives the public catalog from those manifests:
 
 - `available` entries require a real route and receive an interactive card.
 - `coming-soon` entries are non-interactive roadmap previews.
