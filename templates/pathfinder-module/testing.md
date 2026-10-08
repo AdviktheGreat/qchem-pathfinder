@@ -2,6 +2,8 @@
 
 A module is not complete because its happy path renders. Add subject-specific tests before registry activation and keep failures understandable to instructors editing local data.
 
+Start by asserting that `validatePathfinderModuleManifest()` returns no issues. This catches structural and reference errors early; the behavioral coverage below is still required.
+
 ## Minimum automated coverage
 
 | Area             | Required checks                                                                                  |

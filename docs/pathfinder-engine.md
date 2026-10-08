@@ -42,6 +42,8 @@ definition into an interactive client component.
 
 Use `definePathfinderModule()` so TypeScript preserves the manifest's literal identity while checking the complete contract. App Router pages remain Server Components: they select their registered manifest, generate static `Metadata` with `createPathfinderMetadata()`, and pass only the serializable definition into `PathfinderApp`.
 
+The pure validators in `lib/pathfinder-validation.ts` check one definition, one manifest, or the complete registry. They report stable issue codes and field paths without mutating content. See [Pathfinder validation rules](pathfinder-validation.md) for the rule catalog and authoring workflow.
+
 ## Dependency direction
 
 Dependencies flow in one direction:

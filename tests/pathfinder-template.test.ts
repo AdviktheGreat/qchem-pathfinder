@@ -4,6 +4,7 @@ import { getVisibleQuestions } from "@/lib/branching";
 import { createPathfinderMetadata } from "@/lib/pathfinder-metadata";
 import { formatResearchProfile } from "@/lib/profile-export";
 import { getRecommendations } from "@/lib/recommendation";
+import { validatePathfinderModuleManifest } from "@/lib/pathfinder-validation";
 import type { AnswerMap, SurveyQuestion } from "@/lib/types";
 import {
   templatePathfinderDefinition,
@@ -48,6 +49,10 @@ describe("reusable pathfinder module template", () => {
     expect(createPathfinderMetadata(templatePathfinderModule)).toMatchObject({
       title: definition.identity.name,
       alternates: { canonical: definition.identity.route },
+    });
+    expect(validatePathfinderModuleManifest(templatePathfinderModule)).toEqual({
+      valid: true,
+      issues: [],
     });
   });
 

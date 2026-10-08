@@ -62,6 +62,8 @@ Use `testing.md` as the minimum release matrix. Subject-specific scientific revi
 
 `pathfinder.ts` and `manifest.ts` prove that the reference pieces assemble into the same contracts used by released modules. The example is covered by `tests/pathfinder-template.test.ts` but deliberately omitted from the canonical registry, so it cannot appear in the live application.
 
+Run `validatePathfinderModuleManifest()` against the assembled manifest while authoring. The [validation rule guide](../../docs/pathfinder-validation.md) explains every protected boundary and how to interpret its structured issues. Registration comes last, after definition, manifest, subject-specific, and full-registry checks pass.
+
 ## Non-negotiable boundaries
 
 - Calibration changes preparation guidance, never eligibility or fit.

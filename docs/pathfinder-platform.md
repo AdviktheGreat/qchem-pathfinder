@@ -27,11 +27,11 @@ Before changing a catalog entry from `coming-soon` to `available`:
 
 1. Create its route and complete all screens from introduction through export.
 2. Keep its question definitions and recommendation taxonomy separate from quantum chemistry data.
-3. Give every recommendation a reasonable complete answer path.
+3. Pass definition and manifest validation, then give every recommendation a reasonable complete answer path.
 4. Add uncertainty, conflicting-preference, persistence, export, and reachability tests.
 5. Review scientific copy with an appropriate subject-matter reviewer.
 6. Verify desktop, tablet, phone, keyboard, reduced-motion, forced-color, refresh, print, and storage-failure behavior.
-7. Register the definition so the shared hub progress summary and switcher can discover it.
+7. Register the definition, confirm the complete registry validates without collisions, and verify the shared hub progress summary and switcher can discover it.
 
 Do not compare raw recommendation scores across modules. The scores are meaningful only inside the taxonomy whose explicit affinities and weights produced them.
 

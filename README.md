@@ -49,6 +49,7 @@ lib/hub-persistence.ts  Validated recently visited pathfinder state
 lib/pathfinder-manifest.ts Typed module and catalog authoring contract
 lib/pathfinder-metadata.ts Standard App Router metadata projection
 lib/pathfinder-lifecycle.ts Draft-to-release lifecycle vocabulary
+lib/pathfinder-validation.ts Structured definition, manifest, and registry checks
 tests/fixtures/         Complete, validated student paths for all four modules
 tests/                  Unit and rendered-component journey tests
 templates/              Type-checked, unregistered module authoring reference
@@ -132,7 +133,7 @@ Coverage also checks all 18 qchem, all 22 materials, all 24 biology, and all 28 
 
 To edit quantum chemistry, use the established top-level `data/` modules. For the newer modules, start with the [computational materials](docs/computational-materials-maintenance.md), [computational biology](docs/computational-biology-maintenance.md), or [computational physics](docs/computational-physics-maintenance.md) maintenance guide. Reuse an existing signal when it represents the same preference, or add a clearly named signal and matching niche affinities. Add `visibleWhen` only when the question belongs to a branch.
 
-To begin a new subject, copy the [type-checked module template](templates/pathfinder-module/README.md) and keep it unregistered until its content and release tests are complete.
+To begin a new subject, copy the [type-checked module template](templates/pathfinder-module/README.md), follow the [validation rule guide](docs/pathfinder-validation.md), and keep it unregistered until its content and release tests are complete.
 
 Each `Niche` owns its descriptions, typical questions, example systems, approaches, preparation, concepts, keywords, synonyms, searches, paper guidance, affinities, and explanation rules. New niches should also receive at least one meaningful `nicheBoosts` route from a visible narrowing answer; the reachability tests fail if it is missing or cannot become primary.
 
