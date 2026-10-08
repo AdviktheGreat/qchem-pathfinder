@@ -58,6 +58,8 @@ Keep source-reading habits and the paper-note format in `reading-guidance.ts`; k
 
 Follow `route-and-activation.md` only after the local definition and its tests are complete. The page remains a Server Component, static metadata comes from the manifest, and registration happens exactly once in the canonical module registry.
 
+Use `testing.md` as the minimum release matrix. Subject-specific scientific review and assistive-technology testing remain necessary even when every automated check passes.
+
 ## Non-negotiable boundaries
 
 - Calibration changes preparation guidance, never eligibility or fit.
