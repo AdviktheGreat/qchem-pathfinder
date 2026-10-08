@@ -6,8 +6,10 @@ import {
   getPathfinderDefinition,
   pathfinderDefinitions,
 } from "@/data/pathfinder-definitions";
+import { computationalPhysicsModule } from "@/data/pathfinder-modules";
 import { computationalPhysicsPathfinder } from "@/data/pathfinders/computational-physics";
 import { createHubState, getRecentPathfinder } from "@/lib/hub-persistence";
+import { createPathfinderMetadata } from "@/lib/pathfinder-metadata";
 
 describe("computational physics platform integration", () => {
   it("registers the complete definition exactly once", () => {
@@ -29,6 +31,9 @@ describe("computational physics platform integration", () => {
   });
 
   it("publishes subject-specific static metadata", () => {
+    expect(metadata).toEqual(
+      createPathfinderMetadata(computationalPhysicsModule),
+    );
     expect(metadata).toMatchObject({
       title: "Computational Physics Pathfinder",
       alternates: { canonical: "/pathfinders/computational-physics" },
