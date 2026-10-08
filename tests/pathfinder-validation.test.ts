@@ -70,4 +70,21 @@ describe("pathfinder definition validation", () => {
     expect(codes).toContain("survey.duplicate-option-id");
     expect(codes).toContain("survey.invalid-selection-limit");
   });
+
+  it("validates adaptive branch references and ordering", () => {
+    const definition = copyDefinition();
+    definition.survey.branchQuestionId = "missing-question";
+    const firstQuestion = definition.survey.questions[0];
+    firstQuestion.visibleWhen = {
+      questionId: definition.survey.questions[1].id,
+      anyOf: ["missing-option"],
+    };
+
+    const codes = validatePathfinderDefinition(definition).issues.map(
+      (entry) => entry.code,
+    );
+    expect(codes).toContain("branching.missing-branch-question");
+    expect(codes).toContain("branching.forward-reference");
+    expect(codes).toContain("branching.unknown-trigger-option");
+  });
 });

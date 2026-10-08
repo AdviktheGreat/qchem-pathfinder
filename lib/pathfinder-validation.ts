@@ -170,6 +170,87 @@ function validateSurveyStructure(
   return issues;
 }
 
+function validateBranching(
+  definition: PathfinderDefinition,
+): PathfinderValidationIssue[] {
+  const issues: PathfinderValidationIssue[] = [];
+  const questions = definition.survey.questions;
+  const questionIndex = new Map(
+    questions.map((question, index) => [question.id, index]),
+  );
+  const branchQuestion = questions.find(
+    (question) => question.id === definition.survey.branchQuestionId,
+  );
+
+  if (!branchQuestion)
+    issues.push(
+      issue(
+        "branching.missing-branch-question",
+        "survey.branchQuestionId",
+        "The branch question ID must refer to a real survey question.",
+      ),
+    );
+  else if (branchQuestion.visibleWhen)
+    issues.push(
+      issue(
+        "branching.hidden-branch-question",
+        "survey.branchQuestionId",
+        "The question that opens adaptive branches must always be visible.",
+      ),
+    );
+
+  questions.forEach((question, index) => {
+    if (!question.visibleWhen) return;
+    const path = `survey.questions[${index}].visibleWhen`;
+    const sourceIndex = questionIndex.get(question.visibleWhen.questionId);
+    const sourceQuestion =
+      sourceIndex === undefined ? undefined : questions[sourceIndex];
+
+    if (sourceIndex === undefined || !sourceQuestion) {
+      issues.push(
+        issue(
+          "branching.unknown-source-question",
+          `${path}.questionId`,
+          `Visibility refers to unknown question “${question.visibleWhen.questionId}”.`,
+        ),
+      );
+      return;
+    }
+    if (sourceIndex >= index)
+      issues.push(
+        issue(
+          "branching.forward-reference",
+          `${path}.questionId`,
+          "A branch can depend only on an earlier question.",
+        ),
+      );
+    if (question.visibleWhen.anyOf.length === 0)
+      issues.push(
+        issue(
+          "branching.empty-trigger",
+          `${path}.anyOf`,
+          "A visibility rule must name at least one triggering option.",
+        ),
+      );
+
+    const sourceOptionIds = new Set(
+      sourceQuestion.options.map((option) => option.id),
+    );
+    for (const optionId of question.visibleWhen.anyOf) {
+      if (!sourceOptionIds.has(optionId))
+        issues.push(
+          issue(
+            "branching.unknown-trigger-option",
+            `${path}.anyOf`,
+            `Visibility refers to unknown option “${optionId}” on question “${sourceQuestion.id}”.`,
+          ),
+        );
+    }
+  });
+
+  return issues;
+}
+
 function validateSerializableDefinition(
   definition: PathfinderDefinition,
 ): PathfinderValidationIssue[] {
@@ -194,6 +275,7 @@ const definitionRules: readonly DefinitionRule[] = [
   validateSerializableDefinition,
   validateIdentityAndStorage,
   validateSurveyStructure,
+  validateBranching,
 ];
 
 export function validatePathfinderDefinition(
