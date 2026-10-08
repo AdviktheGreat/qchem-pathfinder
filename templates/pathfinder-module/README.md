@@ -36,6 +36,8 @@ Route creation, manifest registration, activation, and testing are documented se
 
 Start in `identity.ts`. Keep the ID lowercase and hyphenated, use `/pathfinders/<id>` for the route, and give the module a storage key no released pathfinder uses. Increment the storage version only when saved data can no longer be safely repaired by the existing persistence layer.
 
+Then rewrite `intro.ts` for the audience and discipline. Preserve its four promises: exploration rather than evaluation, no final-question selection, browser-local privacy, and preparation that supports rather than excludes.
+
 ## Non-negotiable boundaries
 
 - Calibration changes preparation guidance, never eligibility or fit.
