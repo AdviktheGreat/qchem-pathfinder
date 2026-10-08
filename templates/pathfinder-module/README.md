@@ -34,6 +34,8 @@ Route creation, manifest registration, activation, and testing are documented se
 6. Add fixtures, reachability checks, rendered journeys, and accessibility coverage.
 7. Create the App Router page and module manifest, then mark it available only after the complete release gate passes.
 
+Start in `identity.ts`. Keep the ID lowercase and hyphenated, use `/pathfinders/<id>` for the route, and give the module a storage key no released pathfinder uses. Increment the storage version only when saved data can no longer be safely repaired by the existing persistence layer.
+
 ## Non-negotiable boundaries
 
 - Calibration changes preparation guidance, never eligibility or fit.
