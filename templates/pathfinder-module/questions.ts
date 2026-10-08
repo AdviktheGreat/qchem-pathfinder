@@ -1,5 +1,6 @@
 import type { StageLabels } from "@/lib/pathfinder-definition";
 import type { SurveyQuestion } from "@/lib/types";
+import { templateAdaptiveQuestions } from "@/templates/pathfinder-module/adaptive-questions";
 
 export const templateStageLabels = {
   calibration: "Starting point",
@@ -142,6 +143,7 @@ export const templatePathfinderQuestions: SurveyQuestion[] = [
       },
     ],
   },
+  ...templateAdaptiveQuestions,
   {
     id: "template-question-type",
     stage: "question",

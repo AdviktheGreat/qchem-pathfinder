@@ -40,6 +40,8 @@ Then rewrite `intro.ts` for the audience and discipline. Preserve its four promi
 
 `questions.ts` demonstrates five calibration questions followed by motivation, research-question, and working-style choices. Add enough common and adaptive questions for an 8–12 minute journey, but keep one focused decision per screen. IDs should carry a subject prefix so saved answers and diagnostics remain unambiguous.
 
+Keep branch-only questions in `adaptive-questions.ts`. Every `visibleWhen.questionId` should name the broad motivation question, and every `anyOf` value should be a real motivation option. Provide a useful open branch instead of showing every specialized follow-up to an uncertain student.
+
 ## Non-negotiable boundaries
 
 - Calibration changes preparation guidance, never eligibility or fit.
