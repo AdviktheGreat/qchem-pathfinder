@@ -204,4 +204,25 @@ describe("pathfinder definition validation", () => {
     expect(codes).toContain("reference.invalid-open-directions");
     expect(codes).toContain("reference.unknown-open-direction");
   });
+
+  it("validates preparation question and option mappings", () => {
+    const definition = copyDefinition();
+    definition.preparation.mathQuestionId = "missing-question";
+    definition.preparation.codingAdvice = {
+      ...definition.preparation.codingAdvice,
+      "missing-option": "Advice",
+    };
+    definition.preparation.knowledge.contextReadyOptionId = "missing-option";
+    definition.preparation.supplementalAdvice = [
+      { questionId: "missing-question", advice: {} },
+    ];
+
+    const codes = validatePathfinderDefinition(definition).issues.map(
+      (entry) => entry.code,
+    );
+    expect(codes).toContain("preparation.unknown-question");
+    expect(codes).toContain("preparation.unknown-option");
+    expect(codes).toContain("preparation.unknown-context-ready-option");
+    expect(codes).toContain("preparation.unknown-supplement-question");
+  });
 });

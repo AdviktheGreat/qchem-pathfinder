@@ -705,6 +705,139 @@ function validateDirectionReferences(
   return issues;
 }
 
+function validatePreparationReferences(
+  definition: PathfinderDefinition,
+): PathfinderValidationIssue[] {
+  const issues: PathfinderValidationIssue[] = [];
+  const preparation = definition.preparation;
+  const questionById = new Map(
+    definition.survey.questions.map((question) => [question.id, question]),
+  );
+
+  const questionReferences = [
+    ["mathQuestionId", preparation.mathQuestionId],
+    ["codingQuestionId", preparation.codingQuestionId],
+    ["explanationQuestionId", preparation.explanationQuestionId],
+    ["knowledge.memoryQuestionId", preparation.knowledge.memoryQuestionId],
+    ["knowledge.conceptQuestionId", preparation.knowledge.conceptQuestionId],
+  ] as const;
+  for (const [path, questionId] of questionReferences) {
+    if (!questionById.has(questionId))
+      issues.push(
+        issue(
+          "preparation.unknown-question",
+          `preparation.${path}`,
+          `Preparation refers to unknown question “${questionId}”.`,
+        ),
+      );
+  }
+
+  const mappings = [
+    [preparation.mathQuestionId, preparation.mathAdvice, "mathAdvice"],
+    [preparation.codingQuestionId, preparation.codingAdvice, "codingAdvice"],
+    [
+      preparation.explanationQuestionId,
+      preparation.explanationGuides,
+      "explanationGuides",
+    ],
+    [
+      preparation.knowledge.memoryQuestionId,
+      preparation.knowledge.startingPointByAnswer,
+      "knowledge.startingPointByAnswer",
+    ],
+    [
+      preparation.knowledge.conceptQuestionId,
+      preparation.knowledge.conceptReviewLabels,
+      "knowledge.conceptReviewLabels",
+    ],
+  ] as const;
+
+  for (const [questionId, mapping, mappingPath] of mappings) {
+    const question = questionById.get(questionId);
+    if (!question) continue;
+    const optionIds = new Set(question.options.map((option) => option.id));
+    for (const [optionId, copy] of Object.entries(mapping)) {
+      if (!optionIds.has(optionId))
+        issues.push(
+          issue(
+            "preparation.unknown-option",
+            `preparation.${mappingPath}.${optionId}`,
+            `Preparation mapping refers to unknown option “${optionId}” on “${questionId}”.`,
+          ),
+        );
+      if (!copy.trim())
+        issues.push(
+          issue(
+            "preparation.missing-copy",
+            `preparation.${mappingPath}.${optionId}`,
+            "Preparation mappings need non-empty student-facing guidance.",
+          ),
+        );
+    }
+  }
+
+  const memoryQuestion = questionById.get(
+    preparation.knowledge.memoryQuestionId,
+  );
+  if (
+    memoryQuestion &&
+    !memoryQuestion.options.some(
+      (option) => option.id === preparation.knowledge.contextReadyOptionId,
+    )
+  )
+    issues.push(
+      issue(
+        "preparation.unknown-context-ready-option",
+        "preparation.knowledge.contextReadyOptionId",
+        "The context-ready option must belong to the starting-point calibration question.",
+      ),
+    );
+
+  preparation.supplementalAdvice.forEach((supplement, supplementIndex) => {
+    const question = questionById.get(supplement.questionId);
+    const path = `preparation.supplementalAdvice[${supplementIndex}]`;
+    if (!question) {
+      issues.push(
+        issue(
+          "preparation.unknown-supplement-question",
+          `${path}.questionId`,
+          `Supplemental advice refers to unknown question “${supplement.questionId}”.`,
+        ),
+      );
+      return;
+    }
+    const optionIds = new Set(question.options.map((option) => option.id));
+    for (const optionId of Object.keys(supplement.advice)) {
+      if (!optionIds.has(optionId))
+        issues.push(
+          issue(
+            "preparation.unknown-supplement-option",
+            `${path}.advice.${optionId}`,
+            `Supplemental advice refers to unknown option “${optionId}”.`,
+          ),
+        );
+    }
+  });
+
+  if (
+    preparation.conceptOverlaps.some(
+      (overlap) =>
+        !overlap.umbrella.trim() ||
+        overlap.covered.length === 0 ||
+        overlap.covered.some((concept) => !concept.trim()),
+    )
+  )
+    issues.push(
+      issue(
+        "preparation.invalid-concept-overlap",
+        "preparation.conceptOverlaps",
+        "Concept overlap rules need one umbrella and at least one covered concept.",
+      ),
+    );
+
+  return issues;
+}
+
 function validateSerializableDefinition(
   definition: PathfinderDefinition,
 ): PathfinderValidationIssue[] {
@@ -736,6 +869,7 @@ const definitionRules: readonly DefinitionRule[] = [
   validateLiteratureLaunchpads,
   validateAffinitiesAndReasons,
   validateDirectionReferences,
+  validatePreparationReferences,
 ];
 
 export function validatePathfinderDefinition(
