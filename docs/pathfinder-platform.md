@@ -6,6 +6,8 @@ The root page is a catalog, not a combined multidisciplinary survey. Every avail
 
 Catalog entries live in `data/pathfinders.ts`.
 
+Modules move through `draft`, `testing`, `coming-soon`, and `available`. The first two are authoring states and stay out of the public catalog. `lib/pathfinder-lifecycle.ts` is the canonical vocabulary and documents the release boundary.
+
 - `available`: must provide a real `href`, a complete end-to-end experience, persistence, exports, and automated tests.
 - `coming-soon`: must not provide an `href` or an interactive control. Its card communicates roadmap intent without pretending that an unfinished survey exists.
 
