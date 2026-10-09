@@ -20,6 +20,7 @@ Start by asserting that `validatePathfinderModuleManifest()` returns no issues. 
 | Rendered journey | Introduction through results, review/edit, branch cleanup, nearby selection, restart             |
 | Accessibility    | Landmarks, one H1, labels, focus movement, keyboard controls, reduced motion, forced colors      |
 | Platform         | Manifest, catalog, registry, route metadata, hub card, switcher, and static route agree          |
+| Field bridges    | Local sources, released targets, canonical labels, focused keywords, conditional accessible UI   |
 
 ## Complete fixture pattern
 

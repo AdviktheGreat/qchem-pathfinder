@@ -46,3 +46,4 @@ Every module should preserve the current product contract:
 - User-facing reasons trace back to actual answers.
 - Literature guidance emphasizes vocabulary, recent reviews, original-source reading, and citation verification.
 - No personal information or survey answers are transmitted by the application.
+- Interdisciplinary links explain a real scientific bridge and boundary; they never compare scores or transfer answers between subjects.

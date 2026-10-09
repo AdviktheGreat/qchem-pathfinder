@@ -32,6 +32,7 @@ The rules protect these authoring boundaries:
 - reasons use signals that actually contribute to the direction;
 - targeted choices and open-exploration defaults point to real directions;
 - preparation, overview, profile, and export mappings point to real questions and options;
+- interdisciplinary links begin at local directions and resolve to exact released pathfinder and direction identities;
 - catalog copy, search providers, metadata, routes, and storage namespaces remain usable and unique.
 
 ## Authoring workflow

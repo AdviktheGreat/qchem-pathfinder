@@ -30,6 +30,7 @@ Each pathfinder owns its editable scientific content and identity:
 - recommendation taxonomy, affinities, direct boosts, and reason rules;
 - preparation guidance, glossary, reading guidance, and concept relationships;
 - open-exploration starting directions and export terminology.
+- selective interdisciplinary bridges from local results to released adjacent directions.
 
 Subject content belongs in a dedicated module under `data/pathfinders/`. A
 single typed definition is the entry point consumed by the engine. Content
@@ -43,6 +44,8 @@ definition into an interactive client component.
 Use `definePathfinderModule()` so TypeScript preserves the manifest's literal identity while checking the complete contract. App Router pages remain Server Components: they select their registered manifest, generate static `Metadata` with `createPathfinderMetadata()`, and pass only the serializable definition into `PathfinderApp`.
 
 The pure validators in `lib/pathfinder-validation.ts` check one definition, one manifest, or the complete registry. They report stable issue codes and field paths without mutating content. See [Pathfinder validation rules](pathfinder-validation.md) for the rule catalog and authoring workflow.
+
+Interdisciplinary links remain subject-owned serializable content. Complete-registry validation resolves every target against canonical module and niche identities, while the shared results component handles display and navigation. See [Interdisciplinary link format](interdisciplinary-links.md) for the data and editorial contract.
 
 ## Dependency direction
 
