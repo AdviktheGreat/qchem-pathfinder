@@ -45,6 +45,7 @@ export const quantumChemistryPathfinder = {
     niches,
     openExplorationIds,
   },
+  interdisciplinaryLinks: [],
   preparation: {
     mathQuestionId: "math-comfort",
     codingQuestionId: "coding-comfort",

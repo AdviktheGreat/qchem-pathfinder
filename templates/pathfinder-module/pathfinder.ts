@@ -34,6 +34,7 @@ export const templatePathfinderDefinition = {
     openExplorationIds: templateOpenExplorationIds,
     scoring: templateRecommendationScoring,
   },
+  interdisciplinaryLinks: [],
   preparation: templatePreparation,
   results: templatePathfinderResults,
   profile: templatePathfinderProfile,

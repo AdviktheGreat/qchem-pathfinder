@@ -36,6 +36,7 @@ export const computationalPhysicsPathfinder = {
     openExplorationIds: physicsOpenExplorationIds,
     scoring: physicsRecommendationScoring,
   },
+  interdisciplinaryLinks: [],
   preparation: physicsPreparationConfig,
   results: {
     glossary: physicsGlossary,

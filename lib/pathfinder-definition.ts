@@ -5,6 +5,7 @@ import type {
   SurveyStage,
 } from "@/lib/types";
 import type { RecommendationScoringConfig } from "@/lib/recommendation";
+import type { InterdisciplinaryLink } from "@/lib/interdisciplinary-links";
 
 export type PathfinderIcon = "atom" | "material" | "biology" | "physics";
 
@@ -215,6 +216,7 @@ export interface PathfinderDefinition {
   storage: PathfinderStorageConfig;
   survey: PathfinderSurveyConfig;
   recommendations: PathfinderRecommendationConfig;
+  interdisciplinaryLinks: readonly InterdisciplinaryLink[];
   preparation: PathfinderPreparationConfig;
   results: PathfinderResultsConfig;
   profile: PathfinderProfileConfig;

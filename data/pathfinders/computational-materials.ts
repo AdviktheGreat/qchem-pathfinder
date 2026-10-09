@@ -61,6 +61,7 @@ export const computationalMaterialsPathfinder = {
     openExplorationIds: materialsOpenExplorationIds,
     scoring: materialsRecommendationScoring,
   },
+  interdisciplinaryLinks: [],
   preparation: {
     mathQuestionId: "materials-math-comfort",
     codingQuestionId: "materials-coding-comfort",

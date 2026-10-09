@@ -36,6 +36,7 @@ export const computationalBiologyPathfinder = {
     openExplorationIds: biologyOpenExplorationIds,
     scoring: biologyRecommendationScoring,
   },
+  interdisciplinaryLinks: [],
   preparation: biologyPreparationConfig,
   results: {
     glossary: biologyGlossary,
