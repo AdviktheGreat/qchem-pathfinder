@@ -1181,6 +1181,14 @@ export function validatePathfinderRegistry(
   const names = new Set<string>();
   const routes = new Set<string>();
   const storageKeys = new Set<string>();
+  const linkIds = new Set<string>();
+  const availableById = new Map(
+    manifests.flatMap((manifest) =>
+      manifest.lifecycle === "available"
+        ? [[manifest.definition.identity.id, manifest] as const]
+        : [],
+    ),
+  );
 
   manifests.forEach((manifest, manifestIndex) => {
     const result = validatePathfinderModuleManifest(manifest);
@@ -1232,6 +1240,59 @@ export function validatePathfinderRegistry(
         );
       routes.add(route);
       storageKeys.add(key);
+
+      manifest.definition.interdisciplinaryLinks.forEach((link, linkIndex) => {
+        const path = `modules[${manifestIndex}].definition.interdisciplinaryLinks[${linkIndex}]`;
+        if (linkIds.has(link.id))
+          issues.push(
+            issue(
+              "registry.duplicate-link-id",
+              `${path}.id`,
+              `Interdisciplinary link ID “${link.id}” is already registered.`,
+            ),
+          );
+        linkIds.add(link.id);
+
+        const target = availableById.get(link.targetPathfinderId);
+        if (!target) {
+          issues.push(
+            issue(
+              "registry.unknown-link-pathfinder",
+              `${path}.targetPathfinderId`,
+              `Link target “${link.targetPathfinderId}” is not an available pathfinder.`,
+            ),
+          );
+          return;
+        }
+        if (link.targetPathfinderName !== target.definition.identity.shortName)
+          issues.push(
+            issue(
+              "registry.link-pathfinder-name-mismatch",
+              `${path}.targetPathfinderName`,
+              `Link label must match “${target.definition.identity.shortName}”.`,
+            ),
+          );
+
+        const targetNiche = target.definition.recommendations.niches.find(
+          (niche) => niche.id === link.targetNicheId,
+        );
+        if (!targetNiche)
+          issues.push(
+            issue(
+              "registry.unknown-link-direction",
+              `${path}.targetNicheId`,
+              `Target pathfinder has no direction “${link.targetNicheId}”.`,
+            ),
+          );
+        else if (link.targetNicheName !== targetNiche.name)
+          issues.push(
+            issue(
+              "registry.link-direction-name-mismatch",
+              `${path}.targetNicheName`,
+              `Link label must match “${targetNiche.name}”.`,
+            ),
+          );
+      });
     }
   });
 

@@ -24,7 +24,7 @@ export const biologyInterdisciplinaryLinks = [
     targetPathfinderId: "quantum-chemistry",
     targetPathfinderName: "Quantum chemistry",
     targetNicheId: "biomolecular-electronics",
-    targetNicheName: "Biomolecular or drug-related electronic interactions",
+    targetNicheName: "Electronic contributions to biomolecular binding",
     bridge:
       "Docking proposes binding poses quickly, while electronic calculations can examine why a promising pose is stabilized.",
     distinction:

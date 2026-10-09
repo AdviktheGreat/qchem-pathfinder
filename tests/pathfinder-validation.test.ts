@@ -4,7 +4,10 @@ import {
   pathfinderModules,
   quantumChemistryModule,
 } from "@/data/pathfinder-modules";
-import type { AvailablePathfinderModuleManifest } from "@/lib/pathfinder-manifest";
+import type {
+  AvailablePathfinderModuleManifest,
+  PathfinderModuleManifest,
+} from "@/lib/pathfinder-manifest";
 import {
   validatePathfinderDefinition,
   validatePathfinderModuleManifest,
@@ -320,5 +323,28 @@ describe("pathfinder registry validation", () => {
     expect(codes).toContain("registry.duplicate-name");
     expect(codes).toContain("registry.duplicate-route");
     expect(codes).toContain("registry.duplicate-storage-key");
+  });
+
+  it("resolves interdisciplinary targets against released modules", () => {
+    const registry = structuredClone([
+      ...pathfinderModules,
+    ]) as PathfinderModuleManifest[];
+    const quantumModule = registry[0];
+    if (quantumModule.lifecycle !== "available")
+      throw new Error("Quantum chemistry fixture must be available.");
+
+    quantumModule.definition.interdisciplinaryLinks[0].targetPathfinderId =
+      "missing-pathfinder";
+    quantumModule.definition.interdisciplinaryLinks[1].targetPathfinderName =
+      "Wrong label";
+    quantumModule.definition.interdisciplinaryLinks[2].targetNicheId =
+      "missing-direction";
+
+    const codes = validatePathfinderRegistry(registry).issues.map(
+      (entry) => entry.code,
+    );
+    expect(codes).toContain("registry.unknown-link-pathfinder");
+    expect(codes).toContain("registry.link-pathfinder-name-mismatch");
+    expect(codes).toContain("registry.unknown-link-direction");
   });
 });
