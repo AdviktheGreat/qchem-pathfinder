@@ -3223,6 +3223,122 @@ h2 {
   background: var(--stage-soft);
   color: var(--teal-dark);
 }
+.interdisciplinary-bridge {
+  margin: 4.5rem 0;
+  padding: clamp(1.4rem, 4vw, 2.6rem);
+  border: 1px solid color-mix(in srgb, var(--violet) 28%, var(--line));
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(
+      circle at 92% 8%,
+      color-mix(in srgb, var(--violet) 12%, transparent),
+      transparent 34%
+    ),
+    linear-gradient(145deg, #f4f1fb, var(--panel) 62%);
+  box-shadow: var(--shadow-soft);
+}
+.interdisciplinary-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(15rem, 0.75fr);
+  align-items: end;
+  gap: 2rem;
+  margin-bottom: 1.4rem;
+}
+.interdisciplinary-heading h2 {
+  max-width: 18ch;
+  margin: 0.5rem 0 0;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 570;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+.interdisciplinary-heading > p,
+.interdisciplinary-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+.interdisciplinary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+  gap: 1rem;
+}
+.interdisciplinary-grid article {
+  padding: 1.3rem;
+  border: 1px solid color-mix(in srgb, var(--violet) 22%, var(--line));
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.7);
+}
+.interdisciplinary-subject {
+  color: var(--violet);
+  font-size: 0.68rem;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.interdisciplinary-grid h3 {
+  margin: 0.45rem 0 0.7rem;
+  font-family: var(--font-display), serif;
+  font-size: 1.55rem;
+  line-height: 1.1;
+}
+.interdisciplinary-grid article > p,
+.interdisciplinary-grid details p {
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+.interdisciplinary-grid details {
+  margin: 1rem 0;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--line);
+}
+.interdisciplinary-grid summary {
+  color: var(--violet);
+  font-size: 0.75rem;
+  font-weight: 780;
+  cursor: pointer;
+}
+.interdisciplinary-keywords {
+  margin: 1rem 0;
+}
+.interdisciplinary-keywords span {
+  border-color: color-mix(in srgb, var(--violet) 24%, var(--line));
+  background: #f2eefb;
+}
+.interdisciplinary-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+.interdisciplinary-actions > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 42px;
+  padding: 0.65rem 0.85rem;
+  border-radius: 999px;
+  background: var(--violet);
+  color: white;
+  font-size: 0.74rem;
+  font-weight: 760;
+  text-decoration: none;
+}
+.interdisciplinary-actions .copy-button {
+  min-height: 42px;
+  border-color: color-mix(in srgb, var(--violet) 45%, var(--line));
+  background: transparent;
+  color: var(--violet);
+}
+.interdisciplinary-note {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
 @media (max-width: 620px) {
   .result-section-nav {
     display: grid;
@@ -3232,6 +3348,17 @@ h2 {
   .result-section-nav a {
     padding-inline: 0.5rem;
     text-align: center;
+  }
+  .interdisciplinary-bridge {
+    margin: 3rem 0;
+    padding: 1.2rem;
+  }
+  .interdisciplinary-heading {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+  .interdisciplinary-actions > * {
+    width: 100%;
   }
 }
 [id$="-title"] {
@@ -3391,7 +3518,8 @@ h2 {
   .secondary-button,
   .choice-card,
   .pathfinder-card,
-  .alternative-card {
+  .alternative-card,
+  .interdisciplinary-grid article {
     border-width: 2px;
   }
 }
@@ -3420,6 +3548,12 @@ h2 {
   .recent-pathfinder,
   .pathfinder-switcher,
   .hub-section-nav a {
+    border: 1px solid CanvasText;
+  }
+  .interdisciplinary-bridge,
+  .interdisciplinary-grid article,
+  .interdisciplinary-actions > a,
+  .interdisciplinary-actions .copy-button {
     border: 1px solid CanvasText;
   }
 }
