@@ -18,6 +18,7 @@ import {
   searchRefinements,
 } from "@/data/reading-guidance";
 import type { PathfinderDefinition } from "@/lib/pathfinder-definition";
+import { quantumChemistryInterdisciplinaryLinks } from "@/data/pathfinders/quantum-chemistry-links";
 
 export const quantumChemistryPathfinder = {
   identity: {
@@ -45,7 +46,7 @@ export const quantumChemistryPathfinder = {
     niches,
     openExplorationIds,
   },
-  interdisciplinaryLinks: [],
+  interdisciplinaryLinks: quantumChemistryInterdisciplinaryLinks,
   preparation: {
     mathQuestionId: "math-comfort",
     codingQuestionId: "coding-comfort",
