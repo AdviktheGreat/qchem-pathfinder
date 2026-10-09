@@ -24,7 +24,7 @@ export function InterdisciplinaryBridge({
           <p className="section-kicker">
             <Network size={15} aria-hidden="true" /> Across subject boundaries
           </p>
-          <h2 id="interdisciplinary-bridge-title">
+          <h2 id="interdisciplinary-bridge-title" tabIndex={-1}>
             See where this direction meets another field.
           </h2>
         </div>
@@ -50,6 +50,7 @@ export function InterdisciplinaryBridge({
               </details>
               <div
                 className="tag-list interdisciplinary-keywords"
+                role="group"
                 aria-label={`Shared search terms for ${link.targetNicheName}`}
               >
                 {link.sharedKeywords.map((keyword) => (
