@@ -16,6 +16,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { CopyButton } from "@/components/CopyButton";
+import { InterdisciplinaryBridge } from "@/components/InterdisciplinaryBridge";
 import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
 import { formatResearchProfile, profileFilename } from "@/lib/profile-export";
 import { getPreparationProfile } from "@/lib/preparation";
@@ -33,6 +34,7 @@ import type {
   PathfinderDefinition,
   PathfinderResultsConfig,
 } from "@/lib/pathfinder-definition";
+import { getInterdisciplinaryLinksForDirection } from "@/lib/interdisciplinary-links";
 
 interface ResultsScreenProps {
   definition?: PathfinderDefinition;
@@ -426,6 +428,10 @@ export function ResultsScreen({
     ...originalRecommendations.map((result) => result.score),
   );
   const [primary, ...alternatives] = recommendations;
+  const interdisciplinaryLinks = getInterdisciplinaryLinksForDirection(
+    definition.interdisciplinaryLinks,
+    primary.niche.id,
+  );
   const isChosenAlternative = primary.niche.id !== originalPrimary.niche.id;
   const preparation = getPreparationProfile(
     answers,
@@ -535,6 +541,9 @@ export function ResultsScreen({
           ["primary-title", "Primary direction"],
           ["preparation-title", "Preparation"],
           ["alternatives-title", "Alternatives"],
+          ...(interdisciplinaryLinks.length > 0
+            ? [["interdisciplinary-bridge-title", "Field bridge"]]
+            : []),
           ["export-title", "Export profile"],
         ].map(([id, label]) => (
           <a
@@ -934,6 +943,8 @@ export function ResultsScreen({
           })}
         </div>
       </section>
+
+      <InterdisciplinaryBridge links={interdisciplinaryLinks} />
 
       <section className="export-card">
         <div>
