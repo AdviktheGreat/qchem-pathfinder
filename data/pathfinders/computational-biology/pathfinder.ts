@@ -2,6 +2,7 @@ import { fitLabelDescriptions } from "@/data/fit-labels";
 import { computationalBiologyFoundation } from "@/data/pathfinders/computational-biology/foundation";
 import { biologyGlossary } from "@/data/pathfinders/computational-biology/glossary";
 import { computationalBiologyNiches } from "@/data/pathfinders/computational-biology/niches";
+import { biologyInterdisciplinaryLinks } from "@/data/pathfinders/computational-biology/interdisciplinary-links";
 import { biologyPreparationConfig } from "@/data/pathfinders/computational-biology/preparation";
 import { computationalBiologyProfile } from "@/data/pathfinders/computational-biology/profile";
 import {
@@ -36,7 +37,7 @@ export const computationalBiologyPathfinder = {
     openExplorationIds: biologyOpenExplorationIds,
     scoring: biologyRecommendationScoring,
   },
-  interdisciplinaryLinks: [],
+  interdisciplinaryLinks: biologyInterdisciplinaryLinks,
   preparation: biologyPreparationConfig,
   results: {
     glossary: biologyGlossary,
