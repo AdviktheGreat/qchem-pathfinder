@@ -253,6 +253,27 @@ describe("pathfinder definition validation", () => {
     expect(codes).toContain("results.invalid-glossary");
     expect(codes).toContain("results.missing-query-guidance");
   });
+
+  it("validates local interdisciplinary link structure", () => {
+    const definition = copyDefinition();
+    const firstLink = definition.interdisciplinaryLinks[0];
+    firstLink.sourceNicheId = "missing-direction";
+    firstLink.targetPathfinderId = definition.identity.id;
+    firstLink.sharedKeywords = ["duplicate", "duplicate"];
+    definition.interdisciplinaryLinks = [
+      ...definition.interdisciplinaryLinks,
+      structuredClone(firstLink),
+    ];
+
+    const codes = validatePathfinderDefinition(definition).issues.map(
+      (entry) => entry.code,
+    );
+    expect(codes).toContain("interdisciplinary.unknown-source-direction");
+    expect(codes).toContain("interdisciplinary.same-pathfinder-target");
+    expect(codes).toContain("interdisciplinary.invalid-keywords");
+    expect(codes).toContain("interdisciplinary.duplicate-id");
+    expect(codes).toContain("interdisciplinary.duplicate-target");
+  });
 });
 
 describe("pathfinder module manifest validation", () => {

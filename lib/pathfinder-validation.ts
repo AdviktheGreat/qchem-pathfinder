@@ -965,6 +965,101 @@ function validateResultsAndProfile(
   return issues;
 }
 
+function validateInterdisciplinaryLinks(
+  definition: PathfinderDefinition,
+): PathfinderValidationIssue[] {
+  const issues: PathfinderValidationIssue[] = [];
+  const linkIds = new Set<string>();
+  const pairs = new Set<string>();
+  const nicheIds = new Set(
+    definition.recommendations.niches.map((niche) => niche.id),
+  );
+
+  definition.interdisciplinaryLinks.forEach((link, linkIndex) => {
+    const path = `interdisciplinaryLinks[${linkIndex}]`;
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(link.id))
+      issues.push(
+        issue(
+          "interdisciplinary.invalid-id",
+          `${path}.id`,
+          "Interdisciplinary link IDs must be lowercase and hyphen-separated.",
+        ),
+      );
+    if (linkIds.has(link.id))
+      issues.push(
+        issue(
+          "interdisciplinary.duplicate-id",
+          `${path}.id`,
+          `Interdisciplinary link ID “${link.id}” is repeated.`,
+        ),
+      );
+    linkIds.add(link.id);
+
+    if (!nicheIds.has(link.sourceNicheId))
+      issues.push(
+        issue(
+          "interdisciplinary.unknown-source-direction",
+          `${path}.sourceNicheId`,
+          `Link source “${link.sourceNicheId}” is not a direction in this pathfinder.`,
+        ),
+      );
+    if (link.targetPathfinderId === definition.identity.id)
+      issues.push(
+        issue(
+          "interdisciplinary.same-pathfinder-target",
+          `${path}.targetPathfinderId`,
+          "Interdisciplinary links must lead to a different pathfinder.",
+        ),
+      );
+
+    const pair = `${link.sourceNicheId}:${link.targetPathfinderId}:${link.targetNicheId}`;
+    if (pairs.has(pair))
+      issues.push(
+        issue(
+          "interdisciplinary.duplicate-target",
+          path,
+          "A source direction should link to a target direction only once.",
+        ),
+      );
+    pairs.add(pair);
+
+    if (
+      !link.targetPathfinderId.trim() ||
+      !link.targetPathfinderName.trim() ||
+      !link.targetNicheId.trim() ||
+      !link.targetNicheName.trim() ||
+      !link.bridge.trim() ||
+      !link.distinction.trim()
+    )
+      issues.push(
+        issue(
+          "interdisciplinary.incomplete-copy",
+          path,
+          "Each link needs a named target plus clear overlap and distinction copy.",
+        ),
+      );
+
+    const keywords = link.sharedKeywords.map((keyword) =>
+      keyword.trim().toLocaleLowerCase(),
+    );
+    if (
+      keywords.length < 2 ||
+      keywords.length > 5 ||
+      keywords.some((keyword) => !keyword) ||
+      new Set(keywords).size !== keywords.length
+    )
+      issues.push(
+        issue(
+          "interdisciplinary.invalid-keywords",
+          `${path}.sharedKeywords`,
+          "Use two to five distinct, non-empty terms that work across both fields.",
+        ),
+      );
+  });
+
+  return issues;
+}
+
 function validateSerializableDefinition(
   definition: PathfinderDefinition,
 ): PathfinderValidationIssue[] {
@@ -998,6 +1093,7 @@ const definitionRules: readonly DefinitionRule[] = [
   validateDirectionReferences,
   validatePreparationReferences,
   validateResultsAndProfile,
+  validateInterdisciplinaryLinks,
 ];
 
 export function validatePathfinderDefinition(
