@@ -16,6 +16,7 @@ import {
 import { computationalMaterialsNiches } from "@/data/pathfinders/computational-materials/niches";
 import { materialsConceptOverlaps } from "@/data/pathfinders/computational-materials/concept-overlaps";
 import { materialsGlossary } from "@/data/pathfinders/computational-materials/glossary";
+import { materialsInterdisciplinaryLinks } from "@/data/pathfinders/computational-materials/interdisciplinary-links";
 import {
   materialsPaperNoteTemplate,
   materialsPaperTypeGuide,
@@ -61,7 +62,7 @@ export const computationalMaterialsPathfinder = {
     openExplorationIds: materialsOpenExplorationIds,
     scoring: materialsRecommendationScoring,
   },
-  interdisciplinaryLinks: [],
+  interdisciplinaryLinks: materialsInterdisciplinaryLinks,
   preparation: {
     mathQuestionId: "materials-math-comfort",
     codingQuestionId: "materials-coding-comfort",
