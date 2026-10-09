@@ -13,6 +13,7 @@ adaptive-questions.ts    Motivation-specific follow-up questions
 scoring.ts               Signal vocabulary and explicit engine weights
 narrowing-boosts.ts      Direct evidence connecting answers to niches
 niches.ts                Complete recommendation and search content
+interdisciplinary-links.ts Optional bridges to released adjacent directions
 glossary.ts              Beginner definitions used by the experience
 preparation.ts           Knowledge-sensitive, ability-neutral guidance
 reading-guidance.ts      Source-reading and citation-verification copy
@@ -49,6 +50,8 @@ Define the controlled preference vocabulary in `scoring.ts` before attaching sig
 Use `narrowing-boosts.ts` only when an answer explicitly distinguishes nearby directions. Refer to stable niche IDs, use the named weight scale, and let the engine multiplier make a direct choice stronger than incidental style overlap. Do not add boosts to uncertainty options.
 
 Each entry in `niches.ts` is a complete beginner-explorable research direction, not a final project question. It owns its scientific explanation, representative systems, methods, preparation note, affinities, answer-grounded reasons, comparison lens, keywords, synonyms, searches, and paper types. Keep open-exploration IDs varied across the taxonomy.
+
+Add only meaningful cross-subject bridges in `interdisciplinary-links.ts`. Each link begins at one local direction, points to one released direction, explains the shared research idea, states how the fields differ, and supplies a few shared search terms. A link is an optional next lens—not another recommendation score.
 
 Put reusable beginner definitions in `glossary.ts` and ability-neutral support in `preparation.ts`. Every referenced question and option ID must exist. Advice should suggest a realistic next step without implying that limited mathematics, coding, or prior knowledge makes a direction less worthy.
 

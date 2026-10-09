@@ -4,6 +4,7 @@ import {
   templatePathfinderStorage,
 } from "@/templates/pathfinder-module/identity";
 import { templatePathfinderIntro } from "@/templates/pathfinder-module/intro";
+import { templateInterdisciplinaryLinks } from "@/templates/pathfinder-module/interdisciplinary-links";
 import {
   templateOpenExplorationIds,
   templatePathfinderNiches,
@@ -34,7 +35,7 @@ export const templatePathfinderDefinition = {
     openExplorationIds: templateOpenExplorationIds,
     scoring: templateRecommendationScoring,
   },
-  interdisciplinaryLinks: [],
+  interdisciplinaryLinks: templateInterdisciplinaryLinks,
   preparation: templatePreparation,
   results: templatePathfinderResults,
   profile: templatePathfinderProfile,
