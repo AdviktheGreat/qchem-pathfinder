@@ -2,6 +2,7 @@ import { fitLabelDescriptions } from "@/data/fit-labels";
 import { computationalPhysicsFoundation } from "@/data/pathfinders/computational-physics/foundation";
 import { physicsGlossary } from "@/data/pathfinders/computational-physics/glossary";
 import { computationalPhysicsNiches } from "@/data/pathfinders/computational-physics/niches";
+import { physicsInterdisciplinaryLinks } from "@/data/pathfinders/computational-physics/interdisciplinary-links";
 import { physicsPreparationConfig } from "@/data/pathfinders/computational-physics/preparation";
 import { computationalPhysicsProfile } from "@/data/pathfinders/computational-physics/profile";
 import {
@@ -36,7 +37,7 @@ export const computationalPhysicsPathfinder = {
     openExplorationIds: physicsOpenExplorationIds,
     scoring: physicsRecommendationScoring,
   },
-  interdisciplinaryLinks: [],
+  interdisciplinaryLinks: physicsInterdisciplinaryLinks,
   preparation: physicsPreparationConfig,
   results: {
     glossary: physicsGlossary,
