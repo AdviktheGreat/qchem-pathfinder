@@ -418,6 +418,122 @@ export const computationalPhysicsModule = definePathfinderModule({
     openGraphDescription:
       "Explore physical systems, scales, evidence, numerical methods, and research styles—then leave with a focused direction and literature-search launchpad.",
   },
+  orientation: {
+    summary:
+      "A strong starting point for mathematical and computational questions about dynamics, fields, particles, fluids, complex systems, climate, and the universe.",
+    boundary:
+      "It keeps general physical laws, dynamics, and model behavior central; chemical identity, material design, or biological function become specialized neighboring contexts.",
+    affinities: [
+      {
+        signalId: "motivation:fundamental-rules",
+        strength: 3,
+        reason:
+          "Computational physics tests how general physical laws produce observable behavior across scales.",
+      },
+      {
+        signalId: "motivation:space-universe",
+        strength: 3,
+        reason:
+          "Astrophysics and cosmology rely heavily on simulation, numerical models, and large datasets.",
+      },
+      {
+        signalId: "motivation:environment-earth",
+        strength: 2,
+        reason:
+          "Atmospheric, ocean, climate, and geophysical dynamics are major computational physics systems.",
+      },
+      {
+        signalId: "motivation:methods-computing",
+        strength: 2,
+        reason:
+          "Numerical algorithms and model evaluation are central to making physical theories computable.",
+      },
+      {
+        signalId: "system:fluids-continuous-media",
+        strength: 3,
+        reason:
+          "Flows, turbulence, transport, plasmas, and climate are core simulation domains.",
+      },
+      {
+        signalId: "system:particles-fields",
+        strength: 3,
+        reason:
+          "Particles, waves, quantum states, fields, and cosmological structures sit squarely within physics.",
+      },
+      {
+        signalId: "system:networks-complex-systems",
+        strength: 3,
+        reason:
+          "Nonlinear and collective behavior are important computational physics questions.",
+      },
+      {
+        signalId: "system:multiple-scales",
+        strength: 2,
+        reason:
+          "Physical models often connect microscopic rules to macroscopic motion and emergent behavior.",
+      },
+      {
+        signalId: "question:develop-theory",
+        strength: 3,
+        reason:
+          "The field turns physical assumptions into mathematical models that can be analyzed and simulated.",
+      },
+      {
+        signalId: "question:follow-dynamics",
+        strength: 3,
+        reason:
+          "Time evolution, motion, transport, and instability are central physical questions.",
+      },
+      {
+        signalId: "question:predict-behavior",
+        strength: 3,
+        reason:
+          "Simulations predict trajectories, fields, phases, flows, and statistical behavior.",
+      },
+      {
+        signalId: "question:explain-mechanism",
+        strength: 3,
+        reason:
+          "Physical models reveal how interactions and governing laws create observed patterns.",
+      },
+      {
+        signalId: "question:compare-methods",
+        strength: 2,
+        reason:
+          "Numerical stability, approximation, accuracy, and computational cost shape reliable simulation.",
+      },
+      {
+        signalId: "working-style:mathematical-models",
+        strength: 3,
+        reason:
+          "Equations, assumptions, and scaling relationships are central tools for physical reasoning.",
+      },
+      {
+        signalId: "working-style:numerical-simulation",
+        strength: 3,
+        reason:
+          "Computation reveals model behavior that cannot be solved or observed directly.",
+      },
+      {
+        signalId: "working-style:coding-algorithms",
+        strength: 2,
+        reason:
+          "Scientific software and numerical algorithms turn mathematical models into experiments.",
+      },
+      {
+        signalId: "working-style:visual-models",
+        strength: 2,
+        reason:
+          "Fields, trajectories, flows, phase spaces, and simulations make dynamics visible.",
+      },
+      {
+        signalId: "working-style:mixed-toolkit",
+        strength: 2,
+        reason:
+          "Projects combine theory, code, numerical evidence, visualization, and comparison with observation.",
+      },
+    ],
+  },
 });
 
 export const pathfinderModules = [
