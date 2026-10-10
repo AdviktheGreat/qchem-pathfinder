@@ -73,9 +73,13 @@ export function rankHubOrientation(
             (total, reason) => total + reason.contribution,
             0,
           ),
-          reasons: reasons.map(
-            ({ affinityIndex: _affinityIndex, ...reason }) => reason,
-          ),
+          reasons: reasons.map((reason) => ({
+            signalId: reason.signalId,
+            dimension: reason.dimension,
+            answerLabel: reason.answerLabel,
+            text: reason.text,
+            contribution: reason.contribution,
+          })),
           registryIndex,
         },
       ];
@@ -84,7 +88,11 @@ export function rankHubOrientation(
       (left, right) =>
         right.score - left.score || left.registryIndex - right.registryIndex,
     )
-    .map(({ registryIndex: _registryIndex, ...ranking }) => ranking);
+    .map((ranking) => ({
+      pathfinderId: ranking.pathfinderId,
+      score: ranking.score,
+      reasons: ranking.reasons,
+    }));
 }
 
 export function getHubOrientationSuggestions(

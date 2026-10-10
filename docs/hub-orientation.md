@@ -35,3 +35,22 @@ User-facing explanations must identify the selected answer that contributed to e
 The hub answers only “Which complete exploration might be a useful first stop?” Each subject pathfinder independently answers “Which sub-niche within this subject is worth exploring?” Opening a recommended module starts or resumes that module on its own terms.
 
 Interdisciplinary bridges remain a later results feature. They can reassure students that neighboring fields stay open, but they do not alter hub rankings or move answers between modules.
+
+## Phase 1 architecture
+
+The visible hub remains unchanged until Phase 2. Its orientation foundation is split into editable layers:
+
+- `data/hub-orientation-signals.ts` owns the shared motivation, system, question, and working-style vocabulary.
+- Each entry in `data/pathfinder-modules.ts` owns a scientific summary, a boundary, and weighted affinities with student-facing reasons.
+- `lib/hub-orientation-validation.ts` checks the vocabulary and every released module profile without mutating either.
+- `lib/hub-orientation-ranking.ts` converts future answer evidence into stable rankings and answer-grounded reasons.
+
+To add a signal, give it a lowercase `dimension:value` ID, an accessible label, and a concise explanation. Then add it only to module profiles where the connection is scientifically meaningful. Affinity strengths use a deliberately small scale: `1` is a neighboring connection, `2` is a meaningful fit, and `3` is central to the pathfinder.
+
+To add a released module, supply at least one affinity in every orientation dimension and run configuration validation. Coming-soon modules cannot participate in orientation recommendations.
+
+## Scoring behavior
+
+The ranking engine multiplies answer-evidence weight by module-affinity strength and sums the contributions. It does not normalize the result into a percentage. Repeated evidence for one signal is consolidated to its strongest instance rather than double counted.
+
+Uncertainty evidence contributes nothing. Unknown, blank, non-finite, or non-positive evidence is ignored safely. Conflicting preferences contribute to each relevant module, and equal scores retain canonical registry order solely for deterministic display. Every generated reason keeps the label of the answer that produced it.

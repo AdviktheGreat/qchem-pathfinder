@@ -33,6 +33,7 @@ app/pathfinders/        Individual pathfinder routes
 components/             Hub, survey, review, results, and shared controls
 data/pathfinder-modules.ts Canonical module manifests and release order
 data/pathfinders.ts     Hub catalog derived from module manifests
+data/hub-orientation-signals.ts Shared cross-subject orientation vocabulary
 data/pathfinders/       Subject definitions, questions, taxonomies, and guidance
 data/questions.ts       Quantum chemistry questions (legacy stable module)
 data/niches.ts          Quantum chemistry taxonomy (legacy stable module)
@@ -50,6 +51,7 @@ lib/pathfinder-manifest.ts Typed module and catalog authoring contract
 lib/pathfinder-metadata.ts Standard App Router metadata projection
 lib/pathfinder-lifecycle.ts Draft-to-release lifecycle vocabulary
 lib/pathfinder-validation.ts Structured definition, manifest, and registry checks
+lib/hub-orientation-*.ts Orientation contracts, validation, and ranking
 lib/interdisciplinary-links.ts Typed cross-subject link helpers
 data/pathfinders/**/interdisciplinary-links.ts Curated adjacent-field bridges
 tests/fixtures/         Complete, validated student paths for all four modules
@@ -138,6 +140,8 @@ To edit quantum chemistry, use the established top-level `data/` modules. For th
 To begin a new subject, copy the [type-checked module template](templates/pathfinder-module/README.md), follow the [validation rule guide](docs/pathfinder-validation.md), and keep it unregistered until its content and release tests are complete.
 
 Use the [interdisciplinary link format](docs/interdisciplinary-links.md) only after both the source and target directions are scientifically stable. Links are optional next lenses and never cross-subject score comparisons.
+
+The optional hub-orientation foundation is documented in [Hub orientation](docs/hub-orientation.md). Phase 1 provides typed signals, validated module profiles, and deterministic ranking logic; the visible guided flow is reserved for Phase 2.
 
 Each `Niche` owns its descriptions, typical questions, example systems, approaches, preparation, concepts, keywords, synonyms, searches, paper guidance, affinities, and explanation rules. New niches should also receive at least one meaningful `nicheBoosts` route from a visible narrowing answer; the reachability tests fail if it is missing or cannot become primary.
 
