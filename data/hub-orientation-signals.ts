@@ -117,3 +117,62 @@ export const hubSystemSignals = [
       "Link small-scale mechanisms to larger structures, functions, or observable behavior.",
   },
 ] as const satisfies readonly HubOrientationSignalDefinition[];
+
+export const hubQuestionSignals = [
+  {
+    id: "question:explain-mechanism",
+    dimension: "question",
+    label: "Explain why something happens",
+    description:
+      "Trace the mechanism, interaction, or physical principle behind an observed behavior.",
+  },
+  {
+    id: "question:predict-behavior",
+    dimension: "question",
+    label: "Predict what a system will do",
+    description:
+      "Use a model to estimate properties, outcomes, trajectories, or responses before they are measured.",
+  },
+  {
+    id: "question:design-optimize",
+    dimension: "question",
+    label: "Design or optimize something",
+    description:
+      "Search for structures, conditions, or parameters that improve a useful behavior.",
+  },
+  {
+    id: "question:interpret-evidence",
+    dimension: "question",
+    label: "Interpret evidence",
+    description:
+      "Connect simulations or models to spectra, images, measurements, sequences, or other observations.",
+  },
+  {
+    id: "question:compare-methods",
+    dimension: "question",
+    label: "Compare computational methods",
+    description:
+      "Test when models agree, where approximations fail, and which method suits a scientific task.",
+  },
+  {
+    id: "question:follow-dynamics",
+    dimension: "question",
+    label: "Follow change over time",
+    description:
+      "Simulate reactions, motion, transport, evolution, or other time-dependent behavior.",
+  },
+  {
+    id: "question:find-data-patterns",
+    dimension: "question",
+    label: "Find patterns in data",
+    description:
+      "Use statistics or machine learning to discover structure, relationships, or predictive signals.",
+  },
+  {
+    id: "question:develop-theory",
+    dimension: "question",
+    label: "Develop fundamental models",
+    description:
+      "Build or evaluate mathematical descriptions of how a class of systems behaves.",
+  },
+] as const satisfies readonly HubOrientationSignalDefinition[];
