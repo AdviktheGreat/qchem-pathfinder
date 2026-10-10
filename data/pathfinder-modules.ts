@@ -152,6 +152,116 @@ export const computationalMaterialsModule = definePathfinderModule({
     openGraphDescription:
       "Explore materials, properties, modeling scales, and research styles—then leave with a focused direction and literature-search launchpad.",
   },
+  orientation: {
+    summary:
+      "A strong starting point for connecting atomic structure, microstructure, interfaces, and processing to the properties and performance of useful materials.",
+    boundary:
+      "It keeps collective material behavior and structure–property relationships central, even when it borrows molecular, biological, or physical methods.",
+    affinities: [
+      {
+        signalId: "motivation:materials-technology",
+        strength: 3,
+        reason:
+          "Computational materials research directly connects modeled structure to technological performance.",
+      },
+      {
+        signalId: "motivation:energy-sustainability",
+        strength: 3,
+        reason:
+          "Batteries, photovoltaics, catalysts, storage, and durable materials are major application families.",
+      },
+      {
+        signalId: "motivation:environment-earth",
+        strength: 2,
+        reason:
+          "Materials modeling can address corrosion, separations, resource use, and environmentally relevant interfaces.",
+      },
+      {
+        signalId: "motivation:methods-computing",
+        strength: 1,
+        reason:
+          "Materials questions often motivate multiscale, high-throughput, and data-driven computational workflows.",
+      },
+      {
+        signalId: "system:materials-interfaces",
+        strength: 3,
+        reason:
+          "Solids, surfaces, defects, polymers, and interfaces are central materials systems.",
+      },
+      {
+        signalId: "system:multiple-scales",
+        strength: 3,
+        reason:
+          "The field regularly links atoms and defects to microstructure, devices, and bulk performance.",
+      },
+      {
+        signalId: "system:molecules-electrons",
+        strength: 1,
+        reason:
+          "Atomic and electronic descriptions can explain small-scale origins of material properties.",
+      },
+      {
+        signalId: "question:design-optimize",
+        strength: 3,
+        reason:
+          "Many projects seek structures, compositions, or processing conditions with improved performance.",
+      },
+      {
+        signalId: "question:predict-behavior",
+        strength: 3,
+        reason:
+          "Models predict properties, stability, transport, and performance before costly experiments.",
+      },
+      {
+        signalId: "question:explain-mechanism",
+        strength: 2,
+        reason:
+          "Structure–property reasoning explains why defects, interfaces, and arrangements change behavior.",
+      },
+      {
+        signalId: "question:interpret-evidence",
+        strength: 2,
+        reason:
+          "Simulations help connect microscopy, diffraction, spectroscopy, and performance measurements to structure.",
+      },
+      {
+        signalId: "question:find-data-patterns",
+        strength: 2,
+        reason:
+          "Materials informatics can screen candidates and find relationships across large property datasets.",
+      },
+      {
+        signalId: "working-style:visual-models",
+        strength: 3,
+        reason:
+          "Crystal structures, defects, interfaces, and evolving microstructures are highly visual research objects.",
+      },
+      {
+        signalId: "working-style:numerical-simulation",
+        strength: 3,
+        reason:
+          "Simulation links material models to behavior across conditions, time, and length scales.",
+      },
+      {
+        signalId: "working-style:coding-algorithms",
+        strength: 2,
+        reason:
+          "Automated workflows and specialized simulation tools are common in materials projects.",
+      },
+      {
+        signalId: "working-style:data-statistics",
+        strength: 2,
+        reason:
+          "Property databases and high-throughput calculations support statistical and machine-learning approaches.",
+      },
+      {
+        signalId: "working-style:mixed-toolkit",
+        strength: 3,
+        reason:
+          "Materials research often combines physical models, computation, data, visualization, and application constraints.",
+      },
+    ],
+  },
 });
 
 export const computationalBiologyModule = definePathfinderModule({
