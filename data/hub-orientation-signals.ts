@@ -176,3 +176,70 @@ export const hubQuestionSignals = [
       "Build or evaluate mathematical descriptions of how a class of systems behaves.",
   },
 ] as const satisfies readonly HubOrientationSignalDefinition[];
+
+export const hubWorkingStyleSignals = [
+  {
+    id: "working-style:chemical-mechanisms",
+    dimension: "working-style",
+    label: "Chemical structures and mechanisms",
+    description:
+      "Reason through bonding, molecular structures, interactions, and step-by-step chemical change.",
+  },
+  {
+    id: "working-style:visual-models",
+    dimension: "working-style",
+    label: "Visual models",
+    description:
+      "Learn through structures, orbitals, trajectories, fields, networks, or other visual representations.",
+  },
+  {
+    id: "working-style:mathematical-models",
+    dimension: "working-style",
+    label: "Mathematical models",
+    description:
+      "Translate scientific ideas into equations, assumptions, and relationships that can be analyzed.",
+  },
+  {
+    id: "working-style:numerical-simulation",
+    dimension: "working-style",
+    label: "Numerical simulation",
+    description:
+      "Explore a system by calculating how a model behaves across conditions, scales, or time.",
+  },
+  {
+    id: "working-style:coding-algorithms",
+    dimension: "working-style",
+    label: "Coding and algorithms",
+    description:
+      "Build, adapt, or evaluate computational workflows and scientific software.",
+  },
+  {
+    id: "working-style:data-statistics",
+    dimension: "working-style",
+    label: "Data and statistics",
+    description:
+      "Organize evidence, measure patterns, quantify uncertainty, and test predictive relationships.",
+  },
+  {
+    id: "working-style:method-comparison",
+    dimension: "working-style",
+    label: "Careful method comparison",
+    description:
+      "Compare assumptions, accuracy, cost, and reliability across computational approaches.",
+  },
+  {
+    id: "working-style:mixed-toolkit",
+    dimension: "working-style",
+    label: "A mixed scientific toolkit",
+    description:
+      "Move between concepts, code, mathematics, visualization, and data as the question requires.",
+  },
+] as const satisfies readonly HubOrientationSignalDefinition[];
+
+export const hubOrientationSignals: readonly HubOrientationSignalDefinition[] =
+  [
+    ...hubMotivationSignals,
+    ...hubSystemSignals,
+    ...hubQuestionSignals,
+    ...hubWorkingStyleSignals,
+  ];
