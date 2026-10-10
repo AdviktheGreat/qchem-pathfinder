@@ -2,6 +2,7 @@ import type {
   PathfinderDefinition,
   PathfinderIcon,
 } from "@/lib/pathfinder-definition";
+import type { HubOrientationProfile } from "@/lib/hub-orientation";
 
 export interface PathfinderCatalogCopy {
   eyebrow: string;
@@ -21,6 +22,7 @@ export interface AvailablePathfinderModuleManifest {
   definition: PathfinderDefinition;
   catalog: PathfinderCatalogCopy;
   metadata: PathfinderRouteMetadataCopy;
+  orientation?: HubOrientationProfile;
 }
 
 export interface ComingSoonPathfinderModuleManifest {
@@ -32,6 +34,7 @@ export interface ComingSoonPathfinderModuleManifest {
     icon: PathfinderIcon;
   };
   catalog: PathfinderCatalogCopy;
+  orientation?: HubOrientationProfile;
 }
 
 export type PathfinderModuleManifest =
