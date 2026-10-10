@@ -58,3 +58,62 @@ export const hubMotivationSignals = [
       "Improve algorithms, simulations, data methods, or approximations used to answer scientific questions.",
   },
 ] as const satisfies readonly HubOrientationSignalDefinition[];
+
+export const hubSystemSignals = [
+  {
+    id: "system:molecules-electrons",
+    dimension: "system",
+    label: "Molecules and electrons",
+    description:
+      "Focus on molecular structure, bonding, reactions, spectra, or electron behavior.",
+  },
+  {
+    id: "system:materials-interfaces",
+    dimension: "system",
+    label: "Materials and interfaces",
+    description:
+      "Study solids, surfaces, defects, polymers, devices, and the boundaries between materials.",
+  },
+  {
+    id: "system:biomolecules-cells",
+    dimension: "system",
+    label: "Biomolecules and cells",
+    description:
+      "Investigate proteins, nucleic acids, membranes, molecular networks, or cellular behavior.",
+  },
+  {
+    id: "system:genes-populations",
+    dimension: "system",
+    label: "Genes and populations",
+    description:
+      "Work with genomes, expression patterns, evolution, ecosystems, or population-level biological data.",
+  },
+  {
+    id: "system:fluids-continuous-media",
+    dimension: "system",
+    label: "Fluids and continuous media",
+    description:
+      "Explore flows, turbulence, transport, climate, plasmas, or other systems described across space and time.",
+  },
+  {
+    id: "system:particles-fields",
+    dimension: "system",
+    label: "Particles and fields",
+    description:
+      "Examine quantum systems, forces, waves, particles, fields, or the large-scale universe.",
+  },
+  {
+    id: "system:networks-complex-systems",
+    dimension: "system",
+    label: "Networks and complex systems",
+    description:
+      "Ask how many interacting parts create collective, emergent, or nonlinear behavior.",
+  },
+  {
+    id: "system:multiple-scales",
+    dimension: "system",
+    label: "Connections across scales",
+    description:
+      "Link small-scale mechanisms to larger structures, functions, or observable behavior.",
+  },
+] as const satisfies readonly HubOrientationSignalDefinition[];
