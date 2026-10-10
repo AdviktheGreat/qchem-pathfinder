@@ -22,6 +22,116 @@ export const quantumChemistryModule = definePathfinderModule({
     openGraphDescription:
       "Explore molecular questions, electronic structure, computational methods, and research styles—then leave with a focused direction and literature-search launchpad.",
   },
+  orientation: {
+    summary:
+      "A strong starting point for questions centered on molecules, electrons, bonding, reactions, spectra, and the computational methods used to describe them.",
+    boundary:
+      "It usually keeps the molecule or electronic structure at the center; materials, biological, and larger physical behavior become neighboring lenses rather than the main scale.",
+    affinities: [
+      {
+        signalId: "motivation:fundamental-rules",
+        strength: 3,
+        reason:
+          "Quantum chemistry connects observable molecular behavior to electronic structure and fundamental chemical principles.",
+      },
+      {
+        signalId: "motivation:molecular-health",
+        strength: 2,
+        reason:
+          "Molecular interactions, solvation, and electronic effects can illuminate health-related chemical systems.",
+      },
+      {
+        signalId: "motivation:methods-computing",
+        strength: 2,
+        reason:
+          "The field continually evaluates computational approximations for molecular questions.",
+      },
+      {
+        signalId: "motivation:space-universe",
+        strength: 1,
+        reason:
+          "Molecular calculations can investigate astrochemical species and chemistry in extreme environments.",
+      },
+      {
+        signalId: "system:molecules-electrons",
+        strength: 3,
+        reason:
+          "Molecules and their electrons are the central systems in quantum chemistry.",
+      },
+      {
+        signalId: "system:biomolecules-cells",
+        strength: 1,
+        reason:
+          "Quantum chemistry can isolate electronic and molecular contributions within biomolecular systems.",
+      },
+      {
+        signalId: "system:materials-interfaces",
+        strength: 1,
+        reason:
+          "Molecular and electronic models can provide a small-scale lens on materials and interfaces.",
+      },
+      {
+        signalId: "question:explain-mechanism",
+        strength: 3,
+        reason:
+          "Electronic structure and energy landscapes help explain bonding, reactivity, and molecular interactions.",
+      },
+      {
+        signalId: "question:predict-behavior",
+        strength: 2,
+        reason:
+          "Calculations predict molecular structures, energies, properties, and responses.",
+      },
+      {
+        signalId: "question:interpret-evidence",
+        strength: 3,
+        reason:
+          "Computed spectra and electronic properties can help interpret experimental measurements.",
+      },
+      {
+        signalId: "question:compare-methods",
+        strength: 3,
+        reason:
+          "Benchmarking approximations is a central way to judge reliable molecular calculations.",
+      },
+      {
+        signalId: "question:develop-theory",
+        strength: 3,
+        reason:
+          "The field develops and tests mathematical approximations to molecular quantum mechanics.",
+      },
+      {
+        signalId: "working-style:chemical-mechanisms",
+        strength: 3,
+        reason:
+          "Structures, orbitals, interactions, and reaction pathways are common reasoning tools.",
+      },
+      {
+        signalId: "working-style:visual-models",
+        strength: 2,
+        reason:
+          "Molecular geometries, orbitals, densities, and energy diagrams make abstract calculations visible.",
+      },
+      {
+        signalId: "working-style:mathematical-models",
+        strength: 2,
+        reason:
+          "Quantum chemistry connects chemical intuition to mathematical models of electrons and nuclei.",
+      },
+      {
+        signalId: "working-style:method-comparison",
+        strength: 3,
+        reason:
+          "Accuracy, cost, and approximation choice matter throughout molecular computation.",
+      },
+      {
+        signalId: "working-style:mixed-toolkit",
+        strength: 2,
+        reason:
+          "Projects often combine chemical interpretation, computation, visualization, and literature evidence.",
+      },
+    ],
+  },
 });
 
 export const computationalMaterialsModule = definePathfinderModule({
