@@ -282,6 +282,122 @@ export const computationalBiologyModule = definePathfinderModule({
     openGraphDescription:
       "Explore biological scales, evidence, computational methods, and research styles—then leave with a focused direction and literature-search launchpad.",
   },
+  orientation: {
+    summary:
+      "A strong starting point for computational questions about biomolecules, cells, genomes, biological networks, evolution, and health-related mechanisms.",
+    boundary:
+      "It keeps biological function, evidence, and variation central; molecular physics or general data methods serve a biological question rather than becoming the final subject.",
+    affinities: [
+      {
+        signalId: "motivation:living-systems",
+        strength: 3,
+        reason:
+          "Living systems and biological function are the field's central scientific context.",
+      },
+      {
+        signalId: "motivation:molecular-health",
+        strength: 3,
+        reason:
+          "Protein behavior, molecular recognition, disease mechanisms, and drug discovery are important research families.",
+      },
+      {
+        signalId: "motivation:environment-earth",
+        strength: 1,
+        reason:
+          "Ecological, evolutionary, and population models can address living systems in environmental contexts.",
+      },
+      {
+        signalId: "motivation:methods-computing",
+        strength: 2,
+        reason:
+          "Biological questions drive new algorithms for sequences, structures, networks, and complex datasets.",
+      },
+      {
+        signalId: "system:biomolecules-cells",
+        strength: 3,
+        reason:
+          "Proteins, nucleic acids, membranes, pathways, and cells are core computational biology systems.",
+      },
+      {
+        signalId: "system:genes-populations",
+        strength: 3,
+        reason:
+          "Genomes, expression, evolution, and population variation form another major scale of the field.",
+      },
+      {
+        signalId: "system:networks-complex-systems",
+        strength: 2,
+        reason:
+          "Biological function often emerges from interacting genes, proteins, cells, or organisms.",
+      },
+      {
+        signalId: "system:multiple-scales",
+        strength: 2,
+        reason:
+          "Computational biology connects molecular events to cells, organisms, populations, and ecosystems.",
+      },
+      {
+        signalId: "question:find-data-patterns",
+        strength: 3,
+        reason:
+          "Sequence, expression, imaging, clinical, and ecological datasets invite statistical pattern finding.",
+      },
+      {
+        signalId: "question:interpret-evidence",
+        strength: 3,
+        reason:
+          "Models help turn complex biological measurements into hypotheses about mechanism and function.",
+      },
+      {
+        signalId: "question:explain-mechanism",
+        strength: 2,
+        reason:
+          "Simulation and network models can explain how biological interactions produce function or dysfunction.",
+      },
+      {
+        signalId: "question:predict-behavior",
+        strength: 2,
+        reason:
+          "Computational models can predict structure, function, interaction, phenotype, or population change.",
+      },
+      {
+        signalId: "question:design-optimize",
+        strength: 2,
+        reason:
+          "Some projects design molecules, proteins, experiments, or interventions for a biological goal.",
+      },
+      {
+        signalId: "working-style:data-statistics",
+        strength: 3,
+        reason:
+          "Biological research frequently depends on noisy, high-dimensional, and variable data.",
+      },
+      {
+        signalId: "working-style:coding-algorithms",
+        strength: 2,
+        reason:
+          "Reproducible pipelines and specialized algorithms are common across biological scales.",
+      },
+      {
+        signalId: "working-style:visual-models",
+        strength: 2,
+        reason:
+          "Structures, trees, networks, trajectories, and spatial data support biological interpretation.",
+      },
+      {
+        signalId: "working-style:numerical-simulation",
+        strength: 2,
+        reason:
+          "Simulation can follow biomolecular motion, cellular dynamics, evolution, or population behavior.",
+      },
+      {
+        signalId: "working-style:mixed-toolkit",
+        strength: 3,
+        reason:
+          "Projects often combine biological context, code, statistics, visualization, and mechanistic reasoning.",
+      },
+    ],
+  },
 });
 
 export const computationalPhysicsModule = definePathfinderModule({
