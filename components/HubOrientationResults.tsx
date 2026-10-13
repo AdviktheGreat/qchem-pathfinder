@@ -11,11 +11,21 @@ export function HubOrientationResults({
   onReview: () => void;
 }) {
   const primary = rankings[0];
+  const alternative = rankings[1];
   const catalog = primary ? getPathfinder(primary.pathfinderId) : undefined;
+  const alternativeCatalog = alternative
+    ? getPathfinder(alternative.pathfinderId)
+    : undefined;
   const manifest = primary
     ? pathfinderModules.find(
         (candidate) =>
           candidate.definition.identity.id === primary.pathfinderId,
+      )
+    : undefined;
+  const alternativeManifest = alternative
+    ? pathfinderModules.find(
+        (candidate) =>
+          candidate.definition.identity.id === alternative.pathfinderId,
       )
     : undefined;
 
@@ -40,25 +50,62 @@ export function HubOrientationResults({
 
   return (
     <div className="hub-orientation-results">
-      <p className="section-kicker">A good place to start</p>
-      <h2>{catalog.name}</h2>
-      <p className="hub-orientation-result-summary">
-        {manifest.orientation.summary}
+      <p className="section-kicker">
+        {alternative?.score === primary.score
+          ? "Two equally open starting points"
+          : "A good place to start"}
       </p>
-      <div className="hub-orientation-reasons">
-        <h3>Why it connects with your choices</h3>
-        <ul>
-          {primary.reasons.slice(0, 3).map((reason) => (
-            <li key={reason.signalId}>
-              <strong>{reason.answerLabel}</strong>
-              <span>{reason.text}</span>
-            </li>
-          ))}
-        </ul>
+      <div className="hub-orientation-result-grid">
+        <article className="hub-orientation-primary-result">
+          <span>Start here</span>
+          <h2>{catalog.name}</h2>
+          <p className="hub-orientation-result-summary">
+            {manifest.orientation.summary}
+          </p>
+          <div className="hub-orientation-reasons">
+            <h3>Why it connects with your choices</h3>
+            <ul>
+              {primary.reasons.slice(0, 3).map((reason) => (
+                <li key={reason.signalId}>
+                  <strong>{reason.answerLabel}</strong>
+                  <span>{reason.text}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <p className="hub-orientation-boundary">
+            <strong>Keep in mind:</strong> {manifest.orientation.boundary}
+          </p>
+        </article>
+        {alternative &&
+        alternativeCatalog &&
+        alternativeManifest?.orientation ? (
+          <article className="hub-orientation-alternative-result">
+            <span>Nearby alternative</span>
+            <h3>{alternativeCatalog.name}</h3>
+            <p>{alternativeManifest.orientation.summary}</p>
+            <h4>Why it also stayed in view</h4>
+            {alternative.reasons.length > 0 ? (
+              <ul>
+                {alternative.reasons.slice(0, 2).map((reason) => (
+                  <li key={reason.signalId}>
+                    <strong>{reason.answerLabel}:</strong> {reason.text}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>
+                Your answers leave room to inspect this subject from a different
+                angle.
+              </p>
+            )}
+            <details>
+              <summary>How it differs</summary>
+              <p>{alternativeManifest.orientation.boundary}</p>
+            </details>
+          </article>
+        ) : null}
       </div>
-      <p className="hub-orientation-boundary">
-        <strong>Keep in mind:</strong> {manifest.orientation.boundary}
-      </p>
       <button className="secondary-button" type="button" onClick={onReview}>
         <ArrowLeft size={17} aria-hidden="true" /> Review my choices
       </button>

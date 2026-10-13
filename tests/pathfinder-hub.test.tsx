@@ -155,5 +155,7 @@ describe("PathfinderHub", () => {
         name: "Why it connects with your choices",
       }),
     ).toBeDefined();
+    expect(screen.getByText("Nearby alternative")).toBeDefined();
+    expect(screen.getByText("How it differs")).toBeDefined();
   });
 });
