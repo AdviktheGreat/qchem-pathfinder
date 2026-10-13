@@ -2405,6 +2405,16 @@ h2 {
 .hub-orientation-reassurance {
   margin-top: 1.2rem !important;
 }
+.hub-orientation-intro-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.hub-orientation-intro-actions .text-link {
+  margin-top: 0;
+}
 .hub-orientation-question {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(340px, 1.2fr);
@@ -2468,7 +2478,7 @@ h2 {
   opacity: 1;
 }
 .hub-orientation-option:has(input:focus-visible) {
-  outline: 3px solid var(--focus-ring);
+  outline: 3px solid var(--violet);
   outline-offset: 3px;
 }
 .hub-orientation-question-actions {

@@ -9,11 +9,16 @@ import {
   X,
 } from "lucide-react";
 import { useState } from "react";
+import { HubOrientationQuestion } from "@/components/HubOrientationQuestion";
+import { hubOrientationQuestions } from "@/data/hub-orientation-questions";
 
 export function HubOrientationGuide() {
-  const [open, setOpen] = useState(false);
+  const [screen, setScreen] = useState<"closed" | "intro" | "question">(
+    "closed",
+  );
+  const [selectedOptionId, setSelectedOptionId] = useState<string>();
 
-  if (!open)
+  if (screen === "closed")
     return (
       <section
         className="hub-orientation-entry"
@@ -30,73 +35,96 @@ export function HubOrientationGuide() {
             start. You can still browse every pathfinder yourself.
           </p>
         </div>
-        <button className="primary-button" onClick={() => setOpen(true)}>
+        <button className="primary-button" onClick={() => setScreen("intro")}>
           Help me choose <ArrowRight size={17} aria-hidden="true" />
         </button>
       </section>
     );
 
   return (
-    <section
-      className="hub-orientation-panel"
-      aria-labelledby="hub-orientation-title"
-    >
+    <section className="hub-orientation-panel" aria-label="Pathfinder guide">
       <button
         className="icon-button hub-orientation-close"
         type="button"
-        onClick={() => setOpen(false)}
+        onClick={() => setScreen("closed")}
         aria-label="Close pathfinder guide"
       >
         <X size={18} aria-hidden="true" />
       </button>
-      <p className="section-kicker">Pathfinder guide</p>
-      <h2 id="hub-orientation-title">Let’s find a useful place to start.</h2>
-      <p>
-        You’ll make a handful of low-pressure choices about what holds your
-        attention and how you like to investigate a question. We’ll suggest one
-        pathfinder to begin with and one nearby alternative.
-      </p>
-      <div className="hub-orientation-meta" aria-label="Guide details">
-        <span>
-          <Clock3 size={15} aria-hidden="true" /> About 2–4 minutes
-        </span>
-        <span>
-          <ShieldCheck size={15} aria-hidden="true" /> Answers stay on this
-          device
-        </span>
-        <span>
-          <Check size={15} aria-hidden="true" /> No scores or wrong answers
-        </span>
-      </div>
-      <div className="hub-orientation-promise">
-        <article>
-          <span>01</span>
-          <strong>Notice</strong>
-          <p>Choose situations and questions that naturally catch your eye.</p>
-        </article>
-        <article>
-          <span>02</span>
-          <strong>Compare</strong>
+      {screen === "question" ? (
+        <HubOrientationQuestion
+          question={hubOrientationQuestions[0]}
+          selectedOptionId={selectedOptionId}
+          onSelect={setSelectedOptionId}
+          onBack={() => setScreen("intro")}
+          onContinue={() => setScreen("intro")}
+        />
+      ) : (
+        <>
+          <p className="section-kicker">Pathfinder guide</p>
+          <h2 id="hub-orientation-title">
+            Let’s find a useful place to start.
+          </h2>
           <p>
-            See why two subject areas could both be worthwhile starting points.
+            You’ll make a handful of low-pressure choices about what holds your
+            attention and how you like to investigate a question. We’ll suggest
+            one pathfinder to begin with and one nearby alternative.
           </p>
-        </article>
-        <article>
-          <span>03</span>
-          <strong>Choose freely</strong>
-          <p>
-            Open either suggestion, revise your choices, or browse all four.
+          <div className="hub-orientation-meta" aria-label="Guide details">
+            <span>
+              <Clock3 size={15} aria-hidden="true" /> About 2–4 minutes
+            </span>
+            <span>
+              <ShieldCheck size={15} aria-hidden="true" /> Answers stay on this
+              device
+            </span>
+            <span>
+              <Check size={15} aria-hidden="true" /> No scores or wrong answers
+            </span>
+          </div>
+          <div className="hub-orientation-promise">
+            <article>
+              <span>01</span>
+              <strong>Notice</strong>
+              <p>
+                Choose situations and questions that naturally catch your eye.
+              </p>
+            </article>
+            <article>
+              <span>02</span>
+              <strong>Compare</strong>
+              <p>
+                See why two subject areas could both be worthwhile starting
+                points.
+              </p>
+            </article>
+            <article>
+              <span>03</span>
+              <strong>Choose freely</strong>
+              <p>
+                Open either suggestion, revise your choices, or browse all four.
+              </p>
+            </article>
+          </div>
+          <p className="hub-orientation-reassurance">
+            This is not a knowledge test, a talent assessment, or a permanent
+            field choice.
           </p>
-        </article>
-      </div>
-      <p className="hub-orientation-reassurance">
-        This is not a knowledge test, a talent assessment, or a permanent field
-        choice.
-      </p>
-      <a className="text-link" href="#directory-title">
-        Browse all pathfinders instead{" "}
-        <ArrowRight size={16} aria-hidden="true" />
-      </a>
+          <div className="hub-orientation-intro-actions">
+            <button
+              className="primary-button"
+              type="button"
+              onClick={() => setScreen("question")}
+            >
+              Start the guide <ArrowRight size={17} aria-hidden="true" />
+            </button>
+            <a className="text-link" href="#directory-title">
+              Browse all pathfinders instead{" "}
+              <ArrowRight size={16} aria-hidden="true" />
+            </a>
+          </div>
+        </>
+      )}
     </section>
   );
 }

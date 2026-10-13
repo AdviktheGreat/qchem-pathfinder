@@ -57,4 +57,17 @@ describe("PathfinderHub", () => {
       screen.getByRole("link", { name: /Browse all pathfinders instead/i }),
     ).toBeDefined();
   });
+
+  it("starts with an accessible broad-curiosity question", () => {
+    render(<PathfinderHub />);
+    fireEvent.click(screen.getByRole("button", { name: "Help me choose" }));
+    fireEvent.click(screen.getByRole("button", { name: "Start the guide" }));
+
+    expect(
+      screen.getByRole("heading", {
+        name: "Which scientific neighborhood would you most like to peek into?",
+      }),
+    ).toBeDefined();
+    expect(screen.getAllByRole("radio")).toHaveLength(8);
+  });
 });
