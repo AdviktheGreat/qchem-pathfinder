@@ -107,4 +107,23 @@ describe("PathfinderHub", () => {
       }),
     ).toBeDefined();
   });
+
+  it("keeps an earlier selection available when moving back", () => {
+    render(<PathfinderHub />);
+    fireEvent.click(screen.getByRole("button", { name: "Help me choose" }));
+    fireEvent.click(screen.getByRole("button", { name: "Start the guide" }));
+    fireEvent.click(
+      screen.getByRole("radio", { name: /How better computation/i }),
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Continue" }));
+    fireEvent.click(screen.getByRole("button", { name: "Back" }));
+
+    expect(
+      (
+        screen.getByRole("radio", {
+          name: /How better computation/i,
+        }) as HTMLInputElement
+      ).checked,
+    ).toBe(true);
+  });
 });

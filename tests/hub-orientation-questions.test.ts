@@ -1,7 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { hubOrientationQuestions } from "@/data/hub-orientation-questions";
 import { hubOrientationSignals } from "@/data/hub-orientation-signals";
-import { getHubOrientationQuestionPath } from "@/lib/hub-orientation-branching";
+import {
+  getHubOrientationQuestionPath,
+  updateHubOrientationAnswer,
+} from "@/lib/hub-orientation-branching";
 
 describe("hub orientation questions", () => {
   it("uses stable, unique question and option IDs", () => {
@@ -61,5 +64,25 @@ describe("hub orientation questions", () => {
       "working-style",
       "application-balance",
     ]);
+  });
+
+  it("removes answers from branches hidden by an earlier edit", () => {
+    const answers = {
+      "broad-curiosity": "living-systems",
+      "preferred-system": "not-sure-yet",
+      "molecular-boundary": "biological-function",
+    };
+
+    expect(
+      updateHubOrientationAnswer(
+        hubOrientationQuestions,
+        answers,
+        "broad-curiosity",
+        "methods-computing",
+      ),
+    ).toEqual({
+      "broad-curiosity": "methods-computing",
+      "preferred-system": "not-sure-yet",
+    });
   });
 });

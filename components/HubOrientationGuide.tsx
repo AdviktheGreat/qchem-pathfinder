@@ -11,7 +11,10 @@ import {
 import { useState } from "react";
 import { HubOrientationQuestion } from "@/components/HubOrientationQuestion";
 import { hubOrientationQuestions } from "@/data/hub-orientation-questions";
-import { getHubOrientationQuestionPath } from "@/lib/hub-orientation-branching";
+import {
+  getHubOrientationQuestionPath,
+  updateHubOrientationAnswer,
+} from "@/lib/hub-orientation-branching";
 
 export function HubOrientationGuide() {
   const [screen, setScreen] = useState<"closed" | "intro" | "question">(
@@ -65,10 +68,14 @@ export function HubOrientationGuide() {
           currentStep={questionIndex + 1}
           totalSteps={questionPath.length}
           onSelect={(optionId) =>
-            setAnswers((current) => ({
-              ...current,
-              [question.id]: optionId,
-            }))
+            setAnswers((current) =>
+              updateHubOrientationAnswer(
+                hubOrientationQuestions,
+                current,
+                question.id,
+                optionId,
+              ),
+            )
           }
           onBack={() => {
             if (questionIndex === 0) setScreen("intro");
