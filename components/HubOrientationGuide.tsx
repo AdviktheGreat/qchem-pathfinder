@@ -10,16 +10,21 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { HubOrientationQuestion } from "@/components/HubOrientationQuestion";
+import { HubOrientationResults } from "@/components/HubOrientationResults";
 import { hubOrientationQuestions } from "@/data/hub-orientation-questions";
+import { hubOrientationSignals } from "@/data/hub-orientation-signals";
+import { pathfinderModules } from "@/data/pathfinder-modules";
+import { collectHubOrientationEvidence } from "@/lib/hub-orientation-answers";
 import {
   getHubOrientationQuestionPath,
   updateHubOrientationAnswer,
 } from "@/lib/hub-orientation-branching";
+import { rankHubOrientation } from "@/lib/hub-orientation-ranking";
 
 export function HubOrientationGuide() {
-  const [screen, setScreen] = useState<"closed" | "intro" | "question">(
-    "closed",
-  );
+  const [screen, setScreen] = useState<
+    "closed" | "intro" | "question" | "results"
+  >("closed");
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const questionPath = getHubOrientationQuestionPath(
@@ -27,6 +32,11 @@ export function HubOrientationGuide() {
     answers,
   );
   const question = questionPath[questionIndex];
+  const rankings = rankHubOrientation(
+    pathfinderModules,
+    hubOrientationSignals,
+    collectHubOrientationEvidence(questionPath, answers),
+  );
 
   if (screen === "closed")
     return (
@@ -61,7 +71,15 @@ export function HubOrientationGuide() {
       >
         <X size={18} aria-hidden="true" />
       </button>
-      {screen === "question" ? (
+      {screen === "results" ? (
+        <HubOrientationResults
+          rankings={rankings}
+          onReview={() => {
+            setQuestionIndex(0);
+            setScreen("question");
+          }}
+        />
+      ) : screen === "question" ? (
         <HubOrientationQuestion
           question={question}
           selectedOptionId={answers[question.id]}
@@ -84,7 +102,7 @@ export function HubOrientationGuide() {
           onContinue={() => {
             if (questionIndex < questionPath.length - 1)
               setQuestionIndex((index) => index + 1);
-            else setScreen("intro");
+            else setScreen("results");
           }}
         />
       ) : (

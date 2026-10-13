@@ -126,4 +126,34 @@ describe("PathfinderHub", () => {
       ).checked,
     ).toBe(true);
   });
+
+  it("turns a complete biological path into a transparent starting suggestion", () => {
+    render(<PathfinderHub />);
+    fireEvent.click(screen.getByRole("button", { name: "Help me choose" }));
+    fireEvent.click(screen.getByRole("button", { name: "Start the guide" }));
+
+    for (const answer of [
+      /How living systems store/i,
+      /Genes and populations/i,
+      /Find patterns hidden in data/i,
+      /^Data and statistics/i,
+      /concrete real-world goal/i,
+      /Biological function and variation/i,
+    ]) {
+      fireEvent.click(screen.getByRole("radio", { name: answer }));
+      fireEvent.click(screen.getByRole("button", { name: "Continue" }));
+    }
+
+    expect(
+      screen.getByRole("heading", {
+        level: 2,
+        name: "Computational Biology Pathfinder",
+      }),
+    ).toBeDefined();
+    expect(
+      screen.getByRole("heading", {
+        name: "Why it connects with your choices",
+      }),
+    ).toBeDefined();
+  });
 });

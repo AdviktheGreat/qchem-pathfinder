@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { hubOrientationQuestions } from "@/data/hub-orientation-questions";
 import { hubOrientationSignals } from "@/data/hub-orientation-signals";
+import { collectHubOrientationEvidence } from "@/lib/hub-orientation-answers";
 import {
   getHubOrientationQuestionPath,
   updateHubOrientationAnswer,
@@ -84,5 +85,21 @@ describe("hub orientation questions", () => {
       "broad-curiosity": "methods-computing",
       "preferred-system": "not-sure-yet",
     });
+  });
+
+  it("collects evidence only from selected options", () => {
+    expect(
+      collectHubOrientationEvidence(hubOrientationQuestions, {
+        "broad-curiosity": "living-systems",
+        "preferred-system": "not-sure-yet",
+      }),
+    ).toEqual([
+      {
+        signalId: "motivation:living-systems",
+        label: "Living systems",
+        weight: 3,
+        uncertainty: undefined,
+      },
+    ]);
   });
 });

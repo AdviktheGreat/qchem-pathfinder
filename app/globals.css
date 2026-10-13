@@ -2511,6 +2511,67 @@ h2 {
   gap: 1rem;
   padding-top: 0.5rem;
 }
+.hub-orientation-results {
+  max-width: 900px;
+}
+.hub-orientation-results h2 {
+  max-width: 760px;
+  font-size: clamp(2.6rem, 6vw, 5.5rem);
+}
+.hub-orientation-result-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 1rem;
+  border-radius: 17px;
+  background: rgba(49, 87, 213, 0.1);
+  color: var(--teal);
+}
+.hub-orientation-result-summary {
+  max-width: 780px !important;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+.hub-orientation-reasons {
+  margin: 2rem 0 1.25rem;
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.78);
+}
+.hub-orientation-reasons h3 {
+  margin: 0 0 0.8rem;
+  font-size: 0.9rem;
+}
+.hub-orientation-reasons ul {
+  display: grid;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.hub-orientation-reasons li {
+  display: grid;
+  gap: 0.25rem;
+}
+.hub-orientation-reasons li + li {
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--line);
+}
+.hub-orientation-reasons strong {
+  color: var(--teal-dark);
+  font-size: 0.76rem;
+}
+.hub-orientation-reasons span,
+.hub-orientation-boundary {
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+.hub-orientation-boundary {
+  margin: 0 0 1.5rem !important;
+}
 @media (max-width: 900px) {
   .hub-orientation-question {
     grid-template-columns: 1fr;
