@@ -87,4 +87,24 @@ describe("PathfinderHub", () => {
     ).toBeDefined();
     expect(screen.getAllByRole("radio")).toHaveLength(8);
   });
+
+  it("continues from systems to a preferred research question", () => {
+    render(<PathfinderHub />);
+    fireEvent.click(screen.getByRole("button", { name: "Help me choose" }));
+    fireEvent.click(screen.getByRole("button", { name: "Start the guide" }));
+    fireEvent.click(
+      screen.getByRole("radio", { name: /How living systems store/i }),
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Continue" }));
+    fireEvent.click(
+      screen.getByRole("radio", { name: /Genes and populations/i }),
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Continue" }));
+
+    expect(
+      screen.getByRole("heading", {
+        name: "Which kind of research question sounds most satisfying?",
+      }),
+    ).toBeDefined();
+  });
 });

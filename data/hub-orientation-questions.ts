@@ -225,4 +225,113 @@ export const hubOrientationQuestions: readonly HubOrientationQuestion[] = [
       },
     ],
   },
+  {
+    id: "question-style",
+    kicker: "Question 3 · Research questions",
+    title: "Which kind of research question sounds most satisfying?",
+    guidance:
+      "Imagine spending an afternoon making progress on one of these—not already knowing how to solve it.",
+    options: [
+      {
+        id: "explain-mechanism",
+        label: "Explain why something happens",
+        description: "Trace a mechanism, interaction, or governing principle.",
+        evidence: [
+          {
+            signalId: "question:explain-mechanism",
+            label: "Explain why something happens",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "predict-behavior",
+        label: "Predict what a system will do",
+        description: "Estimate a property, response, trajectory, or outcome.",
+        evidence: [
+          {
+            signalId: "question:predict-behavior",
+            label: "Predict what a system will do",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "design-optimize",
+        label: "Design or optimize something",
+        description:
+          "Search for a structure, condition, or parameter that works better.",
+        evidence: [
+          {
+            signalId: "question:design-optimize",
+            label: "Design or optimize something",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "interpret-evidence",
+        label: "Interpret experimental or observed evidence",
+        description:
+          "Connect a model to measurements, images, spectra, or sequences.",
+        evidence: [
+          {
+            signalId: "question:interpret-evidence",
+            label: "Interpret evidence",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "compare-methods",
+        label: "Compare computational methods",
+        description: "Find where models agree, fail, or suit different tasks.",
+        evidence: [
+          {
+            signalId: "question:compare-methods",
+            label: "Compare computational methods",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "follow-dynamics",
+        label: "Follow how a system changes over time",
+        description:
+          "Simulate motion, reaction, transport, evolution, or instability.",
+        evidence: [
+          {
+            signalId: "question:follow-dynamics",
+            label: "Follow change over time",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "find-data-patterns",
+        label: "Find patterns hidden in data",
+        description:
+          "Use statistics or machine learning to discover relationships.",
+        evidence: [
+          {
+            signalId: "question:find-data-patterns",
+            label: "Find patterns in data",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "develop-theory",
+        label: "Develop a fundamental model",
+        description: "Build or test a mathematical description of a system.",
+        evidence: [
+          {
+            signalId: "question:develop-theory",
+            label: "Develop fundamental models",
+            weight: 3,
+          },
+        ],
+      },
+    ],
+  },
 ];
