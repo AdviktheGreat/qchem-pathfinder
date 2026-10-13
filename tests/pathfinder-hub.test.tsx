@@ -157,5 +157,36 @@ describe("PathfinderHub", () => {
     ).toBeDefined();
     expect(screen.getByText("Nearby alternative")).toBeDefined();
     expect(screen.getByText("How it differs")).toBeDefined();
+    expect(
+      screen
+        .getByRole("link", { name: "Open Computational biology" })
+        .getAttribute("href"),
+    ).toBe("/pathfinders/computational-biology");
+    expect(
+      screen.getByRole("button", { name: /Review my choices/i }),
+    ).toBeDefined();
+    expect(
+      screen.getByRole("link", { name: "Browse all four pathfinders" }),
+    ).toBeDefined();
+  });
+
+  it("keeps every path open after an all-uncertain journey", () => {
+    render(<PathfinderHub />);
+    fireEvent.click(screen.getByRole("button", { name: "Help me choose" }));
+    fireEvent.click(screen.getByRole("button", { name: "Start the guide" }));
+
+    for (let step = 0; step < 5; step += 1) {
+      fireEvent.click(
+        screen.getByRole("radio", { name: /^I’m not sure yet/i }),
+      );
+      fireEvent.click(screen.getByRole("button", { name: "Continue" }));
+    }
+
+    expect(
+      screen.getByRole("heading", { name: "Several paths are still open." }),
+    ).toBeDefined();
+    expect(
+      screen.getByRole("link", { name: "Browse all pathfinders" }),
+    ).toBeDefined();
   });
 });

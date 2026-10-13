@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowLeft, Compass } from "lucide-react";
 import { getPathfinder } from "@/data/pathfinders";
 import { pathfinderModules } from "@/data/pathfinder-modules";
@@ -29,7 +30,13 @@ export function HubOrientationResults({
       )
     : undefined;
 
-  if (!primary || !catalog || !manifest?.orientation || primary.score === 0)
+  if (
+    !primary ||
+    !catalog ||
+    catalog.status !== "available" ||
+    !manifest?.orientation ||
+    primary.score === 0
+  )
     return (
       <div className="hub-orientation-results is-open">
         <span className="hub-orientation-result-icon" aria-hidden="true">
@@ -42,9 +49,14 @@ export function HubOrientationResults({
           result. Browse the four pathfinders, open whichever example catches
           your eye, or revise one answer for a little more direction.
         </p>
-        <button className="secondary-button" type="button" onClick={onReview}>
-          <ArrowLeft size={17} aria-hidden="true" /> Review my choices
-        </button>
+        <div className="hub-orientation-result-actions">
+          <a className="primary-button" href="#directory-title">
+            Browse all pathfinders
+          </a>
+          <button className="secondary-button" type="button" onClick={onReview}>
+            <ArrowLeft size={17} aria-hidden="true" /> Review my choices
+          </button>
+        </div>
       </div>
     );
 
@@ -76,9 +88,13 @@ export function HubOrientationResults({
           <p className="hub-orientation-boundary">
             <strong>Keep in mind:</strong> {manifest.orientation.boundary}
           </p>
+          <Link className="primary-button" href={catalog.href}>
+            Open {catalog.shortName}
+          </Link>
         </article>
         {alternative &&
         alternativeCatalog &&
+        alternativeCatalog.status === "available" &&
         alternativeManifest?.orientation ? (
           <article className="hub-orientation-alternative-result">
             <span>Nearby alternative</span>
@@ -103,12 +119,20 @@ export function HubOrientationResults({
               <summary>How it differs</summary>
               <p>{alternativeManifest.orientation.boundary}</p>
             </details>
+            <Link className="secondary-button" href={alternativeCatalog.href}>
+              Open {alternativeCatalog.shortName}
+            </Link>
           </article>
         ) : null}
       </div>
-      <button className="secondary-button" type="button" onClick={onReview}>
-        <ArrowLeft size={17} aria-hidden="true" /> Review my choices
-      </button>
+      <div className="hub-orientation-result-actions">
+        <button className="secondary-button" type="button" onClick={onReview}>
+          <ArrowLeft size={17} aria-hidden="true" /> Review my choices
+        </button>
+        <a className="text-link" href="#directory-title">
+          Browse all four pathfinders
+        </a>
+      </div>
     </div>
   );
 }

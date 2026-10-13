@@ -2591,6 +2591,20 @@ h2 {
   font-size: 0.76rem;
   font-weight: 800;
 }
+.hub-orientation-primary-result .primary-button,
+.hub-orientation-alternative-result .secondary-button {
+  width: 100%;
+  margin-top: 1.25rem;
+}
+.hub-orientation-result-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+.hub-orientation-result-actions .text-link {
+  margin-top: 0;
+}
 .hub-orientation-reasons {
   margin: 2rem 0 1.25rem;
   padding: 1.25rem;

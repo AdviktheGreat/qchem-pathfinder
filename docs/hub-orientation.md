@@ -36,18 +36,32 @@ The hub answers only “Which complete exploration might be a useful first stop?
 
 Interdisciplinary bridges remain a later results feature. They can reassure students that neighboring fields stay open, but they do not alter hub rankings or move answers between modules.
 
-## Phase 1 architecture
+## Architecture and visible guide
 
-The visible hub remains unchanged until Phase 2. Its orientation foundation is split into editable layers:
+The orientation system is split into editable layers:
 
 - `data/hub-orientation-signals.ts` owns the shared motivation, system, question, and working-style vocabulary.
 - Each entry in `data/pathfinder-modules.ts` owns a scientific summary, a boundary, and weighted affinities with student-facing reasons.
 - `lib/hub-orientation-validation.ts` checks the vocabulary and every released module profile without mutating either.
 - `lib/hub-orientation-ranking.ts` converts future answer evidence into stable rankings and answer-grounded reasons.
+- `data/hub-orientation-questions.ts` defines the five core choices and two optional boundary follow-ups.
+- `lib/hub-orientation-branching.ts` derives the current question path and removes answers when an edited choice closes a branch.
+- `lib/hub-orientation-answers.ts` converts selected options into the evidence consumed by the ranker.
+- `components/HubOrientationGuide.tsx` owns the short, optional intro-to-results flow without turning the whole hub into a client component.
 
 To add a signal, give it a lowercase `dimension:value` ID, an accessible label, and a concise explanation. Then add it only to module profiles where the connection is scientifically meaningful. Affinity strengths use a deliberately small scale: `1` is a neighboring connection, `2` is a meaningful fit, and `3` is central to the pathfinder.
 
 To add a released module, supply at least one affinity in every orientation dimension and run configuration validation. Coming-soon modules cannot participate in orientation recommendations.
+
+## Student journey
+
+Students can browse the full directory immediately or choose **Help me choose**. The guide asks five focused questions about broad curiosity, preferred system, research question, working style, and applied/fundamental balance. A molecular-versus-materials or biology-versus-physics follow-up appears only when the existing answers make that boundary useful, so the journey contains five to seven decisions.
+
+Every core question includes **I’m not sure yet**. It contributes no scoring evidence and does not trigger a follow-up. If an edited answer makes a follow-up irrelevant, that hidden answer is deleted before ranking so it cannot contradict the visible profile.
+
+The result presents one good place to start, one nearby alternative, answer-grounded reasons, and an honest boundary for each suggestion. Students can open either complete pathfinder, review their choices, or return to all four modules. When no positive evidence exists, the interface keeps every path open instead of manufacturing a recommendation.
+
+The guide does not currently persist its own answers. Subject-pathfinder progress remains independently saved, and opening a suggested pathfinder starts or resumes that module normally.
 
 ## Scoring behavior
 
