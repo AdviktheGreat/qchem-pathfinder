@@ -1,6 +1,13 @@
 "use client";
 
-import { ArrowRight, Compass, X } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  Clock3,
+  Compass,
+  ShieldCheck,
+  X,
+} from "lucide-react";
 import { useState } from "react";
 
 export function HubOrientationGuide() {
@@ -45,9 +52,46 @@ export function HubOrientationGuide() {
       <p className="section-kicker">Pathfinder guide</p>
       <h2 id="hub-orientation-title">Let’s find a useful place to start.</h2>
       <p>
-        This optional guide looks at what holds your attention and how you like
-        to investigate a question. It does not test your knowledge or lock you
-        into a field.
+        You’ll make a handful of low-pressure choices about what holds your
+        attention and how you like to investigate a question. We’ll suggest one
+        pathfinder to begin with and one nearby alternative.
+      </p>
+      <div className="hub-orientation-meta" aria-label="Guide details">
+        <span>
+          <Clock3 size={15} aria-hidden="true" /> About 2–4 minutes
+        </span>
+        <span>
+          <ShieldCheck size={15} aria-hidden="true" /> Answers stay on this
+          device
+        </span>
+        <span>
+          <Check size={15} aria-hidden="true" /> No scores or wrong answers
+        </span>
+      </div>
+      <div className="hub-orientation-promise">
+        <article>
+          <span>01</span>
+          <strong>Notice</strong>
+          <p>Choose situations and questions that naturally catch your eye.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <strong>Compare</strong>
+          <p>
+            See why two subject areas could both be worthwhile starting points.
+          </p>
+        </article>
+        <article>
+          <span>03</span>
+          <strong>Choose freely</strong>
+          <p>
+            Open either suggestion, revise your choices, or browse all four.
+          </p>
+        </article>
+      </div>
+      <p className="hub-orientation-reassurance">
+        This is not a knowledge test, a talent assessment, or a permanent field
+        choice.
       </p>
       <a className="text-link" href="#directory-title">
         Browse all pathfinders instead{" "}

@@ -2354,6 +2354,57 @@ h2 {
 .hub-orientation-panel .text-link {
   margin-top: 1.5rem;
 }
+.hub-orientation-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1.5rem 0;
+}
+.hub-orientation-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.48rem 0.68rem;
+  border: 1px solid rgba(49, 87, 213, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.76);
+  color: var(--ink-soft);
+  font-size: 0.72rem;
+  font-weight: 750;
+}
+.hub-orientation-promise {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 1.8rem;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.72);
+}
+.hub-orientation-promise article {
+  padding: 1.15rem;
+}
+.hub-orientation-promise article + article {
+  border-left: 1px solid var(--line);
+}
+.hub-orientation-promise span {
+  color: var(--teal);
+  font-size: 0.65rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+}
+.hub-orientation-promise strong {
+  display: block;
+  margin: 0.3rem 0;
+}
+.hub-orientation-promise p,
+.hub-orientation-reassurance {
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+.hub-orientation-reassurance {
+  margin-top: 1.2rem !important;
+}
 .pathfinder-directory {
   scroll-margin-top: 2rem;
 }
@@ -2782,6 +2833,13 @@ h2 {
   }
   .hub-orientation-panel {
     margin-top: -2.5rem;
+  }
+  .hub-orientation-promise {
+    grid-template-columns: 1fr;
+  }
+  .hub-orientation-promise article + article {
+    border-top: 1px solid var(--line);
+    border-left: 0;
   }
   .recent-pathfinder {
     grid-template-columns: auto 1fr;

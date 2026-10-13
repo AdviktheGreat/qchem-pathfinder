@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 import { PathfinderHub } from "@/components/PathfinderHub";
 
@@ -39,6 +39,22 @@ describe("PathfinderHub", () => {
     expect(screen.queryByText("Collection roadmap")).toBeNull();
     expect(
       screen.getByRole("button", { name: "Help me choose" }),
+    ).toBeDefined();
+  });
+
+  it("explains the optional guide before asking questions", () => {
+    render(<PathfinderHub />);
+    fireEvent.click(screen.getByRole("button", { name: "Help me choose" }));
+
+    expect(
+      screen.getByRole("heading", {
+        name: "Let’s find a useful place to start.",
+      }),
+    ).toBeDefined();
+    expect(screen.getByText("About 2–4 minutes")).toBeDefined();
+    expect(screen.getByText("No scores or wrong answers")).toBeDefined();
+    expect(
+      screen.getByRole("link", { name: /Browse all pathfinders instead/i }),
     ).toBeDefined();
   });
 });
