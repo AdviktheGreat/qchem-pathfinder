@@ -334,4 +334,116 @@ export const hubOrientationQuestions: readonly HubOrientationQuestion[] = [
       },
     ],
   },
+  {
+    id: "working-style",
+    kicker: "Question 4 · Working style",
+    title: "Which set of tools would you be happiest learning to use?",
+    guidance:
+      "Choose the style that sounds rewarding, even if it is new to you. This is about curiosity, not current skill.",
+    options: [
+      {
+        id: "chemical-mechanisms",
+        label: "Chemical structures and mechanisms",
+        description:
+          "Reason with bonds, interactions, structures, and reaction steps.",
+        evidence: [
+          {
+            signalId: "working-style:chemical-mechanisms",
+            label: "Chemical structures and mechanisms",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "visual-models",
+        label: "Visual models",
+        description:
+          "Learn through structures, trajectories, fields, and networks.",
+        evidence: [
+          {
+            signalId: "working-style:visual-models",
+            label: "Visual models",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "mathematical-models",
+        label: "Mathematical models",
+        description:
+          "Turn assumptions into equations and analyze their consequences.",
+        evidence: [
+          {
+            signalId: "working-style:mathematical-models",
+            label: "Mathematical models",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "numerical-simulation",
+        label: "Numerical simulation",
+        description:
+          "Run a model across conditions, scales, or time and inspect what changes.",
+        evidence: [
+          {
+            signalId: "working-style:numerical-simulation",
+            label: "Numerical simulation",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "coding-algorithms",
+        label: "Coding and algorithms",
+        description:
+          "Build or adapt computational workflows and scientific software.",
+        evidence: [
+          {
+            signalId: "working-style:coding-algorithms",
+            label: "Coding and algorithms",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "data-statistics",
+        label: "Data and statistics",
+        description:
+          "Measure patterns, uncertainty, and predictive relationships.",
+        evidence: [
+          {
+            signalId: "working-style:data-statistics",
+            label: "Data and statistics",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "method-comparison",
+        label: "Careful method comparison",
+        description: "Compare assumptions, accuracy, cost, and reliability.",
+        evidence: [
+          {
+            signalId: "working-style:method-comparison",
+            label: "Careful method comparison",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "mixed-toolkit",
+        label: "A mixed scientific toolkit",
+        description:
+          "Move among concepts, code, mathematics, visualization, and data.",
+        evidence: [
+          {
+            signalId: "working-style:mixed-toolkit",
+            label: "A mixed scientific toolkit",
+            weight: 3,
+          },
+        ],
+      },
+    ],
+  },
 ];
