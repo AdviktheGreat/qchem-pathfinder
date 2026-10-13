@@ -70,4 +70,21 @@ describe("PathfinderHub", () => {
     ).toBeDefined();
     expect(screen.getAllByRole("radio")).toHaveLength(8);
   });
+
+  it("moves from broad curiosity to a preferred research system", () => {
+    render(<PathfinderHub />);
+    fireEvent.click(screen.getByRole("button", { name: "Help me choose" }));
+    fireEvent.click(screen.getByRole("button", { name: "Start the guide" }));
+    fireEvent.click(
+      screen.getByRole("radio", { name: /How new materials gain/i }),
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Continue" }));
+
+    expect(
+      screen.getByRole("heading", {
+        name: "Which kind of system would you most enjoy zooming in on?",
+      }),
+    ).toBeDefined();
+    expect(screen.getAllByRole("radio")).toHaveLength(8);
+  });
 });

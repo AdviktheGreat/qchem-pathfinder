@@ -114,4 +114,115 @@ export const hubOrientationQuestions: readonly HubOrientationQuestion[] = [
       },
     ],
   },
+  {
+    id: "preferred-system",
+    kicker: "Question 2 · Research systems",
+    title: "Which kind of system would you most enjoy zooming in on?",
+    guidance:
+      "Think about the object you would like to visualize, model, or collect evidence about—not what seems most impressive.",
+    options: [
+      {
+        id: "molecules-electrons",
+        label: "Molecules and electrons",
+        description:
+          "Structures, bonds, reactions, spectra, and charge behavior.",
+        evidence: [
+          {
+            signalId: "system:molecules-electrons",
+            label: "Molecules and electrons",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "materials-interfaces",
+        label: "Materials and interfaces",
+        description: "Solids, surfaces, defects, polymers, and devices.",
+        evidence: [
+          {
+            signalId: "system:materials-interfaces",
+            label: "Materials and interfaces",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "biomolecules-cells",
+        label: "Biomolecules and cells",
+        description:
+          "Proteins, DNA, membranes, pathways, and cellular behavior.",
+        evidence: [
+          {
+            signalId: "system:biomolecules-cells",
+            label: "Biomolecules and cells",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "genes-populations",
+        label: "Genes and populations",
+        description:
+          "Genomes, expression, evolution, ecosystems, and variation.",
+        evidence: [
+          {
+            signalId: "system:genes-populations",
+            label: "Genes and populations",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "fluids-continuous-media",
+        label: "Fluids and continuous media",
+        description: "Flows, turbulence, transport, atmospheres, and plasmas.",
+        evidence: [
+          {
+            signalId: "system:fluids-continuous-media",
+            label: "Fluids and continuous media",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "particles-fields",
+        label: "Particles, waves, and fields",
+        description:
+          "Quantum systems, forces, radiation, matter, and the universe.",
+        evidence: [
+          {
+            signalId: "system:particles-fields",
+            label: "Particles and fields",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "networks-complex-systems",
+        label: "Networks and complex systems",
+        description:
+          "Many interacting parts producing collective or nonlinear behavior.",
+        evidence: [
+          {
+            signalId: "system:networks-complex-systems",
+            label: "Networks and complex systems",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "multiple-scales",
+        label: "Connections across several scales",
+        description:
+          "How small mechanisms build toward larger structure and function.",
+        evidence: [
+          {
+            signalId: "system:multiple-scales",
+            label: "Connections across scales",
+            weight: 3,
+          },
+        ],
+      },
+    ],
+  },
 ];

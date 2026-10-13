@@ -16,7 +16,9 @@ export function HubOrientationGuide() {
   const [screen, setScreen] = useState<"closed" | "intro" | "question">(
     "closed",
   );
-  const [selectedOptionId, setSelectedOptionId] = useState<string>();
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const question = hubOrientationQuestions[questionIndex];
 
   if (screen === "closed")
     return (
@@ -53,11 +55,23 @@ export function HubOrientationGuide() {
       </button>
       {screen === "question" ? (
         <HubOrientationQuestion
-          question={hubOrientationQuestions[0]}
-          selectedOptionId={selectedOptionId}
-          onSelect={setSelectedOptionId}
-          onBack={() => setScreen("intro")}
-          onContinue={() => setScreen("intro")}
+          question={question}
+          selectedOptionId={answers[question.id]}
+          onSelect={(optionId) =>
+            setAnswers((current) => ({
+              ...current,
+              [question.id]: optionId,
+            }))
+          }
+          onBack={() => {
+            if (questionIndex === 0) setScreen("intro");
+            else setQuestionIndex((index) => index - 1);
+          }}
+          onContinue={() => {
+            if (questionIndex < hubOrientationQuestions.length - 1)
+              setQuestionIndex((index) => index + 1);
+            else setScreen("intro");
+          }}
         />
       ) : (
         <>
@@ -114,7 +128,10 @@ export function HubOrientationGuide() {
             <button
               className="primary-button"
               type="button"
-              onClick={() => setScreen("question")}
+              onClick={() => {
+                setQuestionIndex(0);
+                setScreen("question");
+              }}
             >
               Start the guide <ArrowRight size={17} aria-hidden="true" />
             </button>
