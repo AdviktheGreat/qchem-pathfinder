@@ -1,4 +1,16 @@
-import type { HubOrientationQuestion } from "@/lib/hub-orientation";
+import type {
+  HubOrientationOption,
+  HubOrientationQuestion,
+} from "@/lib/hub-orientation";
+
+const uncertaintyOption = {
+  id: "not-sure-yet",
+  label: "I’m not sure yet",
+  description:
+    "Keep several possibilities open. This choice does not count against any pathfinder.",
+  evidence: [],
+  uncertainty: true,
+} as const satisfies HubOrientationOption;
 
 export const hubOrientationQuestions: readonly HubOrientationQuestion[] = [
   {
@@ -112,6 +124,7 @@ export const hubOrientationQuestions: readonly HubOrientationQuestion[] = [
           },
         ],
       },
+      uncertaintyOption,
     ],
   },
   {
@@ -223,6 +236,7 @@ export const hubOrientationQuestions: readonly HubOrientationQuestion[] = [
           },
         ],
       },
+      uncertaintyOption,
     ],
   },
   {
@@ -332,6 +346,7 @@ export const hubOrientationQuestions: readonly HubOrientationQuestion[] = [
           },
         ],
       },
+      uncertaintyOption,
     ],
   },
   {
@@ -444,6 +459,7 @@ export const hubOrientationQuestions: readonly HubOrientationQuestion[] = [
           },
         ],
       },
+      uncertaintyOption,
     ],
   },
   {
@@ -497,6 +513,7 @@ export const hubOrientationQuestions: readonly HubOrientationQuestion[] = [
           },
         ],
       },
+      uncertaintyOption,
     ],
   },
 ];
