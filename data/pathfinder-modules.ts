@@ -47,6 +47,12 @@ export const quantumChemistryModule = definePathfinderModule({
           "The field continually evaluates computational approximations for molecular questions.",
       },
       {
+        signalId: "motivation:practical-applications",
+        strength: 1,
+        reason:
+          "Molecular calculations can support concrete questions in health, energy, sensing, and chemical design.",
+      },
+      {
         signalId: "motivation:space-universe",
         strength: 1,
         reason:
@@ -183,6 +189,12 @@ export const computationalMaterialsModule = definePathfinderModule({
           "Materials questions often motivate multiscale, high-throughput, and data-driven computational workflows.",
       },
       {
+        signalId: "motivation:practical-applications",
+        strength: 3,
+        reason:
+          "Materials models often connect directly to performance goals in devices, energy, infrastructure, and sustainability.",
+      },
+      {
         signalId: "system:materials-interfaces",
         strength: 3,
         reason:
@@ -311,6 +323,12 @@ export const computationalBiologyModule = definePathfinderModule({
         strength: 2,
         reason:
           "Biological questions drive new algorithms for sequences, structures, networks, and complex datasets.",
+      },
+      {
+        signalId: "motivation:practical-applications",
+        strength: 2,
+        reason:
+          "Computational biology can connect biological understanding to drug discovery, diagnostics research, and ecosystem questions.",
       },
       {
         signalId: "system:biomolecules-cells",
@@ -447,6 +465,12 @@ export const computationalPhysicsModule = definePathfinderModule({
         strength: 2,
         reason:
           "Numerical algorithms and model evaluation are central to making physical theories computable.",
+      },
+      {
+        signalId: "motivation:practical-applications",
+        strength: 1,
+        reason:
+          "Physical simulation can inform climate, transport, devices, engineering, and other concrete systems.",
       },
       {
         signalId: "system:fluids-continuous-media",

@@ -446,4 +446,57 @@ export const hubOrientationQuestions: readonly HubOrientationQuestion[] = [
       },
     ],
   },
+  {
+    id: "application-balance",
+    kicker: "Question 5 · Research purpose",
+    title: "What would make a project feel especially meaningful to you?",
+    guidance:
+      "Both kinds of work matter and often overlap. Choose the emphasis you would want at the beginning.",
+    options: [
+      {
+        id: "practical-applications",
+        label: "A connection to a concrete real-world goal",
+        description:
+          "I would like to see how the work could inform technology, health, energy, or the environment.",
+        evidence: [
+          {
+            signalId: "motivation:practical-applications",
+            label: "Practical applications",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "fundamental-understanding",
+        label: "A deeper explanation of how nature works",
+        description:
+          "I would enjoy a project even when its main payoff is clearer fundamental understanding.",
+        evidence: [
+          {
+            signalId: "motivation:fundamental-rules",
+            label: "Fundamental understanding",
+            weight: 3,
+          },
+        ],
+      },
+      {
+        id: "balanced-purpose",
+        label: "A balance of both",
+        description:
+          "I like fundamental insight and a possible application, without needing either to dominate.",
+        evidence: [
+          {
+            signalId: "motivation:practical-applications",
+            label: "Balanced practical and fundamental purpose",
+            weight: 1,
+          },
+          {
+            signalId: "motivation:fundamental-rules",
+            label: "Balanced practical and fundamental purpose",
+            weight: 1,
+          },
+        ],
+      },
+    ],
+  },
 ];

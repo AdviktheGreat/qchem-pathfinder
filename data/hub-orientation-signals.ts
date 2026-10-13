@@ -57,6 +57,13 @@ export const hubMotivationSignals = [
     description:
       "Improve algorithms, simulations, data methods, or approximations used to answer scientific questions.",
   },
+  {
+    id: "motivation:practical-applications",
+    dimension: "motivation",
+    label: "Practical applications",
+    description:
+      "Connect computational understanding to a concrete scientific, technological, environmental, or health goal.",
+  },
 ] as const satisfies readonly HubOrientationSignalDefinition[];
 
 export const hubSystemSignals = [
