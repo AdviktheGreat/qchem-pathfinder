@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { hubOrientationQuestions } from "@/data/hub-orientation-questions";
 import { hubOrientationSignals } from "@/data/hub-orientation-signals";
+import { getHubOrientationQuestionPath } from "@/lib/hub-orientation-branching";
 
 describe("hub orientation questions", () => {
   it("uses stable, unique question and option IDs", () => {
@@ -33,5 +34,32 @@ describe("hub orientation questions", () => {
           expect(signalIds.has(evidence.signalId), evidence.signalId).toBe(
             true,
           );
+  });
+
+  it("adds only relevant adaptive distinctions", () => {
+    expect(
+      getHubOrientationQuestionPath(hubOrientationQuestions, {}),
+    ).toHaveLength(5);
+    expect(
+      getHubOrientationQuestionPath(hubOrientationQuestions, {
+        "broad-curiosity": "living-systems",
+      }).map((question) => question.id),
+    ).toContain("molecular-boundary");
+    expect(
+      getHubOrientationQuestionPath(hubOrientationQuestions, {
+        "broad-curiosity": "space-universe",
+      }).map((question) => question.id),
+    ).toContain("scale-boundary");
+    expect(
+      getHubOrientationQuestionPath(hubOrientationQuestions, {
+        "broad-curiosity": "methods-computing",
+      }).map((question) => question.id),
+    ).toEqual([
+      "broad-curiosity",
+      "preferred-system",
+      "question-style",
+      "working-style",
+      "application-balance",
+    ]);
   });
 });

@@ -68,7 +68,7 @@ describe("PathfinderHub", () => {
         name: "Which scientific neighborhood would you most like to peek into?",
       }),
     ).toBeDefined();
-    expect(screen.getAllByRole("radio")).toHaveLength(8);
+    expect(screen.getAllByRole("radio")).toHaveLength(9);
   });
 
   it("moves from broad curiosity to a preferred research system", () => {
@@ -85,7 +85,7 @@ describe("PathfinderHub", () => {
         name: "Which kind of system would you most enjoy zooming in on?",
       }),
     ).toBeDefined();
-    expect(screen.getAllByRole("radio")).toHaveLength(8);
+    expect(screen.getAllByRole("radio")).toHaveLength(9);
   });
 
   it("continues from systems to a preferred research question", () => {

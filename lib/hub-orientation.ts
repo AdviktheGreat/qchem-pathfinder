@@ -57,4 +57,12 @@ export interface HubOrientationQuestion {
   title: string;
   guidance: string;
   options: readonly HubOrientationOption[];
+  visibleWhen?: {
+    anyOf: readonly {
+      questionId: string;
+      optionIds: readonly string[];
+    }[];
+  };
 }
+
+export type HubOrientationAnswers = Readonly<Record<string, string>>;

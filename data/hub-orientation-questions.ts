@@ -516,4 +516,185 @@ export const hubOrientationQuestions: readonly HubOrientationQuestion[] = [
       uncertaintyOption,
     ],
   },
+  {
+    id: "molecular-boundary",
+    kicker: "A closer distinction · Molecular systems",
+    title:
+      "When you picture a molecular problem, where does your attention go first?",
+    guidance:
+      "This helps distinguish neighboring molecular and biological starting points. Either choice can still lead across the boundary later.",
+    visibleWhen: {
+      anyOf: [
+        {
+          questionId: "broad-curiosity",
+          optionIds: ["molecular-health", "living-systems"],
+        },
+        {
+          questionId: "preferred-system",
+          optionIds: ["molecules-electrons", "biomolecules-cells"],
+        },
+      ],
+    },
+    options: [
+      {
+        id: "electronic-chemical-detail",
+        label: "Electronic structure and chemical detail",
+        description:
+          "Bonding, charge, molecular interactions, spectra, and reaction mechanisms.",
+        evidence: [
+          {
+            signalId: "system:molecules-electrons",
+            label: "Electronic and chemical detail",
+            weight: 2,
+          },
+          {
+            signalId: "working-style:chemical-mechanisms",
+            label: "Electronic and chemical detail",
+            weight: 2,
+          },
+        ],
+      },
+      {
+        id: "biological-function",
+        label: "Biological function and variation",
+        description:
+          "How molecules participate in cells, pathways, disease, genomes, or evolution.",
+        evidence: [
+          {
+            signalId: "motivation:living-systems",
+            label: "Biological function and variation",
+            weight: 2,
+          },
+          {
+            signalId: "system:biomolecules-cells",
+            label: "Biological function and variation",
+            weight: 2,
+          },
+        ],
+      },
+      {
+        id: "molecular-biological-bridge",
+        label: "The bridge between both",
+        description:
+          "Electronic and molecular behavior connected to a larger biological function.",
+        evidence: [
+          {
+            signalId: "system:molecules-electrons",
+            label: "A molecular–biological bridge",
+            weight: 1,
+          },
+          {
+            signalId: "system:biomolecules-cells",
+            label: "A molecular–biological bridge",
+            weight: 1,
+          },
+          {
+            signalId: "working-style:mixed-toolkit",
+            label: "A molecular–biological bridge",
+            weight: 1,
+          },
+        ],
+      },
+      uncertaintyOption,
+    ],
+  },
+  {
+    id: "scale-boundary",
+    kicker: "A closer distinction · Scale and behavior",
+    title: "Which scale would you want the model to explain most directly?",
+    guidance:
+      "This separates nearby molecular, materials, and broader physical lenses without treating any scale as more advanced.",
+    visibleWhen: {
+      anyOf: [
+        {
+          questionId: "broad-curiosity",
+          optionIds: [
+            "energy-sustainability",
+            "environment-earth",
+            "materials-technology",
+            "space-universe",
+          ],
+        },
+        {
+          questionId: "preferred-system",
+          optionIds: [
+            "materials-interfaces",
+            "fluids-continuous-media",
+            "particles-fields",
+            "multiple-scales",
+          ],
+        },
+      ],
+    },
+    options: [
+      {
+        id: "molecular-origin",
+        label: "The molecular or electronic origin",
+        description:
+          "How local bonding, charge, or reactions create the effect.",
+        evidence: [
+          {
+            signalId: "system:molecules-electrons",
+            label: "Molecular or electronic origins",
+            weight: 2,
+          },
+        ],
+      },
+      {
+        id: "material-performance",
+        label: "The material structure and its performance",
+        description:
+          "How arrangement, defects, interfaces, and processing shape properties.",
+        evidence: [
+          {
+            signalId: "system:materials-interfaces",
+            label: "Material structure and performance",
+            weight: 2,
+          },
+        ],
+      },
+      {
+        id: "physical-dynamics",
+        label: "The larger physical dynamics",
+        description:
+          "How motion, fields, flow, or collective laws govern the system.",
+        evidence: [
+          {
+            signalId: "system:fluids-continuous-media",
+            label: "Larger physical dynamics",
+            weight: 1,
+          },
+          {
+            signalId: "system:particles-fields",
+            label: "Larger physical dynamics",
+            weight: 1,
+          },
+          {
+            signalId: "question:follow-dynamics",
+            label: "Larger physical dynamics",
+            weight: 2,
+          },
+        ],
+      },
+      {
+        id: "cross-scale-link",
+        label: "The connection among several scales",
+        description:
+          "How local rules build toward structure, function, or collective behavior.",
+        evidence: [
+          {
+            signalId: "system:multiple-scales",
+            label: "Connections across scales",
+            weight: 2,
+          },
+          {
+            signalId: "working-style:mixed-toolkit",
+            label: "Connections across scales",
+            weight: 1,
+          },
+        ],
+      },
+      uncertaintyOption,
+    ],
+  },
 ];

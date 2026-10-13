@@ -11,6 +11,7 @@ import {
 import { useState } from "react";
 import { HubOrientationQuestion } from "@/components/HubOrientationQuestion";
 import { hubOrientationQuestions } from "@/data/hub-orientation-questions";
+import { getHubOrientationQuestionPath } from "@/lib/hub-orientation-branching";
 
 export function HubOrientationGuide() {
   const [screen, setScreen] = useState<"closed" | "intro" | "question">(
@@ -18,7 +19,11 @@ export function HubOrientationGuide() {
   );
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
-  const question = hubOrientationQuestions[questionIndex];
+  const questionPath = getHubOrientationQuestionPath(
+    hubOrientationQuestions,
+    answers,
+  );
+  const question = questionPath[questionIndex];
 
   if (screen === "closed")
     return (
@@ -68,7 +73,7 @@ export function HubOrientationGuide() {
             else setQuestionIndex((index) => index - 1);
           }}
           onContinue={() => {
-            if (questionIndex < hubOrientationQuestions.length - 1)
+            if (questionIndex < questionPath.length - 1)
               setQuestionIndex((index) => index + 1);
             else setScreen("intro");
           }}
