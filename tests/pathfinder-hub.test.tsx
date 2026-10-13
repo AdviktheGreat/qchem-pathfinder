@@ -37,5 +37,8 @@ describe("PathfinderHub", () => {
     ).toBe("/pathfinders/computational-physics");
     expect(screen.queryByText("Coming later")).toBeNull();
     expect(screen.queryByText("Collection roadmap")).toBeNull();
+    expect(
+      screen.getByRole("button", { name: "Help me choose" }),
+    ).toBeDefined();
   });
 });

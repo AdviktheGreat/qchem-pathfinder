@@ -2301,6 +2301,59 @@ h2 {
   font-size: 0.84rem;
   line-height: 1.55;
 }
+.hub-orientation-entry {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.25rem;
+  margin: -3.25rem 0 5rem;
+  padding: 1.4rem;
+  border: 1px solid rgba(49, 87, 213, 0.2);
+  border-radius: 22px;
+  background: linear-gradient(115deg, rgba(234, 239, 255, 0.9), white 70%);
+  box-shadow: var(--shadow-soft);
+}
+.hub-orientation-entry-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  background: var(--teal);
+  color: white;
+}
+.hub-orientation-entry h2,
+.hub-orientation-panel h2 {
+  margin: 0.25rem 0 0.4rem;
+  font-family: var(--font-display), serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 560;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+.hub-orientation-entry p,
+.hub-orientation-panel p {
+  max-width: 720px;
+  margin: 0;
+  color: var(--muted);
+}
+.hub-orientation-panel {
+  position: relative;
+  margin: -3.25rem 0 5rem;
+  padding: clamp(2rem, 5vw, 4rem);
+  border: 1px solid rgba(49, 87, 213, 0.2);
+  border-radius: 28px;
+  background: linear-gradient(145deg, rgba(234, 239, 255, 0.92), white 64%);
+  box-shadow: var(--shadow);
+}
+.hub-orientation-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+.hub-orientation-panel .text-link {
+  margin-top: 1.5rem;
+}
 .pathfinder-directory {
   scroll-margin-top: 2rem;
 }
@@ -2718,6 +2771,17 @@ h2 {
   .hub-principles {
     grid-template-columns: 1fr;
     margin: 1.5rem 0 4.5rem;
+  }
+  .hub-orientation-entry {
+    grid-template-columns: auto 1fr;
+    margin-top: -2.5rem;
+  }
+  .hub-orientation-entry .primary-button {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+  .hub-orientation-panel {
+    margin-top: -2.5rem;
   }
   .recent-pathfinder {
     grid-template-columns: auto 1fr;

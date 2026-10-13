@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Compass } from "lucide-react";
 import { availablePathfinders, upcomingPathfinders } from "@/data/pathfinders";
 import { HubField } from "@/components/HubField";
+import { HubOrientationGuide } from "@/components/HubOrientationGuide";
 import { PathfinderCard } from "@/components/PathfinderCard";
 import { PathfinderPreviewCard } from "@/components/PathfinderPreviewCard";
 import { RecentPathfinder } from "@/components/RecentPathfinder";
@@ -81,6 +82,8 @@ export function PathfinderHub() {
               </p>
             </article>
           </section>
+
+          <HubOrientationGuide />
 
           <RecentPathfinder />
 
