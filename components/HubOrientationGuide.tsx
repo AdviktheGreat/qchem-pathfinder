@@ -62,6 +62,8 @@ export function HubOrientationGuide() {
         <HubOrientationQuestion
           question={question}
           selectedOptionId={answers[question.id]}
+          currentStep={questionIndex + 1}
+          totalSteps={questionPath.length}
           onSelect={(optionId) =>
             setAnswers((current) => ({
               ...current,

@@ -2420,6 +2420,29 @@ h2 {
   grid-template-columns: minmax(0, 0.8fr) minmax(340px, 1.2fr);
   gap: clamp(2rem, 5vw, 5rem);
 }
+.hub-orientation-progress {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.55rem 1rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 750;
+}
+.hub-orientation-progress > div {
+  grid-column: 1 / -1;
+  height: 5px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(49, 87, 213, 0.12);
+}
+.hub-orientation-progress > div span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--teal);
+  transition: width 180ms ease;
+}
 .hub-orientation-question-copy h2 {
   max-width: 600px;
 }

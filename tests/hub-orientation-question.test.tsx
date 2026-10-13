@@ -34,12 +34,19 @@ it("renders an accessible single-choice question shell", () => {
   render(
     <HubOrientationQuestion
       question={question}
+      currentStep={2}
+      totalSteps={5}
       onSelect={onSelect}
       onContinue={onContinue}
     />,
   );
 
   expect(screen.getByRole("group", { name: question.title })).toBeDefined();
+  const progress = screen.getByRole("progressbar", {
+    name: "Pathfinder guide progress",
+  });
+  expect(progress.getAttribute("aria-valuenow")).toBe("2");
+  expect(progress.getAttribute("aria-valuemax")).toBe("5");
   expect(
     screen.getByRole("button", { name: /Continue/i }).hasAttribute("disabled"),
   ).toBe(true);

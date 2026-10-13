@@ -4,18 +4,40 @@ import type { HubOrientationQuestion as Question } from "@/lib/hub-orientation";
 export function HubOrientationQuestion({
   question,
   selectedOptionId,
+  currentStep,
+  totalSteps,
   onSelect,
   onBack,
   onContinue,
 }: {
   question: Question;
   selectedOptionId?: string;
+  currentStep: number;
+  totalSteps: number;
   onSelect: (optionId: string) => void;
   onBack?: () => void;
   onContinue: () => void;
 }) {
   return (
     <div className="hub-orientation-question">
+      <div className="hub-orientation-progress">
+        <span>
+          Step {currentStep} of {totalSteps}
+        </span>
+        <span>
+          About {Math.max(1, Math.ceil((totalSteps - currentStep + 1) * 0.4))}{" "}
+          min left
+        </span>
+        <div
+          role="progressbar"
+          aria-label="Pathfinder guide progress"
+          aria-valuemin={1}
+          aria-valuemax={totalSteps}
+          aria-valuenow={currentStep}
+        >
+          <span style={{ width: `${(currentStep / totalSteps) * 100}%` }} />
+        </div>
+      </div>
       <div className="hub-orientation-question-copy">
         <p className="section-kicker">{question.kicker}</p>
         <h2>{question.title}</h2>
