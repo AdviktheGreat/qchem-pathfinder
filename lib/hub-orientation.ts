@@ -42,3 +42,19 @@ export interface HubOrientationRanking {
   score: number;
   reasons: readonly HubOrientationReason[];
 }
+
+export interface HubOrientationOption {
+  id: string;
+  label: string;
+  description: string;
+  evidence: readonly HubOrientationEvidence[];
+  uncertainty?: boolean;
+}
+
+export interface HubOrientationQuestion {
+  id: string;
+  kicker: string;
+  title: string;
+  guidance: string;
+  options: readonly HubOrientationOption[];
+}

@@ -2405,6 +2405,84 @@ h2 {
 .hub-orientation-reassurance {
   margin-top: 1.2rem !important;
 }
+.hub-orientation-question {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(340px, 1.2fr);
+  gap: clamp(2rem, 5vw, 5rem);
+}
+.hub-orientation-question-copy h2 {
+  max-width: 600px;
+}
+.hub-orientation-options {
+  display: grid;
+  gap: 0.7rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.hub-orientation-option {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  min-height: 76px;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.84);
+  cursor: pointer;
+  transition:
+    border-color 150ms ease,
+    background 150ms ease,
+    transform 150ms ease;
+}
+.hub-orientation-option:hover {
+  border-color: var(--line-strong);
+  transform: translateY(-1px);
+}
+.hub-orientation-option.is-selected {
+  border-color: var(--teal);
+  background: rgba(49, 87, 213, 0.07);
+}
+.hub-orientation-option input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+}
+.hub-orientation-option span {
+  display: grid;
+  gap: 0.3rem;
+}
+.hub-orientation-option small {
+  color: var(--muted);
+  line-height: 1.45;
+}
+.hub-orientation-option > svg {
+  color: var(--teal);
+  opacity: 0;
+}
+.hub-orientation-option.is-selected > svg {
+  opacity: 1;
+}
+.hub-orientation-option:has(input:focus-visible) {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+.hub-orientation-question-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.5rem;
+}
+@media (max-width: 900px) {
+  .hub-orientation-question {
+    grid-template-columns: 1fr;
+  }
+}
 .pathfinder-directory {
   scroll-margin-top: 2rem;
 }
