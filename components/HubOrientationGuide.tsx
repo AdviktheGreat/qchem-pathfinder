@@ -237,6 +237,7 @@ export function HubOrientationGuide() {
           answers={answers}
           questions={questionPath}
           onReview={() => {
+            panelRef.current?.scrollIntoView?.({ block: "start" });
             setQuestionIndex(0);
             setScreen("question");
           }}

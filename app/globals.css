@@ -2367,6 +2367,7 @@ h2 {
 .hub-orientation-panel {
   position: relative;
   overflow: hidden;
+  scroll-margin-top: 1rem;
   margin: -3.25rem 0 5rem;
   padding: clamp(2rem, 5vw, 4rem);
   border: 1px solid rgba(49, 87, 213, 0.2);

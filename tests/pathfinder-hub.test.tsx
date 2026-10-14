@@ -318,4 +318,40 @@ describe("PathfinderHub", () => {
       ),
     );
   });
+
+  it("returns the viewport to the guide when reviewing results", async () => {
+    const scrollIntoView = vi.fn();
+    Object.defineProperty(HTMLElement.prototype, "scrollIntoView", {
+      configurable: true,
+      value: scrollIntoView,
+    });
+    window.localStorage.setItem(
+      "research-pathfinder:hub-orientation",
+      JSON.stringify({
+        version: 1,
+        screen: "results",
+        savedAt: "2026-10-13T20:00:00.000Z",
+        answers: {
+          "broad-curiosity": "not-sure-yet",
+          "preferred-system": "not-sure-yet",
+          "question-style": "not-sure-yet",
+          "working-style": "not-sure-yet",
+          "application-balance": "not-sure-yet",
+        },
+      }),
+    );
+
+    render(<PathfinderHub />);
+    fireEvent.click(
+      await screen.findByRole("button", { name: /View my suggestions/i }),
+    );
+    fireEvent.click(screen.getByRole("button", { name: /Review my choices/i }));
+
+    expect(scrollIntoView).toHaveBeenCalledWith({ block: "start" });
+    expect(
+      screen.getByRole("heading", {
+        name: "Which scientific neighborhood would you most like to peek into?",
+      }),
+    ).toBeDefined();
+  });
 });
