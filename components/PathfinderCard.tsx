@@ -96,7 +96,20 @@ export function PathfinderCard({
           <li key={area}>{area}</li>
         ))}
       </ul>
+      {pathfinder.comparison ? (
+        <dl className="pathfinder-comparison">
+          <div>
+            <dt>Systems</dt>
+            <dd>{pathfinder.comparison.systems}</dd>
+          </div>
+          <div>
+            <dt>Typical questions</dt>
+            <dd>{pathfinder.comparison.questions}</dd>
+          </div>
+        </dl>
+      ) : null}
       <p className="pathfinder-outcome" id={outcomeId}>
+        <strong>Research-map outcome</strong>
         {pathfinder.outcome}
       </p>
       <div className="pathfinder-card-meta">

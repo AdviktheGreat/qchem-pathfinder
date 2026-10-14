@@ -15,6 +15,10 @@ export const quantumChemistryModule = definePathfinderModule({
       "Leave with one promising sub-niche, two nearby alternatives, and a practical literature-search launchpad.",
     focusAreas: ["Molecules", "Electronic structure", "Computational methods"],
     duration: "About 10 minutes",
+    comparison: {
+      systems: "Molecules, electrons, bonds, and reactions",
+      questions: "Why molecular behavior occurs and how reliably to predict it",
+    },
   },
   metadata: {
     description:
@@ -151,6 +155,10 @@ export const computationalMaterialsModule = definePathfinderModule({
       "Narrow toward a materials family, scientific question, and modeling scale worth investigating.",
     focusAreas: ["Materials", "Structure–property links", "Simulation"],
     duration: "About 10 minutes",
+    comparison: {
+      systems: "Solids, surfaces, interfaces, polymers, and devices",
+      questions: "How structure and processing shape useful properties",
+    },
   },
   metadata: {
     description:
@@ -287,6 +295,10 @@ export const computationalBiologyModule = definePathfinderModule({
       "Narrow toward a biological scale, question type, and computational approach that fits your curiosity.",
     focusAreas: ["Biomolecules", "Health", "Biological data"],
     duration: "About 10 minutes",
+    comparison: {
+      systems: "Biomolecules, cells, genomes, networks, and populations",
+      questions: "How living systems function, vary, interact, and respond",
+    },
   },
   metadata: {
     description:
@@ -429,6 +441,10 @@ export const computationalPhysicsModule = definePathfinderModule({
       "Narrow toward a physical system, research question, and computational approach worth investigating.",
     focusAreas: ["Physical systems", "Dynamics", "Numerical modeling"],
     duration: "About 10 minutes",
+    comparison: {
+      systems: "Particles, fields, fluids, plasmas, matter, and the universe",
+      questions: "How physical systems evolve under governing laws",
+    },
   },
   metadata: {
     description:

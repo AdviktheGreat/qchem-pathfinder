@@ -13,6 +13,10 @@ interface PathfinderCatalogBase {
   outcome: string;
   focusAreas: readonly string[];
   duration: string;
+  comparison?: {
+    systems: string;
+    questions: string;
+  };
 }
 
 export interface AvailablePathfinderCatalogEntry extends PathfinderCatalogBase {

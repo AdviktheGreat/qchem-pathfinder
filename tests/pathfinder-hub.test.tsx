@@ -43,6 +43,13 @@ describe("PathfinderHub", () => {
     expect(screen.queryByText("Coming later")).toBeNull();
     expect(screen.queryByText("Collection roadmap")).toBeNull();
     expect(
+      screen.getByText("Molecules, electrons, bonds, and reactions"),
+    ).toBeDefined();
+    expect(
+      screen.getByText("How physical systems evolve under governing laws"),
+    ).toBeDefined();
+    expect(screen.getAllByText("Research-map outcome")).toHaveLength(4);
+    expect(
       screen.getByRole("button", { name: "Help me choose" }),
     ).toBeDefined();
     expect(screen.getByText("Not started")).toBeDefined();

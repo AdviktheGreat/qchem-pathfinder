@@ -2848,9 +2848,40 @@ h2 {
   font-size: 0.72rem;
   font-weight: 750;
 }
+.pathfinder-comparison {
+  display: grid;
+  gap: 0.8rem;
+  margin: 1.1rem 0 0;
+  padding: 1rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.pathfinder-comparison div {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: 0.7rem;
+}
+.pathfinder-comparison dt,
+.pathfinder-outcome strong {
+  color: var(--teal-dark);
+  font-size: 0.65rem;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.pathfinder-comparison dd {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
 .pathfinder-outcome {
   padding-left: 1rem;
   border-left: 2px solid var(--card-accent);
+}
+.pathfinder-outcome strong {
+  display: block;
+  margin-bottom: 0.35rem;
 }
 .pathfinder-card[data-pathfinder="quantum-chemistry"] {
   --card-accent: #7556d8;

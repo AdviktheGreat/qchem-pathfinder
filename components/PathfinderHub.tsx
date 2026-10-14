@@ -96,6 +96,10 @@ export function PathfinderHub() {
                 <p className="section-kicker">Available now</p>
                 <h2 id="directory-title">Choose your pathfinder.</h2>
               </div>
+              <p>
+                Compare the systems each field centers, the questions it tends
+                to ask, and the research map you will leave with.
+              </p>
             </div>
             <div className="pathfinder-grid">
               {availablePathfinders.map((pathfinder) => (

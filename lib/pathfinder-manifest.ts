@@ -10,6 +10,10 @@ export interface PathfinderCatalogCopy {
   outcome: string;
   focusAreas: readonly string[];
   duration: string;
+  comparison?: {
+    systems: string;
+    questions: string;
+  };
 }
 
 export interface PathfinderRouteMetadataCopy {
