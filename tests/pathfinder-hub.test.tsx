@@ -175,6 +175,14 @@ describe("PathfinderHub", () => {
     expect(
       screen.getByRole("heading", { name: "Areas still open" }),
     ).toBeDefined();
+    expect(
+      screen.getByRole("heading", {
+        name: "A starting point is not a closed door.",
+      }),
+    ).toBeDefined();
+    expect(
+      screen.getByText(/not copied into either subject survey/i),
+    ).toBeDefined();
     expect(screen.getByText("Nearby alternative")).toBeDefined();
     expect(screen.getByText("How it differs")).toBeDefined();
     expect(

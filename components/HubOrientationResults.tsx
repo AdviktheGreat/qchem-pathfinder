@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, Compass } from "lucide-react";
+import { HubOrientationBridge } from "@/components/HubOrientationBridge";
 import { getPathfinder } from "@/data/pathfinders";
 import { pathfinderModules } from "@/data/pathfinder-modules";
 import { explainHubOrientationFit } from "@/lib/hub-orientation-answers";
@@ -194,6 +195,12 @@ export function HubOrientationResults({
           </article>
         ) : null}
       </div>
+      {alternativeCatalog?.status === "available" ? (
+        <HubOrientationBridge
+          primaryName={catalog.shortName}
+          alternativeName={alternativeCatalog.shortName}
+        />
+      ) : null}
       <div className="hub-orientation-result-actions">
         <button className="secondary-button" type="button" onClick={onReview}>
           <ArrowLeft size={17} aria-hidden="true" /> Review my choices
