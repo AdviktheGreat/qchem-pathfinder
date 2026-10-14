@@ -3,6 +3,7 @@ import { ArrowLeft, Compass } from "lucide-react";
 import { getPathfinder } from "@/data/pathfinders";
 import { pathfinderModules } from "@/data/pathfinder-modules";
 import { explainHubOrientationFit } from "@/lib/hub-orientation-answers";
+import { getHubOrientationBalance } from "@/lib/hub-orientation-balance";
 import type {
   HubOrientationAnswers,
   HubOrientationQuestion,
@@ -41,6 +42,7 @@ export function HubOrientationResults({
   const fit = primary
     ? explainHubOrientationFit(primary, questions, answers)
     : undefined;
+  const balance = getHubOrientationBalance(rankings);
 
   if (
     !primary ||
@@ -75,13 +77,30 @@ export function HubOrientationResults({
   return (
     <div className="hub-orientation-results">
       <p className="section-kicker">
-        {alternative?.score === primary.score
-          ? "Two equally open starting points"
-          : "A good place to start"}
+        {balance === "tie"
+          ? "Two equally supported starting points"
+          : balance === "close"
+            ? "Two strong starting points"
+            : "A good place to start"}
       </p>
+      {balance === "tie" || balance === "close" ? (
+        <p className="hub-orientation-balance-note">
+          {balance === "tie"
+            ? "Your choices support both fields equally. Their order below is only for display, so begin with either one."
+            : "Your interests pull toward both fields. The first has a slight lead, but comparing both introductions is a sensible next step."}
+        </p>
+      ) : null}
       <div className="hub-orientation-result-grid">
-        <article className="hub-orientation-primary-result">
-          <span>Start here</span>
+        <article
+          className={`hub-orientation-primary-result ${balance === "tie" ? "is-balanced" : ""}`}
+        >
+          <span>
+            {balance === "tie"
+              ? "One starting point"
+              : balance === "close"
+                ? "Slight lead"
+                : "Start here"}
+          </span>
           <h2>{catalog.name}</h2>
           <p className="hub-orientation-result-summary">
             {manifest.orientation.summary}
@@ -141,7 +160,13 @@ export function HubOrientationResults({
         alternativeCatalog.status === "available" &&
         alternativeManifest?.orientation ? (
           <article className="hub-orientation-alternative-result">
-            <span>Nearby alternative</span>
+            <span>
+              {balance === "tie"
+                ? "Equally supported"
+                : balance === "close"
+                  ? "Close alternative"
+                  : "Nearby alternative"}
+            </span>
             <h3>{alternativeCatalog.name}</h3>
             <p>{alternativeManifest.orientation.summary}</p>
             <h4>Why it also stayed in view</h4>

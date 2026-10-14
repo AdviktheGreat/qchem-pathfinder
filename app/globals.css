@@ -2578,6 +2578,18 @@ h2 {
   font-size: 1rem;
   line-height: 1.7;
 }
+.hub-orientation-balance-note {
+  max-width: 760px;
+  margin-top: 0.7rem !important;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--teal);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+.hub-orientation-primary-result.is-balanced {
+  border-color: rgba(32, 117, 121, 0.32);
+  box-shadow: none;
+}
 .hub-orientation-result-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
