@@ -186,7 +186,10 @@ export function HubOrientationGuide() {
     );
 
   return (
-    <section className="hub-orientation-panel" aria-label="Pathfinder guide">
+    <section
+      className={`hub-orientation-panel is-${screen}`}
+      aria-label="Pathfinder guide"
+    >
       <div className="hub-orientation-panel-tools">
         {hasHubOrientationAnswers(answers) ? (
           <button

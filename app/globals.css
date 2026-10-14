@@ -2366,12 +2366,41 @@ h2 {
 }
 .hub-orientation-panel {
   position: relative;
+  overflow: hidden;
   margin: -3.25rem 0 5rem;
   padding: clamp(2rem, 5vw, 4rem);
   border: 1px solid rgba(49, 87, 213, 0.2);
   border-radius: 28px;
   background: linear-gradient(145deg, rgba(234, 239, 255, 0.92), white 64%);
   box-shadow: var(--shadow);
+}
+.hub-orientation-panel::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--teal), var(--violet), transparent);
+  content: "";
+}
+.hub-orientation-panel > :not(.hub-orientation-panel-tools) {
+  position: relative;
+  animation: hub-orientation-enter 220ms ease both;
+}
+.hub-orientation-panel.is-results {
+  background:
+    radial-gradient(circle at 85% 8%, rgba(49, 87, 213, 0.1), transparent 28%),
+    linear-gradient(145deg, rgba(234, 239, 255, 0.92), white 64%);
+}
+@keyframes hub-orientation-enter {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 .hub-orientation-panel-tools {
   position: absolute;
@@ -2603,6 +2632,9 @@ h2 {
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.78);
 }
+.hub-orientation-primary-result {
+  box-shadow: 0 20px 45px rgba(30, 45, 76, 0.08);
+}
 .hub-orientation-primary-result > span,
 .hub-orientation-alternative-result > span {
   color: var(--teal);
@@ -2763,6 +2795,35 @@ h2 {
 }
 .hub-orientation-boundary {
   margin: 0 0 1.5rem !important;
+}
+@media (min-width: 901px) {
+  .hub-orientation-panel.is-question {
+    padding-top: 3.25rem;
+  }
+  .hub-orientation-question-copy {
+    position: sticky;
+    top: 1.5rem;
+    align-self: start;
+    padding: 1.35rem;
+    border: 1px solid rgba(49, 87, 213, 0.14);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.58);
+  }
+  .hub-orientation-question-copy::after {
+    display: block;
+    width: 42px;
+    height: 2px;
+    margin-top: 1.3rem;
+    background: var(--teal);
+    content: "";
+  }
+  .hub-orientation-result-grid {
+    align-items: start;
+  }
+  .hub-orientation-alternative-result {
+    position: sticky;
+    top: 1.5rem;
+  }
 }
 @media (max-width: 900px) {
   .hub-orientation-question {

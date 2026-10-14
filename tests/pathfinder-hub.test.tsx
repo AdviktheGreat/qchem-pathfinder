@@ -77,6 +77,12 @@ describe("PathfinderHub", () => {
     fireEvent.click(screen.getByRole("button", { name: "Start the guide" }));
 
     expect(
+      screen
+        .getByRole("region", { name: "Pathfinder guide" })
+        .classList.contains("is-question"),
+    ).toBe(true);
+
+    expect(
       screen.getByRole("heading", {
         name: "Which scientific neighborhood would you most like to peek into?",
       }),
