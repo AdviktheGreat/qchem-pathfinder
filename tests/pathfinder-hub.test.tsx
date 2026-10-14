@@ -1,12 +1,14 @@
 // @vitest-environment jsdom
 
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { PathfinderHub } from "@/components/PathfinderHub";
+import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
 
 afterEach(() => {
   cleanup();
   window.localStorage.clear();
+  vi.restoreAllMocks();
 });
 
 describe("PathfinderHub", () => {
@@ -214,6 +216,30 @@ describe("PathfinderHub", () => {
     expect(
       screen.getByRole("heading", {
         name: "Which kind of system would you most enjoy zooming in on?",
+      }),
+    ).toBeDefined();
+  });
+
+  it("restarts only the hub guide and preserves subject progress", async () => {
+    const subjectKey = quantumChemistryPathfinder.storage.key;
+    window.localStorage.setItem(subjectKey, "subject-progress");
+    vi.spyOn(window, "confirm").mockReturnValue(true);
+
+    render(<PathfinderHub />);
+    fireEvent.click(screen.getByRole("button", { name: "Help me choose" }));
+    fireEvent.click(screen.getByRole("button", { name: "Start the guide" }));
+    fireEvent.click(
+      screen.getByRole("radio", { name: /How new materials gain/i }),
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Restart guide" }));
+
+    expect(window.confirm).toHaveBeenCalledWith(
+      expect.stringContaining("progress inside every subject pathfinder"),
+    );
+    expect(window.localStorage.getItem(subjectKey)).toBe("subject-progress");
+    expect(
+      await screen.findByRole("heading", {
+        name: "Let’s find a useful place to start.",
       }),
     ).toBeDefined();
   });

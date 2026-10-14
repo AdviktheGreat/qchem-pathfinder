@@ -2346,10 +2346,28 @@ h2 {
   background: linear-gradient(145deg, rgba(234, 239, 255, 0.92), white 64%);
   box-shadow: var(--shadow);
 }
-.hub-orientation-close {
+.hub-orientation-panel-tools {
   position: absolute;
   top: 1rem;
   right: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.hub-orientation-reset {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 38px;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.72);
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 750;
+  cursor: pointer;
 }
 .hub-orientation-panel .text-link {
   margin-top: 1.5rem;

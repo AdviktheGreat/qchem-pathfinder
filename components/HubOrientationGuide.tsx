@@ -5,6 +5,7 @@ import {
   Check,
   Clock3,
   Compass,
+  RotateCcw,
   ShieldCheck,
   X,
 } from "lucide-react";
@@ -27,6 +28,7 @@ import {
   restoreHubOrientationState,
   serializeHubOrientationState,
 } from "@/lib/hub-orientation-persistence";
+import { hasHubOrientationAnswers } from "@/lib/hub-orientation-persistence";
 
 export function HubOrientationGuide() {
   const [screen, setScreen] = useState<
@@ -66,6 +68,7 @@ export function HubOrientationGuide() {
 
   useEffect(() => {
     if (!hydrated || screen === "closed") return;
+    if (screen === "intro" && !hasHubOrientationAnswers(answers)) return;
     const state = createHubOrientationState({
       screen,
       answers,
@@ -102,6 +105,25 @@ export function HubOrientationGuide() {
     setScreen(restoredState.screen);
   }
 
+  function restartGuide() {
+    if (
+      hasHubOrientationAnswers(answers) &&
+      !window.confirm(
+        "Restart this short guide and clear its saved answers? Your progress inside every subject pathfinder will stay exactly as it is.",
+      )
+    )
+      return;
+    try {
+      window.localStorage.removeItem(HUB_ORIENTATION_STORAGE_KEY);
+    } catch {
+      // Reset the in-memory guide even when browser storage is unavailable.
+    }
+    setAnswers({});
+    setQuestionIndex(0);
+    setRestoredState(null);
+    setScreen("intro");
+  }
+
   if (screen === "closed")
     return (
       <section
@@ -132,14 +154,25 @@ export function HubOrientationGuide() {
 
   return (
     <section className="hub-orientation-panel" aria-label="Pathfinder guide">
-      <button
-        className="icon-button hub-orientation-close"
-        type="button"
-        onClick={() => setScreen("closed")}
-        aria-label="Close pathfinder guide"
-      >
-        <X size={18} aria-hidden="true" />
-      </button>
+      <div className="hub-orientation-panel-tools">
+        {hasHubOrientationAnswers(answers) ? (
+          <button
+            className="hub-orientation-reset"
+            type="button"
+            onClick={restartGuide}
+          >
+            <RotateCcw size={15} aria-hidden="true" /> Restart guide
+          </button>
+        ) : null}
+        <button
+          className="icon-button hub-orientation-close"
+          type="button"
+          onClick={() => setScreen("closed")}
+          aria-label="Close pathfinder guide"
+        >
+          <X size={18} aria-hidden="true" />
+        </button>
+      </div>
       {screen === "results" ? (
         <HubOrientationResults
           rankings={rankings}
