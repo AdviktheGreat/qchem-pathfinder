@@ -1,6 +1,12 @@
 // @vitest-environment jsdom
 
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { PathfinderHub } from "@/components/PathfinderHub";
 import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
@@ -71,7 +77,7 @@ describe("PathfinderHub", () => {
     ).toBeDefined();
   });
 
-  it("starts with an accessible broad-curiosity question", () => {
+  it("starts with an accessible broad-curiosity question", async () => {
     render(<PathfinderHub />);
     fireEvent.click(screen.getByRole("button", { name: "Help me choose" }));
     fireEvent.click(screen.getByRole("button", { name: "Start the guide" }));
@@ -82,11 +88,11 @@ describe("PathfinderHub", () => {
         .classList.contains("is-question"),
     ).toBe(true);
 
-    expect(
-      screen.getByRole("heading", {
-        name: "Which scientific neighborhood would you most like to peek into?",
-      }),
-    ).toBeDefined();
+    const heading = screen.getByRole("heading", {
+      name: "Which scientific neighborhood would you most like to peek into?",
+    });
+    expect(heading).toBeDefined();
+    await waitFor(() => expect(document.activeElement).toBe(heading));
     expect(screen.getAllByRole("radio")).toHaveLength(9);
   });
 
@@ -296,5 +302,20 @@ describe("PathfinderHub", () => {
         name: "Let’s find a useful place to start.",
       }),
     ).toBeDefined();
+  });
+
+  it("returns focus to the guide entry after closing", async () => {
+    render(<PathfinderHub />);
+    const entryButton = screen.getByRole("button", { name: "Help me choose" });
+    fireEvent.click(entryButton);
+    fireEvent.click(
+      screen.getByRole("button", { name: "Close pathfinder guide" }),
+    );
+
+    await waitFor(() =>
+      expect(document.activeElement).toBe(
+        screen.getByRole("button", { name: "Help me choose" }),
+      ),
+    );
   });
 });

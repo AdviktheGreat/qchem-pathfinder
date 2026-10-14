@@ -9,7 +9,7 @@ import {
   ShieldCheck,
   X,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HubOrientationQuestion } from "@/components/HubOrientationQuestion";
 import { HubOrientationResults } from "@/components/HubOrientationResults";
 import { hubOrientationQuestions } from "@/data/hub-orientation-questions";
@@ -31,6 +31,9 @@ import {
 import { hasHubOrientationAnswers } from "@/lib/hub-orientation-persistence";
 
 export function HubOrientationGuide() {
+  const entryButtonRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
+  const guideOpenedRef = useRef(false);
   const [screen, setScreen] = useState<
     "closed" | "intro" | "question" | "results"
   >("closed");
@@ -103,13 +106,27 @@ export function HubOrientationGuide() {
         HUB_ORIENTATION_STORAGE_KEY,
         serializeHubOrientationState(state),
       );
-      setRestoredState(state);
+      const timer = window.setTimeout(() => setRestoredState(state), 0);
+      return () => window.clearTimeout(timer);
     } catch {
       // The guide still works for the current visit when storage is blocked.
     }
   }, [answers, hydrated, question?.id, screen]);
 
+  useEffect(() => {
+    if (!guideOpenedRef.current) return;
+    const timer = window.setTimeout(() => {
+      if (screen === "closed") entryButtonRef.current?.focus();
+      if (screen === "intro")
+        panelRef.current
+          ?.querySelector<HTMLHeadingElement>("h2")
+          ?.focus({ preventScroll: true });
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [screen]);
+
   function openGuide() {
+    guideOpenedRef.current = true;
     if (!restoredState) {
       setScreen("intro");
       return;
@@ -174,7 +191,11 @@ export function HubOrientationGuide() {
           <strong>{orientationStatus.label}</strong>
           <small>{orientationStatus.detail}</small>
         </div>
-        <button className="primary-button" onClick={openGuide}>
+        <button
+          ref={entryButtonRef}
+          className="primary-button"
+          onClick={openGuide}
+        >
           {restoredState?.screen === "results"
             ? "View my suggestions"
             : restoredState?.screen === "question"
@@ -187,6 +208,7 @@ export function HubOrientationGuide() {
 
   return (
     <section
+      ref={panelRef}
       className={`hub-orientation-panel is-${screen}`}
       aria-label="Pathfinder guide"
     >
@@ -248,7 +270,7 @@ export function HubOrientationGuide() {
       ) : (
         <>
           <p className="section-kicker">Pathfinder guide</p>
-          <h2 id="hub-orientation-title">
+          <h2 id="hub-orientation-title" tabIndex={-1}>
             Let’s find a useful place to start.
           </h2>
           <p>

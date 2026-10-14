@@ -1,4 +1,5 @@
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
+import { useEffect, useRef } from "react";
 import type { HubOrientationQuestion as Question } from "@/lib/hub-orientation";
 
 export function HubOrientationQuestion({
@@ -18,6 +19,12 @@ export function HubOrientationQuestion({
   onBack?: () => void;
   onContinue: () => void;
 }) {
+  const headingRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    headingRef.current?.focus({ preventScroll: true });
+  }, [question.id]);
+
   return (
     <div className="hub-orientation-question">
       <div className="hub-orientation-progress">
@@ -40,7 +47,9 @@ export function HubOrientationQuestion({
       </div>
       <div className="hub-orientation-question-copy">
         <p className="section-kicker">{question.kicker}</p>
-        <h2>{question.title}</h2>
+        <h2 ref={headingRef} tabIndex={-1}>
+          {question.title}
+        </h2>
         <p>{question.guidance}</p>
       </div>
       <fieldset className="hub-orientation-options">

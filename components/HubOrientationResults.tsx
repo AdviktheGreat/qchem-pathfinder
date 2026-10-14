@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, Compass } from "lucide-react";
+import { useEffect, useRef } from "react";
 import { HubOrientationBridge } from "@/components/HubOrientationBridge";
 import { getPathfinder } from "@/data/pathfinders";
 import { pathfinderModules } from "@/data/pathfinder-modules";
@@ -22,6 +23,7 @@ export function HubOrientationResults({
   questions: readonly HubOrientationQuestion[];
   onReview: () => void;
 }) {
+  const headingRef = useRef<HTMLHeadingElement>(null);
   const primary = rankings[0];
   const alternative = rankings[1];
   const catalog = primary ? getPathfinder(primary.pathfinderId) : undefined;
@@ -45,6 +47,10 @@ export function HubOrientationResults({
     : undefined;
   const balance = getHubOrientationBalance(rankings);
 
+  useEffect(() => {
+    headingRef.current?.focus({ preventScroll: true });
+  }, [primary?.pathfinderId]);
+
   if (
     !primary ||
     !catalog ||
@@ -58,7 +64,9 @@ export function HubOrientationResults({
           <Compass size={24} />
         </span>
         <p className="section-kicker">Your starting map</p>
-        <h2>Several paths are still open.</h2>
+        <h2 ref={headingRef} tabIndex={-1}>
+          Several paths are still open.
+        </h2>
         <p>
           Your choices did not push one subject ahead—and that is a useful
           result. Browse the four pathfinders, open whichever example catches
@@ -102,7 +110,9 @@ export function HubOrientationResults({
                 ? "Slight lead"
                 : "Start here"}
           </span>
-          <h2>{catalog.name}</h2>
+          <h2 ref={headingRef} tabIndex={-1}>
+            {catalog.name}
+          </h2>
           <p className="hub-orientation-result-summary">
             {manifest.orientation.summary}
           </p>
