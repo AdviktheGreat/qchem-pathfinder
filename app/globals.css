@@ -2826,8 +2826,12 @@ h2 {
   }
 }
 @media (max-width: 900px) {
+  .hub-orientation-panel {
+    padding: clamp(1.5rem, 5vw, 2.5rem);
+  }
   .hub-orientation-question {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
   .hub-orientation-result-grid {
     grid-template-columns: 1fr;
@@ -2841,6 +2845,88 @@ h2 {
     padding-left: 0;
     border-top: 1px solid rgba(32, 117, 121, 0.2);
     border-left: 0;
+  }
+}
+@media (max-width: 620px) {
+  .hub-orientation-entry {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1.15rem;
+  }
+  .hub-orientation-entry-icon,
+  .hub-orientation-entry-status,
+  .hub-orientation-entry .primary-button {
+    grid-column: 1;
+  }
+  .hub-orientation-entry-status {
+    width: 100%;
+  }
+  .hub-orientation-panel {
+    margin-right: -0.15rem;
+    margin-left: -0.15rem;
+    padding: 4.4rem 1rem 1.25rem;
+    border-radius: 22px;
+  }
+  .hub-orientation-panel-tools {
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+  .hub-orientation-meta {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .hub-orientation-meta span {
+    width: 100%;
+  }
+  .hub-orientation-question-actions {
+    position: sticky;
+    z-index: 2;
+    bottom: 0;
+    margin: 0 -0.35rem -0.6rem;
+    padding: 0.85rem 0.35rem 0.6rem;
+    background: linear-gradient(transparent, rgba(247, 248, 252, 0.98) 30%);
+  }
+  .hub-orientation-question-actions .primary-button,
+  .hub-orientation-question-actions .secondary-button {
+    min-height: 48px;
+    padding: 0.75rem 1rem;
+  }
+  .hub-orientation-option {
+    min-height: 88px;
+    padding: 0.95rem;
+  }
+  .hub-orientation-results h2,
+  .hub-orientation-primary-result h2 {
+    font-size: clamp(2.25rem, 12vw, 3.45rem);
+  }
+  .hub-orientation-primary-result,
+  .hub-orientation-alternative-result {
+    padding: 1.1rem;
+    border-radius: 18px;
+  }
+  .hub-orientation-fit-groups {
+    grid-template-columns: 1fr;
+  }
+  .hub-orientation-fit-groups .hub-orientation-uncertainty {
+    grid-column: 1;
+  }
+  .hub-orientation-bridge {
+    grid-template-columns: 1fr;
+  }
+  .hub-orientation-bridge-privacy {
+    grid-column: 1;
+  }
+  .hub-orientation-result-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .hub-orientation-result-actions > * {
+    width: 100%;
+    justify-content: center;
+  }
+  .pathfinder-comparison div {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
   }
 }
 .pathfinder-directory {
