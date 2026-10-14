@@ -45,6 +45,7 @@ describe("PathfinderHub", () => {
     expect(
       screen.getByRole("button", { name: "Help me choose" }),
     ).toBeDefined();
+    expect(screen.getByText("Not started")).toBeDefined();
   });
 
   it("explains the optional guide before asking questions", () => {
@@ -217,6 +218,31 @@ describe("PathfinderHub", () => {
       screen.getByRole("heading", {
         name: "Which kind of system would you most enjoy zooming in on?",
       }),
+    ).toBeDefined();
+  });
+
+  it("marks a completed guide as suggestions ready", async () => {
+    window.localStorage.setItem(
+      "research-pathfinder:hub-orientation",
+      JSON.stringify({
+        version: 1,
+        screen: "results",
+        savedAt: "2026-10-13T18:00:00.000Z",
+        answers: {
+          "broad-curiosity": "not-sure-yet",
+          "preferred-system": "not-sure-yet",
+          "question-style": "not-sure-yet",
+          "working-style": "not-sure-yet",
+          "application-balance": "not-sure-yet",
+        },
+      }),
+    );
+
+    render(<PathfinderHub />);
+
+    expect(await screen.findByText("Suggestions ready")).toBeDefined();
+    expect(
+      screen.getByRole("button", { name: /View my suggestions/i }),
     ).toBeDefined();
   });
 

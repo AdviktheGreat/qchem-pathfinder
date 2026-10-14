@@ -49,6 +49,30 @@ export function HubOrientationGuide() {
     hubOrientationSignals,
     collectHubOrientationEvidence(questionPath, answers),
   );
+  const restoredQuestionPath = restoredState
+    ? getHubOrientationQuestionPath(
+        hubOrientationQuestions,
+        restoredState.answers,
+      )
+    : [];
+  const restoredAnswerCount = restoredQuestionPath.filter(
+    (candidate) => restoredState?.answers[candidate.id],
+  ).length;
+  const orientationStatus =
+    restoredState?.screen === "results"
+      ? {
+          label: "Suggestions ready",
+          detail: "Reopen your saved starting map",
+        }
+      : restoredState?.screen === "question"
+        ? {
+            label: "Continue choosing",
+            detail: `${restoredAnswerCount} of ${restoredQuestionPath.length} decisions saved`,
+          }
+        : {
+            label: "Not started",
+            detail: "A short optional guide",
+          };
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -140,6 +164,15 @@ export function HubOrientationGuide() {
             Answer a few preference questions and compare two sensible places to
             start. You can still browse every pathfinder yourself.
           </p>
+        </div>
+        <div
+          className="hub-orientation-entry-status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <span aria-hidden="true" />
+          <strong>{orientationStatus.label}</strong>
+          <small>{orientationStatus.detail}</small>
         </div>
         <button className="primary-button" onClick={openGuide}>
           {restoredState?.screen === "results"
