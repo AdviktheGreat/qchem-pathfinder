@@ -168,6 +168,13 @@ describe("PathfinderHub", () => {
         name: "Why it connects with your choices",
       }),
     ).toBeDefined();
+    expect(screen.getByRole("heading", { name: "Interest fit" })).toBeDefined();
+    expect(
+      screen.getByRole("heading", { name: "Research-style fit" }),
+    ).toBeDefined();
+    expect(
+      screen.getByRole("heading", { name: "Areas still open" }),
+    ).toBeDefined();
     expect(screen.getByText("Nearby alternative")).toBeDefined();
     expect(screen.getByText("How it differs")).toBeDefined();
     expect(

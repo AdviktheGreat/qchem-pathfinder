@@ -209,6 +209,8 @@ export function HubOrientationGuide() {
       {screen === "results" ? (
         <HubOrientationResults
           rankings={rankings}
+          answers={answers}
+          questions={questionPath}
           onReview={() => {
             setQuestionIndex(0);
             setScreen("question");

@@ -2,13 +2,22 @@ import Link from "next/link";
 import { ArrowLeft, Compass } from "lucide-react";
 import { getPathfinder } from "@/data/pathfinders";
 import { pathfinderModules } from "@/data/pathfinder-modules";
-import type { HubOrientationRanking } from "@/lib/hub-orientation";
+import { explainHubOrientationFit } from "@/lib/hub-orientation-answers";
+import type {
+  HubOrientationAnswers,
+  HubOrientationQuestion,
+  HubOrientationRanking,
+} from "@/lib/hub-orientation";
 
 export function HubOrientationResults({
   rankings,
+  answers,
+  questions,
   onReview,
 }: {
   rankings: readonly HubOrientationRanking[];
+  answers: HubOrientationAnswers;
+  questions: readonly HubOrientationQuestion[];
   onReview: () => void;
 }) {
   const primary = rankings[0];
@@ -28,6 +37,9 @@ export function HubOrientationResults({
         (candidate) =>
           candidate.definition.identity.id === alternative.pathfinderId,
       )
+    : undefined;
+  const fit = primary
+    ? explainHubOrientationFit(primary, questions, answers)
     : undefined;
 
   if (
@@ -76,14 +88,46 @@ export function HubOrientationResults({
           </p>
           <div className="hub-orientation-reasons">
             <h3>Why it connects with your choices</h3>
-            <ul>
-              {primary.reasons.slice(0, 3).map((reason) => (
-                <li key={reason.signalId}>
-                  <strong>{reason.answerLabel}</strong>
-                  <span>{reason.text}</span>
-                </li>
-              ))}
-            </ul>
+            <div className="hub-orientation-fit-groups">
+              <section>
+                <h4>Interest fit</h4>
+                {fit?.interestReasons.length ? (
+                  <ul>
+                    {fit.interestReasons.slice(0, 2).map((reason) => (
+                      <li key={reason.signalId}>
+                        <strong>{reason.answerLabel}</strong>
+                        <span>{reason.text}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No strong subject-interest signal separated this path.</p>
+                )}
+              </section>
+              <section>
+                <h4>Research-style fit</h4>
+                {fit?.researchStyleReasons.length ? (
+                  <ul>
+                    {fit.researchStyleReasons.slice(0, 2).map((reason) => (
+                      <li key={reason.signalId}>
+                        <strong>{reason.answerLabel}</strong>
+                        <span>{reason.text}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>Your working-style choices kept several fields open.</p>
+                )}
+              </section>
+              <section className="hub-orientation-uncertainty">
+                <h4>Areas still open</h4>
+                <p>
+                  {fit?.uncertainAnswerCount
+                    ? `${fit.uncertainAnswerCount} uncertain ${fit.uncertainAnswerCount === 1 ? "choice keeps" : "choices keep"} nearby fields in view.`
+                    : "Your answers gave this starting point clear support, while the nearby alternative remains worth comparing."}
+                </p>
+              </section>
+            </div>
           </div>
           <p className="hub-orientation-boundary">
             <strong>Keep in mind:</strong> {manifest.orientation.boundary}

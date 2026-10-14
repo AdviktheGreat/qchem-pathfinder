@@ -2668,6 +2668,31 @@ h2 {
   padding: 0;
   list-style: none;
 }
+.hub-orientation-fit-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.hub-orientation-fit-groups section {
+  min-width: 0;
+}
+.hub-orientation-fit-groups h4 {
+  margin: 0 0 0.65rem;
+  color: var(--teal-dark);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.hub-orientation-fit-groups .hub-orientation-uncertainty {
+  grid-column: 1 / -1;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+}
+.hub-orientation-uncertainty p {
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.55;
+}
 .hub-orientation-reasons li {
   display: grid;
   gap: 0.25rem;
