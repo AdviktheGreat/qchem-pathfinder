@@ -47,6 +47,13 @@ it("renders an accessible single-choice question shell", () => {
   });
   expect(progress.getAttribute("aria-valuenow")).toBe("2");
   expect(progress.getAttribute("aria-valuemax")).toBe("5");
+  expect(progress.getAttribute("aria-valuetext")).toBe("Step 2 of 5");
+  expect(
+    screen
+      .getByRole("group", { name: question.title })
+      .getAttribute("aria-describedby"),
+  ).toBe("example-guidance");
+  expect(screen.getByText(question.guidance).id).toBe("example-guidance");
   expect(
     screen.getByRole("button", { name: /Continue/i }).hasAttribute("disabled"),
   ).toBe(true);

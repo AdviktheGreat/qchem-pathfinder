@@ -4187,6 +4187,12 @@ h2 {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
   }
+  .hub-orientation-panel > :not(.hub-orientation-panel-tools) {
+    animation: none !important;
+  }
+  .hub-orientation-option:hover {
+    transform: none;
+  }
 }
 @media (prefers-contrast: more) {
   :root {
@@ -4199,8 +4205,20 @@ h2 {
   .choice-card,
   .pathfinder-card,
   .alternative-card,
-  .interdisciplinary-grid article {
+  .interdisciplinary-grid article,
+  .hub-orientation-entry,
+  .hub-orientation-entry-status,
+  .hub-orientation-panel,
+  .hub-orientation-option,
+  .hub-orientation-primary-result,
+  .hub-orientation-alternative-result,
+  .hub-orientation-reasons,
+  .hub-orientation-bridge {
     border-width: 2px;
+  }
+  .hub-orientation-option.is-selected {
+    outline: 2px solid var(--teal-dark);
+    outline-offset: 2px;
   }
 }
 @media (forced-colors: active) {
@@ -4208,16 +4226,23 @@ h2 {
   .secondary-button,
   .copy-button,
   .expand-button,
-  .choice-card {
+  .choice-card,
+  .hub-orientation-reset,
+  .hub-orientation-option {
     border: 1px solid ButtonText;
   }
-  .choice-card.is-selected {
+  .choice-card.is-selected,
+  .hub-orientation-option.is-selected {
     outline: 3px solid Highlight;
     outline-offset: 2px;
   }
   .progress-track span,
-  .choice-card.is-selected .choice-check {
+  .choice-card.is-selected .choice-check,
+  .hub-orientation-progress > div span,
+  .hub-orientation-entry-status > span,
+  .hub-orientation-option.is-selected > svg {
     background: Highlight;
+    color: HighlightText;
     forced-color-adjust: none;
   }
   .tag-list span,
@@ -4227,7 +4252,15 @@ h2 {
   .pathfinder-preview-card,
   .recent-pathfinder,
   .pathfinder-switcher,
-  .hub-section-nav a {
+  .hub-section-nav a,
+  .hub-orientation-entry,
+  .hub-orientation-entry-status,
+  .hub-orientation-panel,
+  .hub-orientation-promise,
+  .hub-orientation-primary-result,
+  .hub-orientation-alternative-result,
+  .hub-orientation-reasons,
+  .hub-orientation-bridge {
     border: 1px solid CanvasText;
   }
   .interdisciplinary-bridge,
@@ -4235,5 +4268,16 @@ h2 {
   .interdisciplinary-actions > a,
   .interdisciplinary-actions .copy-button {
     border: 1px solid CanvasText;
+  }
+}
+@media (pointer: coarse) {
+  .hub-orientation-entry .primary-button,
+  .hub-orientation-reset,
+  .hub-orientation-close,
+  .hub-orientation-option,
+  .hub-orientation-question-actions button,
+  .hub-orientation-result-actions a,
+  .hub-orientation-result-actions button {
+    min-height: 48px;
   }
 }

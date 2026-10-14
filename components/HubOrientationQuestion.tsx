@@ -20,6 +20,7 @@ export function HubOrientationQuestion({
   onContinue: () => void;
 }) {
   const headingRef = useRef<HTMLHeadingElement>(null);
+  const guidanceId = `${question.id}-guidance`;
 
   useEffect(() => {
     headingRef.current?.focus({ preventScroll: true });
@@ -41,6 +42,7 @@ export function HubOrientationQuestion({
           aria-valuemin={1}
           aria-valuemax={totalSteps}
           aria-valuenow={currentStep}
+          aria-valuetext={`Step ${currentStep} of ${totalSteps}`}
         >
           <span style={{ width: `${(currentStep / totalSteps) * 100}%` }} />
         </div>
@@ -50,9 +52,12 @@ export function HubOrientationQuestion({
         <h2 ref={headingRef} tabIndex={-1}>
           {question.title}
         </h2>
-        <p>{question.guidance}</p>
+        <p id={guidanceId}>{question.guidance}</p>
       </div>
-      <fieldset className="hub-orientation-options">
+      <fieldset
+        className="hub-orientation-options"
+        aria-describedby={guidanceId}
+      >
         <legend className="sr-only">{question.title}</legend>
         {question.options.map((option) => {
           const selected = selectedOptionId === option.id;
