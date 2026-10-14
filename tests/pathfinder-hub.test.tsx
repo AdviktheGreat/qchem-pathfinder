@@ -4,7 +4,10 @@ import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 import { PathfinderHub } from "@/components/PathfinderHub";
 
-afterEach(cleanup);
+afterEach(() => {
+  cleanup();
+  window.localStorage.clear();
+});
 
 describe("PathfinderHub", () => {
   it("introduces the collection and links to all available pathfinders", () => {
@@ -187,6 +190,31 @@ describe("PathfinderHub", () => {
     ).toBeDefined();
     expect(
       screen.getByRole("link", { name: "Browse all pathfinders" }),
+    ).toBeDefined();
+  });
+
+  it("resumes saved orientation progress", async () => {
+    window.localStorage.setItem(
+      "research-pathfinder:hub-orientation",
+      JSON.stringify({
+        version: 1,
+        screen: "question",
+        savedAt: "2026-10-13T18:00:00.000Z",
+        currentQuestionId: "preferred-system",
+        answers: { "broad-curiosity": "living-systems" },
+      }),
+    );
+
+    render(<PathfinderHub />);
+    const continueButton = await screen.findByRole("button", {
+      name: /Continue choosing/i,
+    });
+    fireEvent.click(continueButton);
+
+    expect(
+      screen.getByRole("heading", {
+        name: "Which kind of system would you most enjoy zooming in on?",
+      }),
     ).toBeDefined();
   });
 });

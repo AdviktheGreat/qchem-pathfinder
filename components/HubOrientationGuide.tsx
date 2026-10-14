@@ -8,7 +8,7 @@ import {
   ShieldCheck,
   X,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HubOrientationQuestion } from "@/components/HubOrientationQuestion";
 import { HubOrientationResults } from "@/components/HubOrientationResults";
 import { hubOrientationQuestions } from "@/data/hub-orientation-questions";
@@ -20,6 +20,13 @@ import {
   updateHubOrientationAnswer,
 } from "@/lib/hub-orientation-branching";
 import { rankHubOrientation } from "@/lib/hub-orientation-ranking";
+import {
+  createHubOrientationState,
+  HUB_ORIENTATION_STORAGE_KEY,
+  type PersistedHubOrientationState,
+  restoreHubOrientationState,
+  serializeHubOrientationState,
+} from "@/lib/hub-orientation-persistence";
 
 export function HubOrientationGuide() {
   const [screen, setScreen] = useState<
@@ -27,6 +34,9 @@ export function HubOrientationGuide() {
   >("closed");
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [restoredState, setRestoredState] =
+    useState<PersistedHubOrientationState | null>(null);
+  const [hydrated, setHydrated] = useState(false);
   const questionPath = getHubOrientationQuestionPath(
     hubOrientationQuestions,
     answers,
@@ -37,6 +47,60 @@ export function HubOrientationGuide() {
     hubOrientationSignals,
     collectHubOrientationEvidence(questionPath, answers),
   );
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      try {
+        setRestoredState(
+          restoreHubOrientationState(
+            window.localStorage.getItem(HUB_ORIENTATION_STORAGE_KEY),
+          ),
+        );
+      } catch {
+        setRestoredState(null);
+      }
+      setHydrated(true);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated || screen === "closed") return;
+    const state = createHubOrientationState({
+      screen,
+      answers,
+      currentQuestionId: screen === "question" ? question?.id : undefined,
+    });
+    try {
+      window.localStorage.setItem(
+        HUB_ORIENTATION_STORAGE_KEY,
+        serializeHubOrientationState(state),
+      );
+      setRestoredState(state);
+    } catch {
+      // The guide still works for the current visit when storage is blocked.
+    }
+  }, [answers, hydrated, question?.id, screen]);
+
+  function openGuide() {
+    if (!restoredState) {
+      setScreen("intro");
+      return;
+    }
+    const restoredPath = getHubOrientationQuestionPath(
+      hubOrientationQuestions,
+      restoredState.answers,
+    );
+    const restoredIndex = Math.max(
+      0,
+      restoredPath.findIndex(
+        (candidate) => candidate.id === restoredState.currentQuestionId,
+      ),
+    );
+    setAnswers(restoredState.answers);
+    setQuestionIndex(restoredIndex);
+    setScreen(restoredState.screen);
+  }
 
   if (screen === "closed")
     return (
@@ -55,8 +119,13 @@ export function HubOrientationGuide() {
             start. You can still browse every pathfinder yourself.
           </p>
         </div>
-        <button className="primary-button" onClick={() => setScreen("intro")}>
-          Help me choose <ArrowRight size={17} aria-hidden="true" />
+        <button className="primary-button" onClick={openGuide}>
+          {restoredState?.screen === "results"
+            ? "View my suggestions"
+            : restoredState?.screen === "question"
+              ? "Continue choosing"
+              : "Help me choose"}{" "}
+          <ArrowRight size={17} aria-hidden="true" />
         </button>
       </section>
     );

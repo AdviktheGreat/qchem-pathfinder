@@ -99,6 +99,33 @@ export function parseHubOrientationState(
   }
 }
 
+export function restoreHubOrientationState(
+  raw: string | null,
+  questions: readonly HubOrientationQuestion[] = hubOrientationQuestions,
+): PersistedHubOrientationState | null {
+  const parsed = parseHubOrientationState(raw, questions);
+  if (!parsed) return null;
+
+  const questionPath = getHubOrientationQuestionPath(questions, parsed.answers);
+  const firstUnanswered = questionPath.find(
+    (question) => !parsed.answers[question.id],
+  );
+  const savedQuestion = questionPath.find(
+    (question) => question.id === parsed.currentQuestionId,
+  );
+  const screen =
+    parsed.screen === "results" && firstUnanswered ? "question" : parsed.screen;
+
+  return {
+    ...parsed,
+    screen,
+    currentQuestionId:
+      screen === "question"
+        ? (savedQuestion ?? firstUnanswered ?? questionPath[0])?.id
+        : undefined,
+  };
+}
+
 export function serializeHubOrientationState(
   state: PersistedHubOrientationState,
 ): string {
