@@ -47,11 +47,30 @@ The orientation system is split into editable layers:
 - `data/hub-orientation-questions.ts` defines the five core choices and two optional boundary follow-ups.
 - `lib/hub-orientation-branching.ts` derives the current question path and removes answers when an edited choice closes a branch.
 - `lib/hub-orientation-answers.ts` converts selected options into the evidence consumed by the ranker.
+- `lib/hub-orientation-balance.ts` converts score relationships into the user-facing open, tied, nearby, or clear result state.
+- `lib/hub-orientation-persistence.ts` validates and restores the guide's independent, versioned local record.
 - `components/HubOrientationGuide.tsx` owns the short, optional intro-to-results flow without turning the whole hub into a client component.
 
 To add a signal, give it a lowercase `dimension:value` ID, an accessible label, and a concise explanation. Then add it only to module profiles where the connection is scientifically meaningful. Affinity strengths use a deliberately small scale: `1` is a neighboring connection, `2` is a meaningful fit, and `3` is central to the pathfinder.
 
-To add a released module, supply at least one affinity in every orientation dimension and run configuration validation. Coming-soon modules cannot participate in orientation recommendations.
+To add a released module, supply at least one affinity in every orientation dimension and run configuration validation. Coming-soon modules cannot participate in orientation recommendations. Add at least one realistic journey to `tests/hub-orientation-release.test.ts` that makes the new module the first result before marking it available.
+
+### Editing questions safely
+
+Question and option IDs are persistence contracts. Keep an existing ID when only its student-facing wording changes. When removing or replacing an ID, expect old saved values to be discarded during validation.
+
+Each core question should:
+
+- ask one preference in accessible, non-evaluative language;
+- contain one neutral `uncertainty: true` option with no evidence;
+- reference only signals registered in `data/hub-orientation-signals.ts`;
+- use larger weights for direct interests than for supporting style clues.
+
+An adaptive question needs a `visibleWhen.anyOf` rule. `updateHubOrientationAnswer` must remain the only live edit path because it repeatedly removes answers from questions that are no longer visible. After changing a branch, test both the path that reveals it and an earlier edit that hides it again.
+
+### Editing module fit profiles
+
+Module affinities live beside the module manifests rather than in UI code. Strength `1` describes a nearby connection, `2` a meaningful fit, and `3` a central connection. Reasons should explain the scientific relationship without claiming aptitude or certainty. Run `validateHubOrientationConfiguration` after changing a profile; it rejects unknown signals, missing dimension coverage, malformed strengths, and incomplete reasons.
 
 ## Student journey
 
@@ -61,10 +80,32 @@ Every core question includes **I’m not sure yet**. It contributes no scoring e
 
 The result presents one good place to start, one nearby alternative, answer-grounded reasons, and an honest boundary for each suggestion. Students can open either complete pathfinder, review their choices, or return to all four modules. When no positive evidence exists, the interface keeps every path open instead of manufacturing a recommendation.
 
-The guide does not currently persist its own answers. Subject-pathfinder progress remains independently saved, and opening a suggested pathfinder starts or resumes that module normally.
+The guide saves its own versioned record under `research-pathfinder:hub-orientation`. It resumes at the saved visible question or reopens completed suggestions after a refresh. Invalid options and answers from hidden branches are removed during restoration; an incomplete saved result resumes at the first unanswered question.
+
+**Restart guide** clears only this orientation record. It does not clear the hub's recently visited module or progress inside any subject pathfinder. Hub answers are never copied into those surveys.
 
 ## Scoring behavior
 
 The ranking engine multiplies answer-evidence weight by module-affinity strength and sums the contributions. It does not normalize the result into a percentage. Repeated evidence for one signal is consolidated to its strongest instance rather than double counted.
 
 Uncertainty evidence contributes nothing. Unknown, blank, non-finite, or non-positive evidence is ignored safely. Conflicting preferences contribute to each relevant module, and equal scores retain canonical registry order solely for deterministic display. Every generated reason keeps the label of the answer that produced it.
+
+The interface interprets the relationship between the first two scores, not their magnitude as a fake confidence measure:
+
+- **Open:** the leading score is zero, so every path remains available.
+- **Tie:** the leading scores are exactly equal and both positive.
+- **Close:** the leading score is one to three points ahead.
+- **Clear:** the lead is greater than three points, or no alternative has positive evidence.
+
+These thresholds live in `lib/hub-orientation-balance.ts`. Change them only alongside copy review and tie/conflict tests.
+
+## Maintenance checklist
+
+After changing orientation content or logic:
+
+1. Run the orientation configuration, question, persistence, release-journey, and rendered hub tests.
+2. Confirm every available module can still rank first through a coherent complete journey.
+3. Complete one uncertain journey and one mixed-interest journey in the browser.
+4. Edit an early answer and verify that a now-hidden follow-up disappears from both the reviewable answers and the result reasons.
+5. Refresh midway and on results, then restart the guide and confirm subject-pathfinder progress is unchanged.
+6. Review keyboard focus, reduced motion, forced colors or high contrast, phone touch targets, and desktop/tablet/phone layouts.

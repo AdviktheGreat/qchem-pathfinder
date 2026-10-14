@@ -47,6 +47,7 @@ lib/preparation.ts      Shared preparation model for results and exports
 lib/profile-export.ts   Plain-text research-profile formatter
 lib/persistence.ts      Versioned local-storage serialization and validation
 lib/hub-persistence.ts  Validated recently visited pathfinder state
+lib/hub-orientation-persistence.ts Isolated orientation-guide progress record
 lib/pathfinder-manifest.ts Typed module and catalog authoring contract
 lib/pathfinder-metadata.ts Standard App Router metadata projection
 lib/pathfinder-lifecycle.ts Draft-to-release lifecycle vocabulary
@@ -66,7 +67,7 @@ The central hub lives at `/`. The complete experiences live at `/pathfinders/qua
 
 The hub resolves each card to its typed pathfinder definition, reads only that definition’s storage key, and shows whether the student should start, continue, or review it. A small separate hub record remembers the most recently visited available pathfinder. All records remain local to the browser.
 
-Students who are unsure where to begin can open the optional two-to-four-minute orientation guide. It asks five core preference questions and, when useful, one or two adaptive boundary questions. The result offers one starting path and one nearby alternative with reasons drawn from the selected answers; uncertainty stays neutral, hidden branch answers are removed after edits, and every module remains directly browsable.
+Students who are unsure where to begin can open the optional two-to-four-minute orientation guide. It asks five core preference questions and, when useful, one or two adaptive boundary questions. The result offers one starting path and one nearby alternative with reasons drawn from the selected answers; uncertainty stays neutral, hidden branch answers are removed after edits, and every module remains directly browsable. Guide progress resumes after refresh from its own versioned local record, and restarting it never clears progress inside a subject pathfinder.
 
 Pathfinder registration and availability are controlled in `data/pathfinder-modules.ts`. `data/pathfinders.ts` derives the public catalog from those manifests:
 
@@ -143,7 +144,7 @@ To begin a new subject, copy the [type-checked module template](templates/pathfi
 
 Use the [interdisciplinary link format](docs/interdisciplinary-links.md) only after both the source and target directions are scientifically stable. Links are optional next lenses and never cross-subject score comparisons.
 
-The optional hub-orientation system is documented in [Hub orientation](docs/hub-orientation.md). Its typed signals, validated module profiles, deterministic ranking, adaptive question path, and transparent two-path result are intentionally separate from the deeper subject surveys.
+The optional hub-orientation system is documented in [Hub orientation](docs/hub-orientation.md). Its typed signals, validated module profiles, deterministic ranking, adaptive question path, isolated persistence, balancing rules, and transparent two-path result are intentionally separate from the deeper subject surveys. Follow that guide's maintenance checklist when adding questions, signals, affinities, or another recommendable module.
 
 Each `Niche` owns its descriptions, typical questions, example systems, approaches, preparation, concepts, keywords, synonyms, searches, paper guidance, affinities, and explanation rules. New niches should also receive at least one meaningful `nicheBoosts` route from a visible narrowing answer; the reachability tests fail if it is missing or cannot become primary.
 
