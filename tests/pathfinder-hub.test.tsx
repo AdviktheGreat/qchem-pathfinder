@@ -5,6 +5,7 @@ import {
   fireEvent,
   render,
   screen,
+  within,
   waitFor,
 } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -197,6 +198,17 @@ describe("PathfinderHub", () => {
     ).toBeDefined();
     expect(screen.getByText("Nearby alternative")).toBeDefined();
     expect(screen.getByText("How it differs")).toBeDefined();
+    const comparison = screen
+      .getByRole("heading", {
+        name: "Compare the two starting points.",
+      })
+      .closest("section")!;
+    expect(within(comparison).getAllByText("Typical questions")).toHaveLength(
+      2,
+    );
+    expect(within(comparison).getAllByText("Pathfinder outcome")).toHaveLength(
+      2,
+    );
     expect(
       screen
         .getByRole("link", { name: "Open Computational biology" })

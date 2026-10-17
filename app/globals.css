@@ -2754,6 +2754,72 @@ h2 {
   color: var(--teal-dark);
   font-size: 0.6rem;
 }
+.hub-orientation-comparison {
+  margin: 1.25rem 0;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.72);
+}
+.hub-orientation-comparison > div:first-child {
+  max-width: 720px;
+}
+.hub-orientation-comparison h3 {
+  margin: 0.3rem 0 0.55rem;
+  font-family: var(--font-display), serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 560;
+}
+.hub-orientation-comparison > div:first-child > p:last-child {
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+.hub-orientation-comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin-top: 1.25rem;
+}
+.hub-orientation-comparison-grid article {
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(247, 248, 252, 0.82);
+}
+.hub-orientation-comparison-grid article > span {
+  color: var(--teal);
+  font-size: 0.64rem;
+  font-weight: 850;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+.hub-orientation-comparison-grid h4 {
+  margin: 0.45rem 0 0.9rem;
+  font-size: 0.95rem;
+}
+.hub-orientation-comparison-grid dl {
+  display: grid;
+  gap: 0.8rem;
+  margin: 0;
+}
+.hub-orientation-comparison-grid dl div + div {
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--line);
+}
+.hub-orientation-comparison-grid dt {
+  color: var(--teal-dark);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.hub-orientation-comparison-grid dd {
+  margin: 0.28rem 0 0;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
 .hub-orientation-bridge {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) minmax(220px, 0.45fr);
@@ -2988,6 +3054,9 @@ h2 {
     justify-content: center;
   }
   .hub-orientation-choice-summary dl {
+    grid-template-columns: 1fr;
+  }
+  .hub-orientation-comparison-grid {
     grid-template-columns: 1fr;
   }
   .pathfinder-comparison div {
@@ -4285,6 +4354,12 @@ h2 {
     color: black;
     background: white;
     box-shadow: none;
+  }
+  .hub-orientation-comparison,
+  .hub-orientation-comparison-grid article {
+    break-inside: avoid;
+    color: black;
+    background: white;
   }
   .hub-orientation-choice-summary > div {
     display: block !important;

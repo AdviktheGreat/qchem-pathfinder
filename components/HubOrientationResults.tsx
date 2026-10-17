@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { CopyButton } from "@/components/CopyButton";
 import { HubOrientationBridge } from "@/components/HubOrientationBridge";
 import { HubOrientationChoiceSummary } from "@/components/HubOrientationChoiceSummary";
+import { HubOrientationComparison } from "@/components/HubOrientationComparison";
 import { getPathfinder } from "@/data/pathfinders";
 import { pathfinderModules } from "@/data/pathfinder-modules";
 import { explainHubOrientationFit } from "@/lib/hub-orientation-answers";
@@ -246,6 +247,24 @@ export function HubOrientationResults({
           </article>
         ) : null}
       </div>
+      {catalog.comparison && alternativeCatalog?.comparison ? (
+        <HubOrientationComparison
+          primary={{
+            name: catalog.name,
+            label: balance === "tie" ? "One starting point" : "Leading lens",
+            systems: catalog.comparison.systems,
+            questions: catalog.comparison.questions,
+            outcome: catalog.outcome,
+          }}
+          alternative={{
+            name: alternativeCatalog.name,
+            label: balance === "tie" ? "Equally supported" : "Nearby lens",
+            systems: alternativeCatalog.comparison.systems,
+            questions: alternativeCatalog.comparison.questions,
+            outcome: alternativeCatalog.outcome,
+          }}
+        />
+      ) : null}
       {alternativeCatalog?.status === "available" ? (
         <HubOrientationBridge
           primaryName={catalog.shortName}
