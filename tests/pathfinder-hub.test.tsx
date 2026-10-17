@@ -210,6 +210,10 @@ describe("PathfinderHub", () => {
       2,
     );
     expect(
+      screen.getByRole("heading", { name: "Your next three moves." }),
+    ).toBeDefined();
+    expect(screen.getByText("Complete the deeper pathfinder")).toBeDefined();
+    expect(
       screen
         .getByRole("link", { name: "Open Computational biology" })
         .getAttribute("href"),

@@ -5,6 +5,7 @@ import { CopyButton } from "@/components/CopyButton";
 import { HubOrientationBridge } from "@/components/HubOrientationBridge";
 import { HubOrientationChoiceSummary } from "@/components/HubOrientationChoiceSummary";
 import { HubOrientationComparison } from "@/components/HubOrientationComparison";
+import { HubOrientationNextSteps } from "@/components/HubOrientationNextSteps";
 import { getPathfinder } from "@/data/pathfinders";
 import { pathfinderModules } from "@/data/pathfinder-modules";
 import { explainHubOrientationFit } from "@/lib/hub-orientation-answers";
@@ -99,6 +100,7 @@ export function HubOrientationResults({
           your eye, or revise one answer for a little more direction.
         </p>
         <HubOrientationChoiceSummary choices={workshopMap.choices} />
+        <HubOrientationNextSteps />
         <div className="hub-orientation-result-actions">
           <a className="primary-button" href="#directory-title">
             Browse all pathfinders
@@ -272,6 +274,10 @@ export function HubOrientationResults({
         />
       ) : null}
       <HubOrientationChoiceSummary choices={workshopMap.choices} />
+      <HubOrientationNextSteps
+        primaryName={catalog.shortName}
+        alternativeName={alternativeCatalog?.shortName}
+      />
       <div className="hub-orientation-result-actions">
         <button className="secondary-button" type="button" onClick={onReview}>
           <ArrowLeft size={17} aria-hidden="true" /> Review my choices

@@ -2820,6 +2820,56 @@ h2 {
   font-size: 0.76rem;
   line-height: 1.5;
 }
+.hub-orientation-next-steps {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(320px, 1.3fr);
+  gap: clamp(1.25rem, 4vw, 3rem);
+  margin: 1.25rem 0;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid rgba(32, 117, 121, 0.2);
+  border-radius: 22px;
+  background: rgba(232, 246, 244, 0.56);
+}
+.hub-orientation-next-steps h3 {
+  margin: 0.35rem 0 0.55rem;
+  font-family: var(--font-display), serif;
+  font-size: clamp(1.7rem, 3vw, 2.35rem);
+  font-weight: 560;
+}
+.hub-orientation-next-steps > div > p:last-child {
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+.hub-orientation-next-steps ol {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.hub-orientation-next-steps li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.8rem;
+  padding: 0.85rem;
+  border: 1px solid rgba(32, 117, 121, 0.16);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.7);
+}
+.hub-orientation-next-steps li > span {
+  color: var(--teal);
+  font-size: 0.64rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+}
+.hub-orientation-next-steps strong {
+  font-size: 0.8rem;
+}
+.hub-orientation-next-steps li p {
+  margin-top: 0.25rem;
+  font-size: 0.73rem;
+  line-height: 1.5;
+}
 .hub-orientation-bridge {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) minmax(220px, 0.45fr);
@@ -2974,6 +3024,9 @@ h2 {
     padding-left: 0;
     border-top: 1px solid rgba(32, 117, 121, 0.2);
     border-left: 0;
+  }
+  .hub-orientation-next-steps {
+    grid-template-columns: 1fr;
   }
 }
 @media (max-width: 620px) {
@@ -4356,7 +4409,9 @@ h2 {
     box-shadow: none;
   }
   .hub-orientation-comparison,
-  .hub-orientation-comparison-grid article {
+  .hub-orientation-comparison-grid article,
+  .hub-orientation-next-steps,
+  .hub-orientation-next-steps li {
     break-inside: avoid;
     color: black;
     background: white;
