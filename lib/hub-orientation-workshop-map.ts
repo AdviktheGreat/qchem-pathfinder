@@ -116,3 +116,7 @@ export function formatHubOrientationWorkshopMap(
     map.note,
   ].join("\n");
 }
+
+export function hubOrientationWorkshopMapFilename(date = new Date()): string {
+  return `research-pathfinder-workshop-map-${date.toISOString().slice(0, 10)}.txt`;
+}

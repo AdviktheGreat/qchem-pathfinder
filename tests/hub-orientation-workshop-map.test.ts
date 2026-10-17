@@ -7,6 +7,7 @@ import { rankHubOrientation } from "@/lib/hub-orientation-ranking";
 import {
   createHubOrientationWorkshopMap,
   formatHubOrientationWorkshopMap,
+  hubOrientationWorkshopMapFilename,
 } from "@/lib/hub-orientation-workshop-map";
 
 describe("hub orientation workshop map", () => {
@@ -63,5 +64,11 @@ describe("hub orientation workshop map", () => {
     expect(map.result).toBe("open");
     expect(text).toContain("STARTING POINTS\nSeveral fields remain open.");
     expect(text).toContain("I’m not sure yet (kept open)");
+  });
+
+  it("creates a stable dated workshop-map filename", () => {
+    expect(
+      hubOrientationWorkshopMapFilename(new Date("2026-10-17T23:59:00.000Z")),
+    ).toBe("research-pathfinder-workshop-map-2026-10-17.txt");
   });
 });

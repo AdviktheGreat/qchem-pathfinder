@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, Compass } from "lucide-react";
+import { ArrowLeft, Compass, Download } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { CopyButton } from "@/components/CopyButton";
 import { HubOrientationBridge } from "@/components/HubOrientationBridge";
@@ -15,6 +15,7 @@ import type {
 import {
   createHubOrientationWorkshopMap,
   formatHubOrientationWorkshopMap,
+  hubOrientationWorkshopMapFilename,
 } from "@/lib/hub-orientation-workshop-map";
 
 export function HubOrientationResults({
@@ -59,6 +60,18 @@ export function HubOrientationResults({
     headingRef.current?.focus({ preventScroll: true });
   }, [primary?.pathfinderId]);
 
+  function downloadWorkshopMap() {
+    const blob = new Blob([workshopMapText], {
+      type: "text/plain;charset=utf-8",
+    });
+    const href = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = href;
+    anchor.download = hubOrientationWorkshopMapFilename();
+    anchor.click();
+    URL.revokeObjectURL(href);
+  }
+
   if (
     !primary ||
     !catalog ||
@@ -88,6 +101,13 @@ export function HubOrientationResults({
             <ArrowLeft size={17} aria-hidden="true" /> Review my choices
           </button>
           <CopyButton text={workshopMapText} label="Copy workshop map" />
+          <button
+            className="copy-button"
+            type="button"
+            onClick={downloadWorkshopMap}
+          >
+            <Download size={15} aria-hidden="true" /> Download workshop map
+          </button>
         </div>
       </div>
     );
@@ -228,6 +248,13 @@ export function HubOrientationResults({
           Browse all four pathfinders
         </a>
         <CopyButton text={workshopMapText} label="Copy workshop map" />
+        <button
+          className="copy-button"
+          type="button"
+          onClick={downloadWorkshopMap}
+        >
+          <Download size={15} aria-hidden="true" /> Download workshop map
+        </button>
       </div>
     </div>
   );

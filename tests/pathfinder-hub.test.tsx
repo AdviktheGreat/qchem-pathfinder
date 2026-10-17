@@ -260,6 +260,52 @@ describe("PathfinderHub", () => {
     }
   });
 
+  it("downloads a dated orientation workshop map", async () => {
+    const createObjectURL = vi.fn().mockReturnValue("blob:workshop-map");
+    const revokeObjectURL = vi.fn();
+    vi.stubGlobal("URL", { createObjectURL, revokeObjectURL });
+    let filename = "";
+    const click = vi
+      .spyOn(HTMLAnchorElement.prototype, "click")
+      .mockImplementation(function (this: HTMLAnchorElement) {
+        filename = this.download;
+      });
+    try {
+      window.localStorage.setItem(
+        "research-pathfinder:hub-orientation",
+        JSON.stringify({
+          version: 1,
+          screen: "results",
+          savedAt: "2026-10-17T18:00:00.000Z",
+          answers: {
+            "broad-curiosity": "not-sure-yet",
+            "preferred-system": "not-sure-yet",
+            "question-style": "not-sure-yet",
+            "working-style": "not-sure-yet",
+            "application-balance": "not-sure-yet",
+          },
+        }),
+      );
+
+      render(<PathfinderHub />);
+      fireEvent.click(
+        await screen.findByRole("button", { name: /View my suggestions/i }),
+      );
+      fireEvent.click(
+        screen.getByRole("button", { name: "Download workshop map" }),
+      );
+
+      expect(filename).toMatch(
+        /^research-pathfinder-workshop-map-\d{4}-\d{2}-\d{2}\.txt$/,
+      );
+      expect(createObjectURL).toHaveBeenCalledWith(expect.any(Blob));
+      expect(revokeObjectURL).toHaveBeenCalledWith("blob:workshop-map");
+    } finally {
+      click.mockRestore();
+      vi.unstubAllGlobals();
+    }
+  });
+
   it("resumes saved orientation progress", async () => {
     window.localStorage.setItem(
       "research-pathfinder:hub-orientation",
