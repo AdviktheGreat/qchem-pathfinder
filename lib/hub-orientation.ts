@@ -66,3 +66,28 @@ export interface HubOrientationQuestion {
 }
 
 export type HubOrientationAnswers = Readonly<Record<string, string>>;
+
+export interface HubOrientationWorkshopChoice {
+  questionId: string;
+  question: string;
+  answer: string;
+  uncertain: boolean;
+}
+
+export interface HubOrientationWorkshopDirection {
+  pathfinderId: string;
+  name: string;
+  summary: string;
+  boundary: string;
+  reasons: readonly string[];
+}
+
+export interface HubOrientationWorkshopMap {
+  title: "Research Pathfinder workshop map";
+  generatedOn: string;
+  result: "suggested" | "open";
+  primary?: HubOrientationWorkshopDirection;
+  alternative?: HubOrientationWorkshopDirection;
+  choices: readonly HubOrientationWorkshopChoice[];
+  note: string;
+}
