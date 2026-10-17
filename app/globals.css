@@ -4178,6 +4178,49 @@ h2 {
   .export-card pre {
     max-height: none;
   }
+  .hub-header,
+  .hub-section-nav,
+  .hub-intro,
+  .hub-principles,
+  .hub-orientation-entry,
+  .recent-pathfinder,
+  .pathfinder-directory,
+  .pathfinder-roadmap,
+  .hub-orientation-panel-tools,
+  .hub-orientation-result-actions {
+    display: none !important;
+  }
+  .hub-frame,
+  .hub-main,
+  .hub-orientation-panel {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+  .hub-orientation-panel {
+    overflow: visible;
+    border: 0;
+    background: white;
+    box-shadow: none;
+  }
+  .hub-orientation-panel::before {
+    display: none;
+  }
+  .hub-orientation-result-grid {
+    display: block;
+  }
+  .hub-orientation-primary-result,
+  .hub-orientation-alternative-result,
+  .hub-orientation-reasons,
+  .hub-orientation-bridge {
+    position: static;
+    break-inside: avoid;
+    margin-bottom: 1rem;
+    color: black;
+    background: white;
+    box-shadow: none;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   *,

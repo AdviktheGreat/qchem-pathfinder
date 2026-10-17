@@ -306,6 +306,33 @@ describe("PathfinderHub", () => {
     }
   });
 
+  it("prints the orientation starting map", async () => {
+    const print = vi.spyOn(window, "print").mockImplementation(() => undefined);
+    window.localStorage.setItem(
+      "research-pathfinder:hub-orientation",
+      JSON.stringify({
+        version: 1,
+        screen: "results",
+        savedAt: "2026-10-17T18:00:00.000Z",
+        answers: {
+          "broad-curiosity": "not-sure-yet",
+          "preferred-system": "not-sure-yet",
+          "question-style": "not-sure-yet",
+          "working-style": "not-sure-yet",
+          "application-balance": "not-sure-yet",
+        },
+      }),
+    );
+
+    render(<PathfinderHub />);
+    fireEvent.click(
+      await screen.findByRole("button", { name: /View my suggestions/i }),
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Print starting map" }));
+
+    expect(print).toHaveBeenCalledOnce();
+  });
+
   it("resumes saved orientation progress", async () => {
     window.localStorage.setItem(
       "research-pathfinder:hub-orientation",

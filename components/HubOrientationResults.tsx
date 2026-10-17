@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, Compass, Download } from "lucide-react";
+import { ArrowLeft, Compass, Download, Printer } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { CopyButton } from "@/components/CopyButton";
 import { HubOrientationBridge } from "@/components/HubOrientationBridge";
@@ -107,6 +107,13 @@ export function HubOrientationResults({
             onClick={downloadWorkshopMap}
           >
             <Download size={15} aria-hidden="true" /> Download workshop map
+          </button>
+          <button
+            className="copy-button"
+            type="button"
+            onClick={() => window.print()}
+          >
+            <Printer size={15} aria-hidden="true" /> Print starting map
           </button>
         </div>
       </div>
@@ -254,6 +261,13 @@ export function HubOrientationResults({
           onClick={downloadWorkshopMap}
         >
           <Download size={15} aria-hidden="true" /> Download workshop map
+        </button>
+        <button
+          className="copy-button"
+          type="button"
+          onClick={() => window.print()}
+        >
+          <Printer size={15} aria-hidden="true" /> Print starting map
         </button>
       </div>
     </div>
