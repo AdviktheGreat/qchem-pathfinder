@@ -2,11 +2,14 @@ import { describe, expect, it } from "vitest";
 import { pathfinderModules } from "@/data/pathfinder-modules";
 import { HUB_STORAGE_KEY } from "@/lib/hub-persistence";
 import {
+  clearHubOrientationStorage,
   createHubOrientationState,
   HUB_ORIENTATION_STORAGE_KEY,
   parseHubOrientationState,
+  readHubOrientationStorage,
   restoreHubOrientationState,
   serializeHubOrientationState,
+  writeHubOrientationStorage,
 } from "@/lib/hub-orientation-persistence";
 
 describe("hub orientation persistence", () => {
@@ -81,5 +84,54 @@ describe("hub orientation persistence", () => {
       screen: "question",
       currentQuestionId: "preferred-system",
     });
+  });
+
+  it("reports unavailable storage without throwing", () => {
+    const unavailable = {
+      getItem() {
+        throw new Error("blocked");
+      },
+      setItem() {
+        throw new Error("blocked");
+      },
+      removeItem() {
+        throw new Error("blocked");
+      },
+    };
+    const state = createHubOrientationState({
+      screen: "question",
+      answers: { "broad-curiosity": "living-systems" },
+    });
+
+    expect(readHubOrientationStorage(unavailable)).toEqual({
+      health: "unavailable",
+      state: null,
+    });
+    expect(writeHubOrientationStorage(unavailable, state)).toBe("unavailable");
+    expect(clearHubOrientationStorage(unavailable)).toBe("unavailable");
+  });
+
+  it("reads, writes, and clears through the isolated storage key", () => {
+    const records = new Map<string, string>();
+    const storage = {
+      getItem: (key: string) => records.get(key) ?? null,
+      setItem: (key: string, value: string) => records.set(key, value),
+      removeItem: (key: string) => records.delete(key),
+    };
+    const state = createHubOrientationState({
+      screen: "question",
+      answers: { "broad-curiosity": "living-systems" },
+    });
+
+    expect(writeHubOrientationStorage(storage, state)).toBe("available");
+    expect(readHubOrientationStorage(storage)).toMatchObject({
+      health: "available",
+      state: {
+        ...state,
+        currentQuestionId: "preferred-system",
+      },
+    });
+    expect(clearHubOrientationStorage(storage)).toBe("available");
+    expect(records.has(HUB_ORIENTATION_STORAGE_KEY)).toBe(false);
   });
 });

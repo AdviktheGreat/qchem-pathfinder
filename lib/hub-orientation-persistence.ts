@@ -12,6 +12,14 @@ export const HUB_ORIENTATION_STORAGE_KEY =
   "research-pathfinder:hub-orientation";
 export const HUB_ORIENTATION_STORAGE_VERSION = 1;
 
+export type HubOrientationStorageHealth = "available" | "unavailable";
+
+export interface HubOrientationStorageLike {
+  getItem(key: string): string | null;
+  setItem(key: string, value: string): void;
+  removeItem(key: string): void;
+}
+
 export type HubOrientationSavedScreen = "intro" | "question" | "results";
 
 export interface PersistedHubOrientationState {
@@ -136,4 +144,48 @@ export function hasHubOrientationAnswers(
   answers: HubOrientationAnswers,
 ): boolean {
   return Object.keys(answers).length > 0;
+}
+
+export function readHubOrientationStorage(
+  storage: Pick<HubOrientationStorageLike, "getItem">,
+): {
+  health: HubOrientationStorageHealth;
+  state: PersistedHubOrientationState | null;
+} {
+  try {
+    return {
+      health: "available",
+      state: restoreHubOrientationState(
+        storage.getItem(HUB_ORIENTATION_STORAGE_KEY),
+      ),
+    };
+  } catch {
+    return { health: "unavailable", state: null };
+  }
+}
+
+export function writeHubOrientationStorage(
+  storage: Pick<HubOrientationStorageLike, "setItem">,
+  state: PersistedHubOrientationState,
+): HubOrientationStorageHealth {
+  try {
+    storage.setItem(
+      HUB_ORIENTATION_STORAGE_KEY,
+      serializeHubOrientationState(state),
+    );
+    return "available";
+  } catch {
+    return "unavailable";
+  }
+}
+
+export function clearHubOrientationStorage(
+  storage: Pick<HubOrientationStorageLike, "removeItem">,
+): HubOrientationStorageHealth {
+  try {
+    storage.removeItem(HUB_ORIENTATION_STORAGE_KEY);
+    return "available";
+  } catch {
+    return "unavailable";
+  }
 }

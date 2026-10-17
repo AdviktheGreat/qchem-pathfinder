@@ -22,13 +22,13 @@ import {
 } from "@/lib/hub-orientation-branching";
 import { rankHubOrientation } from "@/lib/hub-orientation-ranking";
 import {
+  clearHubOrientationStorage,
   createHubOrientationState,
-  HUB_ORIENTATION_STORAGE_KEY,
+  hasHubOrientationAnswers,
   type PersistedHubOrientationState,
-  restoreHubOrientationState,
-  serializeHubOrientationState,
+  readHubOrientationStorage,
+  writeHubOrientationStorage,
 } from "@/lib/hub-orientation-persistence";
-import { hasHubOrientationAnswers } from "@/lib/hub-orientation-persistence";
 
 export function HubOrientationGuide() {
   const entryButtonRef = useRef<HTMLButtonElement>(null);
@@ -80,11 +80,7 @@ export function HubOrientationGuide() {
   useEffect(() => {
     const timer = window.setTimeout(() => {
       try {
-        setRestoredState(
-          restoreHubOrientationState(
-            window.localStorage.getItem(HUB_ORIENTATION_STORAGE_KEY),
-          ),
-        );
+        setRestoredState(readHubOrientationStorage(window.localStorage).state);
       } catch {
         setRestoredState(null);
       }
@@ -102,10 +98,7 @@ export function HubOrientationGuide() {
       currentQuestionId: screen === "question" ? question?.id : undefined,
     });
     try {
-      window.localStorage.setItem(
-        HUB_ORIENTATION_STORAGE_KEY,
-        serializeHubOrientationState(state),
-      );
+      writeHubOrientationStorage(window.localStorage, state);
       const timer = window.setTimeout(() => setRestoredState(state), 0);
       return () => window.clearTimeout(timer);
     } catch {
@@ -155,7 +148,7 @@ export function HubOrientationGuide() {
     )
       return;
     try {
-      window.localStorage.removeItem(HUB_ORIENTATION_STORAGE_KEY);
+      clearHubOrientationStorage(window.localStorage);
     } catch {
       // Reset the in-memory guide even when browser storage is unavailable.
     }
