@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft, Compass } from "lucide-react";
 import { useEffect, useRef } from "react";
+import { CopyButton } from "@/components/CopyButton";
 import { HubOrientationBridge } from "@/components/HubOrientationBridge";
 import { getPathfinder } from "@/data/pathfinders";
 import { pathfinderModules } from "@/data/pathfinder-modules";
@@ -11,6 +12,10 @@ import type {
   HubOrientationQuestion,
   HubOrientationRanking,
 } from "@/lib/hub-orientation";
+import {
+  createHubOrientationWorkshopMap,
+  formatHubOrientationWorkshopMap,
+} from "@/lib/hub-orientation-workshop-map";
 
 export function HubOrientationResults({
   rankings,
@@ -46,6 +51,9 @@ export function HubOrientationResults({
     ? explainHubOrientationFit(primary, questions, answers)
     : undefined;
   const balance = getHubOrientationBalance(rankings);
+  const workshopMapText = formatHubOrientationWorkshopMap(
+    createHubOrientationWorkshopMap(rankings, questions, answers),
+  );
 
   useEffect(() => {
     headingRef.current?.focus({ preventScroll: true });
@@ -79,6 +87,7 @@ export function HubOrientationResults({
           <button className="secondary-button" type="button" onClick={onReview}>
             <ArrowLeft size={17} aria-hidden="true" /> Review my choices
           </button>
+          <CopyButton text={workshopMapText} label="Copy workshop map" />
         </div>
       </div>
     );
@@ -218,6 +227,7 @@ export function HubOrientationResults({
         <a className="text-link" href="#directory-title">
           Browse all four pathfinders
         </a>
+        <CopyButton text={workshopMapText} label="Copy workshop map" />
       </div>
     </div>
   );

@@ -228,6 +228,36 @@ describe("PathfinderHub", () => {
     expect(
       screen.getByRole("link", { name: "Browse all pathfinders" }),
     ).toBeDefined();
+    expect(
+      screen.getByRole("button", { name: "Copy workshop map" }),
+    ).toBeDefined();
+  });
+
+  it("copies a portable orientation workshop map", async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    vi.stubGlobal("navigator", { clipboard: { writeText } });
+    try {
+      render(<PathfinderHub />);
+      fireEvent.click(screen.getByRole("button", { name: "Help me choose" }));
+      fireEvent.click(screen.getByRole("button", { name: "Start the guide" }));
+
+      for (let step = 0; step < 5; step += 1) {
+        fireEvent.click(
+          screen.getByRole("radio", { name: /^I’m not sure yet/i }),
+        );
+        fireEvent.click(screen.getByRole("button", { name: "Continue" }));
+      }
+
+      fireEvent.click(
+        screen.getByRole("button", { name: "Copy workshop map" }),
+      );
+      await screen.findByRole("button", { name: "Copied" });
+      expect(writeText).toHaveBeenCalledWith(
+        expect.stringContaining("RESEARCH PATHFINDER WORKSHOP MAP"),
+      );
+    } finally {
+      vi.unstubAllGlobals();
+    }
   });
 
   it("resumes saved orientation progress", async () => {
