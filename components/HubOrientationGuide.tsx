@@ -25,9 +25,11 @@ import {
   clearHubOrientationStorage,
   createHubOrientationState,
   hasHubOrientationAnswers,
+  HUB_ORIENTATION_STORAGE_KEY,
   type HubOrientationStorageHealth,
   type PersistedHubOrientationState,
   readHubOrientationStorage,
+  restoreHubOrientationState,
   writeHubOrientationStorage,
 } from "@/lib/hub-orientation-persistence";
 
@@ -35,6 +37,7 @@ export function HubOrientationGuide() {
   const entryButtonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLElement>(null);
   const guideOpenedRef = useRef(false);
+  const skipNextPersistRef = useRef(false);
   const [screen, setScreen] = useState<
     "closed" | "intro" | "question" | "results"
   >("closed");
@@ -99,6 +102,10 @@ export function HubOrientationGuide() {
   useEffect(() => {
     if (!hydrated || screen === "closed") return;
     if (screen === "intro" && !hasHubOrientationAnswers(answers)) return;
+    if (skipNextPersistRef.current) {
+      skipNextPersistRef.current = false;
+      return;
+    }
     const state = createHubOrientationState({
       screen,
       answers,
@@ -115,6 +122,37 @@ export function HubOrientationGuide() {
       // The guide still works for the current visit when storage is blocked.
     }
   }, [answers, hydrated, question?.id, screen]);
+
+  useEffect(() => {
+    function syncOrientation(event: StorageEvent) {
+      if (event.key !== HUB_ORIENTATION_STORAGE_KEY) return;
+      const state = restoreHubOrientationState(event.newValue);
+      setRestoredState(state);
+      setStorageHealth("available");
+      if (screen === "closed") return;
+      skipNextPersistRef.current = true;
+      if (!state) {
+        setAnswers({});
+        setQuestionIndex(0);
+        setScreen("intro");
+        return;
+      }
+      const path = getHubOrientationQuestionPath(
+        hubOrientationQuestions,
+        state.answers,
+      );
+      const index = Math.max(
+        0,
+        path.findIndex((candidate) => candidate.id === state.currentQuestionId),
+      );
+      setAnswers(state.answers);
+      setQuestionIndex(index);
+      setScreen(state.screen);
+    }
+
+    window.addEventListener("storage", syncOrientation);
+    return () => window.removeEventListener("storage", syncOrientation);
+  }, [screen]);
 
   useEffect(() => {
     if (!guideOpenedRef.current) return;

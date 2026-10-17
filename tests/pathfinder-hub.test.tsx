@@ -427,6 +427,61 @@ describe("PathfinderHub", () => {
     ).toBeDefined();
   });
 
+  it("reflects orientation progress saved in another tab", async () => {
+    render(<PathfinderHub />);
+    await screen.findByText("Not started");
+
+    fireEvent(
+      window,
+      new StorageEvent("storage", {
+        key: "research-pathfinder:hub-orientation",
+        newValue: JSON.stringify({
+          version: 1,
+          screen: "results",
+          savedAt: "2026-10-17T18:00:00.000Z",
+          answers: {
+            "broad-curiosity": "not-sure-yet",
+            "preferred-system": "not-sure-yet",
+            "question-style": "not-sure-yet",
+            "working-style": "not-sure-yet",
+            "application-balance": "not-sure-yet",
+          },
+        }),
+      }),
+    );
+
+    expect(await screen.findByText("Suggestions ready")).toBeDefined();
+    expect(
+      screen.getByRole("button", { name: "View my suggestions" }),
+    ).toBeDefined();
+  });
+
+  it("moves an open guide to the question saved in another tab", async () => {
+    render(<PathfinderHub />);
+    fireEvent.click(screen.getByRole("button", { name: "Help me choose" }));
+    await screen.findByText("Ready to save on this device");
+
+    fireEvent(
+      window,
+      new StorageEvent("storage", {
+        key: "research-pathfinder:hub-orientation",
+        newValue: JSON.stringify({
+          version: 1,
+          screen: "question",
+          savedAt: "2026-10-17T18:00:00.000Z",
+          currentQuestionId: "preferred-system",
+          answers: { "broad-curiosity": "living-systems" },
+        }),
+      }),
+    );
+
+    expect(
+      await screen.findByRole("heading", {
+        name: "Which kind of system would you most enjoy zooming in on?",
+      }),
+    ).toBeDefined();
+  });
+
   it("restarts only the hub guide and preserves subject progress", async () => {
     const subjectKey = quantumChemistryPathfinder.storage.key;
     window.localStorage.setItem(subjectKey, "subject-progress");
