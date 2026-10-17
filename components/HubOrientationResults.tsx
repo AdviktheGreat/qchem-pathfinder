@@ -3,6 +3,7 @@ import { ArrowLeft, Compass, Download, Printer } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { CopyButton } from "@/components/CopyButton";
 import { HubOrientationBridge } from "@/components/HubOrientationBridge";
+import { HubOrientationChoiceSummary } from "@/components/HubOrientationChoiceSummary";
 import { getPathfinder } from "@/data/pathfinders";
 import { pathfinderModules } from "@/data/pathfinder-modules";
 import { explainHubOrientationFit } from "@/lib/hub-orientation-answers";
@@ -52,9 +53,12 @@ export function HubOrientationResults({
     ? explainHubOrientationFit(primary, questions, answers)
     : undefined;
   const balance = getHubOrientationBalance(rankings);
-  const workshopMapText = formatHubOrientationWorkshopMap(
-    createHubOrientationWorkshopMap(rankings, questions, answers),
+  const workshopMap = createHubOrientationWorkshopMap(
+    rankings,
+    questions,
+    answers,
   );
+  const workshopMapText = formatHubOrientationWorkshopMap(workshopMap);
 
   useEffect(() => {
     headingRef.current?.focus({ preventScroll: true });
@@ -93,6 +97,7 @@ export function HubOrientationResults({
           result. Browse the four pathfinders, open whichever example catches
           your eye, or revise one answer for a little more direction.
         </p>
+        <HubOrientationChoiceSummary choices={workshopMap.choices} />
         <div className="hub-orientation-result-actions">
           <a className="primary-button" href="#directory-title">
             Browse all pathfinders
@@ -247,6 +252,7 @@ export function HubOrientationResults({
           alternativeName={alternativeCatalog.shortName}
         />
       ) : null}
+      <HubOrientationChoiceSummary choices={workshopMap.choices} />
       <div className="hub-orientation-result-actions">
         <button className="secondary-button" type="button" onClick={onReview}>
           <ArrowLeft size={17} aria-hidden="true" /> Review my choices

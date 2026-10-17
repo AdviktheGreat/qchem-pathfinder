@@ -228,6 +228,12 @@ describe("PathfinderHub", () => {
     expect(
       screen.getByRole("link", { name: "Browse all pathfinders" }),
     ).toBeDefined();
+    const choicesSummary = screen.getByText(
+      "Review the choices behind this map",
+    );
+    fireEvent.click(choicesSummary);
+    expect(screen.getAllByText("I’m not sure yet")).toHaveLength(5);
+    expect(screen.getAllByText("Kept open")).toHaveLength(5);
     expect(
       screen.getByRole("button", { name: "Copy workshop map" }),
     ).toBeDefined();
