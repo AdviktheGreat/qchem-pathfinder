@@ -166,6 +166,17 @@ export function HubOrientationGuide() {
     return () => window.clearTimeout(timer);
   }, [screen]);
 
+  useEffect(() => {
+    if (screen === "closed") return;
+    function closeWithEscape(event: KeyboardEvent) {
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      setScreen("closed");
+    }
+    window.addEventListener("keydown", closeWithEscape);
+    return () => window.removeEventListener("keydown", closeWithEscape);
+  }, [screen]);
+
   function openGuide() {
     guideOpenedRef.current = true;
     if (!restoredState) {
@@ -272,6 +283,7 @@ export function HubOrientationGuide() {
           type="button"
           onClick={() => setScreen("closed")}
           aria-label="Close pathfinder guide"
+          title="Close guide (Esc)"
         >
           <X size={18} aria-hidden="true" />
         </button>

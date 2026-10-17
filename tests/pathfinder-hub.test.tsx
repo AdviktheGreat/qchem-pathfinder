@@ -521,6 +521,17 @@ describe("PathfinderHub", () => {
     );
   });
 
+  it("closes the guide with Escape and returns focus", async () => {
+    render(<PathfinderHub />);
+    fireEvent.click(screen.getByRole("button", { name: "Help me choose" }));
+    fireEvent.keyDown(window, { key: "Escape" });
+
+    const entryButton = await screen.findByRole("button", {
+      name: "Help me choose",
+    });
+    await waitFor(() => expect(document.activeElement).toBe(entryButton));
+  });
+
   it("returns the viewport to the guide when reviewing results", async () => {
     const scrollIntoView = vi.fn();
     Object.defineProperty(HTMLElement.prototype, "scrollIntoView", {
