@@ -49,6 +49,7 @@ The orientation system is split into editable layers:
 - `lib/hub-orientation-answers.ts` converts selected options into the evidence consumed by the ranker.
 - `lib/hub-orientation-balance.ts` converts score relationships into the user-facing open, tied, nearby, or clear result state.
 - `lib/hub-orientation-persistence.ts` validates and restores the guide's independent, versioned local record.
+- `lib/hub-orientation-workshop-map.ts` builds the typed, score-free workshop map used by copy and download actions.
 - `components/HubOrientationGuide.tsx` owns the short, optional intro-to-results flow without turning the whole hub into a client component.
 
 To add a signal, give it a lowercase `dimension:value` ID, an accessible label, and a concise explanation. Then add it only to module profiles where the connection is scientifically meaningful. Affinity strengths use a deliberately small scale: `1` is a neighboring connection, `2` is a meaningful fit, and `3` is central to the pathfinder.
@@ -84,6 +85,21 @@ The guide saves its own versioned record under `research-pathfinder:hub-orientat
 
 **Restart guide** clears only this orientation record. It does not clear the hub's recently visited module or progress inside any subject pathfinder. Hub answers are never copied into those surveys.
 
+If browser storage is unavailable, the guide remains fully usable and labels the session **This visit only**. Its state will not survive refresh. A successful write changes the status to **Progress saved on this device**. Storage events keep the guide's status and active question aligned across open hub tabs; synchronized state is not written back immediately, which prevents a tab-to-tab update loop.
+
+## Workshop map and result handoff
+
+Completed results provide four local-only handoff tools:
+
+- **Copy workshop map** uses the shared clipboard control and exposes selectable fallback text when automatic copying fails.
+- **Download workshop map** creates a dated UTF-8 `.txt` file and immediately releases its temporary object URL.
+- **Print starting map** removes hub navigation and directory content while retaining the result evidence, comparison, answer snapshot, and next steps.
+- **Review the choices behind this map** shows the selected option labels and marks neutral uncertainty choices as “Kept open.”
+
+The workshop map includes the suggested field, nearby alternative, answer-grounded reasons, selected preferences, boundaries, and next step. It deliberately excludes numeric scores, match percentages, personal data, and citations. `createHubOrientationWorkshopMap` owns its structured contract; `formatHubOrientationWorkshopMap` owns the stable plain-text headings. Keep UI-only copy out of the formatter so copied and downloaded maps remain consistent.
+
+The two-field comparison uses each module's existing catalog `comparison` and `outcome` content. Edit those fields in `data/pathfinder-modules.ts`; do not duplicate scientific comparison copy inside the result component.
+
 ## Scoring behavior
 
 The ranking engine multiplies answer-evidence weight by module-affinity strength and sums the contributions. It does not normalize the result into a percentage. Repeated evidence for one signal is consolidated to its strongest instance rather than double counted.
@@ -108,4 +124,7 @@ After changing orientation content or logic:
 3. Complete one uncertain journey and one mixed-interest journey in the browser.
 4. Edit an early answer and verify that a now-hidden follow-up disappears from both the reviewable answers and the result reasons.
 5. Refresh midway and on results, then restart the guide and confirm subject-pathfinder progress is unchanged.
-6. Review keyboard focus, reduced motion, forced colors or high contrast, phone touch targets, and desktop/tablet/phone layouts.
+6. Block local storage and confirm the guide says **This visit only** while navigation still works.
+7. Open two hub tabs and confirm a saved question or result appears in the other without repeated updates.
+8. Copy, download, and print both a decisive result and an all-open result.
+9. Review keyboard focus, Escape dismissal, reduced motion, forced colors or high contrast, phone touch targets, and desktop/tablet/phone layouts.

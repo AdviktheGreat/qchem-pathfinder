@@ -69,6 +69,8 @@ The hub resolves each card to its typed pathfinder definition, reads only that d
 
 Students who are unsure where to begin can open the optional two-to-four-minute orientation guide. It asks five core preference questions and, when useful, one or two adaptive boundary questions. The result offers one starting path and one nearby alternative with reasons drawn from the selected answers; uncertainty stays neutral, hidden branch answers are removed after edits, and every module remains directly browsable. Guide progress resumes after refresh from its own versioned local record, and restarting it never clears progress inside a subject pathfinder.
 
+Orientation results also include a score-free workshop map that can be copied, downloaded, or printed; a selected-answer snapshot; a side-by-side comparison of the two scientific lenses; and three concrete next steps. When storage is blocked, the guide remains usable and clearly labels the session as this-visit-only. Open hub tabs synchronize the guide's saved state locally without transmitting it.
+
 Pathfinder registration and availability are controlled in `data/pathfinder-modules.ts`. `data/pathfinders.ts` derives the public catalog from those manifests:
 
 - `available` entries require a real route and receive an interactive card.

@@ -4431,7 +4431,12 @@ h2 {
   .hub-orientation-primary-result,
   .hub-orientation-alternative-result,
   .hub-orientation-reasons,
-  .hub-orientation-bridge {
+  .hub-orientation-bridge,
+  .hub-orientation-choice-summary,
+  .hub-orientation-comparison,
+  .hub-orientation-comparison-grid article,
+  .hub-orientation-next-steps,
+  .hub-orientation-next-steps li {
     position: static;
     break-inside: avoid;
     margin-bottom: 1rem;
@@ -4486,7 +4491,12 @@ h2 {
   .hub-orientation-primary-result,
   .hub-orientation-alternative-result,
   .hub-orientation-reasons,
-  .hub-orientation-bridge {
+  .hub-orientation-bridge,
+  .hub-orientation-choice-summary,
+  .hub-orientation-comparison,
+  .hub-orientation-comparison-grid article,
+  .hub-orientation-next-steps,
+  .hub-orientation-next-steps li {
     border-width: 2px;
   }
   .hub-orientation-option.is-selected {
