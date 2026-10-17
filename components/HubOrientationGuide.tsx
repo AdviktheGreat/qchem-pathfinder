@@ -25,6 +25,7 @@ import {
   clearHubOrientationStorage,
   createHubOrientationState,
   hasHubOrientationAnswers,
+  type HubOrientationStorageHealth,
   type PersistedHubOrientationState,
   readHubOrientationStorage,
   writeHubOrientationStorage,
@@ -42,6 +43,9 @@ export function HubOrientationGuide() {
   const [restoredState, setRestoredState] =
     useState<PersistedHubOrientationState | null>(null);
   const [hydrated, setHydrated] = useState(false);
+  const [storageHealth, setStorageHealth] = useState<
+    "checking" | HubOrientationStorageHealth
+  >("checking");
   const questionPath = getHubOrientationQuestionPath(
     hubOrientationQuestions,
     answers,
@@ -80,9 +84,12 @@ export function HubOrientationGuide() {
   useEffect(() => {
     const timer = window.setTimeout(() => {
       try {
-        setRestoredState(readHubOrientationStorage(window.localStorage).state);
+        const result = readHubOrientationStorage(window.localStorage);
+        setRestoredState(result.state);
+        setStorageHealth(result.health);
       } catch {
         setRestoredState(null);
+        setStorageHealth("unavailable");
       }
       setHydrated(true);
     }, 0);
@@ -98,8 +105,11 @@ export function HubOrientationGuide() {
       currentQuestionId: screen === "question" ? question?.id : undefined,
     });
     try {
-      writeHubOrientationStorage(window.localStorage, state);
-      const timer = window.setTimeout(() => setRestoredState(state), 0);
+      const health = writeHubOrientationStorage(window.localStorage, state);
+      const timer = window.setTimeout(() => {
+        setRestoredState(state);
+        setStorageHealth(health);
+      }, 0);
       return () => window.clearTimeout(timer);
     } catch {
       // The guide still works for the current visit when storage is blocked.
@@ -148,7 +158,7 @@ export function HubOrientationGuide() {
     )
       return;
     try {
-      clearHubOrientationStorage(window.localStorage);
+      setStorageHealth(clearHubOrientationStorage(window.localStorage));
     } catch {
       // Reset the in-memory guide even when browser storage is unavailable.
     }
@@ -182,7 +192,11 @@ export function HubOrientationGuide() {
         >
           <span aria-hidden="true" />
           <strong>{orientationStatus.label}</strong>
-          <small>{orientationStatus.detail}</small>
+          <small>
+            {storageHealth === "unavailable"
+              ? "This visit only — saving unavailable"
+              : orientationStatus.detail}
+          </small>
         </div>
         <button
           ref={entryButtonRef}
@@ -223,6 +237,20 @@ export function HubOrientationGuide() {
         >
           <X size={18} aria-hidden="true" />
         </button>
+      </div>
+      <div
+        className={`hub-orientation-save-state is-${storageHealth}`}
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        <span aria-hidden="true" />
+        {storageHealth === "unavailable"
+          ? "Saving unavailable — progress lasts for this visit"
+          : storageHealth === "checking"
+            ? "Checking local save"
+            : hasHubOrientationAnswers(answers)
+              ? "Progress saved on this device"
+              : "Ready to save on this device"}
       </div>
       {screen === "results" ? (
         <HubOrientationResults

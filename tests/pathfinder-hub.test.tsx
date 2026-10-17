@@ -62,7 +62,7 @@ describe("PathfinderHub", () => {
     expect(screen.getByText("Not started")).toBeDefined();
   });
 
-  it("explains the optional guide before asking questions", () => {
+  it("explains the optional guide before asking questions", async () => {
     render(<PathfinderHub />);
     fireEvent.click(screen.getByRole("button", { name: "Help me choose" }));
 
@@ -74,8 +74,30 @@ describe("PathfinderHub", () => {
     expect(screen.getByText("About 2–4 minutes")).toBeDefined();
     expect(screen.getByText("No scores or wrong answers")).toBeDefined();
     expect(
+      await screen.findByText("Ready to save on this device"),
+    ).toBeDefined();
+    expect(
       screen.getByRole("link", { name: /Browse all pathfinders instead/i }),
     ).toBeDefined();
+  });
+
+  it("keeps working while clearly reporting blocked local storage", async () => {
+    vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
+      throw new Error("blocked");
+    });
+    render(<PathfinderHub />);
+    fireEvent.click(screen.getByRole("button", { name: "Help me choose" }));
+    fireEvent.click(screen.getByRole("button", { name: "Start the guide" }));
+    fireEvent.click(
+      screen.getByRole("radio", { name: /How new materials gain/i }),
+    );
+
+    expect(
+      await screen.findByText(
+        "Saving unavailable — progress lasts for this visit",
+      ),
+    ).toBeDefined();
+    expect(screen.getByRole("button", { name: "Continue" })).toBeDefined();
   });
 
   it("starts with an accessible broad-curiosity question", async () => {

@@ -2411,6 +2411,37 @@ h2 {
   align-items: center;
   gap: 0.45rem;
 }
+.hub-orientation-save-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 30px;
+  margin: 0 0 1.15rem;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid rgba(32, 117, 121, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.68);
+  color: var(--muted);
+  font-size: 0.66rem;
+  font-weight: 750;
+}
+.hub-orientation-save-state > span {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--teal);
+}
+.hub-orientation-save-state.is-checking > span {
+  background: var(--violet);
+}
+.hub-orientation-save-state.is-unavailable {
+  border-color: rgba(171, 85, 31, 0.3);
+  color: #7b431e;
+  background: #fff8ef;
+}
+.hub-orientation-save-state.is-unavailable > span {
+  background: #ab551f;
+}
 .hub-orientation-reset {
   display: inline-flex;
   align-items: center;
@@ -4482,6 +4513,7 @@ h2 {
   .choice-card.is-selected .choice-check,
   .hub-orientation-progress > div span,
   .hub-orientation-entry-status > span,
+  .hub-orientation-save-state > span,
   .hub-orientation-option.is-selected > svg {
     background: Highlight;
     color: HighlightText;
