@@ -7,6 +7,8 @@ export const templateInterdisciplinaryLinks = [
     connectionKinds: ["shared-question", "shared-method"],
     sharedQuestion:
       "Write one question a researcher from either field could genuinely investigate.",
+    explorationStep:
+      "Suggest one concrete review, comparison, or vocabulary-building action a beginner can take next.",
     targetPathfinderId: "computational-physics",
     targetPathfinderName: "Computational physics",
     targetNicheId: "network-emergent-dynamics",

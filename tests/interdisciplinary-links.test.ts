@@ -15,6 +15,8 @@ const links: InterdisciplinaryLink[] = [
     connectionKinds: ["shared-question", "connected-scales"],
     sharedQuestion:
       "How does a shared structure create behavior at two scientific scales?",
+    explorationStep:
+      "Compare one source-field review with one target-field perspective.",
     targetPathfinderId: "computational-materials",
     targetPathfinderName: "Computational materials",
     targetNicheId: "example-materials-direction",
@@ -29,6 +31,8 @@ const links: InterdisciplinaryLink[] = [
     connectionKinds: ["shared-method"],
     sharedQuestion:
       "How can one dynamical model clarify behavior in both fields?",
+    explorationStep:
+      "Trace the same model through one example from each field.",
     targetPathfinderId: "computational-physics",
     targetPathfinderName: "Computational physics",
     targetNicheId: "example-physics-direction",

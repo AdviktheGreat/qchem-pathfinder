@@ -7,6 +7,8 @@ export const materialsInterdisciplinaryLinks = [
     connectionKinds: ["shared-question", "connected-scales"],
     sharedQuestion:
       "Which electronic processes initiate charge separation in a photovoltaic material?",
+    explorationStep:
+      "Read a recent photovoltaic review and mark where its explanation moves from molecular excitation to material-scale transport.",
     targetPathfinderId: "quantum-chemistry",
     targetPathfinderName: "Quantum chemistry",
     targetNicheId: "charge-transfer",
@@ -27,6 +29,8 @@ export const materialsInterdisciplinaryLinks = [
     connectionKinds: ["shared-question", "shared-method"],
     sharedQuestion:
       "How do electrode potential, interfaces, and electronic structure reshape catalytic pathways?",
+    explorationStep:
+      "Compare a computed electrocatalytic mechanism at two potentials and identify which steps need molecular electronic detail.",
     targetPathfinderId: "quantum-chemistry",
     targetPathfinderName: "Quantum chemistry",
     targetNicheId: "computational-catalysis",
@@ -47,6 +51,8 @@ export const materialsInterdisciplinaryLinks = [
     connectionKinds: ["shared-system", "connected-scales"],
     sharedQuestion:
       "How does a material surface change the structure and motion of nearby biomolecules?",
+    explorationStep:
+      "Find a simulation review of protein–material interfaces and list the surface and biomolecular properties it tracks.",
     targetPathfinderId: "computational-biology",
     targetPathfinderName: "Computational biology",
     targetNicheId: "biomolecular-simulation-dynamics",
@@ -67,6 +73,8 @@ export const materialsInterdisciplinaryLinks = [
     connectionKinds: ["shared-system", "connected-scales"],
     sharedQuestion:
       "How do interactions among electrons create measurable phases in a real two-dimensional material?",
+    explorationStep:
+      "Choose one two-dimensional material review that connects a model Hamiltonian to an experimentally measurable phase.",
     targetPathfinderId: "computational-physics",
     targetPathfinderName: "Computational physics",
     targetNicheId: "quantum-many-body-phases",
@@ -87,6 +95,8 @@ export const materialsInterdisciplinaryLinks = [
     connectionKinds: ["shared-method", "shared-data"],
     sharedQuestion:
       "How can scientific machine learning predict useful properties while remaining reliable beyond its training data?",
+    explorationStep:
+      "Read one property-prediction benchmark and check its data split, uncertainty method, and out-of-distribution tests.",
     targetPathfinderId: "computational-biology",
     targetPathfinderName: "Computational biology",
     targetNicheId: "machine-learning-biological-prediction",

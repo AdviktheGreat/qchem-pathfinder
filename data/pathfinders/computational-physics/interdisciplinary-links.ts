@@ -7,6 +7,8 @@ export const physicsInterdisciplinaryLinks = [
     connectionKinds: ["shared-system", "shared-method"],
     sharedQuestion:
       "How can light and an environment steer a molecule’s quantum-state evolution?",
+    explorationStep:
+      "Read an introductory review that treats molecular excited-state dynamics as an open quantum-system problem.",
     targetPathfinderId: "quantum-chemistry",
     targetPathfinderName: "Quantum chemistry",
     targetNicheId: "excited-states",
@@ -27,6 +29,8 @@ export const physicsInterdisciplinaryLinks = [
     connectionKinds: ["shared-system", "connected-scales"],
     sharedQuestion:
       "How do interactions among many particles create an emergent phase in a real material?",
+    explorationStep:
+      "Choose a review that pairs a many-body model with a specific material and trace how model observables become measurements.",
     targetPathfinderId: "computational-materials",
     targetPathfinderName: "Computational materials",
     targetNicheId: "two-dimensional-quantum-materials",
@@ -47,6 +51,8 @@ export const physicsInterdisciplinaryLinks = [
     connectionKinds: ["shared-system", "connected-scales"],
     sharedQuestion:
       "How do fluid transport and molecular reactions jointly shape atmospheric composition?",
+    explorationStep:
+      "Open a chemistry–transport model overview and follow how one reaction mechanism enters a larger fluid simulation.",
     targetPathfinderId: "quantum-chemistry",
     targetPathfinderName: "Quantum chemistry",
     targetNicheId: "environmental-chemistry",
@@ -67,6 +73,8 @@ export const physicsInterdisciplinaryLinks = [
     connectionKinds: ["shared-method", "shared-question"],
     sharedQuestion:
       "Which collective behaviors emerge from the connections among biological components?",
+    explorationStep:
+      "Work through a network-science tutorial built around a biological pathway and note what the abstraction preserves.",
     targetPathfinderId: "computational-biology",
     targetPathfinderName: "Computational biology",
     targetNicheId: "biological-network-modeling",
@@ -87,6 +95,8 @@ export const physicsInterdisciplinaryLinks = [
     connectionKinds: ["shared-method", "shared-data"],
     sharedQuestion:
       "How can a model combine physical constraints with data while quantifying where its predictions may fail?",
+    explorationStep:
+      "Inspect a benchmark that reports both accuracy and uncertainty for a physics-informed model on unseen systems.",
     targetPathfinderId: "computational-materials",
     targetPathfinderName: "Computational materials",
     targetNicheId: "method-potential-evaluation",

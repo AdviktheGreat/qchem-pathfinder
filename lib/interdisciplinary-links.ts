@@ -15,6 +15,7 @@ export interface InterdisciplinaryLink {
   sourceNicheId: string;
   connectionKinds: readonly InterdisciplinaryConnectionKind[];
   sharedQuestion: string;
+  explorationStep: string;
   targetPathfinderId: string;
   targetPathfinderName: string;
   targetNicheId: string;

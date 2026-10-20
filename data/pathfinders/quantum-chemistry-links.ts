@@ -7,6 +7,8 @@ export const quantumChemistryInterdisciplinaryLinks = [
     connectionKinds: ["shared-question", "connected-scales"],
     sharedQuestion:
       "How do molecular charge-transfer events become useful charge separation and transport in a photovoltaic material?",
+    explorationStep:
+      "Begin with a recent review that follows photoinduced charge transfer from a molecular absorber into a photovoltaic interface.",
     targetPathfinderId: "computational-materials",
     targetPathfinderName: "Computational materials",
     targetNicheId: "photovoltaic-materials",
@@ -27,6 +29,8 @@ export const quantumChemistryInterdisciplinaryLinks = [
     connectionKinds: ["shared-question", "shared-system"],
     sharedQuestion:
       "How do active sites change activation barriers and favor one reaction pathway over another?",
+    explorationStep:
+      "Compare one molecular-catalyst free-energy diagram with one surface-catalysis pathway and note which assumptions change.",
     targetPathfinderId: "computational-materials",
     targetPathfinderName: "Computational materials",
     targetNicheId: "heterogeneous-catalysis-surfaces",
@@ -47,6 +51,8 @@ export const quantumChemistryInterdisciplinaryLinks = [
     connectionKinds: ["shared-system", "connected-scales"],
     sharedQuestion:
       "How do electronic interactions and molecular motion work together to stabilize biomolecular binding?",
+    explorationStep:
+      "Look for a beginner-friendly QM/MM or multiscale simulation review that separates electronic and conformational effects.",
     targetPathfinderId: "computational-biology",
     targetPathfinderName: "Computational biology",
     targetNicheId: "biomolecular-simulation-dynamics",
@@ -67,6 +73,8 @@ export const quantumChemistryInterdisciplinaryLinks = [
     connectionKinds: ["shared-method", "shared-data"],
     sharedQuestion:
       "How can computed structures and properties help screen promising molecules or materials?",
+    explorationStep:
+      "Inspect one recent screening benchmark and record how it represents structures, splits data, and checks uncertainty.",
     targetPathfinderId: "computational-materials",
     targetPathfinderName: "Computational materials",
     targetNicheId: "high-throughput-materials-discovery",
@@ -87,6 +95,8 @@ export const quantumChemistryInterdisciplinaryLinks = [
     connectionKinds: ["shared-system", "connected-scales"],
     sharedQuestion:
       "How do molecular reactions and atmospheric transport together control the fate of a chemical species?",
+    explorationStep:
+      "Start with a chemistry–transport modeling review and trace one species from molecular reaction to regional movement.",
     targetPathfinderId: "computational-physics",
     targetPathfinderName: "Computational physics",
     targetNicheId: "atmospheric-ocean-dynamics",
