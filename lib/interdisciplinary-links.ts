@@ -16,6 +16,12 @@ export interface InterdisciplinarySearchSeeds {
   review: readonly string[];
 }
 
+export interface InterdisciplinarySearchQueries {
+  orientation: string;
+  focused: string;
+  review: string;
+}
+
 export interface InterdisciplinaryLink {
   id: string;
   sourceNicheId: string;
@@ -49,4 +55,36 @@ export function buildInterdisciplinarySearch(
   link: InterdisciplinaryLink,
 ): string {
   return `${link.sharedKeywords.join(" ")} review`;
+}
+
+function formatSearchQuery(
+  terms: readonly string[],
+  suffixes: readonly string[] = [],
+): string {
+  const seen = new Set<string>();
+  return [...terms, ...suffixes]
+    .map((term) => term.trim().replace(/\s+/g, " "))
+    .filter((term) => {
+      const normalized = term.toLocaleLowerCase();
+      if (!normalized || seen.has(normalized)) return false;
+      seen.add(normalized);
+      return true;
+    })
+    .join(" ");
+}
+
+export function buildInterdisciplinarySearchQueries(
+  link: InterdisciplinaryLink,
+): InterdisciplinarySearchQueries {
+  const seeds = link.searchSeeds;
+  return {
+    orientation: formatSearchQuery(seeds?.orientation ?? link.sharedKeywords, [
+      "overview",
+    ]),
+    focused: formatSearchQuery(seeds?.focused ?? link.sharedKeywords),
+    review: formatSearchQuery(seeds?.review ?? link.sharedKeywords, [
+      "review",
+      "perspective",
+    ]),
+  };
 }

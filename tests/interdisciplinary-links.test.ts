@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { pathfinderModules } from "@/data/pathfinder-modules";
 import {
   buildInterdisciplinarySearch,
+  buildInterdisciplinarySearchQueries,
   getInterdisciplinaryDestination,
   getInterdisciplinaryLinksForDirection,
   INTERDISCIPLINARY_CONNECTION_KINDS,
@@ -76,6 +77,19 @@ describe("interdisciplinary link helpers", () => {
     expect(buildInterdisciplinarySearch(links[0])).toBe(
       "structure property multiscale modeling review",
     );
+  });
+
+  it("builds stable orientation, focused, and review searches", () => {
+    expect(buildInterdisciplinarySearchQueries(links[0])).toEqual({
+      orientation: "structure property multiscale modeling overview",
+      focused: "molecular structure solid interfaces",
+      review: "cross-scale structure property review perspective",
+    });
+    expect(buildInterdisciplinarySearchQueries(links[1])).toEqual({
+      orientation: "dynamical systems simulation overview",
+      focused: "dynamical systems simulation",
+      review: "dynamical systems simulation review perspective",
+    });
   });
 });
 
