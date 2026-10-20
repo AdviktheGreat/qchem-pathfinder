@@ -1,3 +1,15 @@
+export const INTERDISCIPLINARY_CONNECTION_KINDS = [
+  "shared-system",
+  "shared-method",
+  "shared-question",
+  "shared-data",
+  "shared-application",
+  "connected-scales",
+] as const;
+
+export type InterdisciplinaryConnectionKind =
+  (typeof INTERDISCIPLINARY_CONNECTION_KINDS)[number];
+
 export interface InterdisciplinaryLink {
   id: string;
   sourceNicheId: string;

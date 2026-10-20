@@ -4,6 +4,7 @@ import {
   buildInterdisciplinarySearch,
   getInterdisciplinaryDestination,
   getInterdisciplinaryLinksForDirection,
+  INTERDISCIPLINARY_CONNECTION_KINDS,
   type InterdisciplinaryLink,
 } from "@/lib/interdisciplinary-links";
 
@@ -33,6 +34,20 @@ const links: InterdisciplinaryLink[] = [
 ];
 
 describe("interdisciplinary link helpers", () => {
+  it("defines a stable, score-free connection vocabulary", () => {
+    expect(INTERDISCIPLINARY_CONNECTION_KINDS).toEqual([
+      "shared-system",
+      "shared-method",
+      "shared-question",
+      "shared-data",
+      "shared-application",
+      "connected-scales",
+    ]);
+    expect(new Set(INTERDISCIPLINARY_CONNECTION_KINDS).size).toBe(
+      INTERDISCIPLINARY_CONNECTION_KINDS.length,
+    );
+  });
+
   it("selects links for only the active direction", () => {
     expect(
       getInterdisciplinaryLinksForDirection(links, "example-direction"),
