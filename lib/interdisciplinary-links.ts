@@ -10,6 +10,12 @@ export const INTERDISCIPLINARY_CONNECTION_KINDS = [
 export type InterdisciplinaryConnectionKind =
   (typeof INTERDISCIPLINARY_CONNECTION_KINDS)[number];
 
+export interface InterdisciplinarySearchSeeds {
+  orientation: readonly string[];
+  focused: readonly string[];
+  review: readonly string[];
+}
+
 export interface InterdisciplinaryLink {
   id: string;
   sourceNicheId: string;
@@ -23,6 +29,7 @@ export interface InterdisciplinaryLink {
   bridge: string;
   distinction: string;
   sharedKeywords: readonly string[];
+  searchSeeds?: InterdisciplinarySearchSeeds;
 }
 
 export function getInterdisciplinaryLinksForDirection(

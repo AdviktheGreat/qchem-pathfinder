@@ -24,6 +24,11 @@ const links: InterdisciplinaryLink[] = [
     bridge: "The two directions share a structure–property question.",
     distinction: "One starts with molecules; the other starts with solids.",
     sharedKeywords: ["structure property", "multiscale modeling"],
+    searchSeeds: {
+      orientation: ["structure property", "multiscale modeling"],
+      focused: ["molecular structure", "solid interfaces"],
+      review: ["cross-scale structure property"],
+    },
   },
   {
     id: "another-to-physics",
