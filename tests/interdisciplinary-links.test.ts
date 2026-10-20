@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { pathfinderModules } from "@/data/pathfinder-modules";
+import { resolveInterdisciplinaryDestination } from "@/lib/interdisciplinary-destinations";
 import {
   buildInterdisciplinarySearch,
   buildInterdisciplinarySearchQueries,
@@ -77,6 +78,25 @@ describe("interdisciplinary link helpers", () => {
     expect(buildInterdisciplinarySearch(links[0])).toBe(
       "structure property multiscale modeling review",
     );
+  });
+
+  it("resolves destinations from canonical released definitions", () => {
+    const link = pathfinderModules[0].definition.interdisciplinaryLinks[0];
+    expect(
+      resolveInterdisciplinaryDestination(link, pathfinderModules),
+    ).toEqual({
+      pathfinderId: "computational-materials",
+      pathfinderName: "Computational materials",
+      route: "/pathfinders/computational-materials",
+      nicheId: "photovoltaic-materials",
+      nicheName: "Photovoltaic materials",
+    });
+    expect(
+      resolveInterdisciplinaryDestination(
+        { ...link, targetNicheId: "missing-direction" },
+        pathfinderModules,
+      ),
+    ).toBeUndefined();
   });
 
   it("builds stable orientation, focused, and review searches", () => {
