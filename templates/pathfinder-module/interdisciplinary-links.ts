@@ -5,6 +5,8 @@ export const templateInterdisciplinaryLinks = [
     id: "template-emergence-physics-networks",
     sourceNicheId: "collective-emergent-behavior",
     connectionKinds: ["shared-question", "shared-method"],
+    sharedQuestion:
+      "Write one question a researcher from either field could genuinely investigate.",
     targetPathfinderId: "computational-physics",
     targetPathfinderName: "Computational physics",
     targetNicheId: "network-emergent-dynamics",

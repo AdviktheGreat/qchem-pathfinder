@@ -5,6 +5,8 @@ export const materialsInterdisciplinaryLinks = [
     id: "materials-photovoltaics-qchem-charge-transfer",
     sourceNicheId: "photovoltaic-materials",
     connectionKinds: ["shared-question", "connected-scales"],
+    sharedQuestion:
+      "Which electronic processes initiate charge separation in a photovoltaic material?",
     targetPathfinderId: "quantum-chemistry",
     targetPathfinderName: "Quantum chemistry",
     targetNicheId: "charge-transfer",
@@ -23,6 +25,8 @@ export const materialsInterdisciplinaryLinks = [
     id: "materials-electrocatalysis-qchem-catalysis",
     sourceNicheId: "electrocatalysis",
     connectionKinds: ["shared-question", "shared-method"],
+    sharedQuestion:
+      "How do electrode potential, interfaces, and electronic structure reshape catalytic pathways?",
     targetPathfinderId: "quantum-chemistry",
     targetPathfinderName: "Quantum chemistry",
     targetNicheId: "computational-catalysis",
@@ -41,6 +45,8 @@ export const materialsInterdisciplinaryLinks = [
     id: "materials-biomaterials-biology-dynamics",
     sourceNicheId: "computational-biomaterials",
     connectionKinds: ["shared-system", "connected-scales"],
+    sharedQuestion:
+      "How does a material surface change the structure and motion of nearby biomolecules?",
     targetPathfinderId: "computational-biology",
     targetPathfinderName: "Computational biology",
     targetNicheId: "biomolecular-simulation-dynamics",
@@ -59,6 +65,8 @@ export const materialsInterdisciplinaryLinks = [
     id: "materials-quantum-physics-many-body",
     sourceNicheId: "two-dimensional-quantum-materials",
     connectionKinds: ["shared-system", "connected-scales"],
+    sharedQuestion:
+      "How do interactions among electrons create measurable phases in a real two-dimensional material?",
     targetPathfinderId: "computational-physics",
     targetPathfinderName: "Computational physics",
     targetNicheId: "quantum-many-body-phases",
@@ -77,6 +85,8 @@ export const materialsInterdisciplinaryLinks = [
     id: "materials-ml-biology-prediction",
     sourceNicheId: "ml-property-prediction",
     connectionKinds: ["shared-method", "shared-data"],
+    sharedQuestion:
+      "How can scientific machine learning predict useful properties while remaining reliable beyond its training data?",
     targetPathfinderId: "computational-biology",
     targetPathfinderName: "Computational biology",
     targetNicheId: "machine-learning-biological-prediction",

@@ -5,6 +5,8 @@ export const quantumChemistryInterdisciplinaryLinks = [
     id: "qchem-charge-transfer-materials-photovoltaics",
     sourceNicheId: "charge-transfer",
     connectionKinds: ["shared-question", "connected-scales"],
+    sharedQuestion:
+      "How do molecular charge-transfer events become useful charge separation and transport in a photovoltaic material?",
     targetPathfinderId: "computational-materials",
     targetPathfinderName: "Computational materials",
     targetNicheId: "photovoltaic-materials",
@@ -23,6 +25,8 @@ export const quantumChemistryInterdisciplinaryLinks = [
     id: "qchem-catalysis-materials-surfaces",
     sourceNicheId: "computational-catalysis",
     connectionKinds: ["shared-question", "shared-system"],
+    sharedQuestion:
+      "How do active sites change activation barriers and favor one reaction pathway over another?",
     targetPathfinderId: "computational-materials",
     targetPathfinderName: "Computational materials",
     targetNicheId: "heterogeneous-catalysis-surfaces",
@@ -41,6 +45,8 @@ export const quantumChemistryInterdisciplinaryLinks = [
     id: "qchem-biomolecular-electronics-biology-dynamics",
     sourceNicheId: "biomolecular-electronics",
     connectionKinds: ["shared-system", "connected-scales"],
+    sharedQuestion:
+      "How do electronic interactions and molecular motion work together to stabilize biomolecular binding?",
     targetPathfinderId: "computational-biology",
     targetPathfinderName: "Computational biology",
     targetNicheId: "biomolecular-simulation-dynamics",
@@ -59,6 +65,8 @@ export const quantumChemistryInterdisciplinaryLinks = [
     id: "qchem-ml-materials-high-throughput",
     sourceNicheId: "ml-property-prediction",
     connectionKinds: ["shared-method", "shared-data"],
+    sharedQuestion:
+      "How can computed structures and properties help screen promising molecules or materials?",
     targetPathfinderId: "computational-materials",
     targetPathfinderName: "Computational materials",
     targetNicheId: "high-throughput-materials-discovery",
@@ -77,6 +85,8 @@ export const quantumChemistryInterdisciplinaryLinks = [
     id: "qchem-environment-physics-atmosphere",
     sourceNicheId: "environmental-chemistry",
     connectionKinds: ["shared-system", "connected-scales"],
+    sharedQuestion:
+      "How do molecular reactions and atmospheric transport together control the fate of a chemical species?",
     targetPathfinderId: "computational-physics",
     targetPathfinderName: "Computational physics",
     targetNicheId: "atmospheric-ocean-dynamics",

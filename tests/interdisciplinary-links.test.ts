@@ -13,6 +13,8 @@ const links: InterdisciplinaryLink[] = [
     id: "example-to-materials",
     sourceNicheId: "example-direction",
     connectionKinds: ["shared-question", "connected-scales"],
+    sharedQuestion:
+      "How does a shared structure create behavior at two scientific scales?",
     targetPathfinderId: "computational-materials",
     targetPathfinderName: "Computational materials",
     targetNicheId: "example-materials-direction",
@@ -25,6 +27,8 @@ const links: InterdisciplinaryLink[] = [
     id: "another-to-physics",
     sourceNicheId: "another-direction",
     connectionKinds: ["shared-method"],
+    sharedQuestion:
+      "How can one dynamical model clarify behavior in both fields?",
     targetPathfinderId: "computational-physics",
     targetPathfinderName: "Computational physics",
     targetNicheId: "example-physics-direction",

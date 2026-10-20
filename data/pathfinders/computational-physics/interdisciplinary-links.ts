@@ -5,6 +5,8 @@ export const physicsInterdisciplinaryLinks = [
     id: "physics-quantum-control-qchem-excited-states",
     sourceNicheId: "quantum-dynamics-control",
     connectionKinds: ["shared-system", "shared-method"],
+    sharedQuestion:
+      "How can light and an environment steer a molecule’s quantum-state evolution?",
     targetPathfinderId: "quantum-chemistry",
     targetPathfinderName: "Quantum chemistry",
     targetNicheId: "excited-states",
@@ -23,6 +25,8 @@ export const physicsInterdisciplinaryLinks = [
     id: "physics-many-body-materials-quantum",
     sourceNicheId: "quantum-many-body-phases",
     connectionKinds: ["shared-system", "connected-scales"],
+    sharedQuestion:
+      "How do interactions among many particles create an emergent phase in a real material?",
     targetPathfinderId: "computational-materials",
     targetPathfinderName: "Computational materials",
     targetNicheId: "two-dimensional-quantum-materials",
@@ -41,6 +45,8 @@ export const physicsInterdisciplinaryLinks = [
     id: "physics-atmosphere-qchem-environment",
     sourceNicheId: "atmospheric-ocean-dynamics",
     connectionKinds: ["shared-system", "connected-scales"],
+    sharedQuestion:
+      "How do fluid transport and molecular reactions jointly shape atmospheric composition?",
     targetPathfinderId: "quantum-chemistry",
     targetPathfinderName: "Quantum chemistry",
     targetNicheId: "environmental-chemistry",
@@ -59,6 +65,8 @@ export const physicsInterdisciplinaryLinks = [
     id: "physics-networks-biology-pathways",
     sourceNicheId: "network-emergent-dynamics",
     connectionKinds: ["shared-method", "shared-question"],
+    sharedQuestion:
+      "Which collective behaviors emerge from the connections among biological components?",
     targetPathfinderId: "computational-biology",
     targetPathfinderName: "Computational biology",
     targetNicheId: "biological-network-modeling",
@@ -77,6 +85,8 @@ export const physicsInterdisciplinaryLinks = [
     id: "physics-inverse-materials-method-evaluation",
     sourceNicheId: "physics-informed-ml-inverse-problems",
     connectionKinds: ["shared-method", "shared-data"],
+    sharedQuestion:
+      "How can a model combine physical constraints with data while quantifying where its predictions may fail?",
     targetPathfinderId: "computational-materials",
     targetPathfinderName: "Computational materials",
     targetNicheId: "method-potential-evaluation",

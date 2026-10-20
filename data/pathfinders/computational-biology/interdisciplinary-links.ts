@@ -5,6 +5,8 @@ export const biologyInterdisciplinaryLinks = [
     id: "biology-protein-structure-qchem-interactions",
     sourceNicheId: "protein-structure-prediction",
     connectionKinds: ["shared-system", "shared-question"],
+    sharedQuestion:
+      "Which molecular interactions stabilize a protein’s three-dimensional structure?",
     targetPathfinderId: "quantum-chemistry",
     targetPathfinderName: "Quantum chemistry",
     targetNicheId: "noncovalent-interactions",
@@ -23,6 +25,8 @@ export const biologyInterdisciplinaryLinks = [
     id: "biology-docking-qchem-biomolecular-electronics",
     sourceNicheId: "virtual-screening-docking",
     connectionKinds: ["shared-method", "shared-question"],
+    sharedQuestion:
+      "Why does one proposed ligand pose bind more favorably than another?",
     targetPathfinderId: "quantum-chemistry",
     targetPathfinderName: "Quantum chemistry",
     targetNicheId: "biomolecular-electronics",
@@ -41,6 +45,8 @@ export const biologyInterdisciplinaryLinks = [
     id: "biology-networks-physics-emergence",
     sourceNicheId: "biological-network-modeling",
     connectionKinds: ["shared-method", "shared-question"],
+    sharedQuestion:
+      "How do local biological connections produce stable, spreading, or synchronized system behavior?",
     targetPathfinderId: "computational-physics",
     targetPathfinderName: "Computational physics",
     targetNicheId: "network-emergent-dynamics",
@@ -59,6 +65,8 @@ export const biologyInterdisciplinaryLinks = [
     id: "biology-ml-materials-property-prediction",
     sourceNicheId: "machine-learning-biological-prediction",
     connectionKinds: ["shared-method", "shared-data"],
+    sharedQuestion:
+      "How can a model learn from scientific structures while remaining reliable on unfamiliar examples?",
     targetPathfinderId: "computational-materials",
     targetPathfinderName: "Computational materials",
     targetNicheId: "ml-property-prediction",
@@ -77,6 +85,8 @@ export const biologyInterdisciplinaryLinks = [
     id: "biology-ecology-physics-nonequilibrium",
     sourceNicheId: "computational-ecology-biodiversity",
     connectionKinds: ["shared-question", "connected-scales"],
+    sharedQuestion:
+      "How do interactions among many changing populations create collective ecological behavior?",
     targetPathfinderId: "computational-physics",
     targetPathfinderName: "Computational physics",
     targetNicheId: "nonequilibrium-statistical-physics",
