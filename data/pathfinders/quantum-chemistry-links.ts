@@ -22,6 +22,15 @@ export const quantumChemistryInterdisciplinaryLinks = [
       "photovoltaic materials",
       "charge separation",
     ],
+    searchSeeds: {
+      orientation: ["molecular charge transfer", "photovoltaic materials"],
+      focused: [
+        "photoinduced charge transfer",
+        "photovoltaic interface",
+        "charge separation",
+      ],
+      review: ["molecular charge transfer photovoltaics"],
+    },
   },
   {
     id: "qchem-catalysis-materials-surfaces",
@@ -44,6 +53,15 @@ export const quantumChemistryInterdisciplinaryLinks = [
       "surface adsorption",
       "activation barrier",
     ],
+    searchSeeds: {
+      orientation: ["computational catalysis", "heterogeneous catalysis"],
+      focused: [
+        "catalytic reaction pathway",
+        "surface adsorption",
+        "activation barrier",
+      ],
+      review: ["molecular and surface catalysis"],
+    },
   },
   {
     id: "qchem-biomolecular-electronics-biology-dynamics",
@@ -66,6 +84,15 @@ export const quantumChemistryInterdisciplinaryLinks = [
       "conformational dynamics",
       "multiscale simulation",
     ],
+    searchSeeds: {
+      orientation: ["electronic binding interactions", "biomolecular dynamics"],
+      focused: [
+        "biomolecular interactions",
+        "conformational dynamics",
+        "multiscale simulation",
+      ],
+      review: ["multiscale biomolecular binding"],
+    },
   },
   {
     id: "qchem-ml-materials-high-throughput",
@@ -88,6 +115,15 @@ export const quantumChemistryInterdisciplinaryLinks = [
       "materials discovery",
       "property prediction",
     ],
+    searchSeeds: {
+      orientation: ["molecular property prediction", "materials discovery"],
+      focused: [
+        "high-throughput screening",
+        "materials discovery",
+        "property prediction",
+      ],
+      review: ["machine learning molecular materials screening"],
+    },
   },
   {
     id: "qchem-environment-physics-atmosphere",
@@ -110,5 +146,14 @@ export const quantumChemistryInterdisciplinaryLinks = [
       "chemical transport",
       "multiscale atmosphere modeling",
     ],
+    searchSeeds: {
+      orientation: ["atmospheric chemistry", "atmospheric transport"],
+      focused: [
+        "atmospheric chemistry",
+        "chemical transport",
+        "multiscale atmosphere modeling",
+      ],
+      review: ["multiscale atmospheric chemistry transport"],
+    },
   },
 ] satisfies readonly InterdisciplinaryLink[];

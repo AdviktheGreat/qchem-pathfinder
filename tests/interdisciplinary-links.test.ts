@@ -54,6 +54,11 @@ const links: InterdisciplinaryLink[] = [
     bridge: "The two directions share a dynamical model.",
     distinction: "They organize the model around different systems.",
     sharedKeywords: ["dynamical systems", "simulation"],
+    searchSeeds: {
+      orientation: ["dynamical systems", "simulation"],
+      focused: ["dynamical systems", "simulation"],
+      review: ["dynamical systems", "simulation"],
+    },
   },
 ];
 

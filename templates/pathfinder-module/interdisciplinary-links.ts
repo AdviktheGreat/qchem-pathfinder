@@ -22,5 +22,10 @@ export const templateInterdisciplinaryLinks = [
       "source and target method",
       "interdisciplinary review",
     ],
+    searchSeeds: {
+      orientation: ["source topic", "target topic"],
+      focused: ["shared system", "shared method", "specific mechanism"],
+      review: ["source target intersection"],
+    },
   },
 ] satisfies readonly InterdisciplinaryLink[];

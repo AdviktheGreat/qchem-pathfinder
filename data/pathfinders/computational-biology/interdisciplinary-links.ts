@@ -22,6 +22,15 @@ export const biologyInterdisciplinaryLinks = [
       "hydrogen bonding",
       "structure stability",
     ],
+    searchSeeds: {
+      orientation: ["protein structure", "noncovalent interactions"],
+      focused: [
+        "protein noncovalent interactions",
+        "hydrogen bonding",
+        "structure stability",
+      ],
+      review: ["electronic interactions protein stability"],
+    },
   },
   {
     id: "biology-docking-qchem-biomolecular-electronics",
@@ -44,6 +53,15 @@ export const biologyInterdisciplinaryLinks = [
       "docking pose refinement",
       "electronic interaction energy",
     ],
+    searchSeeds: {
+      orientation: ["molecular docking", "quantum chemistry binding"],
+      focused: [
+        "drug protein binding",
+        "docking pose refinement",
+        "electronic interaction energy",
+      ],
+      review: ["quantum mechanical refinement docking"],
+    },
   },
   {
     id: "biology-networks-physics-emergence",
@@ -66,6 +84,15 @@ export const biologyInterdisciplinaryLinks = [
       "emergent behavior",
       "network simulation",
     ],
+    searchSeeds: {
+      orientation: ["biological networks", "network physics"],
+      focused: [
+        "biological network dynamics",
+        "emergent behavior",
+        "network simulation",
+      ],
+      review: ["network science systems biology"],
+    },
   },
   {
     id: "biology-ml-materials-property-prediction",
@@ -88,6 +115,15 @@ export const biologyInterdisciplinaryLinks = [
       "out-of-distribution generalization",
       "model uncertainty",
     ],
+    searchSeeds: {
+      orientation: ["biological prediction", "materials property prediction"],
+      focused: [
+        "scientific property prediction",
+        "out-of-distribution generalization",
+        "model uncertainty",
+      ],
+      review: ["generalization scientific machine learning"],
+    },
   },
   {
     id: "biology-ecology-physics-nonequilibrium",
@@ -110,5 +146,14 @@ export const biologyInterdisciplinaryLinks = [
       "nonequilibrium systems",
       "collective population behavior",
     ],
+    searchSeeds: {
+      orientation: ["computational ecology", "statistical physics"],
+      focused: [
+        "ecological dynamics",
+        "nonequilibrium systems",
+        "collective population behavior",
+      ],
+      review: ["statistical physics ecological dynamics"],
+    },
   },
 ] satisfies readonly InterdisciplinaryLink[];

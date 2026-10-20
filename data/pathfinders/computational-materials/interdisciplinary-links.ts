@@ -22,6 +22,15 @@ export const materialsInterdisciplinaryLinks = [
       "photovoltaic absorber",
       "charge separation",
     ],
+    searchSeeds: {
+      orientation: ["photovoltaic materials", "molecular charge transfer"],
+      focused: [
+        "photoinduced charge transfer",
+        "photovoltaic absorber",
+        "charge separation",
+      ],
+      review: ["charge separation photovoltaic materials"],
+    },
   },
   {
     id: "materials-electrocatalysis-qchem-catalysis",
@@ -44,6 +53,15 @@ export const materialsInterdisciplinaryLinks = [
       "reaction free energy",
       "catalyst electronic structure",
     ],
+    searchSeeds: {
+      orientation: ["electrocatalysis", "molecular catalysis"],
+      focused: [
+        "electrocatalytic mechanism",
+        "reaction free energy",
+        "catalyst electronic structure",
+      ],
+      review: ["electronic structure electrocatalysis"],
+    },
   },
   {
     id: "materials-biomaterials-biology-dynamics",
@@ -66,6 +84,15 @@ export const materialsInterdisciplinaryLinks = [
       "molecular dynamics",
       "surface biocompatibility",
     ],
+    searchSeeds: {
+      orientation: ["biomaterials", "biomolecular simulation"],
+      focused: [
+        "biomaterial protein interface",
+        "molecular dynamics",
+        "surface biocompatibility",
+      ],
+      review: ["protein material interface simulation"],
+    },
   },
   {
     id: "materials-quantum-physics-many-body",
@@ -88,6 +115,15 @@ export const materialsInterdisciplinaryLinks = [
       "many-body phase",
       "electronic correlations",
     ],
+    searchSeeds: {
+      orientation: ["two-dimensional quantum materials", "many-body physics"],
+      focused: [
+        "two-dimensional quantum materials",
+        "many-body phase",
+        "electronic correlations",
+      ],
+      review: ["correlated phases two-dimensional materials"],
+    },
   },
   {
     id: "materials-ml-biology-prediction",
@@ -110,5 +146,17 @@ export const materialsInterdisciplinaryLinks = [
       "property prediction",
       "model uncertainty",
     ],
+    searchSeeds: {
+      orientation: [
+        "materials machine learning",
+        "biological machine learning",
+      ],
+      focused: [
+        "scientific machine learning",
+        "property prediction",
+        "model uncertainty",
+      ],
+      review: ["cross-domain scientific machine learning property prediction"],
+    },
   },
 ] satisfies readonly InterdisciplinaryLink[];

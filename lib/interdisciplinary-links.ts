@@ -35,7 +35,7 @@ export interface InterdisciplinaryLink {
   bridge: string;
   distinction: string;
   sharedKeywords: readonly string[];
-  searchSeeds?: InterdisciplinarySearchSeeds;
+  searchSeeds: InterdisciplinarySearchSeeds;
 }
 
 export function getInterdisciplinaryLinksForDirection(
@@ -78,13 +78,8 @@ export function buildInterdisciplinarySearchQueries(
 ): InterdisciplinarySearchQueries {
   const seeds = link.searchSeeds;
   return {
-    orientation: formatSearchQuery(seeds?.orientation ?? link.sharedKeywords, [
-      "overview",
-    ]),
-    focused: formatSearchQuery(seeds?.focused ?? link.sharedKeywords),
-    review: formatSearchQuery(seeds?.review ?? link.sharedKeywords, [
-      "review",
-      "perspective",
-    ]),
+    orientation: formatSearchQuery(seeds.orientation, ["overview"]),
+    focused: formatSearchQuery(seeds.focused),
+    review: formatSearchQuery(seeds.review, ["review", "perspective"]),
   };
 }

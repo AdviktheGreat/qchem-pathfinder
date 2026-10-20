@@ -22,6 +22,15 @@ export const physicsInterdisciplinaryLinks = [
       "quantum control",
       "light matter interaction",
     ],
+    searchSeeds: {
+      orientation: ["quantum control", "molecular photochemistry"],
+      focused: [
+        "excited-state dynamics",
+        "quantum control",
+        "light matter interaction",
+      ],
+      review: ["open quantum systems excited-state dynamics"],
+    },
   },
   {
     id: "physics-many-body-materials-quantum",
@@ -44,6 +53,15 @@ export const physicsInterdisciplinaryLinks = [
       "many-body phase",
       "two-dimensional materials",
     ],
+    searchSeeds: {
+      orientation: ["many-body physics", "quantum materials"],
+      focused: [
+        "correlated quantum materials",
+        "many-body phase",
+        "two-dimensional materials",
+      ],
+      review: ["correlated phases real materials"],
+    },
   },
   {
     id: "physics-atmosphere-qchem-environment",
@@ -66,6 +84,15 @@ export const physicsInterdisciplinaryLinks = [
       "reaction kinetics",
       "multiscale atmosphere modeling",
     ],
+    searchSeeds: {
+      orientation: ["atmospheric dynamics", "molecular chemistry"],
+      focused: [
+        "atmospheric chemical transport",
+        "reaction kinetics",
+        "multiscale atmosphere modeling",
+      ],
+      review: ["chemistry transport atmospheric modeling"],
+    },
   },
   {
     id: "physics-networks-biology-pathways",
@@ -88,6 +115,15 @@ export const physicsInterdisciplinaryLinks = [
       "emergent behavior",
       "pathway modeling",
     ],
+    searchSeeds: {
+      orientation: ["network physics", "biological pathways"],
+      focused: [
+        "biological network dynamics",
+        "emergent behavior",
+        "pathway modeling",
+      ],
+      review: ["emergent dynamics biological networks"],
+    },
   },
   {
     id: "physics-inverse-materials-method-evaluation",
@@ -110,5 +146,17 @@ export const physicsInterdisciplinaryLinks = [
       "interatomic potential validation",
       "model uncertainty",
     ],
+    searchSeeds: {
+      orientation: [
+        "physics-informed machine learning",
+        "interatomic potentials",
+      ],
+      focused: [
+        "physics-informed machine learning",
+        "interatomic potential validation",
+        "model uncertainty",
+      ],
+      review: ["uncertainty physics-informed materials models"],
+    },
   },
 ] satisfies readonly InterdisciplinaryLink[];
