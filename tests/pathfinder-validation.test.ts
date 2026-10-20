@@ -302,6 +302,23 @@ describe("pathfinder definition validation", () => {
     expect(codes).toContain("interdisciplinary.missing-exploration-step");
     expect(codes).toContain("interdisciplinary.invalid-search-seeds");
   });
+
+  it("rejects weak or misleading interdisciplinary copy", () => {
+    const definition = copyDefinition();
+    const link = definition.interdisciplinaryLinks[0];
+    link.bridge = "These fields are related.";
+    link.distinction = "This is a perfect match.";
+    link.explorationStep = "x".repeat(281);
+    link.sharedKeywords = ["ok", "x".repeat(81)];
+
+    const codes = validatePathfinderDefinition(definition).issues.map(
+      (entry) => entry.code,
+    );
+    expect(codes).toContain("interdisciplinary.generic-bridge");
+    expect(codes).toContain("interdisciplinary.score-language");
+    expect(codes).toContain("interdisciplinary.overlong-copy");
+    expect(codes).toContain("interdisciplinary.invalid-keywords");
+  });
 });
 
 describe("pathfinder module manifest validation", () => {

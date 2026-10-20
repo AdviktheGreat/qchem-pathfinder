@@ -1063,6 +1063,50 @@ function validateInterdisciplinaryLinks(
         ),
       );
 
+    const boundedCopy = [
+      ["bridge", link.bridge, 320],
+      ["distinction", link.distinction, 320],
+      ["sharedQuestion", link.sharedQuestion, 220],
+      ["explorationStep", link.explorationStep, 280],
+    ] as const;
+    for (const [field, value, maximum] of boundedCopy) {
+      if (value.trim().length > maximum)
+        issues.push(
+          issue(
+            "interdisciplinary.overlong-copy",
+            `${path}.${field}`,
+            `Keep ${field} at or below ${maximum} characters so bridge cards stay concise.`,
+          ),
+        );
+    }
+
+    if (
+      /\b(these fields are related|both fields are related|interdisciplinary connection)\b/i.test(
+        link.bridge,
+      )
+    )
+      issues.push(
+        issue(
+          "interdisciplinary.generic-bridge",
+          `${path}.bridge`,
+          "Name the concrete shared system, method, question, or scale instead of using generic relationship language.",
+        ),
+      );
+
+    const studentCopy = boundedCopy.map(([, value]) => value).join(" ");
+    if (
+      /\b(perfect match|match score|\d+(?:\.\d+)?%\s*match)\b/i.test(
+        studentCopy,
+      )
+    )
+      issues.push(
+        issue(
+          "interdisciplinary.score-language",
+          path,
+          "Bridge copy must not imply a cross-field score or perfect match.",
+        ),
+      );
+
     if (
       !link.targetPathfinderId.trim() ||
       !link.targetPathfinderName.trim() ||
@@ -1086,7 +1130,8 @@ function validateInterdisciplinaryLinks(
       keywords.length < 2 ||
       keywords.length > 5 ||
       keywords.some((keyword) => !keyword) ||
-      new Set(keywords).size !== keywords.length
+      new Set(keywords).size !== keywords.length ||
+      keywords.some((keyword) => keyword.length < 3 || keyword.length > 80)
     )
       issues.push(
         issue(
