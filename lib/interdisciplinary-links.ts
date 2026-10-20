@@ -13,6 +13,7 @@ export type InterdisciplinaryConnectionKind =
 export interface InterdisciplinaryLink {
   id: string;
   sourceNicheId: string;
+  connectionKinds: readonly InterdisciplinaryConnectionKind[];
   targetPathfinderId: string;
   targetPathfinderName: string;
   targetNicheId: string;

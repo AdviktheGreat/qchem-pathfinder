@@ -4,6 +4,7 @@ export const materialsInterdisciplinaryLinks = [
   {
     id: "materials-photovoltaics-qchem-charge-transfer",
     sourceNicheId: "photovoltaic-materials",
+    connectionKinds: ["shared-question", "connected-scales"],
     targetPathfinderId: "quantum-chemistry",
     targetPathfinderName: "Quantum chemistry",
     targetNicheId: "charge-transfer",
@@ -21,6 +22,7 @@ export const materialsInterdisciplinaryLinks = [
   {
     id: "materials-electrocatalysis-qchem-catalysis",
     sourceNicheId: "electrocatalysis",
+    connectionKinds: ["shared-question", "shared-method"],
     targetPathfinderId: "quantum-chemistry",
     targetPathfinderName: "Quantum chemistry",
     targetNicheId: "computational-catalysis",
@@ -38,6 +40,7 @@ export const materialsInterdisciplinaryLinks = [
   {
     id: "materials-biomaterials-biology-dynamics",
     sourceNicheId: "computational-biomaterials",
+    connectionKinds: ["shared-system", "connected-scales"],
     targetPathfinderId: "computational-biology",
     targetPathfinderName: "Computational biology",
     targetNicheId: "biomolecular-simulation-dynamics",
@@ -55,6 +58,7 @@ export const materialsInterdisciplinaryLinks = [
   {
     id: "materials-quantum-physics-many-body",
     sourceNicheId: "two-dimensional-quantum-materials",
+    connectionKinds: ["shared-system", "connected-scales"],
     targetPathfinderId: "computational-physics",
     targetPathfinderName: "Computational physics",
     targetNicheId: "quantum-many-body-phases",
@@ -72,6 +76,7 @@ export const materialsInterdisciplinaryLinks = [
   {
     id: "materials-ml-biology-prediction",
     sourceNicheId: "ml-property-prediction",
+    connectionKinds: ["shared-method", "shared-data"],
     targetPathfinderId: "computational-biology",
     targetPathfinderName: "Computational biology",
     targetNicheId: "machine-learning-biological-prediction",

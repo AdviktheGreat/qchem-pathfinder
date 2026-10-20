@@ -12,6 +12,7 @@ const links: InterdisciplinaryLink[] = [
   {
     id: "example-to-materials",
     sourceNicheId: "example-direction",
+    connectionKinds: ["shared-question", "connected-scales"],
     targetPathfinderId: "computational-materials",
     targetPathfinderName: "Computational materials",
     targetNicheId: "example-materials-direction",
@@ -23,6 +24,7 @@ const links: InterdisciplinaryLink[] = [
   {
     id: "another-to-physics",
     sourceNicheId: "another-direction",
+    connectionKinds: ["shared-method"],
     targetPathfinderId: "computational-physics",
     targetPathfinderName: "Computational physics",
     targetNicheId: "example-physics-direction",
@@ -102,7 +104,10 @@ describe("released interdisciplinary link coverage", () => {
 
   it("ships twenty curated bridges across the four current subjects", () => {
     expect(
-      definitions.flatMap((definition) => definition.interdisciplinaryLinks),
-    ).toHaveLength(20);
+      definitions.reduce(
+        (total, definition) => total + definition.interdisciplinaryLinks.length,
+        0,
+      ),
+    ).toBe(20);
   });
 });

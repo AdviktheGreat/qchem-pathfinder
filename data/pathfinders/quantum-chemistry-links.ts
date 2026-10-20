@@ -4,6 +4,7 @@ export const quantumChemistryInterdisciplinaryLinks = [
   {
     id: "qchem-charge-transfer-materials-photovoltaics",
     sourceNicheId: "charge-transfer",
+    connectionKinds: ["shared-question", "connected-scales"],
     targetPathfinderId: "computational-materials",
     targetPathfinderName: "Computational materials",
     targetNicheId: "photovoltaic-materials",
@@ -21,6 +22,7 @@ export const quantumChemistryInterdisciplinaryLinks = [
   {
     id: "qchem-catalysis-materials-surfaces",
     sourceNicheId: "computational-catalysis",
+    connectionKinds: ["shared-question", "shared-system"],
     targetPathfinderId: "computational-materials",
     targetPathfinderName: "Computational materials",
     targetNicheId: "heterogeneous-catalysis-surfaces",
@@ -38,6 +40,7 @@ export const quantumChemistryInterdisciplinaryLinks = [
   {
     id: "qchem-biomolecular-electronics-biology-dynamics",
     sourceNicheId: "biomolecular-electronics",
+    connectionKinds: ["shared-system", "connected-scales"],
     targetPathfinderId: "computational-biology",
     targetPathfinderName: "Computational biology",
     targetNicheId: "biomolecular-simulation-dynamics",
@@ -55,6 +58,7 @@ export const quantumChemistryInterdisciplinaryLinks = [
   {
     id: "qchem-ml-materials-high-throughput",
     sourceNicheId: "ml-property-prediction",
+    connectionKinds: ["shared-method", "shared-data"],
     targetPathfinderId: "computational-materials",
     targetPathfinderName: "Computational materials",
     targetNicheId: "high-throughput-materials-discovery",
@@ -72,6 +76,7 @@ export const quantumChemistryInterdisciplinaryLinks = [
   {
     id: "qchem-environment-physics-atmosphere",
     sourceNicheId: "environmental-chemistry",
+    connectionKinds: ["shared-system", "connected-scales"],
     targetPathfinderId: "computational-physics",
     targetPathfinderName: "Computational physics",
     targetNicheId: "atmospheric-ocean-dynamics",

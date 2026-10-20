@@ -4,6 +4,7 @@ export const biologyInterdisciplinaryLinks = [
   {
     id: "biology-protein-structure-qchem-interactions",
     sourceNicheId: "protein-structure-prediction",
+    connectionKinds: ["shared-system", "shared-question"],
     targetPathfinderId: "quantum-chemistry",
     targetPathfinderName: "Quantum chemistry",
     targetNicheId: "noncovalent-interactions",
@@ -21,6 +22,7 @@ export const biologyInterdisciplinaryLinks = [
   {
     id: "biology-docking-qchem-biomolecular-electronics",
     sourceNicheId: "virtual-screening-docking",
+    connectionKinds: ["shared-method", "shared-question"],
     targetPathfinderId: "quantum-chemistry",
     targetPathfinderName: "Quantum chemistry",
     targetNicheId: "biomolecular-electronics",
@@ -38,6 +40,7 @@ export const biologyInterdisciplinaryLinks = [
   {
     id: "biology-networks-physics-emergence",
     sourceNicheId: "biological-network-modeling",
+    connectionKinds: ["shared-method", "shared-question"],
     targetPathfinderId: "computational-physics",
     targetPathfinderName: "Computational physics",
     targetNicheId: "network-emergent-dynamics",
@@ -55,6 +58,7 @@ export const biologyInterdisciplinaryLinks = [
   {
     id: "biology-ml-materials-property-prediction",
     sourceNicheId: "machine-learning-biological-prediction",
+    connectionKinds: ["shared-method", "shared-data"],
     targetPathfinderId: "computational-materials",
     targetPathfinderName: "Computational materials",
     targetNicheId: "ml-property-prediction",
@@ -72,6 +76,7 @@ export const biologyInterdisciplinaryLinks = [
   {
     id: "biology-ecology-physics-nonequilibrium",
     sourceNicheId: "computational-ecology-biodiversity",
+    connectionKinds: ["shared-question", "connected-scales"],
     targetPathfinderId: "computational-physics",
     targetPathfinderName: "Computational physics",
     targetNicheId: "nonequilibrium-statistical-physics",
