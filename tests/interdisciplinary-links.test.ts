@@ -5,6 +5,8 @@ import {
   buildInterdisciplinaryGraph,
   getIncomingInterdisciplinaryEdges,
   getOutgoingInterdisciplinaryEdges,
+  groupInterdisciplinaryEdgesByConnection,
+  groupInterdisciplinaryEdgesByDestination,
 } from "@/lib/interdisciplinary-graph";
 import {
   buildInterdisciplinarySearch,
@@ -121,6 +123,36 @@ describe("interdisciplinary link helpers", () => {
         "charge-transfer",
       ).map((edge) => edge.source.nicheId),
     ).toEqual(["photovoltaic-materials"]);
+  });
+
+  it("groups connections without assigning cross-field scores", () => {
+    const graph = buildInterdisciplinaryGraph(pathfinderModules);
+    const quantumEdges = getOutgoingInterdisciplinaryEdges(
+      graph,
+      "quantum-chemistry",
+    );
+
+    expect(
+      groupInterdisciplinaryEdgesByDestination(quantumEdges).map((group) => [
+        group.pathfinderId,
+        group.edges.length,
+      ]),
+    ).toEqual([
+      ["computational-materials", 3],
+      ["computational-biology", 1],
+      ["computational-physics", 1],
+    ]);
+    expect(
+      groupInterdisciplinaryEdgesByConnection(quantumEdges).map(
+        (group) => group.kind,
+      ),
+    ).toEqual([
+      "shared-system",
+      "shared-method",
+      "shared-question",
+      "shared-data",
+      "connected-scales",
+    ]);
   });
 
   it("builds stable orientation, focused, and review searches", () => {

@@ -1,5 +1,9 @@
 import { resolveInterdisciplinaryDestination } from "@/lib/interdisciplinary-destinations";
-import type { InterdisciplinaryLink } from "@/lib/interdisciplinary-links";
+import {
+  INTERDISCIPLINARY_CONNECTION_KINDS,
+  type InterdisciplinaryConnectionKind,
+  type InterdisciplinaryLink,
+} from "@/lib/interdisciplinary-links";
 import type { PathfinderModuleManifest } from "@/lib/pathfinder-manifest";
 
 export interface InterdisciplinaryGraphNode {
@@ -17,6 +21,17 @@ export interface InterdisciplinaryGraphEdge {
 }
 
 export interface InterdisciplinaryGraph {
+  edges: readonly InterdisciplinaryGraphEdge[];
+}
+
+export interface InterdisciplinaryDestinationGroup {
+  pathfinderId: string;
+  pathfinderName: string;
+  edges: readonly InterdisciplinaryGraphEdge[];
+}
+
+export interface InterdisciplinaryConnectionGroup {
+  kind: InterdisciplinaryConnectionKind;
   edges: readonly InterdisciplinaryGraphEdge[];
 }
 
@@ -73,4 +88,37 @@ export function getIncomingInterdisciplinaryEdges(
       edge.target.pathfinderId === pathfinderId &&
       (!nicheId || edge.target.nicheId === nicheId),
   );
+}
+
+export function groupInterdisciplinaryEdgesByDestination(
+  edges: readonly InterdisciplinaryGraphEdge[],
+): InterdisciplinaryDestinationGroup[] {
+  const groups = new Map<string, InterdisciplinaryDestinationGroup>();
+  for (const edge of edges) {
+    const current = groups.get(edge.target.pathfinderId);
+    if (current) {
+      groups.set(edge.target.pathfinderId, {
+        ...current,
+        edges: [...current.edges, edge],
+      });
+    } else {
+      groups.set(edge.target.pathfinderId, {
+        pathfinderId: edge.target.pathfinderId,
+        pathfinderName: edge.target.pathfinderName,
+        edges: [edge],
+      });
+    }
+  }
+  return [...groups.values()];
+}
+
+export function groupInterdisciplinaryEdgesByConnection(
+  edges: readonly InterdisciplinaryGraphEdge[],
+): InterdisciplinaryConnectionGroup[] {
+  return INTERDISCIPLINARY_CONNECTION_KINDS.flatMap((kind) => {
+    const matching = edges.filter((edge) =>
+      edge.link.connectionKinds.includes(kind),
+    );
+    return matching.length > 0 ? [{ kind, edges: matching }] : [];
+  });
 }
