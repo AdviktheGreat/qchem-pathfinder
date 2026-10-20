@@ -1,4 +1,5 @@
 import type { PathfinderDefinition } from "@/lib/pathfinder-definition";
+import { INTERDISCIPLINARY_CONNECTION_KINDS } from "@/lib/interdisciplinary-links";
 import type { PathfinderModuleManifest } from "@/lib/pathfinder-manifest";
 
 export interface PathfinderValidationIssue {
@@ -974,6 +975,7 @@ function validateInterdisciplinaryLinks(
   const nicheIds = new Set(
     definition.recommendations.niches.map((niche) => niche.id),
   );
+  const connectionKinds = new Set<string>(INTERDISCIPLINARY_CONNECTION_KINDS);
 
   definition.interdisciplinaryLinks.forEach((link, linkIndex) => {
     const path = `interdisciplinaryLinks[${linkIndex}]`;
@@ -1024,6 +1026,41 @@ function validateInterdisciplinaryLinks(
     pairs.add(pair);
 
     if (
+      link.connectionKinds.length < 1 ||
+      link.connectionKinds.length > 3 ||
+      new Set(link.connectionKinds).size !== link.connectionKinds.length ||
+      link.connectionKinds.some((kind) => !connectionKinds.has(kind))
+    )
+      issues.push(
+        issue(
+          "interdisciplinary.invalid-connection-kinds",
+          `${path}.connectionKinds`,
+          "Use one to three distinct connection categories from the shared vocabulary.",
+        ),
+      );
+
+    if (
+      !link.sharedQuestion.trim() ||
+      !link.sharedQuestion.trim().endsWith("?")
+    )
+      issues.push(
+        issue(
+          "interdisciplinary.invalid-shared-question",
+          `${path}.sharedQuestion`,
+          "The shared research question must be non-empty and end with a question mark.",
+        ),
+      );
+
+    if (!link.explorationStep.trim())
+      issues.push(
+        issue(
+          "interdisciplinary.missing-exploration-step",
+          `${path}.explorationStep`,
+          "Each bridge needs one concrete first exploration step.",
+        ),
+      );
+
+    if (
       !link.targetPathfinderId.trim() ||
       !link.targetPathfinderName.trim() ||
       !link.targetNicheId.trim() ||
@@ -1055,6 +1092,30 @@ function validateInterdisciplinaryLinks(
           "Use two to five distinct, non-empty terms that work across both fields.",
         ),
       );
+
+    const searchSeedGroups = [
+      ["orientation", link.searchSeeds.orientation],
+      ["focused", link.searchSeeds.focused],
+      ["review", link.searchSeeds.review],
+    ] as const;
+    for (const [seedType, seedTerms] of searchSeedGroups) {
+      const normalized = seedTerms.map((term) =>
+        term.trim().replace(/\s+/g, " ").toLocaleLowerCase(),
+      );
+      if (
+        normalized.length < 1 ||
+        normalized.length > 5 ||
+        normalized.some((term) => !term) ||
+        new Set(normalized).size !== normalized.length
+      )
+        issues.push(
+          issue(
+            "interdisciplinary.invalid-search-seeds",
+            `${path}.searchSeeds.${seedType}`,
+            "Each search level needs one to five distinct, non-empty phrases.",
+          ),
+        );
+    }
   });
 
   return issues;
