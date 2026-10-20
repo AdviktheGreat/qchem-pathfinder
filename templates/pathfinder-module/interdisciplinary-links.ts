@@ -6,7 +6,7 @@ export const templateInterdisciplinaryLinks = [
     sourceNicheId: "collective-emergent-behavior",
     connectionKinds: ["shared-question", "shared-method"],
     sharedQuestion:
-      "Write one question a researcher from either field could genuinely investigate.",
+      "What question could a researcher from either field genuinely investigate?",
     explorationStep:
       "Suggest one concrete review, comparison, or vocabulary-building action a beginner can take next.",
     targetPathfinderId: "computational-physics",

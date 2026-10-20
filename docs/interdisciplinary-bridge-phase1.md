@@ -2,6 +2,8 @@
 
 Phase 1 strengthens the bridge data contract and authoring safeguards without changing recommendation scores, transferring answers, or making every relationship reciprocal. Each bridge remains an optional next lens attached to one primary direction.
 
+**Status:** Complete on October 19, 2026. All 15 Phase 1 steps were implemented as separate commits and the 20-link baseline remains scientifically unchanged.
+
 ## Baseline inventory
 
 Verified October 19, 2026. The released platform begins this phase with 20 directional bridges: five from each pathfinder.
@@ -46,3 +48,12 @@ The network is deliberately selective. A blank direction is not a defect, and a 
 - Phase 2 expands scientific coverage only after the stronger contract is stable.
 - Phase 3 improves how students interact with bridges.
 - Phase 4 completes accessibility, scientific review, responsive QA, and release verification.
+
+## Completed foundation
+
+- A typed six-category vocabulary explains how fields connect without implying strength.
+- Every bridge now includes a shared research question and concrete first exploration step.
+- Every bridge has structured orientation, focused, and review search seeds with deterministic query generation.
+- Canonical destination resolution and a graph index expose incoming, outgoing, destination-grouped, and connection-grouped views.
+- Definition and registry validation protect the enriched fields, canonical identities and routes, duplicate edges, concise copy, and score-free language.
+- The authoring template, maintenance documentation, and focused tests use the complete contract.

@@ -53,7 +53,9 @@ lib/pathfinder-metadata.ts Standard App Router metadata projection
 lib/pathfinder-lifecycle.ts Draft-to-release lifecycle vocabulary
 lib/pathfinder-validation.ts Structured definition, manifest, and registry checks
 lib/hub-orientation-*.ts Orientation contracts, validation, and ranking
-lib/interdisciplinary-links.ts Typed cross-subject link helpers
+lib/interdisciplinary-links.ts Typed cross-subject content and search helpers
+lib/interdisciplinary-destinations.ts Canonical bridge destination resolution
+lib/interdisciplinary-graph.ts Incoming, outgoing, and grouped bridge views
 data/pathfinders/**/interdisciplinary-links.ts Curated adjacent-field bridges
 tests/fixtures/         Complete, validated student paths for all four modules
 tests/                  Unit and rendered-component journey tests
@@ -77,6 +79,8 @@ Pathfinder registration and availability are controlled in `data/pathfinder-modu
 - `coming-soon` entries are non-interactive roadmap previews.
 
 See [the pathfinder platform contract](docs/pathfinder-platform.md) before adding another active module.
+
+The four released pathfinders currently include 20 selective interdisciplinary bridges. Each bridge names the concrete connection and boundary, poses a shared research question, suggests a first exploration step, and carries structured seeds for orientation, focused, and review searches. Canonical destination and graph validation keeps these links aligned as modules evolve; bridges never compare scores or transfer answers. See [the interdisciplinary link contract](docs/interdisciplinary-links.md) before editing or adding one.
 
 ## How adaptation works
 

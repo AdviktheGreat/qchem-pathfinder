@@ -206,7 +206,35 @@ describe("released interdisciplinary link coverage", () => {
         );
         expect(link.sharedKeywords, link.id).toHaveLength(3);
         expect(buildInterdisciplinarySearch(link), link.id).toMatch(/ review$/);
+        expect(link.connectionKinds.length, link.id).toBeGreaterThanOrEqual(1);
+        expect(link.connectionKinds.length, link.id).toBeLessThanOrEqual(3);
+        expect(link.sharedQuestion, link.id).toMatch(/\?$/);
+        expect(link.explorationStep.trim(), link.id).not.toBe("");
+        const queries = buildInterdisciplinarySearchQueries(link);
+        expect(queries.orientation, link.id).toMatch(/ overview$/);
+        expect(queries.focused.trim(), link.id).not.toBe("");
+        expect(queries.review, link.id).toMatch(/ review perspective$/);
       }
+    }
+  });
+
+  it("keeps the released graph complete in both directions", () => {
+    const graph = buildInterdisciplinaryGraph(pathfinderModules);
+    const linkCount = definitions.reduce(
+      (total, definition) => total + definition.interdisciplinaryLinks.length,
+      0,
+    );
+    expect(graph.edges).toHaveLength(linkCount);
+
+    for (const definition of definitions) {
+      expect(
+        getOutgoingInterdisciplinaryEdges(graph, definition.identity.id).length,
+        definition.identity.id,
+      ).toBeGreaterThanOrEqual(5);
+      expect(
+        getIncomingInterdisciplinaryEdges(graph, definition.identity.id).length,
+        definition.identity.id,
+      ).toBeGreaterThan(0);
     }
   });
 
