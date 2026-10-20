@@ -1,5 +1,8 @@
 import type { PathfinderDefinition } from "@/lib/pathfinder-definition";
-import { INTERDISCIPLINARY_CONNECTION_KINDS } from "@/lib/interdisciplinary-links";
+import {
+  getInterdisciplinaryDestination,
+  INTERDISCIPLINARY_CONNECTION_KINDS,
+} from "@/lib/interdisciplinary-links";
 import type { PathfinderModuleManifest } from "@/lib/pathfinder-manifest";
 
 export interface PathfinderValidationIssue {
@@ -1243,6 +1246,7 @@ export function validatePathfinderRegistry(
   const routes = new Set<string>();
   const storageKeys = new Set<string>();
   const linkIds = new Set<string>();
+  const linkEdges = new Set<string>();
   const availableById = new Map(
     manifests.flatMap((manifest) =>
       manifest.lifecycle === "available"
@@ -1314,6 +1318,17 @@ export function validatePathfinderRegistry(
           );
         linkIds.add(link.id);
 
+        const edge = `${manifest.definition.identity.id}:${link.sourceNicheId}:${link.targetPathfinderId}:${link.targetNicheId}`;
+        if (linkEdges.has(edge))
+          issues.push(
+            issue(
+              "registry.duplicate-link-edge",
+              path,
+              "The same directional bridge is already registered.",
+            ),
+          );
+        linkEdges.add(edge);
+
         const target = availableById.get(link.targetPathfinderId);
         if (!target) {
           issues.push(
@@ -1325,6 +1340,17 @@ export function validatePathfinderRegistry(
           );
           return;
         }
+        if (
+          getInterdisciplinaryDestination(link) !==
+          target.definition.identity.route
+        )
+          issues.push(
+            issue(
+              "registry.link-route-mismatch",
+              `${path}.targetPathfinderId`,
+              `Link destination must resolve to “${target.definition.identity.route}”.`,
+            ),
+          );
         if (link.targetPathfinderName !== target.definition.identity.shortName)
           issues.push(
             issue(

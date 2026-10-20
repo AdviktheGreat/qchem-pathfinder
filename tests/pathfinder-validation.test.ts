@@ -364,6 +364,21 @@ describe("pathfinder registry validation", () => {
       "Wrong label";
     quantumModule.definition.interdisciplinaryLinks[2].targetNicheId =
       "missing-direction";
+    quantumModule.definition.interdisciplinaryLinks = [
+      ...quantumModule.definition.interdisciplinaryLinks,
+      {
+        ...structuredClone(quantumModule.definition.interdisciplinaryLinks[3]),
+        id: "different-id-for-the-same-edge",
+      },
+    ];
+    const materialsModule = registry.find(
+      (moduleEntry) =>
+        moduleEntry.lifecycle === "available" &&
+        moduleEntry.definition.identity.id === "computational-materials",
+    );
+    if (!materialsModule || materialsModule.lifecycle !== "available")
+      throw new Error("Computational materials fixture must be available.");
+    materialsModule.definition.identity.route = "/pathfinders/wrong-route";
 
     const codes = validatePathfinderRegistry(registry).issues.map(
       (entry) => entry.code,
@@ -371,5 +386,7 @@ describe("pathfinder registry validation", () => {
     expect(codes).toContain("registry.unknown-link-pathfinder");
     expect(codes).toContain("registry.link-pathfinder-name-mismatch");
     expect(codes).toContain("registry.unknown-link-direction");
+    expect(codes).toContain("registry.duplicate-link-edge");
+    expect(codes).toContain("registry.link-route-mismatch");
   });
 });
