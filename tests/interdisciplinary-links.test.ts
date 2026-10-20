@@ -2,6 +2,11 @@ import { describe, expect, it } from "vitest";
 import { pathfinderModules } from "@/data/pathfinder-modules";
 import { resolveInterdisciplinaryDestination } from "@/lib/interdisciplinary-destinations";
 import {
+  buildInterdisciplinaryGraph,
+  getIncomingInterdisciplinaryEdges,
+  getOutgoingInterdisciplinaryEdges,
+} from "@/lib/interdisciplinary-graph";
+import {
   buildInterdisciplinarySearch,
   buildInterdisciplinarySearchQueries,
   getInterdisciplinaryDestination,
@@ -97,6 +102,25 @@ describe("interdisciplinary link helpers", () => {
         pathfinderModules,
       ),
     ).toBeUndefined();
+  });
+
+  it("indexes incoming and outgoing connections without inventing edges", () => {
+    const graph = buildInterdisciplinaryGraph(pathfinderModules);
+    expect(graph.edges).toHaveLength(20);
+    expect(
+      getOutgoingInterdisciplinaryEdges(
+        graph,
+        "quantum-chemistry",
+        "charge-transfer",
+      ).map((edge) => edge.target.nicheId),
+    ).toEqual(["photovoltaic-materials"]);
+    expect(
+      getIncomingInterdisciplinaryEdges(
+        graph,
+        "quantum-chemistry",
+        "charge-transfer",
+      ).map((edge) => edge.source.nicheId),
+    ).toEqual(["photovoltaic-materials"]);
   });
 
   it("builds stable orientation, focused, and review searches", () => {
