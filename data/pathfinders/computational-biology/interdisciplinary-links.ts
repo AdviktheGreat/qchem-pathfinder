@@ -187,4 +187,35 @@ export const biologyInterdisciplinaryLinks = [
       review: ["dynamical systems time-course gene expression"],
     },
   },
+  {
+    id: "biology-metabolic-networks-qchem-reaction-mechanisms",
+    sourceNicheId: "metabolic-network-modeling",
+    connectionKinds: ["shared-question", "shared-system", "connected-scales"],
+    sharedQuestion:
+      "How do molecular reaction energetics and enzyme-level steps constrain flux through an entire metabolic network?",
+    explorationStep:
+      "Select one reaction from a metabolic model and trace how its stoichiometry, thermodynamics, and enzyme mechanism are represented at different scales.",
+    targetPathfinderId: "quantum-chemistry",
+    targetPathfinderName: "Quantum chemistry",
+    targetNicheId: "reaction-mechanisms",
+    targetNicheName: "Reaction mechanisms & transition states",
+    bridge:
+      "Molecular mechanisms and energetics can explain the local chemical steps whose stoichiometry and feasibility help constrain metabolic-network behavior.",
+    distinction:
+      "Quantum chemistry follows bond changes and transition states in one reaction; network modeling follows flux, regulation, and tradeoffs across many reactions.",
+    sharedKeywords: [
+      "enzyme reaction mechanism",
+      "metabolic flux constraints",
+      "multiscale metabolism",
+    ],
+    searchSeeds: {
+      orientation: ["metabolic network modeling", "reaction mechanisms"],
+      focused: [
+        "enzyme reaction mechanism",
+        "metabolic flux constraints",
+        "multiscale metabolism",
+      ],
+      review: ["molecular mechanisms metabolic network models"],
+    },
+  },
 ] satisfies readonly InterdisciplinaryLink[];
