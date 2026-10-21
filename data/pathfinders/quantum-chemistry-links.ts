@@ -156,4 +156,35 @@ export const quantumChemistryInterdisciplinaryLinks = [
       review: ["multiscale atmospheric chemistry transport"],
     },
   },
+  {
+    id: "qchem-spectroscopy-materials-optoelectronics",
+    sourceNicheId: "computational-spectroscopy",
+    connectionKinds: ["shared-method", "shared-application"],
+    sharedQuestion:
+      "How can computed molecular spectra help explain how an optoelectronic material absorbs and emits light?",
+    explorationStep:
+      "Compare a molecular spectrum calculation with a recent optoelectronic-materials review and match their absorption or emission language.",
+    targetPathfinderId: "computational-materials",
+    targetPathfinderName: "Computational materials",
+    targetNicheId: "optoelectronic-photonic-materials",
+    targetNicheName: "Optoelectronic & photonic materials",
+    bridge:
+      "Calculated transitions and spectra connect molecular electronic structure to the absorption and emission features used to characterize optoelectronic materials.",
+    distinction:
+      "Quantum chemistry assigns transitions in molecular models; materials research also follows packing, extended structure, interfaces, and device-scale optical behavior.",
+    sharedKeywords: [
+      "computed absorption spectra",
+      "optoelectronic materials",
+      "excited-state transitions",
+    ],
+    searchSeeds: {
+      orientation: ["computational spectroscopy", "optoelectronic materials"],
+      focused: [
+        "computed absorption spectra",
+        "optoelectronic materials",
+        "excited-state transitions",
+      ],
+      review: ["molecular spectroscopy optoelectronic materials"],
+    },
+  },
 ] satisfies readonly InterdisciplinaryLink[];
