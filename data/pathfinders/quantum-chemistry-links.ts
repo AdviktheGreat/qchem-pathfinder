@@ -249,4 +249,36 @@ export const quantumChemistryInterdisciplinaryLinks = [
       review: ["solvent effects biomolecular dynamics"],
     },
   },
+  {
+    id: "qchem-benchmarking-physics-numerical-uncertainty",
+    sourceNicheId: "method-benchmarking",
+    connectionKinds: ["shared-method", "shared-data", "shared-question"],
+    sharedQuestion:
+      "How can researchers tell whether a numerical result is accurate enough for the scientific claim being made?",
+    explorationStep:
+      "Compare the error, convergence, reference data, and computational cost reported in one chemistry benchmark and one numerical-method study.",
+    targetPathfinderId: "computational-physics",
+    targetPathfinderName: "Computational physics",
+    targetNicheId: "numerical-methods-hpc-uncertainty",
+    targetNicheName:
+      "Numerical methods, high-performance computing & uncertainty",
+    bridge:
+      "Both directions use reference solutions, convergence checks, error analysis, and computational cost to judge whether a calculation is trustworthy.",
+    distinction:
+      "Quantum-chemistry benchmarking compares electronic-structure approximations for molecular tasks; computational physics evaluates numerical algorithms across a wider range of governing models and scales.",
+    sharedKeywords: [
+      "numerical verification",
+      "uncertainty quantification",
+      "computational benchmarking",
+    ],
+    searchSeeds: {
+      orientation: ["quantum chemistry benchmarks", "numerical verification"],
+      focused: [
+        "numerical verification",
+        "uncertainty quantification",
+        "computational benchmarking",
+      ],
+      review: ["error analysis scientific computing benchmarks"],
+    },
+  },
 ] satisfies readonly InterdisciplinaryLink[];
