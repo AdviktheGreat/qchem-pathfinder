@@ -252,4 +252,35 @@ export const materialsInterdisciplinaryLinks = [
       review: ["first principles lattice spin magnetic materials"],
     },
   },
+  {
+    id: "materials-porous-storage-qchem-noncovalent",
+    sourceNicheId: "porous-separation-storage",
+    connectionKinds: ["shared-system", "shared-question", "connected-scales"],
+    sharedQuestion:
+      "How do host–guest noncovalent interactions determine which molecules a porous material captures or releases?",
+    explorationStep:
+      "Compare a local guest-binding calculation with a porous-material adsorption study and note how binding energy connects to loading and selectivity.",
+    targetPathfinderId: "quantum-chemistry",
+    targetPathfinderName: "Quantum chemistry",
+    targetNicheId: "noncovalent-interactions",
+    targetNicheName: "Noncovalent molecular interactions",
+    bridge:
+      "Electrostatics, dispersion, and hydrogen bonding help determine how strongly a guest molecule binds inside a pore and whether similar guests can be separated.",
+    distinction:
+      "Quantum chemistry resolves a local host–guest interaction; materials modeling also accounts for pore networks, loading, diffusion, and collective adsorption.",
+    sharedKeywords: [
+      "host guest interactions",
+      "adsorption binding energy",
+      "porous materials storage",
+    ],
+    searchSeeds: {
+      orientation: ["porous materials adsorption", "noncovalent interactions"],
+      focused: [
+        "host guest interactions",
+        "adsorption binding energy",
+        "porous materials storage",
+      ],
+      review: ["noncovalent interactions porous material adsorption"],
+    },
+  },
 ] satisfies readonly InterdisciplinaryLink[];
