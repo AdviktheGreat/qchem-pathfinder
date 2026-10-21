@@ -159,4 +159,35 @@ export const materialsInterdisciplinaryLinks = [
       review: ["cross-domain scientific machine learning property prediction"],
     },
   },
+  {
+    id: "materials-batteries-qchem-energy-conversion",
+    sourceNicheId: "battery-electrodes",
+    connectionKinds: ["shared-question", "connected-scales"],
+    sharedQuestion:
+      "How do molecular redox energetics and solid-state structure together control battery voltage and capacity?",
+    explorationStep:
+      "Read a computational battery review and mark which explanations depend on local redox chemistry versus extended electrode structure.",
+    targetPathfinderId: "quantum-chemistry",
+    targetPathfinderName: "Quantum chemistry",
+    targetNicheId: "energy-chemistry",
+    targetNicheName: "Molecular design for energy conversion",
+    bridge:
+      "Electronic energies and redox changes provide molecular-scale explanations for the energy conversion that occurs inside an electrode material.",
+    distinction:
+      "Quantum chemistry can isolate redox-active molecules or local motifs; materials modeling follows phases, defects, ion motion, and collective electrode behavior.",
+    sharedKeywords: [
+      "battery redox chemistry",
+      "electrode electronic structure",
+      "energy conversion materials",
+    ],
+    searchSeeds: {
+      orientation: ["battery electrode materials", "molecular redox chemistry"],
+      focused: [
+        "battery redox chemistry",
+        "electrode electronic structure",
+        "energy conversion materials",
+      ],
+      review: ["molecular redox energetics battery electrodes"],
+    },
+  },
 ] satisfies readonly InterdisciplinaryLink[];
