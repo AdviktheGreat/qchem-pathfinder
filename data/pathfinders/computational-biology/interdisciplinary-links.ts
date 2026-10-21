@@ -156,4 +156,35 @@ export const biologyInterdisciplinaryLinks = [
       review: ["statistical physics ecological dynamics"],
     },
   },
+  {
+    id: "biology-time-course-physics-nonlinear-dynamics",
+    sourceNicheId: "time-course-transcriptomics",
+    connectionKinds: ["shared-method", "shared-question", "shared-data"],
+    sharedQuestion:
+      "How do feedback and changing inputs create oscillations, transitions, or instability in gene-expression trajectories?",
+    explorationStep:
+      "Choose one time-course gene-expression study and map its trajectories onto ideas such as feedback, stability, and oscillation.",
+    targetPathfinderId: "computational-physics",
+    targetPathfinderName: "Computational physics",
+    targetNicheId: "nonlinear-dynamics-chaos",
+    targetNicheName: "Nonlinear dynamics & chaos",
+    bridge:
+      "Time-series and dynamical-system models can connect changing gene expression to feedback, stability, oscillation, and transitions between biological states.",
+    distinction:
+      "Transcriptomics keeps genes, pathways, experimental noise, and biological context explicit; nonlinear dynamics seeks general mechanisms that create temporal patterns.",
+    sharedKeywords: [
+      "gene expression dynamics",
+      "nonlinear time series",
+      "regulatory feedback",
+    ],
+    searchSeeds: {
+      orientation: ["time-course transcriptomics", "nonlinear dynamics"],
+      focused: [
+        "gene expression dynamics",
+        "nonlinear time series",
+        "regulatory feedback",
+      ],
+      review: ["dynamical systems time-course gene expression"],
+    },
+  },
 ] satisfies readonly InterdisciplinaryLink[];
