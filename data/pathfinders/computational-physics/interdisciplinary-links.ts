@@ -190,4 +190,35 @@ export const physicsInterdisciplinaryLinks = [
       review: ["open-system molecular excited-state dynamics"],
     },
   },
+  {
+    id: "physics-phase-transitions-materials-phase-stability",
+    sourceNicheId: "phase-transitions-critical-phenomena",
+    connectionKinds: ["shared-system", "shared-question", "connected-scales"],
+    sharedQuestion:
+      "How do microscopic interactions and free-energy differences determine which material phase is stable and how a transition occurs?",
+    explorationStep:
+      "Compare a computed material phase diagram with a statistical model of a phase transition and identify what each treats explicitly.",
+    targetPathfinderId: "computational-materials",
+    targetPathfinderName: "Computational materials",
+    targetNicheId: "crystal-phase-stability",
+    targetNicheName: "Crystal structure & phase stability",
+    bridge:
+      "Free energies, order parameters, fluctuations, and competing structures connect general phase-transition models to real material phase stability.",
+    distinction:
+      "Statistical physics seeks general transition behavior and critical patterns; materials modeling keeps composition, crystal structure, defects, and processing conditions explicit.",
+    sharedKeywords: [
+      "material phase transitions",
+      "free energy landscape",
+      "critical phenomena materials",
+    ],
+    searchSeeds: {
+      orientation: ["phase transition physics", "material phase stability"],
+      focused: [
+        "material phase transitions",
+        "free energy landscape",
+        "critical phenomena materials",
+      ],
+      review: ["statistical mechanics crystal phase stability"],
+    },
+  },
 ] satisfies readonly InterdisciplinaryLink[];
