@@ -159,4 +159,35 @@ export const physicsInterdisciplinaryLinks = [
       review: ["uncertainty physics-informed materials models"],
     },
   },
+  {
+    id: "physics-open-quantum-qchem-excited-states",
+    sourceNicheId: "open-quantum-systems",
+    connectionKinds: ["shared-system", "shared-method", "shared-question"],
+    sharedQuestion:
+      "How does interaction with the surroundings change the lifetime, coherence, and pathways of molecular excited states?",
+    explorationStep:
+      "Read an introductory molecular photochemistry example that uses open-system language and identify the modeled system, environment, and relaxation process.",
+    targetPathfinderId: "quantum-chemistry",
+    targetPathfinderName: "Quantum chemistry",
+    targetNicheId: "excited-states",
+    targetNicheName: "Excited states & molecular photochemistry",
+    bridge:
+      "Open-system models describe decoherence, relaxation, and energy exchange that can shape how a photoexcited molecule evolves after absorbing light.",
+    distinction:
+      "Computational physics often emphasizes general reduced-dynamics models; quantum chemistry keeps molecular electronic states, structure, and chemical outcomes explicit.",
+    sharedKeywords: [
+      "open quantum systems",
+      "excited-state relaxation",
+      "environmental decoherence",
+    ],
+    searchSeeds: {
+      orientation: ["open quantum systems", "molecular photochemistry"],
+      focused: [
+        "open quantum systems",
+        "excited-state relaxation",
+        "environmental decoherence",
+      ],
+      review: ["open-system molecular excited-state dynamics"],
+    },
+  },
 ] satisfies readonly InterdisciplinaryLink[];
