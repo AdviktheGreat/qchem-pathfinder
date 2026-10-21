@@ -1,18 +1,18 @@
 # Research Pathfinder release verification
 
-Verified October 19, 2026 against the local production build after completing Interdisciplinary Bridges Phase 1.
+Verified October 20, 2026 against the local production build after completing Interdisciplinary Bridges Phase 2.
 
 ## Automated release gate
 
 - Prettier passed for the application, components, data, libraries, tests, documentation, and README.
 - ESLint and TypeScript checks passed.
-- Vitest passed all 618 tests across 102 files.
+- Vitest passed all 619 tests across 102 files.
 - The Next.js production build passed and statically prerendered the hub, not-found page, and all four pathfinder routes.
 - Manifest coverage confirms that the registry, definition lookup, hub catalog, switcher destinations, lifecycle boundaries, route metadata, IDs, routes, and storage namespaces remain aligned.
 - The type-checked authoring template assembles into a complete module, supports adaptive journeys and stable profile export, and remains deliberately absent from the live registry and production routes.
 - Definition, manifest, and complete-registry validation passed for every released module; focused failure cases cover malformed identities, surveys, branches, scoring evidence, taxonomies, search data, preparation mappings, results mappings, and cross-module collisions.
-- All 20 curated interdisciplinary bridges passed local source, connection-category, shared-question, first-step, search-seed, canonical cross-registry target, label, route, graph-edge, keyword, editorial-quality, and global-ID validation across the four released modules.
-- Interdisciplinary graph coverage confirms all 20 released links resolve into deterministic incoming and outgoing edges, every module has both kinds of coverage, and destination and connection grouping remain score-free.
+- All 35 curated interdisciplinary bridges passed local source, connection-category, shared-question, first-step, search-seed, canonical cross-registry target, label, route, graph-edge, keyword, editorial-quality, and global-ID validation across the four released modules.
+- Interdisciplinary graph coverage confirms all 35 released links resolve into deterministic incoming and outgoing edges, every module has both kinds of coverage, the planned 9/9/9/8 source distribution is intact, and destination and connection grouping remain score-free.
 - Rendered bridge coverage confirms conditional display, accessible disclosure and navigation labels, copy feedback, results-nav focus movement, and the unconnected-result fallback.
 - Hub-orientation coverage validates all four released profiles, every shared signal dimension, malformed and unavailable configurations, uncertainty neutrality, close and tied results, evidence consolidation, transparent reasons, and complete coherent journeys that make every module the leading suggestion.
 - Rendered hub-orientation coverage exercises the optional introduction, five core questions, both adaptive boundary questions, honest uncertainty, exact progress semantics, branch-answer cleanup after edits, answer-grounded fit groups, primary and alternative results, interdisciplinary guidance, direct pathfinder launches, review, restart isolation, refresh restoration, and the all-open fallback.

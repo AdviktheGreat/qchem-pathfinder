@@ -221,4 +221,35 @@ export const physicsInterdisciplinaryLinks = [
       review: ["statistical mechanics crystal phase stability"],
     },
   },
+  {
+    id: "physics-climate-biology-ecology",
+    sourceNicheId: "climate-earth-system-modeling",
+    connectionKinds: ["shared-system", "shared-question", "connected-scales"],
+    sharedQuestion:
+      "How do changing climate drivers alter species ranges, community interactions, and biodiversity over time?",
+    explorationStep:
+      "Choose one climate-impact study and trace how a physical climate variable becomes an input, constraint, or uncertainty in its ecological model.",
+    targetPathfinderId: "computational-biology",
+    targetPathfinderName: "Computational biology",
+    targetNicheId: "computational-ecology-biodiversity",
+    targetNicheName: "Computational ecology & biodiversity modeling",
+    bridge:
+      "Earth-system simulations provide changing temperature, precipitation, and disturbance patterns that ecological models use to investigate populations and biodiversity.",
+    distinction:
+      "Climate modeling centers coupled atmosphere, ocean, land, and energy flows; computational ecology centers organisms, communities, habitats, and biological observations.",
+    sharedKeywords: [
+      "climate biodiversity modeling",
+      "species distribution change",
+      "coupled Earth ecology",
+    ],
+    searchSeeds: {
+      orientation: ["climate Earth-system modeling", "computational ecology"],
+      focused: [
+        "climate biodiversity modeling",
+        "species distribution change",
+        "coupled Earth ecology",
+      ],
+      review: ["climate impacts biodiversity models"],
+    },
+  },
 ] satisfies readonly InterdisciplinaryLink[];

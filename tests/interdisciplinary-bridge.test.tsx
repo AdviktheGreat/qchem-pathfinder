@@ -10,7 +10,9 @@ import {
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { InterdisciplinaryBridge } from "@/components/InterdisciplinaryBridge";
 import { ResultsScreen } from "@/components/ResultsScreen";
+import { pathfinderModules } from "@/data/pathfinder-modules";
 import { quantumChemistryInterdisciplinaryLinks } from "@/data/pathfinders/quantum-chemistry-links";
+import { getInterdisciplinaryDestination } from "@/lib/interdisciplinary-links";
 
 const handlers = {
   onExploreNearby: vi.fn(),
@@ -88,11 +90,31 @@ describe("interdisciplinary result bridges", () => {
       <ResultsScreen
         {...handlers}
         answers={{}}
-        primaryOverride="method-benchmarking"
+        primaryOverride="fundamental-electronic-structure"
       />,
     );
     expect(
       within(navigation).queryByRole("link", { name: "Field bridge" }),
     ).toBeNull();
+  });
+
+  it("renders every released bridge with a reachable destination", () => {
+    for (const moduleEntry of pathfinderModules) {
+      for (const link of moduleEntry.definition.interdisciplinaryLinks) {
+        const { unmount } = render(<InterdisciplinaryBridge links={[link]} />);
+        const region = screen.getByRole("region", {
+          name: "See where this direction meets another field.",
+        });
+        expect(within(region).getByText(link.targetNicheName)).toBeDefined();
+        expect(
+          within(region)
+            .getByRole("link", {
+              name: `Open ${link.targetPathfinderName} pathfinder`,
+            })
+            .getAttribute("href"),
+        ).toBe(getInterdisciplinaryDestination(link));
+        unmount();
+      }
+    }
   });
 });

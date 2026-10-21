@@ -113,7 +113,7 @@ describe("interdisciplinary link helpers", () => {
 
   it("indexes incoming and outgoing connections without inventing edges", () => {
     const graph = buildInterdisciplinaryGraph(pathfinderModules);
-    expect(graph.edges).toHaveLength(34);
+    expect(graph.edges).toHaveLength(35);
     expect(
       getOutgoingInterdisciplinaryEdges(
         graph,
@@ -239,12 +239,25 @@ describe("released interdisciplinary link coverage", () => {
     }
   });
 
-  it("ships thirty-four curated bridges across the four current subjects", () => {
+  it("ships thirty-five curated bridges with the planned field distribution", () => {
+    expect(
+      Object.fromEntries(
+        definitions.map((definition) => [
+          definition.identity.id,
+          definition.interdisciplinaryLinks.length,
+        ]),
+      ),
+    ).toEqual({
+      "quantum-chemistry": 9,
+      "computational-materials": 9,
+      "computational-biology": 9,
+      "computational-physics": 8,
+    });
     expect(
       definitions.reduce(
         (total, definition) => total + definition.interdisciplinaryLinks.length,
         0,
       ),
-    ).toBe(34);
+    ).toBe(35);
   });
 });
