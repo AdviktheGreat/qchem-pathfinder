@@ -187,4 +187,35 @@ export const quantumChemistryInterdisciplinaryLinks = [
       review: ["molecular spectroscopy optoelectronic materials"],
     },
   },
+  {
+    id: "qchem-astrochemistry-physics-stellar-evolution",
+    sourceNicheId: "astrochemical-systems",
+    connectionKinds: ["shared-system", "connected-scales"],
+    sharedQuestion:
+      "How do stellar temperature, density, radiation, and time shape which molecules can form and survive?",
+    explorationStep:
+      "Read an overview of molecules in stellar environments and separate the molecular inputs from the stellar conditions supplied by the larger model.",
+    targetPathfinderId: "computational-physics",
+    targetPathfinderName: "Computational physics",
+    targetNicheId: "stellar-structure-evolution",
+    targetNicheName: "Stellar structure & evolution",
+    bridge:
+      "Quantum chemistry supplies molecular spectra, reaction energetics, and stability data, while stellar models supply the evolving physical conditions in which that chemistry occurs.",
+    distinction:
+      "Astrochemical calculations center individual species and reactions; stellar modeling centers the structure and evolution of an entire star.",
+    sharedKeywords: [
+      "stellar molecular chemistry",
+      "astrochemical reaction networks",
+      "stellar evolution",
+    ],
+    searchSeeds: {
+      orientation: ["quantum astrochemistry", "stellar astrophysics"],
+      focused: [
+        "stellar molecular chemistry",
+        "astrochemical reaction networks",
+        "stellar evolution",
+      ],
+      review: ["molecular chemistry stellar environments"],
+    },
+  },
 ] satisfies readonly InterdisciplinaryLink[];

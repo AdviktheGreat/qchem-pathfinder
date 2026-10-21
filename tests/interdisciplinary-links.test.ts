@@ -113,7 +113,7 @@ describe("interdisciplinary link helpers", () => {
 
   it("indexes incoming and outgoing connections without inventing edges", () => {
     const graph = buildInterdisciplinaryGraph(pathfinderModules);
-    expect(graph.edges).toHaveLength(21);
+    expect(graph.edges).toHaveLength(22);
     expect(
       getOutgoingInterdisciplinaryEdges(
         graph,
@@ -145,7 +145,7 @@ describe("interdisciplinary link helpers", () => {
     ).toEqual([
       ["computational-materials", 4],
       ["computational-biology", 1],
-      ["computational-physics", 1],
+      ["computational-physics", 2],
     ]);
     expect(
       groupInterdisciplinaryEdgesByConnection(quantumEdges).map(
@@ -239,12 +239,12 @@ describe("released interdisciplinary link coverage", () => {
     }
   });
 
-  it("ships twenty-one curated bridges across the four current subjects", () => {
+  it("ships twenty-two curated bridges across the four current subjects", () => {
     expect(
       definitions.reduce(
         (total, definition) => total + definition.interdisciplinaryLinks.length,
         0,
       ),
-    ).toBe(21);
+    ).toBe(22);
   });
 });
