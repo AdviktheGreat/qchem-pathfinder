@@ -252,4 +252,35 @@ export const biologyInterdisciplinaryLinks = [
       review: ["scientific method benchmark design"],
     },
   },
+  {
+    id: "biology-biomolecular-dynamics-materials-soft-matter",
+    sourceNicheId: "biomolecular-simulation-dynamics",
+    connectionKinds: ["shared-system", "shared-method", "connected-scales"],
+    sharedQuestion:
+      "How do chain flexibility, interactions, and solvent conditions shape the dynamics of biomolecules and synthetic polymers?",
+    explorationStep:
+      "Compare a biomolecular simulation with a polymer or soft-matter simulation and list the observables and approximations they share.",
+    targetPathfinderId: "computational-materials",
+    targetPathfinderName: "Computational materials",
+    targetNicheId: "polymers-soft-materials",
+    targetNicheName: "Polymers & soft-material simulation",
+    bridge:
+      "Both directions use molecular dynamics, coarse-grained models, and free-energy ideas to study flexible chains, assemblies, and solvent-dependent structure.",
+    distinction:
+      "Computational biology keeps biological sequence and function central; soft-material modeling often centers synthetic composition, processing, and material properties.",
+    sharedKeywords: [
+      "polymer conformational dynamics",
+      "coarse-grained simulation",
+      "soft matter biomolecules",
+    ],
+    searchSeeds: {
+      orientation: ["biomolecular dynamics", "polymer soft matter simulation"],
+      focused: [
+        "polymer conformational dynamics",
+        "coarse-grained simulation",
+        "soft matter biomolecules",
+      ],
+      review: ["biomolecules polymer physics simulation"],
+    },
+  },
 ] satisfies readonly InterdisciplinaryLink[];
