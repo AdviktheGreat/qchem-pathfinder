@@ -218,4 +218,38 @@ export const biologyInterdisciplinaryLinks = [
       review: ["molecular mechanisms metabolic network models"],
     },
   },
+  {
+    id: "biology-benchmarking-qchem-method-benchmarking",
+    sourceNicheId: "bioinformatics-method-benchmarking",
+    connectionKinds: ["shared-method", "shared-data", "shared-question"],
+    sharedQuestion:
+      "How can reference datasets and evaluation metrics reveal where a computational method generalizes or fails?",
+    explorationStep:
+      "Compare one bioinformatics benchmark with one quantum-chemistry benchmark, focusing on reference data, metrics, baselines, and stated limits.",
+    targetPathfinderId: "quantum-chemistry",
+    targetPathfinderName: "Quantum chemistry",
+    targetNicheId: "method-benchmarking",
+    targetNicheName: "Benchmarking computational methods",
+    bridge:
+      "Both directions design reference sets and comparisons that separate genuine method performance from favorable examples or misleading averages.",
+    distinction:
+      "Bioinformatics benchmarks often use sequences, structures, and experimental labels; quantum-chemistry benchmarks often use molecular energies, properties, and higher-level calculations.",
+    sharedKeywords: [
+      "benchmark dataset design",
+      "method comparison metrics",
+      "reference data quality",
+    ],
+    searchSeeds: {
+      orientation: [
+        "bioinformatics benchmarking",
+        "computational chemistry benchmarking",
+      ],
+      focused: [
+        "benchmark dataset design",
+        "method comparison metrics",
+        "reference data quality",
+      ],
+      review: ["scientific method benchmark design"],
+    },
+  },
 ] satisfies readonly InterdisciplinaryLink[];
