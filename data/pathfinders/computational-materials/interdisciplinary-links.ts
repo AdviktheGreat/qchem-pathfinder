@@ -190,4 +190,35 @@ export const materialsInterdisciplinaryLinks = [
       review: ["molecular redox energetics battery electrodes"],
     },
   },
+  {
+    id: "materials-solid-electrolytes-physics-transport",
+    sourceNicheId: "solid-electrolytes-ion-transport",
+    connectionKinds: ["shared-method", "shared-question", "connected-scales"],
+    sharedQuestion:
+      "How do microscopic ion hops combine into macroscopic transport through a heterogeneous material?",
+    explorationStep:
+      "Compare an atomistic ion-diffusion study with a continuum transport model and trace which measured or computed quantities connect them.",
+    targetPathfinderId: "computational-physics",
+    targetPathfinderName: "Computational physics",
+    targetNicheId: "transport-multiphase-flow",
+    targetNicheName: "Transport & multiphase flow",
+    bridge:
+      "Diffusion coefficients and interface properties from solid-electrolyte models can become inputs to larger transport equations across heterogeneous regions.",
+    distinction:
+      "Materials research centers how atomic structure and defects enable ion motion; transport physics emphasizes conservation laws, fields, and effective behavior across larger scales.",
+    sharedKeywords: [
+      "ion transport modeling",
+      "multiscale diffusion",
+      "heterogeneous transport",
+    ],
+    searchSeeds: {
+      orientation: ["solid electrolyte ion transport", "transport physics"],
+      focused: [
+        "ion transport modeling",
+        "multiscale diffusion",
+        "heterogeneous transport",
+      ],
+      review: ["atomistic continuum ion transport"],
+    },
+  },
 ] satisfies readonly InterdisciplinaryLink[];
