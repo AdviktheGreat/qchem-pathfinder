@@ -221,4 +221,35 @@ export const materialsInterdisciplinaryLinks = [
       review: ["atomistic continuum ion transport"],
     },
   },
+  {
+    id: "materials-spintronics-physics-lattice-spin",
+    sourceNicheId: "magnetic-spintronic-materials",
+    connectionKinds: ["shared-system", "shared-method", "connected-scales"],
+    sharedQuestion:
+      "How do atomic-scale magnetic interactions produce collective ordering, switching, or spin transport in a material?",
+    explorationStep:
+      "Find a study that derives spin-model parameters from a real material, then follow how those parameters enter a lattice simulation.",
+    targetPathfinderId: "computational-physics",
+    targetPathfinderName: "Computational physics",
+    targetNicheId: "lattice-spin-models",
+    targetNicheName: "Lattice, spin & magnetic models",
+    bridge:
+      "A material calculation can supply exchange interactions and magnetic anisotropy that a lattice or spin model uses to study collective behavior.",
+    distinction:
+      "Materials modeling centers a particular composition, structure, or device property; spin-model physics centers the collective consequences of an interaction model.",
+    sharedKeywords: [
+      "spin Hamiltonian",
+      "magnetic materials modeling",
+      "exchange interactions",
+    ],
+    searchSeeds: {
+      orientation: ["spintronic materials", "lattice spin models"],
+      focused: [
+        "spin Hamiltonian",
+        "magnetic materials modeling",
+        "exchange interactions",
+      ],
+      review: ["first principles lattice spin magnetic materials"],
+    },
+  },
 ] satisfies readonly InterdisciplinaryLink[];
