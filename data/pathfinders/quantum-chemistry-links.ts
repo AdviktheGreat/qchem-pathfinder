@@ -218,4 +218,35 @@ export const quantumChemistryInterdisciplinaryLinks = [
       review: ["molecular chemistry stellar environments"],
     },
   },
+  {
+    id: "qchem-solvation-biology-biomolecular-dynamics",
+    sourceNicheId: "solvation-effects",
+    connectionKinds: ["shared-system", "connected-scales"],
+    sharedQuestion:
+      "How does the surrounding solvent reshape biomolecular structure, motion, and binding?",
+    explorationStep:
+      "Compare how one biomolecular simulation review uses implicit and explicit solvent, then identify where electronic solvation models add detail.",
+    targetPathfinderId: "computational-biology",
+    targetPathfinderName: "Computational biology",
+    targetNicheId: "biomolecular-simulation-dynamics",
+    targetNicheName: "Biomolecular simulation & conformational dynamics",
+    bridge:
+      "Solvation energies and local water structure help explain the forces that biomolecular simulations follow across conformations and time.",
+    distinction:
+      "Quantum chemistry often resolves solvent effects for smaller electronic models; computational biology follows larger conformational ensembles over longer motions.",
+    sharedKeywords: [
+      "biomolecular solvation",
+      "explicit solvent simulation",
+      "solvent effects binding",
+    ],
+    searchSeeds: {
+      orientation: ["solvation chemistry", "biomolecular simulation"],
+      focused: [
+        "biomolecular solvation",
+        "explicit solvent simulation",
+        "solvent effects binding",
+      ],
+      review: ["solvent effects biomolecular dynamics"],
+    },
+  },
 ] satisfies readonly InterdisciplinaryLink[];
