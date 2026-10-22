@@ -76,3 +76,56 @@ Definition validation checks IDs, source directions, target separation, copy com
 5. Inspect incoming and outgoing graph coverage. Do not add a reverse link unless its framing is independently useful.
 6. Add coverage when introducing a new target subject, rendering pattern, or unusual bridge.
 7. Run the full release gate and review the connected result at phone and desktop widths.
+
+## Instructor review workflow
+
+An instructor can revise student-facing bridge language without changing ranking behavior: bridge records are presentation and exploration data, not recommendation weights. Review the source result and destination direction together before editing.
+
+1. Read the source niche, target niche, and existing row in the [scientific review matrix](interdisciplinary-bridge-review-matrix.md).
+2. Check that `sharedQuestion` is answerable from both fields and that `distinction` clearly names the different system, scale, evidence, or goal.
+3. Read the generated orientation, focused, and review queries aloud. They should use real disciplinary vocabulary without assuming a specific paper exists.
+4. Keep the first step manageable for a student beginning a literature review; it should say what kind of source or comparison to begin with.
+5. Update the matrix row’s evidence basis, boundary, and terminology whenever the scientific framing changes.
+6. Preview the source result, exported profile, print layout, destination arrival banner, and return link.
+
+Passing tests protect structure and consistency, but they do not replace subject-matter review. When a bridge crosses expertise areas, ask a reviewer familiar with both sides or two reviewers with complementary expertise.
+
+## Maintainer change recipes
+
+### Add a bridge
+
+1. Add one typed record to the source module’s `interdisciplinary-links.ts` file. Use a globally unique ID whose words make the source and destination recognizable.
+2. Copy canonical IDs and labels from the registered definitions; do not retype a shortened display name.
+3. Add the new ID to the scientific review matrix after editorial review.
+4. Confirm the source module still connects selectively to at least two neighboring fields and uses varied connection kinds.
+5. Add a rendered journey if the bridge introduces a new destination pattern or UI state.
+
+### Revise or rename a bridge
+
+- Copy-only changes should preserve the ID unless the scientific relationship itself changes.
+- A renamed module or niche must update every incoming bridge label. Registry validation reports stale names and IDs with the exact source link path.
+- If a niche ID changes, update its local source references, all incoming `targetNicheId` values, and saved-data migration rules if the niche can be persisted as a chosen result.
+- Search-seed changes must keep all three levels non-empty and distinct. Verify the generated query, not only the seed array.
+
+### Remove a bridge
+
+- Remove the source record and its review-matrix row together.
+- Check whether the removal drops a released module below the network coverage standard.
+- Confirm a result with that source niche now omits the field-bridge section cleanly.
+- Old shared URLs are allowed to lose their arrival banner; destination progress remains unaffected because bridge context is optional.
+
+## Focused verification commands
+
+Run structural, graph, network, and editorial checks while editing data:
+
+```bash
+npm test -- --run tests/pathfinder-validation.test.ts tests/interdisciplinary-links.test.ts tests/interdisciplinary-graph.test.ts tests/interdisciplinary-review-matrix.test.ts
+```
+
+Run student-journey, isolation, export, keyboard, accessibility, and layout checks while editing presentation code:
+
+```bash
+npm test -- --run tests/interdisciplinary-journeys.test.tsx tests/interdisciplinary-context-isolation.test.tsx tests/interdisciplinary-bridge.test.tsx tests/interdisciplinary-accessibility-styles.test.ts tests/interdisciplinary-layout.test.tsx tests/interdisciplinary-responsive.test.ts tests/export-persistence.test.ts
+```
+
+Before release, run formatting, lint, type checking, the complete test suite, and the production build. In a real browser, review at least one bridge from every pathfinder, one unconnected result, keyboard tab changes, copy feedback, destination arrival and return, refresh restoration, print preview, 200% zoom, a phone viewport, reduced motion, and forced colors or an equivalent high-contrast mode.

@@ -57,6 +57,7 @@ lib/interdisciplinary-links.ts Typed cross-subject content and search helpers
 lib/interdisciplinary-destinations.ts Canonical bridge destination resolution
 lib/interdisciplinary-graph.ts Incoming, outgoing, and grouped bridge views
 data/pathfinders/**/interdisciplinary-links.ts Curated adjacent-field bridges
+docs/interdisciplinary-bridge-review-matrix.md Scientific review record for all released bridges
 tests/fixtures/         Complete, validated student paths for all four modules
 tests/                  Unit and rendered-component journey tests
 templates/              Type-checked, unregistered module authoring reference
@@ -80,7 +81,7 @@ Pathfinder registration and availability are controlled in `data/pathfinder-modu
 
 See [the pathfinder platform contract](docs/pathfinder-platform.md) before adding another active module.
 
-The hub introduces the four released pathfinders as a connected collection, with 35 selective interdisciplinary bridges. A connected result names the relationship category, shared question, two research lenses, practical first step, and three independently copyable searches. Students can copy a complete bridge note, follow typed context into the neighboring pathfinder, and return to the original saved result; bridge content also appears in plain-text profiles and printouts. Canonical arrival and graph validation keeps these links aligned as modules evolve, while bridges never compare scores or transfer answers. See [the interdisciplinary link contract](docs/interdisciplinary-links.md) before editing or adding one.
+The hub introduces the four released pathfinders as a connected collection, with 35 selective interdisciplinary bridges. A connected result names the relationship category, shared question, two research lenses, practical first step, and three independently copyable searches. Students can copy a complete bridge note, follow typed context into the neighboring pathfinder, and return to the original saved result; bridge content also appears in plain-text profiles and printouts. Canonical arrival and graph validation keeps these links aligned as modules evolve, while bridges never compare scores or transfer answers. See [the interdisciplinary link contract](docs/interdisciplinary-links.md) before editing or adding one, and update the [scientific review matrix](docs/interdisciplinary-bridge-review-matrix.md) whenever its scientific framing changes.
 
 ## How adaptation works
 
@@ -139,6 +140,8 @@ Instructor-editable supporting copy lives in `data/fit-labels.ts`, `data/reading
 `npm test` runs unit and jsdom component tests. Quantum chemistry fixtures cover medicine, energy/materials, spectroscopy, reactions, machine learning, and extensive uncertainty. Materials fixtures cover energy storage, electronics, light and sensing, catalysis, soft materials, machine learning, and extensive uncertainty. Biology fixtures cover health and variants, therapeutic protein structure, comparative genomics, spatial biology, microbiomes, machine learning, and extensive uncertainty. Physics fixtures cover astrophysics, quantum systems, plasma and fusion, fluid and Earth systems, particle and nuclear physics, computational methods, and extensive uncertainty. Rendered journeys exercise introduction, answer controls, adaptive questions, results, export preview, review, refresh restoration, branch edits, and manually selected alternatives.
 
 Coverage also checks all 18 qchem, all 22 materials, all 24 biology, and all 28 physics niches can become the **primary** result through complete visible paths; calibration independence; ties and conflicting interests; honest uncertainty labels; shared preparation/export content; saved-data repair; chosen-direction refresh recovery; keyboard navigation; focus; and shortcut settings. These are not substitutes for browser, assistive-technology, or scientific review. After UI changes, review introduction, survey, and results at desktop, tablet, and phone widths, including refresh and alternative selection.
+
+Interdisciplinary coverage separately verifies all 35 graph edges, incoming and outgoing grouping, malformed metadata, canonical identity drift, selective network standards, a connected result journey from every pathfinder, destination-progress isolation, exported and printed boundaries, keyboard and screen-reader semantics, contrast and motion fallbacks, responsive layouts, and the complete scientific review matrix. Focused commands and maintainer change recipes live in the [interdisciplinary link guide](docs/interdisciplinary-links.md).
 
 `tests/taxonomy.test.ts` also protects the instructor-edited content: direction IDs and names must stay unique, every literature launchpad must remain complete, starter keyword counts stay manageable, and explanation rules must refer to signals the niche actually scores.
 
