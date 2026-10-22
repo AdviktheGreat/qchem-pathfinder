@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight, Network, Search } from "lucide-react";
 import { CopyButton } from "@/components/CopyButton";
+import { InterdisciplinarySearchPanel } from "@/components/InterdisciplinarySearchPanel";
 import {
   buildInterdisciplinarySearch,
   getInterdisciplinaryDestination,
@@ -66,7 +67,8 @@ export function InterdisciplinaryBridge({
                 {link.connectionKinds
                   .map(getInterdisciplinaryConnectionLabel)
                   .join(", ")
-                  .toLocaleLowerCase()}.
+                  .toLocaleLowerCase()}
+                .
               </p>
               <div className="interdisciplinary-shared-question">
                 <span>Shared research question</span>
@@ -106,6 +108,7 @@ export function InterdisciplinaryBridge({
                   <span key={keyword}>{keyword}</span>
                 ))}
               </div>
+              <InterdisciplinarySearchPanel link={link} />
               <div className="interdisciplinary-actions">
                 <Link href={getInterdisciplinaryDestination(link)}>
                   Open {link.targetPathfinderName} pathfinder

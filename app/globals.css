@@ -4311,6 +4311,68 @@ h2 {
   border-color: color-mix(in srgb, var(--violet) 24%, var(--line));
   background: #f2eefb;
 }
+.interdisciplinary-search-panel {
+  margin-top: 1rem;
+  padding: 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--violet) 18%, var(--line));
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.62);
+}
+.interdisciplinary-search-heading {
+  display: grid;
+  gap: 0.2rem;
+}
+.interdisciplinary-search-heading strong {
+  color: var(--ink);
+  font-size: 0.78rem;
+}
+.interdisciplinary-search-heading span {
+  color: var(--muted);
+  font-size: 0.7rem;
+  line-height: 1.45;
+}
+.interdisciplinary-search-tabs {
+  display: flex;
+  gap: 0.3rem;
+  margin-top: 0.75rem;
+  padding: 0.2rem;
+  border-radius: 999px;
+  background: var(--stage-soft);
+}
+.interdisciplinary-search-tabs button {
+  flex: 1;
+  min-height: 34px;
+  padding: 0.35rem 0.45rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.68rem;
+  font-weight: 740;
+  cursor: pointer;
+}
+.interdisciplinary-search-tabs button[aria-selected="true"] {
+  background: white;
+  color: var(--violet);
+  box-shadow: 0 1px 5px rgba(43, 35, 70, 0.12);
+}
+.interdisciplinary-search-query {
+  margin-top: 0.7rem;
+}
+.interdisciplinary-search-query p {
+  margin: 0 0 0.4rem;
+  color: var(--muted);
+  font-size: 0.68rem;
+}
+.interdisciplinary-search-query code {
+  display: block;
+  overflow-wrap: anywhere;
+  color: var(--ink-soft);
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.74rem;
+  line-height: 1.5;
+}
 .interdisciplinary-actions {
   display: flex;
   flex-wrap: wrap;

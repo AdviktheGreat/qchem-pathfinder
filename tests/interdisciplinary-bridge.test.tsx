@@ -12,7 +12,10 @@ import { InterdisciplinaryBridge } from "@/components/InterdisciplinaryBridge";
 import { ResultsScreen } from "@/components/ResultsScreen";
 import { pathfinderModules } from "@/data/pathfinder-modules";
 import { quantumChemistryInterdisciplinaryLinks } from "@/data/pathfinders/quantum-chemistry-links";
-import { getInterdisciplinaryDestination } from "@/lib/interdisciplinary-links";
+import {
+  buildInterdisciplinarySearchQueries,
+  getInterdisciplinaryDestination,
+} from "@/lib/interdisciplinary-links";
 
 const handlers = {
   onExploreNearby: vi.fn(),
@@ -89,6 +92,23 @@ describe("interdisciplinary result bridges", () => {
     expect(within(lensComparison).getByText(link.distinction)).toBeDefined();
     expect(within(region).getByText("Try this first")).toBeDefined();
     expect(within(region).getByText(link.explorationStep)).toBeDefined();
+    const searches = within(region).getByRole("region", {
+      name: `Bridge searches for ${link.targetNicheName}`,
+    });
+    const queries = buildInterdisciplinarySearchQueries(link);
+    expect(
+      within(searches)
+        .getByRole("tab", { name: "Orientation" })
+        .getAttribute("aria-selected"),
+    ).toBe("true");
+    expect(within(searches).getByText(queries.orientation)).toBeDefined();
+    fireEvent.click(within(searches).getByRole("tab", { name: "Focused" }));
+    expect(
+      within(searches)
+        .getByRole("tab", { name: "Focused" })
+        .getAttribute("aria-selected"),
+    ).toBe("true");
+    expect(within(searches).getByText(queries.focused)).toBeDefined();
 
     fireEvent.click(
       within(region).getByRole("button", {
