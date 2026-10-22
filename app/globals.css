@@ -4197,8 +4197,7 @@ h2 {
   font-size: 1.55rem;
   line-height: 1.1;
 }
-.interdisciplinary-grid article > p,
-.interdisciplinary-grid details p {
+.interdisciplinary-grid article > p {
   color: var(--ink-soft);
   font-size: 0.82rem;
   line-height: 1.6;
@@ -4293,16 +4292,41 @@ h2 {
   font-size: 0.76rem;
   line-height: 1.5;
 }
-.interdisciplinary-grid details {
-  margin: 1rem 0;
-  padding-top: 0.8rem;
-  border-top: 1px solid var(--line);
+.interdisciplinary-disclosure {
+  align-self: start;
+  border: 1px solid color-mix(in srgb, var(--violet) 22%, var(--line));
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.52);
+  overflow: clip;
 }
-.interdisciplinary-grid summary {
+.interdisciplinary-disclosure > summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  min-height: 54px;
+  padding: 0.75rem 1rem;
   color: var(--violet);
-  font-size: 0.75rem;
+  font-size: 0.77rem;
   font-weight: 780;
   cursor: pointer;
+  list-style: none;
+}
+.interdisciplinary-disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+.interdisciplinary-disclosure > summary small {
+  color: var(--muted);
+  font-size: 0.64rem;
+  font-weight: 700;
+}
+.interdisciplinary-disclosure[open] > summary {
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--violet) 5%, white);
+}
+.interdisciplinary-disclosure > article {
+  border: 0;
+  border-radius: 0;
 }
 .interdisciplinary-keywords {
   margin: 1rem 0;

@@ -171,6 +171,29 @@ describe("interdisciplinary result bridges", () => {
     ).toBeNull();
   });
 
+  it("uses calm disclosures when several neighboring bridges are available", () => {
+    const { container } = render(
+      <InterdisciplinaryBridge
+        links={quantumChemistryInterdisciplinaryLinks.slice(0, 2)}
+        sourceDirectionName="Charge-transfer directions"
+      />,
+    );
+
+    const disclosures = container.querySelectorAll(
+      "details.interdisciplinary-disclosure",
+    );
+    expect(disclosures).toHaveLength(2);
+    expect(disclosures[0].hasAttribute("open")).toBe(true);
+    expect(disclosures[1].hasAttribute("open")).toBe(false);
+
+    fireEvent.click(
+      screen.getByText(
+        `Explore ${quantumChemistryInterdisciplinaryLinks[1].targetNicheName}`,
+      ),
+    );
+    expect(disclosures[1].hasAttribute("open")).toBe(true);
+  });
+
   it("renders every released bridge with a reachable destination", () => {
     for (const moduleEntry of pathfinderModules) {
       for (const link of moduleEntry.definition.interdisciplinaryLinks) {

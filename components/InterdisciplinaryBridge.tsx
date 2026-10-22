@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Fragment } from "react";
 import { ArrowUpRight, Network, Search } from "lucide-react";
 import { CopyButton } from "@/components/CopyButton";
 import { InterdisciplinarySearchPanel } from "@/components/InterdisciplinarySearchPanel";
@@ -41,9 +42,9 @@ export function InterdisciplinaryBridge({
       </div>
 
       <div className="interdisciplinary-grid">
-        {links.map((link) => {
-          return (
-            <article key={link.id}>
+        {links.map((link, index) => {
+          const card = (
+            <article>
               <span className="interdisciplinary-subject">
                 {link.targetPathfinderName}
               </span>
@@ -94,10 +95,6 @@ export function InterdisciplinaryBridge({
                 <span>Try this first</span>
                 <p>{link.explorationStep}</p>
               </div>
-              <details>
-                <summary>How the fields differ</summary>
-                <p>{link.distinction}</p>
-              </details>
               <div
                 className="tag-list interdisciplinary-keywords"
                 role="group"
@@ -123,6 +120,21 @@ export function InterdisciplinaryBridge({
                 />
               </div>
             </article>
+          );
+          return links.length > 1 ? (
+            <details
+              className="interdisciplinary-disclosure"
+              open={index === 0}
+              key={link.id}
+            >
+              <summary>
+                <span>Explore {link.targetNicheName}</span>
+                <small>{index === 0 ? "Open" : "View bridge"}</small>
+              </summary>
+              {card}
+            </details>
+          ) : (
+            <Fragment key={link.id}>{card}</Fragment>
           );
         })}
       </div>
