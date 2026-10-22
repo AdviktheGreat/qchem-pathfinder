@@ -45,6 +45,10 @@ export interface InterdisciplinaryBridgeNoteContext {
   sourceDirectionName: string;
 }
 
+export interface InterdisciplinaryNavigationContext {
+  sourcePathfinderId: string;
+}
+
 export interface InterdisciplinaryLink {
   id: string;
   sourceNicheId: string;
@@ -70,8 +74,18 @@ export function getInterdisciplinaryLinksForDirection(
 
 export function getInterdisciplinaryDestination(
   link: InterdisciplinaryLink,
+  context?: InterdisciplinaryNavigationContext,
 ): string {
-  return `/pathfinders/${link.targetPathfinderId}`;
+  const pathname = `/pathfinders/${link.targetPathfinderId}`;
+  if (!context) return pathname;
+
+  const params = new URLSearchParams({
+    from: context.sourcePathfinderId,
+    source: link.sourceNicheId,
+    bridge: link.id,
+    target: link.targetNicheId,
+  });
+  return `${pathname}?${params.toString()}`;
 }
 
 export function buildInterdisciplinarySearch(

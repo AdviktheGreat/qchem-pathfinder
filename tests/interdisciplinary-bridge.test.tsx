@@ -44,6 +44,7 @@ describe("interdisciplinary result bridges", () => {
     render(
       <InterdisciplinaryBridge
         links={[link]}
+        sourcePathfinderId="quantum-chemistry"
         sourcePathfinderName="Quantum chemistry"
         sourceDirectionName="Charge transfer"
       />,
@@ -67,7 +68,11 @@ describe("interdisciplinary result bridges", () => {
           name: "Open Computational materials pathfinder",
         })
         .getAttribute("href"),
-    ).toBe("/pathfinders/computational-materials");
+    ).toBe(
+      getInterdisciplinaryDestination(link, {
+        sourcePathfinderId: "quantum-chemistry",
+      }),
+    );
     expect(
       within(region).getByRole("group", {
         name: `Shared search terms for ${link.targetNicheName}`,

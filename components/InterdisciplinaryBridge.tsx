@@ -12,10 +12,12 @@ import {
 
 export function InterdisciplinaryBridge({
   links,
+  sourcePathfinderId,
   sourcePathfinderName = "This pathfinder",
   sourceDirectionName = "your current direction",
 }: {
   links: readonly InterdisciplinaryLink[];
+  sourcePathfinderId?: string;
   sourcePathfinderName?: string;
   sourceDirectionName?: string;
 }) {
@@ -117,7 +119,12 @@ export function InterdisciplinaryBridge({
               </div>
               <InterdisciplinarySearchPanel link={link} />
               <div className="interdisciplinary-actions">
-                <Link href={getInterdisciplinaryDestination(link)}>
+                <Link
+                  href={getInterdisciplinaryDestination(
+                    link,
+                    sourcePathfinderId ? { sourcePathfinderId } : undefined,
+                  )}
+                >
                   Open {link.targetPathfinderName} pathfinder
                   <ArrowUpRight size={15} aria-hidden="true" />
                 </Link>

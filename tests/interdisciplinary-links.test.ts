@@ -98,6 +98,13 @@ describe("interdisciplinary link helpers", () => {
     expect(buildInterdisciplinarySearch(links[0])).toBe(
       "structure property multiscale modeling review",
     );
+    expect(
+      getInterdisciplinaryDestination(links[0], {
+        sourcePathfinderId: "quantum-chemistry",
+      }),
+    ).toBe(
+      "/pathfinders/computational-materials?from=quantum-chemistry&source=example-direction&bridge=example-to-materials&target=example-materials-direction",
+    );
   });
 
   it("resolves destinations from canonical released definitions", () => {
