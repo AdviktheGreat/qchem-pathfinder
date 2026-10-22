@@ -4269,6 +4269,30 @@ h2 {
   font-size: 0.76rem;
   line-height: 1.35;
 }
+.interdisciplinary-first-step {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.7rem;
+  align-items: baseline;
+  margin-top: 0.7rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--teal) 7%, white);
+}
+.interdisciplinary-first-step span {
+  color: var(--teal-dark);
+  font-size: 0.68rem;
+  font-weight: 820;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.interdisciplinary-first-step p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
 .interdisciplinary-grid details {
   margin: 1rem 0;
   padding-top: 0.8rem;
@@ -4345,6 +4369,10 @@ h2 {
   }
   .interdisciplinary-lens-comparison > p {
     grid-column: auto;
+  }
+  .interdisciplinary-first-step {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
   }
 }
 [id$="-title"] {

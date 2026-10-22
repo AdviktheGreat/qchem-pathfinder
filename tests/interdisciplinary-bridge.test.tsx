@@ -87,6 +87,8 @@ describe("interdisciplinary result bridges", () => {
       ),
     ).toBeDefined();
     expect(within(lensComparison).getByText(link.distinction)).toBeDefined();
+    expect(within(region).getByText("Try this first")).toBeDefined();
+    expect(within(region).getByText(link.explorationStep)).toBeDefined();
 
     fireEvent.click(
       within(region).getByRole("button", {

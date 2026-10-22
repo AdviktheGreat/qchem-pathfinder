@@ -89,6 +89,10 @@ export function InterdisciplinaryBridge({
                   {link.distinction}
                 </p>
               </div>
+              <div className="interdisciplinary-first-step">
+                <span>Try this first</span>
+                <p>{link.explorationStep}</p>
+              </div>
               <details>
                 <summary>How the fields differ</summary>
                 <p>{link.distinction}</p>
