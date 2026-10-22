@@ -52,6 +52,12 @@ describe("interdisciplinary result bridges", () => {
     const region = screen.getByRole("region", {
       name: "See where this direction meets another field.",
     });
+    expect(within(region).getByText("1 curated connection")).toBeDefined();
+    expect(
+      within(region).getByRole("list", {
+        name: "1 interdisciplinary connection",
+      }),
+    ).toBeDefined();
     expect(
       within(region).getByRole("heading", { name: link.targetNicheName }),
     ).toBeDefined();
@@ -185,6 +191,9 @@ describe("interdisciplinary result bridges", () => {
     expect(disclosures).toHaveLength(2);
     expect(disclosures[0].hasAttribute("open")).toBe(true);
     expect(disclosures[1].hasAttribute("open")).toBe(false);
+    expect(screen.getByText("2 curated connections")).toBeDefined();
+    expect(screen.getByText("Connection 1 of 2")).toBeDefined();
+    expect(screen.getByText("Connection 2 of 2")).toBeDefined();
 
     fireEvent.click(
       screen.getByText(

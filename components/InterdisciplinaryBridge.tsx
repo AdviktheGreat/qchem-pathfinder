@@ -35,16 +35,27 @@ export function InterdisciplinaryBridge({
             See where this direction meets another field.
           </h2>
         </div>
-        <p>
-          This is an optional next lens—not another score or a replacement for
-          your current result.
-        </p>
+        <div className="interdisciplinary-intro-note">
+          <span>
+            {links.length} curated{" "}
+            {links.length === 1 ? "connection" : "connections"}
+          </span>
+          <p>
+            {links.length === 1
+              ? "One neighboring lens is available. It is optional—not another score or a replacement for your current result."
+              : "These neighboring lenses are optional—not another score or replacements for your current result."}
+          </p>
+        </div>
       </div>
 
-      <div className="interdisciplinary-grid">
+      <div
+        className="interdisciplinary-grid"
+        role="list"
+        aria-label={`${links.length} interdisciplinary ${links.length === 1 ? "connection" : "connections"}`}
+      >
         {links.map((link, index) => {
           const card = (
-            <article>
+            <article role={links.length === 1 ? "listitem" : undefined}>
               <span className="interdisciplinary-subject">
                 {link.targetPathfinderName}
               </span>
@@ -126,10 +137,13 @@ export function InterdisciplinaryBridge({
               className="interdisciplinary-disclosure"
               open={index === 0}
               key={link.id}
+              role="listitem"
             >
               <summary>
                 <span>Explore {link.targetNicheName}</span>
-                <small>{index === 0 ? "Open" : "View bridge"}</small>
+                <small>
+                  Connection {index + 1} of {links.length}
+                </small>
               </summary>
               {card}
             </details>
