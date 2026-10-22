@@ -946,6 +946,7 @@ export function ResultsScreen({
 
       <InterdisciplinaryBridge
         links={interdisciplinaryLinks}
+        sourcePathfinderName={definition.identity.shortName}
         sourceDirectionName={primary.niche.name}
       />
 

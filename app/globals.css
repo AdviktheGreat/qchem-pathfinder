@@ -4234,6 +4234,41 @@ h2 {
   font-weight: 620;
   line-height: 1.5;
 }
+.interdisciplinary-lens-comparison {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+.interdisciplinary-lens-comparison > div,
+.interdisciplinary-lens-comparison > p {
+  margin: 0;
+  padding: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.55);
+}
+.interdisciplinary-lens-comparison > p {
+  grid-column: 1 / -1;
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+.interdisciplinary-lens-comparison span {
+  display: block;
+  margin-bottom: 0.28rem;
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 760;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.interdisciplinary-lens-comparison strong {
+  display: block;
+  color: var(--ink);
+  font-size: 0.76rem;
+  line-height: 1.35;
+}
 .interdisciplinary-grid details {
   margin: 1rem 0;
   padding-top: 0.8rem;
@@ -4304,6 +4339,12 @@ h2 {
   }
   .interdisciplinary-actions > * {
     width: 100%;
+  }
+  .interdisciplinary-lens-comparison {
+    grid-template-columns: 1fr;
+  }
+  .interdisciplinary-lens-comparison > p {
+    grid-column: auto;
   }
 }
 [id$="-title"] {

@@ -40,6 +40,7 @@ describe("interdisciplinary result bridges", () => {
     render(
       <InterdisciplinaryBridge
         links={[link]}
+        sourcePathfinderName="Quantum chemistry"
         sourceDirectionName="Charge transfer"
       />,
     );
@@ -47,7 +48,9 @@ describe("interdisciplinary result bridges", () => {
     const region = screen.getByRole("region", {
       name: "See where this direction meets another field.",
     });
-    expect(within(region).getByText(link.targetNicheName)).toBeDefined();
+    expect(
+      within(region).getByRole("heading", { name: link.targetNicheName }),
+    ).toBeDefined();
     expect(
       within(region)
         .getByRole("link", {
@@ -72,6 +75,18 @@ describe("interdisciplinary result bridges", () => {
         /Charge transfer and Photovoltaic materials connect through/,
       ),
     ).toBeDefined();
+    const lensComparison = within(region).getByLabelText(
+      `Research lens comparison for ${link.targetNicheName}`,
+    );
+    expect(
+      within(lensComparison).getByText("Current lens · Quantum chemistry"),
+    ).toBeDefined();
+    expect(
+      within(lensComparison).getByText(
+        "Neighboring lens · Computational materials",
+      ),
+    ).toBeDefined();
+    expect(within(lensComparison).getByText(link.distinction)).toBeDefined();
 
     fireEvent.click(
       within(region).getByRole("button", {
@@ -122,7 +137,9 @@ describe("interdisciplinary result bridges", () => {
         const region = screen.getByRole("region", {
           name: "See where this direction meets another field.",
         });
-        expect(within(region).getByText(link.targetNicheName)).toBeDefined();
+        expect(
+          within(region).getByRole("heading", { name: link.targetNicheName }),
+        ).toBeDefined();
         expect(
           within(region)
             .getByRole("link", {

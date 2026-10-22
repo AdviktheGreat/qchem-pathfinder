@@ -10,9 +10,11 @@ import {
 
 export function InterdisciplinaryBridge({
   links,
+  sourcePathfinderName = "This pathfinder",
   sourceDirectionName = "your current direction",
 }: {
   links: readonly InterdisciplinaryLink[];
+  sourcePathfinderName?: string;
   sourceDirectionName?: string;
 }) {
   if (links.length === 0) return null;
@@ -69,6 +71,23 @@ export function InterdisciplinaryBridge({
               <div className="interdisciplinary-shared-question">
                 <span>Shared research question</span>
                 <p>{link.sharedQuestion}</p>
+              </div>
+              <div
+                className="interdisciplinary-lens-comparison"
+                aria-label={`Research lens comparison for ${link.targetNicheName}`}
+              >
+                <div>
+                  <span>Current lens · {sourcePathfinderName}</span>
+                  <strong>{sourceDirectionName}</strong>
+                </div>
+                <div>
+                  <span>Neighboring lens · {link.targetPathfinderName}</span>
+                  <strong>{link.targetNicheName}</strong>
+                </div>
+                <p>
+                  <span>Boundary between them</span>
+                  {link.distinction}
+                </p>
               </div>
               <details>
                 <summary>How the fields differ</summary>
