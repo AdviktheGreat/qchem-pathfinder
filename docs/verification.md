@@ -1,19 +1,20 @@
 # Research Pathfinder release verification
 
-Verified October 20, 2026 against the local production build after completing Interdisciplinary Bridges Phase 2.
+Verified October 22, 2026 against the local production build after completing Interdisciplinary Bridges Phase 4.
 
 ## Automated release gate
 
 - Prettier passed for the application, components, data, libraries, tests, documentation, and README.
 - ESLint and TypeScript checks passed.
-- Vitest passed all 619 tests across 102 files.
+- Vitest passed all 657 tests across 109 files.
 - The Next.js production build passed and statically prerendered the hub, not-found page, and all four pathfinder routes.
 - Manifest coverage confirms that the registry, definition lookup, hub catalog, switcher destinations, lifecycle boundaries, route metadata, IDs, routes, and storage namespaces remain aligned.
 - The type-checked authoring template assembles into a complete module, supports adaptive journeys and stable profile export, and remains deliberately absent from the live registry and production routes.
 - Definition, manifest, and complete-registry validation passed for every released module; focused failure cases cover malformed identities, surveys, branches, scoring evidence, taxonomies, search data, preparation mappings, results mappings, and cross-module collisions.
 - All 35 curated interdisciplinary bridges passed local source, connection-category, shared-question, first-step, search-seed, canonical cross-registry target, label, route, graph-edge, keyword, editorial-quality, and global-ID validation across the four released modules.
 - Interdisciplinary graph coverage confirms all 35 released links resolve into deterministic incoming and outgoing edges, every module has both kinds of coverage, the planned 9/9/9/8 source distribution is intact, and destination and connection grouping remain score-free.
-- Rendered bridge coverage confirms conditional display, accessible disclosure and navigation labels, copy feedback, results-nav focus movement, and the unconnected-result fallback.
+- Phase 4 bridge coverage confirms graph grouping and unconnected nodes, malformed metadata paths, canonical identity drift, selective network standards, one complete connected journey from every pathfinder, arrival-context isolation, exported and printed boundaries, and the synchronized 35-row scientific review matrix.
+- Rendered bridge coverage confirms conditional display, accessible disclosure and navigation labels, screen-reader card and note names, copy feedback, results-nav focus movement, full arrow/Home/End tab behavior, visible focus, reduced motion, increased contrast, forced colors, long-name wrapping, touch targets, and the unconnected-result fallback.
 - Hub-orientation coverage validates all four released profiles, every shared signal dimension, malformed and unavailable configurations, uncertainty neutrality, close and tied results, evidence consolidation, transparent reasons, and complete coherent journeys that make every module the leading suggestion.
 - Rendered hub-orientation coverage exercises the optional introduction, five core questions, both adaptive boundary questions, honest uncertainty, exact progress semantics, branch-answer cleanup after edits, answer-grounded fit groups, primary and alternative results, interdisciplinary guidance, direct pathfinder launches, review, restart isolation, refresh restoration, and the all-open fallback.
 - Phase 4 coverage confirms stable, score-free workshop-map formatting, copy/download/print controls, answer snapshots, field comparison, workshop next steps, storage-health states, cross-tab synchronization, and clean dated filenames.
@@ -39,6 +40,8 @@ Verified October 20, 2026 against the local production build after completing In
 - Confirmed the hub and Computational Physics route loaded from the production server; the static build generated all four pathfinder routes.
 - Reviewed a connected Quantum Chemistry result at desktop and 390 × 844 phone widths. Confirmed the bridge explanation, field distinction, search terms, destination action, saved-progress note, responsive stacking, keyboard target, and copied-search feedback.
 - Confirmed no browser-console warnings or errors during the interdisciplinary bridge review.
+- Re-reviewed the connected Molecular charge transfer → Photovoltaic materials journey at 1280 × 720 and a 615-pixel compact viewport after Phase 4. Confirmed no horizontal overflow, readable wrapping, stacked compact actions, arrow-key search-tab selection, copied-search feedback, validated destination context, preserved Computational Materials progress, and successful return to the saved Quantum Chemistry result.
+- Confirmed the hub, Quantum Chemistry result, bridge destination URL, and return route all responded successfully from the local Next.js server, with no captured browser warnings or errors. Phone-specific 620-pixel rules and 48-pixel coarse-pointer targets are additionally protected by automated CSS regression coverage.
 
 ## Remaining manual checks
 

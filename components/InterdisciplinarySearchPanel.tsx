@@ -78,7 +78,7 @@ export function InterdisciplinarySearchPanel({
       <div
         className="interdisciplinary-search-tabs"
         role="tablist"
-        aria-label={`Search depth for ${link.targetNicheName}`}
+        aria-label={`Bridge query levels for ${link.targetNicheName}`}
       >
         {searchTabs.map((tab, index) => (
           <button

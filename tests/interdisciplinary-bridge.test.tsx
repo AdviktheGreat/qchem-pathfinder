@@ -156,7 +156,7 @@ describe("interdisciplinary result bridges", () => {
     });
     expect(
       within(searches).getByRole("tablist", {
-        name: `Search depth for ${link.targetNicheName}`,
+        name: `Bridge query levels for ${link.targetNicheName}`,
       }),
     ).toBeDefined();
     const queries = buildInterdisciplinarySearchQueries(link);
