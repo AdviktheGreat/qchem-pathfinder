@@ -56,6 +56,10 @@ export function InterdisciplinaryBridge({
               </div>
               <h3>{link.targetNicheName}</h3>
               <p>{link.bridge}</p>
+              <div className="interdisciplinary-shared-question">
+                <span>Shared research question</span>
+                <p>{link.sharedQuestion}</p>
+              </div>
               <details>
                 <summary>How the fields differ</summary>
                 <p>{link.distinction}</p>

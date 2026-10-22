@@ -60,6 +60,8 @@ describe("interdisciplinary result bridges", () => {
     });
     expect(within(connectionTypes).getByText("Shared question")).toBeDefined();
     expect(within(connectionTypes).getByText("Connected scales")).toBeDefined();
+    expect(within(region).getByText("Shared research question")).toBeDefined();
+    expect(within(region).getByText(link.sharedQuestion)).toBeDefined();
 
     fireEvent.click(
       within(region).getByRole("button", {
