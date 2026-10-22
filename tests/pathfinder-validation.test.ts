@@ -473,4 +473,97 @@ describe("pathfinder registry validation", () => {
     expect(codes).toContain("registry.duplicate-link-edge");
     expect(codes).toContain("registry.link-route-mismatch");
   });
+
+  it("detects stale bridge labels after canonical names change", () => {
+    const registry = structuredClone([
+      ...pathfinderModules,
+    ]) as PathfinderModuleManifest[];
+    const materialsModule = registry.find(
+      (moduleEntry) =>
+        moduleEntry.lifecycle === "available" &&
+        moduleEntry.definition.identity.id === "computational-materials",
+    );
+    if (!materialsModule || materialsModule.lifecycle !== "available")
+      throw new Error("Computational materials fixture must be available.");
+
+    materialsModule.definition.identity.shortName =
+      "Computational materials science";
+    const photovoltaicNiche =
+      materialsModule.definition.recommendations.niches.find(
+        (niche) => niche.id === "photovoltaic-materials",
+      );
+    if (!photovoltaicNiche)
+      throw new Error("Photovoltaic materials fixture must be available.");
+    photovoltaicNiche.name = "Photovoltaic interfaces";
+
+    const issues = validatePathfinderRegistry(registry).issues;
+    expect(issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          code: "registry.link-pathfinder-name-mismatch",
+          path: "modules[0].definition.interdisciplinaryLinks[0].targetPathfinderName",
+        }),
+        expect.objectContaining({
+          code: "registry.link-direction-name-mismatch",
+          path: "modules[0].definition.interdisciplinaryLinks[0].targetNicheName",
+        }),
+      ]),
+    );
+  });
+
+  it("detects stale bridge IDs after canonical identities change", () => {
+    const registry = structuredClone([
+      ...pathfinderModules,
+    ]) as PathfinderModuleManifest[];
+    const materialsModule = registry.find(
+      (moduleEntry) =>
+        moduleEntry.lifecycle === "available" &&
+        moduleEntry.definition.identity.id === "computational-materials",
+    );
+    if (!materialsModule || materialsModule.lifecycle !== "available")
+      throw new Error("Computational materials fixture must be available.");
+
+    materialsModule.definition.identity.id = "computational-materials-science";
+    const result = validatePathfinderRegistry(registry);
+
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          code: "registry.unknown-link-pathfinder",
+          path: "modules[0].definition.interdisciplinaryLinks[0].targetPathfinderId",
+        }),
+      ]),
+    );
+  });
+
+  it("detects stale bridge direction IDs after taxonomy changes", () => {
+    const registry = structuredClone([
+      ...pathfinderModules,
+    ]) as PathfinderModuleManifest[];
+    const materialsModule = registry.find(
+      (moduleEntry) =>
+        moduleEntry.lifecycle === "available" &&
+        moduleEntry.definition.identity.id === "computational-materials",
+    );
+    if (!materialsModule || materialsModule.lifecycle !== "available")
+      throw new Error("Computational materials fixture must be available.");
+    const photovoltaicNiche =
+      materialsModule.definition.recommendations.niches.find(
+        (niche) => niche.id === "photovoltaic-materials",
+      );
+    if (!photovoltaicNiche)
+      throw new Error("Photovoltaic materials fixture must be available.");
+
+    photovoltaicNiche.id = "photovoltaic-interfaces";
+    const result = validatePathfinderRegistry(registry);
+
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          code: "registry.unknown-link-direction",
+          path: "modules[0].definition.interdisciplinaryLinks[0].targetNicheId",
+        }),
+      ]),
+    );
+  });
 });
