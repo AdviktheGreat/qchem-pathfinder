@@ -262,6 +262,79 @@ describe("interdisciplinary result bridges", () => {
     expect(disclosures[1].hasAttribute("open")).toBe(true);
   });
 
+  it("supports keyboard focus across bridge disclosures, searches, and navigation", () => {
+    const link = quantumChemistryInterdisciplinaryLinks[0];
+    const { container } = render(
+      <InterdisciplinaryBridge
+        links={quantumChemistryInterdisciplinaryLinks.slice(0, 2)}
+        sourcePathfinderId="quantum-chemistry"
+      />,
+    );
+    const firstSummary = container.querySelector<HTMLElement>("summary");
+    expect(firstSummary?.tabIndex).toBe(0);
+    firstSummary?.focus();
+    expect(document.activeElement).toBe(firstSummary);
+
+    const searches = screen.getAllByRole("region", {
+      name: /^Bridge searches for/,
+    })[0];
+    const orientation = within(searches).getByRole("tab", {
+      name: "Orientation",
+    });
+    const focused = within(searches).getByRole("tab", { name: "Focused" });
+    const review = within(searches).getByRole("tab", { name: "Review" });
+
+    orientation.focus();
+    fireEvent.keyDown(orientation, { key: "ArrowRight" });
+    expect(document.activeElement).toBe(focused);
+    expect(focused.getAttribute("aria-selected")).toBe("true");
+    fireEvent.keyDown(focused, { key: "End" });
+    expect(document.activeElement).toBe(review);
+    fireEvent.keyDown(review, { key: "Home" });
+    expect(document.activeElement).toBe(orientation);
+    fireEvent.keyDown(orientation, { key: "ArrowLeft" });
+    expect(document.activeElement).toBe(review);
+
+    const copy = within(searches).getByRole("button", {
+      name: `Copy review search — ${link.targetNicheName}`,
+    });
+    copy.focus();
+    expect(document.activeElement).toBe(copy);
+    const firstDisclosure = container.querySelector<HTMLElement>(
+      "details.interdisciplinary-disclosure",
+    )!;
+    const destination = within(firstDisclosure).getByRole("link", {
+      name: `Open ${link.targetPathfinderName} pathfinder`,
+    });
+    destination.focus();
+    expect(document.activeElement).toBe(destination);
+  });
+
+  it("keeps the bridge return link in the normal keyboard sequence", () => {
+    render(
+      <InterdisciplinaryArrivalBanner
+        arrival={{
+          bridgeId: "example-bridge",
+          sourcePathfinderId: "quantum-chemistry",
+          sourcePathfinderName: "Quantum chemistry",
+          sourceRoute: "/pathfinders/quantum-chemistry",
+          sourceNicheId: "charge-transfer",
+          sourceNicheName: "Charge transfer",
+          targetPathfinderId: "computational-materials",
+          targetPathfinderName: "Computational materials",
+          targetNicheId: "photovoltaic-materials",
+          targetNicheName: "Photovoltaic materials",
+          sharedQuestion: "How does charge move across the two scales?",
+        }}
+      />,
+    );
+    const returnLink = screen.getByRole("link", {
+      name: "Return to Quantum chemistry result",
+    });
+    returnLink.focus();
+    expect(document.activeElement).toBe(returnLink);
+  });
+
   it("renders every released bridge with a reachable destination", () => {
     for (const moduleEntry of pathfinderModules) {
       for (const link of moduleEntry.definition.interdisciplinaryLinks) {

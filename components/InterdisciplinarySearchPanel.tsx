@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useId, useState, type KeyboardEvent } from "react";
 import { CopyButton } from "@/components/CopyButton";
 import {
   buildInterdisciplinarySearchQueries,
@@ -42,6 +42,30 @@ export function InterdisciplinarySearchPanel({
   const active =
     searchTabs.find((tab) => tab.id === activeTab) ?? searchTabs[0];
 
+  function moveTab(event: KeyboardEvent<HTMLButtonElement>, nextIndex: number) {
+    event.preventDefault();
+    const tabs =
+      event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>(
+        '[role="tab"]',
+      );
+    const nextTab = tabs?.[nextIndex];
+    if (!nextTab) return;
+    setActiveTab(searchTabs[nextIndex].id);
+    nextTab.focus();
+  }
+
+  function handleTabKeyDown(
+    event: KeyboardEvent<HTMLButtonElement>,
+    index: number,
+  ) {
+    if (event.key === "ArrowRight")
+      moveTab(event, (index + 1) % searchTabs.length);
+    else if (event.key === "ArrowLeft")
+      moveTab(event, (index - 1 + searchTabs.length) % searchTabs.length);
+    else if (event.key === "Home") moveTab(event, 0);
+    else if (event.key === "End") moveTab(event, searchTabs.length - 1);
+  }
+
   return (
     <section
       className="interdisciplinary-search-panel"
@@ -51,8 +75,12 @@ export function InterdisciplinarySearchPanel({
         <strong>Search from three distances</strong>
         <span>Start broad, then narrow only when a phrase feels useful.</span>
       </div>
-      <div className="interdisciplinary-search-tabs" role="tablist">
-        {searchTabs.map((tab) => (
+      <div
+        className="interdisciplinary-search-tabs"
+        role="tablist"
+        aria-label={`Search depth for ${link.targetNicheName}`}
+      >
+        {searchTabs.map((tab, index) => (
           <button
             key={tab.id}
             id={`${id}-${tab.id}-tab`}
@@ -62,6 +90,7 @@ export function InterdisciplinarySearchPanel({
             aria-controls={`${id}-${tab.id}-panel`}
             tabIndex={activeTab === tab.id ? 0 : -1}
             onClick={() => setActiveTab(tab.id)}
+            onKeyDown={(event) => handleTabKeyDown(event, index)}
           >
             {tab.label}
           </button>
