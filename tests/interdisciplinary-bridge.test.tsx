@@ -99,6 +99,11 @@ describe("interdisciplinary result bridges", () => {
       within(region).getByRole("heading", { name: link.targetNicheName }),
     ).toBeDefined();
     expect(
+      within(region).getByRole("listitem", {
+        name: link.targetNicheName,
+      }),
+    ).toBeDefined();
+    expect(
       within(region)
         .getByRole("link", {
           name: "Open Computational materials pathfinder",
@@ -122,6 +127,12 @@ describe("interdisciplinary result bridges", () => {
     expect(within(region).getByText("Shared research question")).toBeDefined();
     expect(within(region).getByText(link.sharedQuestion)).toBeDefined();
     expect(
+      within(region).getByRole("note", { name: "Shared research question" }),
+    ).toBeDefined();
+    expect(
+      within(region).getByRole("note", { name: "Try this first" }),
+    ).toBeDefined();
+    expect(
       within(region).getByText(
         /Charge transfer and Photovoltaic materials connect through/,
       ),
@@ -143,6 +154,11 @@ describe("interdisciplinary result bridges", () => {
     const searches = within(region).getByRole("region", {
       name: `Bridge searches for ${link.targetNicheName}`,
     });
+    expect(
+      within(searches).getByRole("tablist", {
+        name: `Search depth for ${link.targetNicheName}`,
+      }),
+    ).toBeDefined();
     const queries = buildInterdisciplinarySearchQueries(link);
     expect(
       within(searches)
@@ -331,6 +347,12 @@ describe("interdisciplinary result bridges", () => {
     const returnLink = screen.getByRole("link", {
       name: "Return to Quantum chemistry result",
     });
+    const arrivalNote = screen.getByRole("note", {
+      name: "From Charge transfer to Photovoltaic materials",
+    });
+    expect(arrivalNote.getAttribute("aria-describedby")).toBe(
+      "interdisciplinary-arrival-description interdisciplinary-arrival-question",
+    );
     returnLink.focus();
     expect(document.activeElement).toBe(returnLink);
   });

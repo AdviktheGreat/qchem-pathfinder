@@ -28,6 +28,7 @@ export function InterdisciplinaryBridge({
     <section
       className="interdisciplinary-bridge"
       aria-labelledby="interdisciplinary-bridge-title"
+      aria-describedby="interdisciplinary-bridge-description"
     >
       <div className="interdisciplinary-heading">
         <div>
@@ -43,7 +44,7 @@ export function InterdisciplinaryBridge({
             {links.length} curated{" "}
             {links.length === 1 ? "connection" : "connections"}
           </span>
-          <p>
+          <p id="interdisciplinary-bridge-description">
             {links.length === 1
               ? "One neighboring lens is available. It is optional—not another score or a replacement for your current result."
               : "These neighboring lenses are optional—not another score or replacements for your current result."}
@@ -58,8 +59,14 @@ export function InterdisciplinaryBridge({
       >
         {links.map((link, index) => {
           const printSearches = buildInterdisciplinarySearchQueries(link);
+          const cardTitleId = `interdisciplinary-${link.id}-title`;
+          const sharedQuestionLabelId = `interdisciplinary-${link.id}-question-label`;
+          const firstStepLabelId = `interdisciplinary-${link.id}-step-label`;
           const card = (
-            <article role={links.length === 1 ? "listitem" : undefined}>
+            <article
+              role={links.length === 1 ? "listitem" : undefined}
+              aria-labelledby={cardTitleId}
+            >
               <span className="interdisciplinary-subject">
                 {link.targetPathfinderName}
               </span>
@@ -74,7 +81,7 @@ export function InterdisciplinaryBridge({
                   </span>
                 ))}
               </div>
-              <h3>{link.targetNicheName}</h3>
+              <h3 id={cardTitleId}>{link.targetNicheName}</h3>
               <p>{link.bridge}</p>
               <p className="interdisciplinary-why">
                 <strong>Why this appeared:</strong> {sourceDirectionName} and{" "}
@@ -85,8 +92,12 @@ export function InterdisciplinaryBridge({
                   .toLocaleLowerCase()}
                 .
               </p>
-              <div className="interdisciplinary-shared-question">
-                <span>Shared research question</span>
+              <div
+                className="interdisciplinary-shared-question"
+                role="note"
+                aria-labelledby={sharedQuestionLabelId}
+              >
+                <span id={sharedQuestionLabelId}>Shared research question</span>
                 <p>{link.sharedQuestion}</p>
               </div>
               <div
@@ -106,8 +117,12 @@ export function InterdisciplinaryBridge({
                   {link.distinction}
                 </p>
               </div>
-              <div className="interdisciplinary-first-step">
-                <span>Try this first</span>
+              <div
+                className="interdisciplinary-first-step"
+                role="note"
+                aria-labelledby={firstStepLabelId}
+              >
+                <span id={firstStepLabelId}>Try this first</span>
                 <p>{link.explorationStep}</p>
               </div>
               <div

@@ -10,7 +10,9 @@ export function InterdisciplinaryArrivalBanner({
   return (
     <aside
       className="interdisciplinary-arrival no-print"
+      role="note"
       aria-labelledby="interdisciplinary-arrival-title"
+      aria-describedby="interdisciplinary-arrival-description interdisciplinary-arrival-question"
     >
       <Network size={18} aria-hidden="true" />
       <div>
@@ -18,12 +20,15 @@ export function InterdisciplinaryArrivalBanner({
         <h2 id="interdisciplinary-arrival-title">
           From {arrival.sourceNicheName} to {arrival.targetNicheName}
         </h2>
-        <p>
+        <p id="interdisciplinary-arrival-description">
           You came from the {arrival.sourcePathfinderName} pathfinder to explore
           this neighboring lens. Your answers there have not been copied or
           scored here.
         </p>
-        <p className="interdisciplinary-arrival-question">
+        <p
+          className="interdisciplinary-arrival-question"
+          id="interdisciplinary-arrival-question"
+        >
           <strong>Question connecting the fields:</strong>{" "}
           {arrival.sharedQuestion}
         </p>
