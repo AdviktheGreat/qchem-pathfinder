@@ -265,6 +265,48 @@ describe("released interdisciplinary link coverage", () => {
     }
   });
 
+  it("meets selective network coverage standards in every field", () => {
+    const graph = buildInterdisciplinaryGraph(pathfinderModules);
+
+    for (const definition of definitions) {
+      const links = definition.interdisciplinaryLinks;
+      const connectedDirections = new Set(
+        links.map((link) => link.sourceNicheId),
+      );
+      const neighboringFields = new Set(
+        links.map((link) => link.targetPathfinderId),
+      );
+      const incomingNeighbors = new Set(
+        getIncomingInterdisciplinaryEdges(graph, definition.identity.id).map(
+          (edge) => edge.source.pathfinderId,
+        ),
+      );
+      const connectionKinds = new Set(
+        links.flatMap((link) => link.connectionKinds),
+      );
+
+      expect(links.length, definition.identity.id).toBeGreaterThanOrEqual(5);
+      expect(
+        neighboringFields.size,
+        definition.identity.id,
+      ).toBeGreaterThanOrEqual(2);
+      expect(
+        incomingNeighbors.size,
+        definition.identity.id,
+      ).toBeGreaterThanOrEqual(2);
+      expect(
+        connectionKinds.size,
+        definition.identity.id,
+      ).toBeGreaterThanOrEqual(3);
+      expect(connectedDirections.size, definition.identity.id).toBeLessThan(
+        definition.recommendations.niches.length,
+      );
+      expect(connectedDirections.size, definition.identity.id).toBe(
+        links.length,
+      );
+    }
+  });
+
   it("keeps bridge searches focused and tied to local directions", () => {
     for (const definition of definitions) {
       const nicheIds = new Set(
