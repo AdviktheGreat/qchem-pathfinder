@@ -4915,6 +4915,13 @@ h2 {
   .hub-orientation-option:hover {
     transform: none;
   }
+  .interdisciplinary-disclosure,
+  .interdisciplinary-search-tabs button,
+  .interdisciplinary-actions > a,
+  .interdisciplinary-return {
+    transition: none !important;
+    transform: none !important;
+  }
 }
 @media (prefers-contrast: more) {
   :root {
@@ -4927,7 +4934,15 @@ h2 {
   .choice-card,
   .pathfinder-card,
   .alternative-card,
+  .interdisciplinary-bridge,
+  .interdisciplinary-arrival,
+  .interdisciplinary-disclosure,
   .interdisciplinary-grid article,
+  .interdisciplinary-search-panel,
+  .interdisciplinary-search-tabs,
+  .interdisciplinary-shared-question,
+  .interdisciplinary-lens-comparison > div,
+  .interdisciplinary-lens-comparison > p,
   .hub-orientation-entry,
   .hub-orientation-entry-status,
   .hub-orientation-panel,
@@ -4946,6 +4961,10 @@ h2 {
   .hub-orientation-option.is-selected {
     outline: 2px solid var(--teal-dark);
     outline-offset: 2px;
+  }
+  .interdisciplinary-search-tabs button[aria-selected="true"] {
+    outline: 2px solid var(--violet);
+    outline-offset: 1px;
   }
 }
 @media (forced-colors: active) {
@@ -4992,10 +5011,32 @@ h2 {
     border: 1px solid CanvasText;
   }
   .interdisciplinary-bridge,
+  .interdisciplinary-arrival,
+  .interdisciplinary-disclosure,
   .interdisciplinary-grid article,
+  .interdisciplinary-search-panel,
+  .interdisciplinary-search-tabs,
+  .interdisciplinary-shared-question,
+  .interdisciplinary-lens-comparison > div,
+  .interdisciplinary-lens-comparison > p,
   .interdisciplinary-actions > a,
-  .interdisciplinary-actions .copy-button {
+  .interdisciplinary-actions .copy-button,
+  .interdisciplinary-return {
     border: 1px solid CanvasText;
+  }
+  .interdisciplinary-search-tabs button[aria-selected="true"],
+  .interdisciplinary-actions > a {
+    background: Highlight;
+    color: HighlightText;
+    forced-color-adjust: none;
+  }
+  .interdisciplinary-disclosure > summary:focus-visible,
+  .interdisciplinary-search-tabs button:focus-visible,
+  .interdisciplinary-actions > a:focus-visible,
+  .interdisciplinary-actions button:focus-visible,
+  .interdisciplinary-return:focus-visible {
+    outline: 3px solid Highlight;
+    outline-offset: 3px;
   }
 }
 @media (pointer: coarse) {
