@@ -20,6 +20,7 @@ import { pruneHiddenAnswers } from "@/lib/branching";
 import { createPathfinderPersistence } from "@/lib/persistence";
 import type { AnswerMap, PersistedSurveyState } from "@/lib/types";
 import { IntroScreen } from "@/components/IntroScreen";
+import { InterdisciplinaryArrivalBanner } from "@/components/InterdisciplinaryArrivalBanner";
 import { SurveyScreen } from "@/components/SurveyScreen";
 import { ResultsScreen } from "@/components/ResultsScreen";
 import { ReviewScreen } from "@/components/ReviewScreen";
@@ -31,6 +32,7 @@ import type {
   PathfinderIcon,
 } from "@/lib/pathfinder-definition";
 import { getSurveyProgress, indexQuestions } from "@/lib/survey-progress";
+import type { InterdisciplinaryArrival } from "@/lib/interdisciplinary-destinations";
 
 type Screen = PersistedSurveyState["screen"];
 
@@ -42,8 +44,10 @@ function BrandIcon({ icon }: { icon: PathfinderIcon }) {
 }
 
 export function PathfinderApp({
+  bridgeArrival,
   definition = quantumChemistryPathfinder,
 }: {
+  bridgeArrival?: InterdisciplinaryArrival;
   definition?: PathfinderDefinition;
 }) {
   const persistence = useMemo(
@@ -369,6 +373,9 @@ export function PathfinderApp({
           </details>
         </header>
         <main id="main-content" ref={mainRef} tabIndex={-1}>
+          {bridgeArrival && (
+            <InterdisciplinaryArrivalBanner arrival={bridgeArrival} />
+          )}
           {screen === "survey" &&
             branchChanged &&
             visibleQuestions.some(

@@ -11,7 +11,11 @@ describe("computational biology route shell", () => {
     expect(computationalBiologyPathfinder.identity.route).toBe(
       "/pathfinders/computational-biology",
     );
-    expect(ComputationalBiologyPathfinderPage()).toBeDefined();
+    expect(
+      ComputationalBiologyPathfinderPage({
+        searchParams: Promise.resolve({}),
+      }),
+    ).toBeDefined();
   });
 
   it("publishes subject-specific static metadata", () => {

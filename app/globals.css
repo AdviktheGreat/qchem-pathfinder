@@ -4254,6 +4254,39 @@ h2 {
   gap: 0.55rem;
   margin-top: 1rem;
 }
+.interdisciplinary-arrival {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: start;
+  max-width: 1180px;
+  margin: 1.2rem auto 0;
+  padding: 1rem 1.1rem;
+  border: 1px solid color-mix(in srgb, var(--violet) 30%, var(--line));
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--violet) 7%, var(--panel));
+  color: var(--violet);
+}
+.interdisciplinary-arrival h2 {
+  margin: 0.25rem 0 0.35rem;
+  color: var(--ink);
+  font-family: var(--font-display), serif;
+  font-size: 1.2rem;
+}
+.interdisciplinary-arrival p {
+  max-width: 78ch;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+.interdisciplinary-arrival .interdisciplinary-arrival-question {
+  margin-top: 0.5rem;
+  color: var(--muted);
+}
+.interdisciplinary-arrival-question strong {
+  color: var(--ink-soft);
+}
 .interdisciplinary-lens-comparison > div,
 .interdisciplinary-lens-comparison > p {
   margin: 0;

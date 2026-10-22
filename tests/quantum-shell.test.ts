@@ -13,6 +13,8 @@ describe("quantum chemistry route shell", () => {
       alternates: { canonical: "/pathfinders/quantum-chemistry" },
       openGraph: { url: "/pathfinders/quantum-chemistry" },
     });
-    expect(QuantumChemistryPathfinderPage()).toBeDefined();
+    expect(
+      QuantumChemistryPathfinderPage({ searchParams: Promise.resolve({}) }),
+    ).toBeDefined();
   });
 });

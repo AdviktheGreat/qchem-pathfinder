@@ -58,6 +58,10 @@ describe("computational materials pathfinder shell", () => {
         url: "/pathfinders/computational-materials",
       },
     });
-    expect(ComputationalMaterialsPathfinderPage()).toBeDefined();
+    expect(
+      ComputationalMaterialsPathfinderPage({
+        searchParams: Promise.resolve({}),
+      }),
+    ).toBeDefined();
   });
 });

@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { pathfinderModules } from "@/data/pathfinder-modules";
-import { resolveInterdisciplinaryDestination } from "@/lib/interdisciplinary-destinations";
+import {
+  resolveInterdisciplinaryArrival,
+  resolveInterdisciplinaryDestination,
+} from "@/lib/interdisciplinary-destinations";
 import {
   buildInterdisciplinaryGraph,
   getIncomingInterdisciplinaryEdges,
@@ -121,6 +124,41 @@ describe("interdisciplinary link helpers", () => {
     expect(
       resolveInterdisciplinaryDestination(
         { ...link, targetNicheId: "missing-direction" },
+        pathfinderModules,
+      ),
+    ).toBeUndefined();
+  });
+
+  it("accepts only canonical bridge arrival context", () => {
+    const source = pathfinderModules[0];
+    const link = source.definition.interdisciplinaryLinks[0];
+    const target = pathfinderModules.find(
+      (entry) => entry.definition.identity.id === link.targetPathfinderId,
+    );
+    expect(target).toBeDefined();
+
+    const params = {
+      from: source.definition.identity.id,
+      source: link.sourceNicheId,
+      bridge: link.id,
+      target: link.targetNicheId,
+    };
+    const arrival = resolveInterdisciplinaryArrival(
+      params,
+      target!.definition,
+      pathfinderModules,
+    );
+    expect(arrival).toMatchObject({
+      bridgeId: link.id,
+      sourcePathfinderName: "Quantum chemistry",
+      targetPathfinderName: "Computational materials",
+      targetNicheName: "Photovoltaic materials",
+      sharedQuestion: link.sharedQuestion,
+    });
+    expect(
+      resolveInterdisciplinaryArrival(
+        { ...params, target: "tampered-direction" },
+        target!.definition,
         pathfinderModules,
       ),
     ).toBeUndefined();

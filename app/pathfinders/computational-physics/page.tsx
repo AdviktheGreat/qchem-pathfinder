@@ -1,20 +1,36 @@
 import type { Metadata } from "next";
 import { PathfinderApp } from "@/components/PathfinderApp";
 import { PathfinderVisitTracker } from "@/components/PathfinderVisitTracker";
-import { computationalPhysicsModule } from "@/data/pathfinder-modules";
+import {
+  computationalPhysicsModule,
+  pathfinderModules,
+} from "@/data/pathfinder-modules";
+import {
+  resolveInterdisciplinaryArrival,
+  type InterdisciplinarySearchParams,
+} from "@/lib/interdisciplinary-destinations";
 import { createPathfinderMetadata } from "@/lib/pathfinder-metadata";
 
 export const metadata: Metadata = createPathfinderMetadata(
   computationalPhysicsModule,
 );
 
-export default function ComputationalPhysicsPathfinderPage() {
+export default async function ComputationalPhysicsPathfinderPage({
+  searchParams,
+}: {
+  searchParams: Promise<InterdisciplinarySearchParams>;
+}) {
   const { definition } = computationalPhysicsModule;
+  const bridgeArrival = resolveInterdisciplinaryArrival(
+    await searchParams,
+    definition,
+    pathfinderModules,
+  );
 
   return (
     <>
       <PathfinderVisitTracker pathfinderId={definition.identity.id} />
-      <PathfinderApp definition={definition} />
+      <PathfinderApp definition={definition} bridgeArrival={bridgeArrival} />
     </>
   );
 }

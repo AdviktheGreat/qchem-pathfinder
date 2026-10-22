@@ -9,6 +9,7 @@ import {
 } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { InterdisciplinaryBridge } from "@/components/InterdisciplinaryBridge";
+import { InterdisciplinaryArrivalBanner } from "@/components/InterdisciplinaryArrivalBanner";
 import { ResultsScreen } from "@/components/ResultsScreen";
 import { pathfinderModules } from "@/data/pathfinder-modules";
 import { quantumChemistryInterdisciplinaryLinks } from "@/data/pathfinders/quantum-chemistry-links";
@@ -34,6 +35,35 @@ describe("interdisciplinary result bridges", () => {
   it("renders nothing when a direction has no curated bridge", () => {
     const { container } = render(<InterdisciplinaryBridge links={[]} />);
     expect(container.childElementCount).toBe(0);
+  });
+
+  it("explains a validated bridge arrival without transferring answers", () => {
+    render(
+      <InterdisciplinaryArrivalBanner
+        arrival={{
+          bridgeId: "example-bridge",
+          sourcePathfinderId: "quantum-chemistry",
+          sourcePathfinderName: "Quantum chemistry",
+          sourceRoute: "/pathfinders/quantum-chemistry",
+          sourceNicheId: "charge-transfer",
+          sourceNicheName: "Charge transfer",
+          targetPathfinderId: "computational-materials",
+          targetPathfinderName: "Computational materials",
+          targetNicheId: "photovoltaic-materials",
+          targetNicheName: "Photovoltaic materials",
+          sharedQuestion: "How does charge move across the two scales?",
+        }}
+      />,
+    );
+
+    expect(
+      screen.getByRole("heading", {
+        name: "From Charge transfer to Photovoltaic materials",
+      }),
+    ).toBeDefined();
+    expect(
+      screen.getByText(/answers there have not been copied or scored here/i),
+    ).toBeDefined();
   });
 
   it("explains, searches, and links to the adjacent pathfinder", async () => {

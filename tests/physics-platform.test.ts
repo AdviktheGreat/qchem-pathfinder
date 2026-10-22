@@ -27,7 +27,11 @@ describe("computational physics platform integration", () => {
     expect(computationalPhysicsPathfinder.identity.route).toBe(
       "/pathfinders/computational-physics",
     );
-    expect(ComputationalPhysicsPathfinderPage()).toBeDefined();
+    expect(
+      ComputationalPhysicsPathfinderPage({
+        searchParams: Promise.resolve({}),
+      }),
+    ).toBeDefined();
   });
 
   it("publishes subject-specific static metadata", () => {
