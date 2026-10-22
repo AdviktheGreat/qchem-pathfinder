@@ -303,6 +303,73 @@ describe("pathfinder definition validation", () => {
     expect(codes).toContain("interdisciplinary.invalid-search-seeds");
   });
 
+  it.each([
+    {
+      label: "an unsupported connection category",
+      mutate: (definition: PathfinderDefinition) => {
+        definition.interdisciplinaryLinks[0].connectionKinds = [
+          "unsupported-category" as never,
+        ];
+      },
+      code: "interdisciplinary.invalid-connection-kinds",
+      path: "interdisciplinaryLinks[0].connectionKinds",
+    },
+    {
+      label: "a missing shared question",
+      mutate: (definition: PathfinderDefinition) => {
+        definition.interdisciplinaryLinks[0].sharedQuestion = " ";
+      },
+      code: "interdisciplinary.invalid-shared-question",
+      path: "interdisciplinaryLinks[0].sharedQuestion",
+    },
+    {
+      label: "an empty orientation search",
+      mutate: (definition: PathfinderDefinition) => {
+        definition.interdisciplinaryLinks[0].searchSeeds.orientation = [];
+      },
+      code: "interdisciplinary.invalid-search-seeds",
+      path: "interdisciplinaryLinks[0].searchSeeds.orientation",
+    },
+    {
+      label: "an empty focused search",
+      mutate: (definition: PathfinderDefinition) => {
+        definition.interdisciplinaryLinks[0].searchSeeds.focused = [];
+      },
+      code: "interdisciplinary.invalid-search-seeds",
+      path: "interdisciplinaryLinks[0].searchSeeds.focused",
+    },
+    {
+      label: "an empty review search",
+      mutate: (definition: PathfinderDefinition) => {
+        definition.interdisciplinaryLinks[0].searchSeeds.review = [];
+      },
+      code: "interdisciplinary.invalid-search-seeds",
+      path: "interdisciplinaryLinks[0].searchSeeds.review",
+    },
+    {
+      label: "a missing first exploration step",
+      mutate: (definition: PathfinderDefinition) => {
+        definition.interdisciplinaryLinks[0].explorationStep = " ";
+      },
+      code: "interdisciplinary.missing-exploration-step",
+      path: "interdisciplinaryLinks[0].explorationStep",
+    },
+  ])("pinpoints $label", ({ mutate, code, path }) => {
+    const definition = copyDefinition();
+    mutate(definition);
+
+    const bridgeIssues = validatePathfinderDefinition(definition).issues.filter(
+      (entry) => entry.path.startsWith("interdisciplinaryLinks[0]"),
+    );
+
+    expect(bridgeIssues).toEqual([
+      expect.objectContaining({
+        code,
+        path,
+      }),
+    ]);
+  });
+
   it("rejects weak or misleading interdisciplinary copy", () => {
     const definition = copyDefinition();
     const link = definition.interdisciplinaryLinks[0];
