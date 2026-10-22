@@ -186,6 +186,13 @@ describe("interdisciplinary result bridges", () => {
         sourceDirectionName: "Charge transfer",
       }),
     );
+    const printSearches = region.querySelector<HTMLElement>(
+      ".interdisciplinary-print-searches",
+    );
+    expect(printSearches).not.toBeNull();
+    expect(within(printSearches!).getByText(queries.orientation)).toBeDefined();
+    expect(within(printSearches!).getByText(queries.focused)).toBeDefined();
+    expect(within(printSearches!).getByText(queries.review)).toBeDefined();
   });
 
   it("adds a focusable result-section link only for connected primaries", () => {

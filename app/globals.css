@@ -4674,6 +4674,48 @@ h2 {
   .results-shell details > :not(summary) {
     display: block;
   }
+  .interdisciplinary-bridge {
+    margin: 2rem 0 0;
+    padding: 1rem 0 0;
+    border: 0;
+    border-top: 2px solid #777;
+    background: white;
+    box-shadow: none;
+  }
+  .interdisciplinary-heading {
+    display: block;
+  }
+  .interdisciplinary-grid,
+  .interdisciplinary-lens-comparison {
+    display: block;
+  }
+  .interdisciplinary-grid article,
+  .interdisciplinary-disclosure {
+    margin-top: 1rem;
+    break-inside: avoid;
+    background: white;
+    box-shadow: none;
+  }
+  .interdisciplinary-search-panel {
+    display: none !important;
+  }
+  .interdisciplinary-print-searches h4 {
+    margin: 1rem 0 0.4rem;
+  }
+  .interdisciplinary-print-searches dl,
+  .interdisciplinary-print-searches div {
+    margin: 0;
+  }
+  .interdisciplinary-print-searches div {
+    padding: 0.25rem 0;
+  }
+  .interdisciplinary-print-searches dt {
+    font-weight: 750;
+  }
+  .interdisciplinary-print-searches dd {
+    margin: 0.1rem 0 0;
+    overflow-wrap: anywhere;
+  }
   .fit-label-guide,
   .directions-overview {
     display: none;

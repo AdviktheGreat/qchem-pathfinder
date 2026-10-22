@@ -50,6 +50,7 @@ describe("research profile export", () => {
       "PREFERRED RESEARCH QUESTION TYPE",
       "PRIMARY DIRECTION",
       "NEARBY ALTERNATIVES",
+      "INTERDISCIPLINARY BRIDGES",
       "STARTER KEYWORDS",
       "RELATED SEARCH PHRASES",
       "SUGGESTED SEARCHES",
@@ -70,6 +71,17 @@ describe("research profile export", () => {
     expect(output).toMatch(/STARTER KEYWORDS\n(?:[^\n]+\n[^\n]+\n){3}/);
     expect(output.match(/^- (?:Broad|Focused|Review):/gm)).toHaveLength(9);
     expect(output).toContain("Verify citations");
+  });
+
+  it("includes actionable bridges for a connected primary direction", () => {
+    const output = formatResearchProfile({}, "charge-transfer");
+    expect(output).toContain(
+      "INTERDISCIPLINARY BRIDGES\nComputational materials — Photovoltaic materials",
+    );
+    expect(output).toContain("- Shared question:");
+    expect(output).toContain("- Orientation search:");
+    expect(output).toContain("- Focused search:");
+    expect(output).toContain("- Review search:");
   });
 
   it("uses the active pathfinder profile identity", () => {

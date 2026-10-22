@@ -10,6 +10,11 @@ import type { AnswerMap, SurveyQuestion } from "@/lib/types";
 import { getPreparationProfile } from "@/lib/preparation";
 import { normalizeAnswers } from "@/lib/answer-conflicts";
 import type { PathfinderDefinition } from "@/lib/pathfinder-definition";
+import {
+  buildInterdisciplinarySearchQueries,
+  getInterdisciplinaryConnectionLabel,
+  getInterdisciplinaryLinksForDirection,
+} from "@/lib/interdisciplinary-links";
 
 export function profileFilename(
   nicheId: string,
@@ -69,6 +74,10 @@ export function formatResearchProfile(
     questions,
   );
   const directions = [primary, ...alternatives];
+  const interdisciplinaryLinks = getInterdisciplinaryLinksForDirection(
+    definition.interdisciplinaryLinks,
+    primary.niche.id,
+  );
   const motivation = selectedLabels(
     normalized,
     definition.profile.motivationQuestionId,
@@ -131,6 +140,23 @@ export function formatResearchProfile(
     ...alternatives.map(
       (result) => `- ${result.niche.name}: ${result.niche.shortDescription}`,
     ),
+    "",
+    "INTERDISCIPLINARY BRIDGES",
+    ...(interdisciplinaryLinks.length
+      ? interdisciplinaryLinks.flatMap((link) => {
+          const searches = buildInterdisciplinarySearchQueries(link);
+          return [
+            `${link.targetPathfinderName} — ${link.targetNicheName}`,
+            `- Connection: ${link.connectionKinds.map(getInterdisciplinaryConnectionLabel).join(", ")}`,
+            `- Shared question: ${link.sharedQuestion}`,
+            `- Try first: ${link.explorationStep}`,
+            `- Shared keywords: ${link.sharedKeywords.join("; ")}`,
+            `- Orientation search: ${searches.orientation}`,
+            `- Focused search: ${searches.focused}`,
+            `- Review search: ${searches.review}`,
+          ];
+        })
+      : ["- No curated cross-field bridge is attached to this direction yet."]),
     "",
     "STARTER KEYWORDS",
     ...directions.flatMap((result) => [

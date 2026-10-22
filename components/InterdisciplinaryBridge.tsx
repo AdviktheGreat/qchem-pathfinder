@@ -4,6 +4,7 @@ import { ArrowUpRight, Network, Search } from "lucide-react";
 import { CopyButton } from "@/components/CopyButton";
 import { InterdisciplinarySearchPanel } from "@/components/InterdisciplinarySearchPanel";
 import {
+  buildInterdisciplinarySearchQueries,
   formatInterdisciplinaryBridgeNote,
   getInterdisciplinaryDestination,
   getInterdisciplinaryConnectionLabel,
@@ -25,7 +26,7 @@ export function InterdisciplinaryBridge({
 
   return (
     <section
-      className="interdisciplinary-bridge no-print"
+      className="interdisciplinary-bridge"
       aria-labelledby="interdisciplinary-bridge-title"
     >
       <div className="interdisciplinary-heading">
@@ -56,6 +57,7 @@ export function InterdisciplinaryBridge({
         aria-label={`${links.length} interdisciplinary ${links.length === 1 ? "connection" : "connections"}`}
       >
         {links.map((link, index) => {
+          const printSearches = buildInterdisciplinarySearchQueries(link);
           const card = (
             <article role={links.length === 1 ? "listitem" : undefined}>
               <span className="interdisciplinary-subject">
@@ -118,7 +120,24 @@ export function InterdisciplinaryBridge({
                 ))}
               </div>
               <InterdisciplinarySearchPanel link={link} />
-              <div className="interdisciplinary-actions">
+              <div className="interdisciplinary-print-searches print-only">
+                <h4>Bridge searches</h4>
+                <dl>
+                  <div>
+                    <dt>Orientation</dt>
+                    <dd>{printSearches.orientation}</dd>
+                  </div>
+                  <div>
+                    <dt>Focused</dt>
+                    <dd>{printSearches.focused}</dd>
+                  </div>
+                  <div>
+                    <dt>Review</dt>
+                    <dd>{printSearches.review}</dd>
+                  </div>
+                </dl>
+              </div>
+              <div className="interdisciplinary-actions no-print">
                 <Link
                   href={getInterdisciplinaryDestination(
                     link,
@@ -159,7 +178,7 @@ export function InterdisciplinaryBridge({
           );
         })}
       </div>
-      <p className="interdisciplinary-note">
+      <p className="interdisciplinary-note no-print">
         <Search size={14} aria-hidden="true" /> Your progress in this pathfinder
         stays saved if you open another one.
       </p>
