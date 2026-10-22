@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { ArrowUpRight, Network, Search } from "lucide-react";
+import { CopyButton } from "@/components/CopyButton";
 import { InterdisciplinarySearchPanel } from "@/components/InterdisciplinarySearchPanel";
 import {
+  formatInterdisciplinaryBridgeNote,
   getInterdisciplinaryDestination,
   getInterdisciplinaryConnectionLabel,
   type InterdisciplinaryLink,
@@ -111,6 +113,14 @@ export function InterdisciplinaryBridge({
                   Open {link.targetPathfinderName} pathfinder
                   <ArrowUpRight size={15} aria-hidden="true" />
                 </Link>
+                <CopyButton
+                  text={formatInterdisciplinaryBridgeNote(link, {
+                    sourcePathfinderName,
+                    sourceDirectionName,
+                  })}
+                  label="Copy bridge note"
+                  context={link.targetNicheName}
+                />
               </div>
             </article>
           );

@@ -14,6 +14,7 @@ import { pathfinderModules } from "@/data/pathfinder-modules";
 import { quantumChemistryInterdisciplinaryLinks } from "@/data/pathfinders/quantum-chemistry-links";
 import {
   buildInterdisciplinarySearchQueries,
+  formatInterdisciplinaryBridgeNote,
   getInterdisciplinaryDestination,
 } from "@/lib/interdisciplinary-links";
 
@@ -127,6 +128,18 @@ describe("interdisciplinary result bridges", () => {
       }),
     );
     expect(writeText).toHaveBeenLastCalledWith(queries.review);
+
+    fireEvent.click(
+      within(region).getByRole("button", {
+        name: `Copy bridge note — ${link.targetNicheName}`,
+      }),
+    );
+    expect(writeText).toHaveBeenLastCalledWith(
+      formatInterdisciplinaryBridgeNote(link, {
+        sourcePathfinderName: "Quantum chemistry",
+        sourceDirectionName: "Charge transfer",
+      }),
+    );
   });
 
   it("adds a focusable result-section link only for connected primaries", () => {

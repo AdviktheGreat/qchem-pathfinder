@@ -40,6 +40,11 @@ export interface InterdisciplinarySearchQueries {
   review: string;
 }
 
+export interface InterdisciplinaryBridgeNoteContext {
+  sourcePathfinderName: string;
+  sourceDirectionName: string;
+}
+
 export interface InterdisciplinaryLink {
   id: string;
   sourceNicheId: string;
@@ -100,4 +105,32 @@ export function buildInterdisciplinarySearchQueries(
     focused: formatSearchQuery(seeds.focused),
     review: formatSearchQuery(seeds.review, ["review", "perspective"]),
   };
+}
+
+export function formatInterdisciplinaryBridgeNote(
+  link: InterdisciplinaryLink,
+  context: InterdisciplinaryBridgeNoteContext,
+): string {
+  const searches = buildInterdisciplinarySearchQueries(link);
+  const connectionLabels = link.connectionKinds
+    .map(getInterdisciplinaryConnectionLabel)
+    .join(", ");
+
+  return [
+    "INTERDISCIPLINARY BRIDGE NOTE",
+    "",
+    `From: ${context.sourcePathfinderName} — ${context.sourceDirectionName}`,
+    `To: ${link.targetPathfinderName} — ${link.targetNicheName}`,
+    `Connection: ${connectionLabels}`,
+    "",
+    `Shared question: ${link.sharedQuestion}`,
+    `Why these fields connect: ${link.bridge}`,
+    `How the lenses differ: ${link.distinction}`,
+    `Try first: ${link.explorationStep}`,
+    "",
+    `Shared keywords: ${link.sharedKeywords.join(", ")}`,
+    `Orientation search: ${searches.orientation}`,
+    `Focused search: ${searches.focused}`,
+    `Review search: ${searches.review}`,
+  ].join("\n");
 }

@@ -11,6 +11,7 @@ import {
 import {
   buildInterdisciplinarySearch,
   buildInterdisciplinarySearchQueries,
+  formatInterdisciplinaryBridgeNote,
   getInterdisciplinaryDestination,
   getInterdisciplinaryConnectionLabel,
   getInterdisciplinaryLinksForDirection,
@@ -179,6 +180,23 @@ describe("interdisciplinary link helpers", () => {
       focused: "dynamical systems simulation",
       review: "dynamical systems simulation review perspective",
     });
+  });
+
+  it("formats a complete, score-free bridge note", () => {
+    const note = formatInterdisciplinaryBridgeNote(links[0], {
+      sourcePathfinderName: "Quantum chemistry",
+      sourceDirectionName: "Example direction",
+    });
+
+    expect(note).toContain(
+      "From: Quantum chemistry — Example direction\nTo: Computational materials — Example materials direction",
+    );
+    expect(note).toContain("Connection: Shared question, Connected scales");
+    expect(note).toContain(`Shared question: ${links[0].sharedQuestion}`);
+    expect(note).toContain(
+      "Review search: cross-scale structure property review perspective",
+    );
+    expect(note).not.toMatch(/%|match score/i);
   });
 });
 
