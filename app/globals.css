@@ -4373,6 +4373,20 @@ h2 {
   font-size: 0.74rem;
   line-height: 1.5;
 }
+.interdisciplinary-search-copy {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.65rem;
+  align-items: center;
+}
+.interdisciplinary-search-copy .copy-button {
+  min-height: 36px;
+  padding: 0.45rem 0.65rem;
+  border-color: color-mix(in srgb, var(--violet) 35%, var(--line));
+  background: white;
+  color: var(--violet);
+  font-size: 0.68rem;
+}
 .interdisciplinary-actions {
   display: flex;
   flex-wrap: wrap;
@@ -4435,6 +4449,12 @@ h2 {
   .interdisciplinary-first-step {
     grid-template-columns: 1fr;
     gap: 0.3rem;
+  }
+  .interdisciplinary-search-copy {
+    grid-template-columns: 1fr;
+  }
+  .interdisciplinary-search-copy .copy-button {
+    width: 100%;
   }
 }
 [id$="-title"] {

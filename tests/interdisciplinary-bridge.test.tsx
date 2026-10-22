@@ -111,16 +111,22 @@ describe("interdisciplinary result bridges", () => {
     expect(within(searches).getByText(queries.focused)).toBeDefined();
 
     fireEvent.click(
-      within(region).getByRole("button", {
-        name: `Copy bridge search — ${link.targetNicheName}`,
+      within(searches).getByRole("button", {
+        name: `Copy focused search — ${link.targetNicheName}`,
       }),
     );
-    await within(region).findByRole("button", {
+    await within(searches).findByRole("button", {
       name: `Copied — ${link.targetNicheName}`,
     });
-    expect(writeText).toHaveBeenCalledWith(
-      `${link.sharedKeywords.join(" ")} review`,
+    expect(writeText).toHaveBeenCalledWith(queries.focused);
+
+    fireEvent.click(within(searches).getByRole("tab", { name: "Review" }));
+    fireEvent.click(
+      within(searches).getByRole("button", {
+        name: `Copy review search — ${link.targetNicheName}`,
+      }),
     );
+    expect(writeText).toHaveBeenLastCalledWith(queries.review);
   });
 
   it("adds a focusable result-section link only for connected primaries", () => {

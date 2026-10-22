@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
+import { CopyButton } from "@/components/CopyButton";
 import {
   buildInterdisciplinarySearchQueries,
   type InterdisciplinaryLink,
@@ -73,7 +74,15 @@ export function InterdisciplinarySearchPanel({
         className="interdisciplinary-search-query"
       >
         <p>{active.description}</p>
-        <code>{queries[active.id]}</code>
+        <div className="interdisciplinary-search-copy">
+          <code>{queries[active.id]}</code>
+          <CopyButton
+            key={active.id}
+            text={queries[active.id]}
+            label={`Copy ${active.label.toLocaleLowerCase()} search`}
+            context={link.targetNicheName}
+          />
+        </div>
       </div>
     </section>
   );

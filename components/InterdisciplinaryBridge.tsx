@@ -1,9 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight, Network, Search } from "lucide-react";
-import { CopyButton } from "@/components/CopyButton";
 import { InterdisciplinarySearchPanel } from "@/components/InterdisciplinarySearchPanel";
 import {
-  buildInterdisciplinarySearch,
   getInterdisciplinaryDestination,
   getInterdisciplinaryConnectionLabel,
   type InterdisciplinaryLink,
@@ -42,7 +40,6 @@ export function InterdisciplinaryBridge({
 
       <div className="interdisciplinary-grid">
         {links.map((link) => {
-          const search = buildInterdisciplinarySearch(link);
           return (
             <article key={link.id}>
               <span className="interdisciplinary-subject">
@@ -114,11 +111,6 @@ export function InterdisciplinaryBridge({
                   Open {link.targetPathfinderName} pathfinder
                   <ArrowUpRight size={15} aria-hidden="true" />
                 </Link>
-                <CopyButton
-                  text={search}
-                  label="Copy bridge search"
-                  context={link.targetNicheName}
-                />
               </div>
             </article>
           );
