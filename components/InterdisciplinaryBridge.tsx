@@ -10,8 +10,10 @@ import {
 
 export function InterdisciplinaryBridge({
   links,
+  sourceDirectionName = "your current direction",
 }: {
   links: readonly InterdisciplinaryLink[];
+  sourceDirectionName?: string;
 }) {
   if (links.length === 0) return null;
 
@@ -56,6 +58,14 @@ export function InterdisciplinaryBridge({
               </div>
               <h3>{link.targetNicheName}</h3>
               <p>{link.bridge}</p>
+              <p className="interdisciplinary-why">
+                <strong>Why this appeared:</strong> {sourceDirectionName} and{" "}
+                {link.targetNicheName} connect through{" "}
+                {link.connectionKinds
+                  .map(getInterdisciplinaryConnectionLabel)
+                  .join(", ")
+                  .toLocaleLowerCase()}.
+              </p>
               <div className="interdisciplinary-shared-question">
                 <span>Shared research question</span>
                 <p>{link.sharedQuestion}</p>

@@ -4203,6 +4203,14 @@ h2 {
   font-size: 0.82rem;
   line-height: 1.6;
 }
+.interdisciplinary-grid .interdisciplinary-why {
+  margin: 0.85rem 0 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+.interdisciplinary-why strong {
+  color: var(--ink-soft);
+}
 .interdisciplinary-shared-question {
   margin-top: 1rem;
   padding: 0.85rem;

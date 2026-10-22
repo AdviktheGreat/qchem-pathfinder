@@ -944,7 +944,10 @@ export function ResultsScreen({
         </div>
       </section>
 
-      <InterdisciplinaryBridge links={interdisciplinaryLinks} />
+      <InterdisciplinaryBridge
+        links={interdisciplinaryLinks}
+        sourceDirectionName={primary.niche.name}
+      />
 
       <section className="export-card">
         <div>

@@ -37,7 +37,12 @@ describe("interdisciplinary result bridges", () => {
     vi.stubGlobal("navigator", { clipboard: { writeText } });
     const link = quantumChemistryInterdisciplinaryLinks[0];
 
-    render(<InterdisciplinaryBridge links={[link]} />);
+    render(
+      <InterdisciplinaryBridge
+        links={[link]}
+        sourceDirectionName="Charge transfer"
+      />,
+    );
 
     const region = screen.getByRole("region", {
       name: "See where this direction meets another field.",
@@ -62,6 +67,11 @@ describe("interdisciplinary result bridges", () => {
     expect(within(connectionTypes).getByText("Connected scales")).toBeDefined();
     expect(within(region).getByText("Shared research question")).toBeDefined();
     expect(within(region).getByText(link.sharedQuestion)).toBeDefined();
+    expect(
+      within(region).getByText(
+        /Charge transfer and Photovoltaic materials connect through/,
+      ),
+    ).toBeDefined();
 
     fireEvent.click(
       within(region).getByRole("button", {
