@@ -4176,6 +4176,21 @@ h2 {
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
+.interdisciplinary-connection-kinds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.65rem;
+}
+.interdisciplinary-connection-kinds span {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--violet) 20%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--violet) 6%, white);
+  color: var(--ink-soft);
+  font-size: 0.68rem;
+  font-weight: 680;
+}
 .interdisciplinary-grid h3 {
   margin: 0.45rem 0 0.7rem;
   font-family: var(--font-display), serif;

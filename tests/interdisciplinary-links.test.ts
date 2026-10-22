@@ -12,6 +12,7 @@ import {
   buildInterdisciplinarySearch,
   buildInterdisciplinarySearchQueries,
   getInterdisciplinaryDestination,
+  getInterdisciplinaryConnectionLabel,
   getInterdisciplinaryLinksForDirection,
   INTERDISCIPLINARY_CONNECTION_KINDS,
   type InterdisciplinaryLink,
@@ -74,6 +75,12 @@ describe("interdisciplinary link helpers", () => {
     ]);
     expect(new Set(INTERDISCIPLINARY_CONNECTION_KINDS).size).toBe(
       INTERDISCIPLINARY_CONNECTION_KINDS.length,
+    );
+    expect(getInterdisciplinaryConnectionLabel("shared-question")).toBe(
+      "Shared question",
+    );
+    expect(getInterdisciplinaryConnectionLabel("connected-scales")).toBe(
+      "Connected scales",
     );
   });
 

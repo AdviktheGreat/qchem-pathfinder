@@ -10,6 +10,24 @@ export const INTERDISCIPLINARY_CONNECTION_KINDS = [
 export type InterdisciplinaryConnectionKind =
   (typeof INTERDISCIPLINARY_CONNECTION_KINDS)[number];
 
+export const INTERDISCIPLINARY_CONNECTION_LABELS: Record<
+  InterdisciplinaryConnectionKind,
+  string
+> = {
+  "shared-system": "Shared system",
+  "shared-method": "Shared method",
+  "shared-question": "Shared question",
+  "shared-data": "Shared data",
+  "shared-application": "Shared application",
+  "connected-scales": "Connected scales",
+};
+
+export function getInterdisciplinaryConnectionLabel(
+  kind: InterdisciplinaryConnectionKind,
+): string {
+  return INTERDISCIPLINARY_CONNECTION_LABELS[kind];
+}
+
 export interface InterdisciplinarySearchSeeds {
   orientation: readonly string[];
   focused: readonly string[];

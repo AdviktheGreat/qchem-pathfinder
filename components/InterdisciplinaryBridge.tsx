@@ -4,6 +4,7 @@ import { CopyButton } from "@/components/CopyButton";
 import {
   buildInterdisciplinarySearch,
   getInterdisciplinaryDestination,
+  getInterdisciplinaryConnectionLabel,
   type InterdisciplinaryLink,
 } from "@/lib/interdisciplinary-links";
 
@@ -42,6 +43,17 @@ export function InterdisciplinaryBridge({
               <span className="interdisciplinary-subject">
                 {link.targetPathfinderName}
               </span>
+              <div
+                className="interdisciplinary-connection-kinds"
+                role="group"
+                aria-label={`Connection types for ${link.targetNicheName}`}
+              >
+                {link.connectionKinds.map((kind) => (
+                  <span key={kind}>
+                    {getInterdisciplinaryConnectionLabel(kind)}
+                  </span>
+                ))}
+              </div>
               <h3>{link.targetNicheName}</h3>
               <p>{link.bridge}</p>
               <details>

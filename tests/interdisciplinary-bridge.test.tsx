@@ -55,6 +55,11 @@ describe("interdisciplinary result bridges", () => {
         name: `Shared search terms for ${link.targetNicheName}`,
       }),
     ).toBeDefined();
+    const connectionTypes = within(region).getByRole("group", {
+      name: `Connection types for ${link.targetNicheName}`,
+    });
+    expect(within(connectionTypes).getByText("Shared question")).toBeDefined();
+    expect(within(connectionTypes).getByText("Connected scales")).toBeDefined();
 
     fireEvent.click(
       within(region).getByRole("button", {
