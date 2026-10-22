@@ -64,6 +64,11 @@ describe("interdisciplinary result bridges", () => {
     expect(
       screen.getByText(/answers there have not been copied or scored here/i),
     ).toBeDefined();
+    expect(
+      screen
+        .getByRole("link", { name: "Return to Quantum chemistry result" })
+        .getAttribute("href"),
+    ).toBe("/pathfinders/quantum-chemistry");
   });
 
   it("explains, searches, and links to the adjacent pathfinder", async () => {

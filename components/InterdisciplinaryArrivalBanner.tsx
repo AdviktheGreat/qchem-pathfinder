@@ -1,4 +1,5 @@
-import { Network } from "lucide-react";
+import Link from "next/link";
+import { ArrowLeft, Network } from "lucide-react";
 import type { InterdisciplinaryArrival } from "@/lib/interdisciplinary-destinations";
 
 export function InterdisciplinaryArrivalBanner({
@@ -26,6 +27,10 @@ export function InterdisciplinaryArrivalBanner({
           <strong>Question connecting the fields:</strong>{" "}
           {arrival.sharedQuestion}
         </p>
+        <Link className="interdisciplinary-return" href={arrival.sourceRoute}>
+          <ArrowLeft size={14} aria-hidden="true" />
+          Return to {arrival.sourcePathfinderName} result
+        </Link>
       </div>
     </aside>
   );

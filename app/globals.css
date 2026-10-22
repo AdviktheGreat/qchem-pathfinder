@@ -4287,6 +4287,25 @@ h2 {
 .interdisciplinary-arrival-question strong {
   color: var(--ink-soft);
 }
+.interdisciplinary-arrival .interdisciplinary-return {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 38px;
+  margin-top: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--violet) 32%, var(--line));
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--violet);
+  font-size: 0.7rem;
+  font-weight: 760;
+  text-decoration: none;
+}
+.interdisciplinary-arrival .interdisciplinary-return:hover {
+  border-color: var(--violet);
+  background: white;
+}
 .interdisciplinary-lens-comparison > div,
 .interdisciplinary-lens-comparison > p {
   margin: 0;
