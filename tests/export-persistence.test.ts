@@ -10,6 +10,8 @@ import {
   sanitizeAnswers,
 } from "@/lib/persistence";
 import { quantumChemistryPathfinder } from "@/data/pathfinders/quantum-chemistry";
+import { quantumChemistryInterdisciplinaryLinks } from "@/data/pathfinders/quantum-chemistry-links";
+import { buildInterdisciplinarySearchQueries } from "@/lib/interdisciplinary-links";
 import type { PathfinderDefinition } from "@/lib/pathfinder-definition";
 
 const answers = {
@@ -75,13 +77,18 @@ describe("research profile export", () => {
 
   it("includes actionable bridges for a connected primary direction", () => {
     const output = formatResearchProfile({}, "charge-transfer");
+    const bridge = quantumChemistryInterdisciplinaryLinks[0];
+    const searches = buildInterdisciplinarySearchQueries(bridge);
     expect(output).toContain(
       "INTERDISCIPLINARY BRIDGES\nComputational materials — Photovoltaic materials",
     );
-    expect(output).toContain("- Shared question:");
-    expect(output).toContain("- Orientation search:");
-    expect(output).toContain("- Focused search:");
-    expect(output).toContain("- Review search:");
+    expect(output).toContain(`- Shared question: ${bridge.sharedQuestion}`);
+    expect(output).toContain(`- Boundary: ${bridge.distinction}`);
+    expect(output).toContain(`- Try first: ${bridge.explorationStep}`);
+    expect(output).toContain(`- Orientation search: ${searches.orientation}`);
+    expect(output).toContain(`- Focused search: ${searches.focused}`);
+    expect(output).toContain(`- Review search: ${searches.review}`);
+    expect(output).not.toMatch(/\d+(?:\.\d+)?%|match score/i);
   });
 
   it("uses the active pathfinder profile identity", () => {

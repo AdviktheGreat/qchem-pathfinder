@@ -149,6 +149,7 @@ export function formatResearchProfile(
             `${link.targetPathfinderName} — ${link.targetNicheName}`,
             `- Connection: ${link.connectionKinds.map(getInterdisciplinaryConnectionLabel).join(", ")}`,
             `- Shared question: ${link.sharedQuestion}`,
+            `- Boundary: ${link.distinction}`,
             `- Try first: ${link.explorationStep}`,
             `- Shared keywords: ${link.sharedKeywords.join("; ")}`,
             `- Orientation search: ${searches.orientation}`,

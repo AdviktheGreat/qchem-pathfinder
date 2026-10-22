@@ -7,6 +7,7 @@ import {
   screen,
   within,
 } from "@testing-library/react";
+import { readFileSync } from "node:fs";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { InterdisciplinaryBridge } from "@/components/InterdisciplinaryBridge";
 import { InterdisciplinaryArrivalBanner } from "@/components/InterdisciplinaryArrivalBanner";
@@ -190,9 +191,20 @@ describe("interdisciplinary result bridges", () => {
       ".interdisciplinary-print-searches",
     );
     expect(printSearches).not.toBeNull();
+    expect(printSearches?.classList.contains("print-only")).toBe(true);
     expect(within(printSearches!).getByText(queries.orientation)).toBeDefined();
     expect(within(printSearches!).getByText(queries.focused)).toBeDefined();
     expect(within(printSearches!).getByText(queries.review)).toBeDefined();
+    expect(region.textContent).toContain(link.distinction);
+    expect(region.textContent).not.toMatch(/\d+(?:\.\d+)?%|match score/i);
+
+    const printCss = readFileSync("app/globals.css", "utf8");
+    expect(printCss).toMatch(
+      /@media print[\s\S]*\.print-only\s*{[^}]*display: block !important/,
+    );
+    expect(printCss).toMatch(
+      /@media print[\s\S]*\.interdisciplinary-search-panel[\s\S]*display: none !important/,
+    );
   });
 
   it("adds a focusable result-section link only for connected primaries", () => {
