@@ -80,7 +80,7 @@ Pathfinder registration and availability are controlled in `data/pathfinder-modu
 
 See [the pathfinder platform contract](docs/pathfinder-platform.md) before adding another active module.
 
-The four released pathfinders currently include 35 selective interdisciplinary bridges. Each bridge names the concrete connection and boundary, poses a shared research question, suggests a first exploration step, and carries structured seeds for orientation, focused, and review searches. Canonical destination and graph validation keeps these links aligned as modules evolve; bridges never compare scores or transfer answers. See [the interdisciplinary link contract](docs/interdisciplinary-links.md) before editing or adding one.
+The hub introduces the four released pathfinders as a connected collection, with 35 selective interdisciplinary bridges. A connected result names the relationship category, shared question, two research lenses, practical first step, and three independently copyable searches. Students can copy a complete bridge note, follow typed context into the neighboring pathfinder, and return to the original saved result; bridge content also appears in plain-text profiles and printouts. Canonical arrival and graph validation keeps these links aligned as modules evolve, while bridges never compare scores or transfer answers. See [the interdisciplinary link contract](docs/interdisciplinary-links.md) before editing or adding one.
 
 ## How adaptation works
 

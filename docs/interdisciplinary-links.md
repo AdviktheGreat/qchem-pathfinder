@@ -53,9 +53,9 @@ Links need not be reciprocal. A direction may provide a useful next lens even wh
 
 ## Student experience
 
-The results page shows a field bridge only when the current primary direction has curated link data. It identifies the adjacent pathfinder and direction, explains the overlap and boundary, offers shared search language, and links to the target pathfinder with Next.js client navigation.
+The hub introduces the pathfinder collection as connected without asking students to choose every field at once. The results page shows a field bridge only when the current primary direction has curated link data. It identifies the connection category, adjacent pathfinder and direction, shared question, overlap, boundary, two research lenses, and a concrete first step. Orientation, focused, and review searches can be inspected and copied separately, while a complete bridge note supports workshop use.
 
-Opening another pathfinder does not auto-answer its survey or declare its target niche a match. Progress in the current module remains stored under its existing local namespace, and the destination follows its own introduction, questions, scoring, and results process.
+Opening another pathfinder carries only validated bridge IDs in the URL. The destination resolves them against released definitions, explains the arrival context, and offers a return control to the original saved result. It does not auto-answer the new survey or declare its target niche a match. Progress in the current module remains stored under its existing local namespace, and the destination follows its own introduction, questions, scoring, and results process. Bridge details and all three search levels are included in plain-text profiles and print layouts.
 
 ## Graph and destination helpers
 

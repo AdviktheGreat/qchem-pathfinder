@@ -60,6 +60,23 @@ describe("PathfinderHub", () => {
       screen.getByRole("button", { name: "Help me choose" }),
     ).toBeDefined();
     expect(screen.getByText("Not started")).toBeDefined();
+    expect(
+      screen.getByRole("heading", {
+        name: "Choose a home field. Keep the neighboring doors visible.",
+      }),
+    ).toBeDefined();
+    expect(screen.getByText("35")).toBeDefined();
+    expect(screen.getByText("Shared questions")).toBeDefined();
+    expect(screen.getByText("Connected scales")).toBeDefined();
+    expect(screen.getByText("Searchable overlap")).toBeDefined();
+    expect(
+      screen.getByText(/never transfer survey answers or compare fit scores/i),
+    ).toBeDefined();
+    expect(
+      screen
+        .getByRole("link", { name: "How fields connect" })
+        .getAttribute("href"),
+    ).toBe("#hub-bridges-title");
   });
 
   it("explains the optional guide before asking questions", async () => {

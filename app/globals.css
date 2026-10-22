@@ -2301,6 +2301,102 @@ h2 {
   font-size: 0.84rem;
   line-height: 1.55;
 }
+.hub-interdisciplinary-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(22rem, 0.95fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: center;
+  margin: 1rem 0 6.5rem;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border: 1px solid color-mix(in srgb, var(--violet) 24%, var(--line));
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(
+      circle at 9% 12%,
+      color-mix(in srgb, var(--violet) 11%, transparent),
+      transparent 38%
+    ),
+    rgba(255, 255, 255, 0.58);
+  box-shadow: var(--shadow-soft);
+}
+.hub-bridges-copy h2 {
+  max-width: 18ch;
+  margin: 0.55rem 0 0.8rem;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 570;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+}
+.hub-bridges-copy > p:not(.section-kicker) {
+  max-width: 58ch;
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+.hub-bridge-count {
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+  max-width: 25rem;
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+.hub-bridge-count strong {
+  color: var(--violet);
+  font-family: var(--font-display), serif;
+  font-size: 2rem;
+}
+.hub-bridge-count span {
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+.hub-bridges-copy > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 42px;
+  margin-top: 1.2rem;
+  padding: 0.65rem 0.9rem;
+  border-radius: 999px;
+  background: var(--violet);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 760;
+  text-decoration: none;
+}
+.hub-bridge-principles {
+  display: grid;
+  gap: 0.65rem;
+}
+.hub-bridge-principles article {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid color-mix(in srgb, var(--violet) 18%, var(--line));
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--violet);
+}
+.hub-bridge-principles strong {
+  display: block;
+  margin-bottom: 0.22rem;
+  color: var(--ink);
+  font-size: 0.82rem;
+}
+.hub-bridge-principles p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+.hub-bridge-principles .hub-bridge-boundary {
+  padding: 0.75rem 0.2rem 0;
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
+}
 .hub-orientation-entry {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto auto;
@@ -3471,6 +3567,9 @@ h2 {
   .hub-intro {
     grid-template-columns: 1fr;
   }
+  .hub-interdisciplinary-overview {
+    grid-template-columns: 1fr;
+  }
   .hub-field {
     min-height: 360px;
   }
@@ -3596,6 +3695,20 @@ h2 {
   .hub-principles {
     grid-template-columns: 1fr;
     margin: 1.5rem 0 4.5rem;
+  }
+  .hub-interdisciplinary-overview {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 4.5rem;
+    padding: 1.35rem;
+    border-radius: 22px;
+  }
+  .hub-bridges-copy h2 {
+    font-size: 2.35rem;
+  }
+  .hub-bridges-copy > a {
+    justify-content: center;
+    width: 100%;
   }
   .hub-orientation-entry {
     grid-template-columns: auto 1fr;
@@ -4730,6 +4843,7 @@ h2 {
   .hub-section-nav,
   .hub-intro,
   .hub-principles,
+  .hub-interdisciplinary-overview,
   .hub-orientation-entry,
   .recent-pathfinder,
   .pathfinder-directory,

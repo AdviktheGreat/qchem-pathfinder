@@ -1,6 +1,12 @@
 // @vitest-environment jsdom
 
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  within,
+} from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ResultsScreen } from "@/components/ResultsScreen";
 import { ReviewScreen } from "@/components/ReviewScreen";
@@ -114,7 +120,12 @@ describe("computational materials results actions", () => {
     );
 
     expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
-    const selectedTab = screen.getByRole("tab", { name: "Orientation" });
+    const searchTabs = screen.getByRole("tablist", {
+      name: /Search depth for/i,
+    });
+    const selectedTab = within(searchTabs).getByRole("tab", {
+      name: "Orientation",
+    });
     expect(selectedTab.getAttribute("aria-selected")).toBe("true");
     expect(
       document.getElementById(selectedTab.getAttribute("aria-controls") ?? ""),

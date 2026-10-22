@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Compass } from "lucide-react";
 import { availablePathfinders, upcomingPathfinders } from "@/data/pathfinders";
 import { HubField } from "@/components/HubField";
+import { HubInterdisciplinaryOverview } from "@/components/HubInterdisciplinaryOverview";
 import { HubOrientationGuide } from "@/components/HubOrientationGuide";
 import { PathfinderCard } from "@/components/PathfinderCard";
 import { PathfinderPreviewCard } from "@/components/PathfinderPreviewCard";
@@ -27,6 +28,7 @@ export function PathfinderHub() {
         <main id="hub-main" className="hub-main" tabIndex={-1}>
           <nav className="hub-section-nav" aria-label="Hub sections">
             <a href="#directory-title">Available pathfinders</a>
+            <a href="#hub-bridges-title">How fields connect</a>
             {upcomingPathfinders.length > 0 ? (
               <a href="#roadmap-title">Collection roadmap</a>
             ) : null}
@@ -86,6 +88,8 @@ export function PathfinderHub() {
           <HubOrientationGuide />
 
           <RecentPathfinder />
+
+          <HubInterdisciplinaryOverview />
 
           <section
             className="pathfinder-directory"
