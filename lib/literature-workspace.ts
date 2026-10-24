@@ -19,3 +19,26 @@ export interface LiteratureWorkspaceIdentity {
   createdAt: string;
   updatedAt: string;
 }
+
+export type LiteratureSourceKind =
+  "review" | "perspective" | "research-article" | "preprint" | "other";
+
+export type CitationVerification = "unverified" | "student-checked";
+
+export type ReadingStatus =
+  "saved" | "screening" | "reading" | "notes-complete";
+
+export interface LiteratureSource {
+  id: string;
+  title: string;
+  authors: string[];
+  year?: number;
+  venue?: string;
+  doi?: string;
+  url?: string;
+  kind: LiteratureSourceKind;
+  verification: CitationVerification;
+  readingStatus: ReadingStatus;
+  addedAt: string;
+  updatedAt: string;
+}
