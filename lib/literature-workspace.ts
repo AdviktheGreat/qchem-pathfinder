@@ -89,3 +89,12 @@ export interface LiteratureVocabularyNote {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface LiteratureWorkspace {
+  schemaVersion: number;
+  identity: LiteratureWorkspaceIdentity;
+  sources: LiteratureSource[];
+  readingNotes: LiteratureReadingNote[];
+  vocabulary: LiteratureVocabularyNote[];
+  comparison: LiteratureComparison;
+}
