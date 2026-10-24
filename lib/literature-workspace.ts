@@ -54,3 +54,24 @@ export interface LiteratureReadingNote {
   openQuestions: string[];
   updatedAt: string;
 }
+
+export type LiteratureComparisonAxisId =
+  | "purpose"
+  | "systems"
+  | "methods"
+  | "evidence"
+  | "findings"
+  | "limitations"
+  | "transferability";
+
+export interface LiteratureComparisonEntry {
+  axisId: LiteratureComparisonAxisId;
+  observations: Record<string, string>;
+  synthesis: string;
+}
+
+export interface LiteratureComparison {
+  sourceIds: string[];
+  entries: LiteratureComparisonEntry[];
+  updatedAt: string;
+}
