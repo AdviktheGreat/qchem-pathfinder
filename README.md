@@ -56,6 +56,7 @@ lib/hub-orientation-*.ts Orientation contracts, validation, and ranking
 lib/interdisciplinary-links.ts Typed cross-subject content and search helpers
 lib/interdisciplinary-destinations.ts Canonical bridge destination resolution
 lib/interdisciplinary-graph.ts Incoming, outgoing, and grouped bridge views
+lib/literature-workspace*.ts Local literature-workspace contracts, operations, validation, persistence, and backups
 data/pathfinders/**/interdisciplinary-links.ts Curated adjacent-field bridges
 docs/interdisciplinary-bridge-review-matrix.md Scientific review record for all released bridges
 tests/fixtures/         Complete, validated student paths for all four modules
@@ -194,4 +195,6 @@ Use `npx vercel --prod` only after the preview is approved.
 
 ## Later literature-kit integration
 
-The exported profile has stable headings documented in [the profile format contract](docs/profile-format.md). A future version could map those sections into a local prompt template or add instructor-curated source databases. Preserve citation verification, source transparency, and the no-personal-data approach. Shared terminology and its sources are documented in [scientific copy notes](docs/scientific-copy.md).
+The [Literature Exploration Workspace](docs/literature-workspace.md) now has a tested Phase 1 foundation for student-entered sources, structured reading notes, comparisons, vocabulary, local persistence, and portable backups. It does not yet have a public route or student-facing interface. The remaining phases in the [60-step roadmap](docs/literature-workspace-roadmap.md) add the reading workflow, careful question-area development, and platform integration.
+
+The exported pathfinder profile retains the stable headings documented in [the profile format contract](docs/profile-format.md). Future workspace integration should map those sections explicitly, preserve citation verification and source transparency, and never infer that student-entered citation details or possible literature gaps are verified facts. Shared terminology and its sources are documented in [scientific copy notes](docs/scientific-copy.md).

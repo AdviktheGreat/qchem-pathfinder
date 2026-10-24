@@ -1,13 +1,15 @@
 # Research Pathfinder release verification
 
-Verified October 22, 2026 against the local production build after completing Interdisciplinary Bridges Phase 4.
+Verified October 23, 2026 against the local production build after completing Literature Exploration Workspace Phase 1.
 
 ## Automated release gate
 
 - Prettier passed for the application, components, data, libraries, tests, documentation, and README.
 - ESLint and TypeScript checks passed.
-- Vitest passed all 657 tests across 109 files.
+- Vitest passed all 668 tests across 110 files.
 - The Next.js production build passed and statically prerendered the hub, not-found page, and all four pathfinder routes.
+- Literature-workspace foundation coverage confirms valid empty records, immutable source editing, explicit citation-verification states, separation of reported findings from student interpretations, source-linked vocabulary, two- and three-paper comparisons, cascading source deletion, score-free progress guidance, path-specific validation, corrupted-record rejection, blocked-storage fallback, isolated storage keys, and validated portable backup round trips.
+- The literature workspace remains a non-routable foundation in Phase 1. It adds no public interface, does not alter any pathfinder recommendation or saved survey, and makes no automatic citation, research-gap, or final-question claims.
 - Manifest coverage confirms that the registry, definition lookup, hub catalog, switcher destinations, lifecycle boundaries, route metadata, IDs, routes, and storage namespaces remain aligned.
 - The type-checked authoring template assembles into a complete module, supports adaptive journeys and stable profile export, and remains deliberately absent from the live registry and production routes.
 - Definition, manifest, and complete-registry validation passed for every released module; focused failure cases cover malformed identities, surveys, branches, scoring evidence, taxonomies, search data, preparation mappings, results mappings, and cross-module collisions.

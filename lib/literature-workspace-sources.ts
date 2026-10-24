@@ -101,12 +101,20 @@ export function removeLiteratureSource(
     comparison: {
       ...workspace.comparison,
       sourceIds: comparisonSourceIds,
-      entries: workspace.comparison.entries.map((entry) => ({
-        ...entry,
-        observations: Object.fromEntries(
-          Object.entries(entry.observations).filter(([id]) => id !== sourceId),
+      entries: workspace.comparison.entries
+        .map((entry) => ({
+          ...entry,
+          observations: Object.fromEntries(
+            Object.entries(entry.observations).filter(
+              ([id]) => id !== sourceId,
+            ),
+          ),
+        }))
+        .filter(
+          (entry) =>
+            Boolean(entry.synthesis.trim()) ||
+            Object.values(entry.observations).some((value) => value.trim()),
         ),
-      })),
       updatedAt: date.toISOString(),
     },
   };
