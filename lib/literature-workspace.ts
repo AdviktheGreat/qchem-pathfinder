@@ -42,3 +42,15 @@ export interface LiteratureSource {
   addedAt: string;
   updatedAt: string;
 }
+
+export interface LiteratureReadingNote {
+  sourceId: string;
+  researchPurpose: string;
+  methods: string[];
+  evidence: string[];
+  reportedFindings: string[];
+  reportedLimitations: string[];
+  studentInterpretations: string[];
+  openQuestions: string[];
+  updatedAt: string;
+}
