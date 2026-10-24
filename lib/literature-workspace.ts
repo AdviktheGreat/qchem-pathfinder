@@ -75,3 +75,17 @@ export interface LiteratureComparison {
   entries: LiteratureComparisonEntry[];
   updatedAt: string;
 }
+
+export type VocabularyFamiliarity = "new-to-me" | "building" | "comfortable";
+
+export interface LiteratureVocabularyNote {
+  id: string;
+  term: string;
+  workingDefinition: string;
+  familiarity: VocabularyFamiliarity;
+  sourceIds: string[];
+  relatedTerms: string[];
+  questions: string[];
+  createdAt: string;
+  updatedAt: string;
+}
